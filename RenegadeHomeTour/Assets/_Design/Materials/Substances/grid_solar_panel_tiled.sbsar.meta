@@ -1,0 +1,82 @@
+fileFormatVersion: 2
+guid: 4d3e077e7627bea4ba1bb9dc599d9e55
+ScriptedImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 2
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: 232528478, guid: 43a8bbf65be290d44ba52b94476242b9, type: 3}
+  version: 17
+  mGraphInstanceData:
+  - graphLabel: Solar Panel Grid
+    prototypeName: Solar Panel Grid
+    graphDescIndex: 0
+    generateAllOutputs: 0
+    generateMipMaps: 1
+    preset: " <sbspreset pkgurl=\"pkg://grid_solar_panel_tiled\" label=\"\" >\n </sbspreset>\n"
+    shaderName: Lightweight Render Pipeline/Lit
+    outputNames: diffuse,normal,specular,metallic
+    texturePackingList: []
+    textureParameters:
+    - textureName: Solar Panel Grid - glossiness
+      wrapMode: 0
+      filterMode: 1
+      aniso: 1
+    - textureName: Solar Panel Grid - diffuse
+      wrapMode: 0
+      filterMode: 1
+      aniso: 1
+    - textureName: Solar Panel Grid - baseColor
+      wrapMode: 0
+      filterMode: 1
+      aniso: 1
+    - textureName: Solar Panel Grid - normal
+      wrapMode: 0
+      filterMode: 1
+      aniso: 1
+    - textureName: Solar Panel Grid - specular
+      wrapMode: 0
+      filterMode: 1
+      aniso: 1
+    - textureName: Solar Panel Grid - roughness
+      wrapMode: 0
+      filterMode: 1
+      aniso: 1
+    - textureName: Solar Panel Grid - metallic
+      wrapMode: 0
+      filterMode: 1
+      aniso: 1
+    - textureName: Solar Panel Grid - height
+      wrapMode: 0
+      filterMode: 1
+      aniso: 1
+    colorSpaceList:
+    - outputName: diffuse
+      bLinear: 0
+    - outputName: baseColor
+      bLinear: 0
+    - outputName: normal
+      bLinear: 1
+    - outputName: specular
+      bLinear: 0
+    - outputName: glossiness
+      bLinear: 1
+    - outputName: roughness
+      bLinear: 1
+    - outputName: metallic
+      bLinear: 1
+    - outputName: height
+      bLinear: 1
+    inputTextureMap: []
+    targetSettingList:
+    - label: 
+      bLockRatio: 1
+      textureWidth: 256
+      textureHeight: 256
+      textureFormat: 0
+      bGenerateOnLoad: 1
+    material: {fileID: 3514131400214700652, guid: 4d3e077e7627bea4ba1bb9dc599d9e55,
+      type: 3}
+    generatedTextures: []
