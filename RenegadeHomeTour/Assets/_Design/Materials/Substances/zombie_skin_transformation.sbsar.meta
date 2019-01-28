@@ -1,0 +1,114 @@
+fileFormatVersion: 2
+guid: 0f32b6a75356e764f96e49bd403e76f7
+ScriptedImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 2
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: 232528478, guid: 43a8bbf65be290d44ba52b94476242b9, type: 3}
+  version: 17
+  mGraphInstanceData:
+  - graphLabel: Zombie Skin Transformation
+    prototypeName: Zombie Skin Transformation
+    graphDescIndex: 0
+    generateAllOutputs: 0
+    generateMipMaps: 1
+    preset: " <sbspreset pkgurl=\"pkg://zombie_skin_transformation\" label=\"\" >\n
+      </sbspreset>\n"
+    shaderName: Standard
+    outputNames: baseColor,normal,metallic,height
+    texturePackingList:
+    - outputName: diffuse
+      alphaSource: diffuse
+    - outputName: baseColor
+      alphaSource: baseColor
+    - outputName: normal
+      alphaSource: normal
+    - outputName: specular
+      alphaSource: specular
+    - outputName: glossiness
+      alphaSource: glossiness
+    - outputName: roughness
+      alphaSource: roughness
+    - outputName: metallic
+      alphaSource: smoothness
+    - outputName: specularLevel
+      alphaSource: specularLevel
+    - outputName: height
+      alphaSource: height
+    - outputName: Scattering
+      alphaSource: Scattering
+    textureParameters:
+    - textureName: Zombie Skin Transformation - glossiness
+      wrapMode: 0
+      filterMode: 1
+      aniso: 1
+    - textureName: Zombie Skin Transformation - diffuse
+      wrapMode: 0
+      filterMode: 1
+      aniso: 1
+    - textureName: Zombie Skin Transformation - baseColor
+      wrapMode: 0
+      filterMode: 1
+      aniso: 1
+    - textureName: Zombie Skin Transformation - normal
+      wrapMode: 0
+      filterMode: 1
+      aniso: 1
+    - textureName: Zombie Skin Transformation - specular
+      wrapMode: 0
+      filterMode: 1
+      aniso: 1
+    - textureName: Zombie Skin Transformation - roughness
+      wrapMode: 0
+      filterMode: 1
+      aniso: 1
+    - textureName: Zombie Skin Transformation - metallic
+      wrapMode: 0
+      filterMode: 1
+      aniso: 1
+    - textureName: Zombie Skin Transformation - specularLevel
+      wrapMode: 0
+      filterMode: 1
+      aniso: 1
+    - textureName: Zombie Skin Transformation - height
+      wrapMode: 0
+      filterMode: 1
+      aniso: 1
+    - textureName: Zombie Skin Transformation - scattering
+      wrapMode: 0
+      filterMode: 1
+      aniso: 1
+    colorSpaceList:
+    - outputName: diffuse
+      bLinear: 0
+    - outputName: baseColor
+      bLinear: 0
+    - outputName: normal
+      bLinear: 1
+    - outputName: specular
+      bLinear: 0
+    - outputName: glossiness
+      bLinear: 1
+    - outputName: roughness
+      bLinear: 1
+    - outputName: metallic
+      bLinear: 1
+    - outputName: specularLevel
+      bLinear: 1
+    - outputName: height
+      bLinear: 1
+    - outputName: Scattering
+      bLinear: 1
+    inputTextureMap: []
+    targetSettingList:
+    - label: 
+      bLockRatio: 1
+      textureWidth: 256
+      textureHeight: 256
+      textureFormat: 0
+      bGenerateOnLoad: 1
+    material: {instanceID: 0}
+    generatedTextures: []

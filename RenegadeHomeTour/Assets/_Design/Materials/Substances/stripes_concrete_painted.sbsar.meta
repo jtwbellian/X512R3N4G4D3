@@ -1,0 +1,106 @@
+fileFormatVersion: 2
+guid: 78a35cc1ec0e9164d9079fa9c10755cc
+ScriptedImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 2
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: 232528478, guid: 43a8bbf65be290d44ba52b94476242b9, type: 3}
+  version: 17
+  mGraphInstanceData:
+  - graphLabel: Stripes Painted on Concrete
+    prototypeName: Stripes Painted on Concrete
+    graphDescIndex: 0
+    generateAllOutputs: 0
+    generateMipMaps: 1
+    preset: " <sbspreset pkgurl=\"pkg://stripes_concrete_painted\" label=\"\" >\n
+      </sbspreset>\n"
+    shaderName: Standard
+    outputNames: baseColor,normal,metallic,ambientOcclusion,height
+    texturePackingList:
+    - outputName: diffuse
+      alphaSource: diffuse
+    - outputName: baseColor
+      alphaSource: baseColor
+    - outputName: normal
+      alphaSource: normal
+    - outputName: specular
+      alphaSource: specular
+    - outputName: glossiness
+      alphaSource: glossiness
+    - outputName: roughness
+      alphaSource: roughness
+    - outputName: metallic
+      alphaSource: smoothness
+    - outputName: ambientOcclusion
+      alphaSource: ambientOcclusion
+    - outputName: height
+      alphaSource: height
+    textureParameters:
+    - textureName: Stripes Painted on Concrete - glossiness
+      wrapMode: 0
+      filterMode: 1
+      aniso: 1
+    - textureName: Stripes Painted on Concrete - diffuse
+      wrapMode: 0
+      filterMode: 1
+      aniso: 1
+    - textureName: Stripes Painted on Concrete - baseColor
+      wrapMode: 0
+      filterMode: 1
+      aniso: 1
+    - textureName: Stripes Painted on Concrete - normal
+      wrapMode: 0
+      filterMode: 1
+      aniso: 1
+    - textureName: Stripes Painted on Concrete - specular
+      wrapMode: 0
+      filterMode: 1
+      aniso: 1
+    - textureName: Stripes Painted on Concrete - roughness
+      wrapMode: 0
+      filterMode: 1
+      aniso: 1
+    - textureName: Stripes Painted on Concrete - metallic
+      wrapMode: 0
+      filterMode: 1
+      aniso: 1
+    - textureName: Stripes Painted on Concrete - ambientOcclusion
+      wrapMode: 0
+      filterMode: 1
+      aniso: 1
+    - textureName: Stripes Painted on Concrete - height
+      wrapMode: 0
+      filterMode: 1
+      aniso: 1
+    colorSpaceList:
+    - outputName: diffuse
+      bLinear: 0
+    - outputName: baseColor
+      bLinear: 0
+    - outputName: normal
+      bLinear: 1
+    - outputName: specular
+      bLinear: 0
+    - outputName: glossiness
+      bLinear: 1
+    - outputName: roughness
+      bLinear: 1
+    - outputName: metallic
+      bLinear: 1
+    - outputName: ambientOcclusion
+      bLinear: 1
+    - outputName: height
+      bLinear: 1
+    inputTextureMap: []
+    targetSettingList:
+    - label: 
+      bLockRatio: 1
+      textureWidth: 256
+      textureHeight: 256
+      textureFormat: 0
+      bGenerateOnLoad: 1
+    material: {instanceID: 0}
+    generatedTextures: []
