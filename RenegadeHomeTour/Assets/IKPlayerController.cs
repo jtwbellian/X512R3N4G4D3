@@ -6,7 +6,7 @@ public class IKPlayerController : MonoBehaviour
 {
     public Transform target;
     public float height = 1.5f;
-    private float turningRate = 0.1f;
+    private float turningRate = 0.001f;
     
     // Start is called before the first frame update
     void Start()
