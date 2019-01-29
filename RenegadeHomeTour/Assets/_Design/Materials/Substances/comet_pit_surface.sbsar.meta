@@ -16,12 +16,15 @@ ScriptedImporter:
     generateAllOutputs: 0
     generateMipMaps: 1
     preset: " <sbspreset pkgurl=\"pkg://comet_pit_surface\" label=\"\" >\n  <presetinput
-      identifier=\"$outputsize\" uid=\"596627935\" type=\"8\" value=\"10,10\" />\n
+      identifier=\"$outputsize\" uid=\"596627935\" type=\"8\" value=\"11,11\" />\n
       \ <presetinput identifier=\"$randomseed\" uid=\"1962788749\" type=\"4\" value=\"7587\"
-      />\n  <presetinput identifier=\"pit_tile\" uid=\"1416002632\" type=\"8\" value=\"23,23\"
+      />\n  <presetinput identifier=\"pit_tile\" uid=\"1416002632\" type=\"8\" value=\"13,13\"
       />\n  <presetinput identifier=\"pit_density\" uid=\"1410944488\" type=\"0\"
-      value=\"0.308\" />\n  <presetinput identifier=\"pit_size\" uid=\"1410872188\"
-      type=\"0\" value=\"0.564\" />\n  <presetinput identifier=\"height_range\" uid=\"1592957732\"
+      value=\"0.05\" />\n  <presetinput identifier=\"pit_size\" uid=\"1410872188\"
+      type=\"0\" value=\"0.803\" />\n  <presetinput identifier=\"rock_density\" uid=\"1410877040\"
+      type=\"0\" value=\"0.811\" />\n  <presetinput identifier=\"rock_depth\" uid=\"1410881787\"
+      type=\"0\" value=\"0.548\" />\n  <presetinput identifier=\"spot_density\" uid=\"1411054224\"
+      type=\"0\" value=\"0.108\" />\n  <presetinput identifier=\"height_range\" uid=\"1592957732\"
       type=\"0\" value=\"0.626\" />\n </sbspreset>\n"
     shaderName: Lightweight Render Pipeline/Lit
     outputNames: diffuse,normal,specular,metallic
@@ -96,8 +99,8 @@ ScriptedImporter:
     targetSettingList:
     - label: 
       bLockRatio: 0
-      textureWidth: 1024
-      textureHeight: 1024
+      textureWidth: 2048
+      textureHeight: 2048
       textureFormat: 0
       bGenerateOnLoad: 1
     material: {fileID: 1274774580503022971, guid: 343e57d8827045e47b47a0bf2c5bf730,
