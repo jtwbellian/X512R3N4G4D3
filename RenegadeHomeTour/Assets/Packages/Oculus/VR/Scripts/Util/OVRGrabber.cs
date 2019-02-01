@@ -50,7 +50,7 @@ public class OVRGrabber : MonoBehaviour
 
     // Should be OVRInput.Controller.LTouch or OVRInput.Controller.RTouch.
     [SerializeField]
-    protected OVRInput.Controller m_controller;
+    public OVRInput.Controller m_controller;
 
     [SerializeField]
     protected Transform m_parentTransform;
@@ -73,6 +73,7 @@ public class OVRGrabber : MonoBehaviour
     public OVRGrabbable grabbedObject
     {
         get { return m_grabbedObj; }
+        
     }
 
 	public void ForceRelease(OVRGrabbable grabbable)
