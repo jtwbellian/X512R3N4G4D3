@@ -13,8 +13,8 @@ public class OvrAvatarRenderComponent : MonoBehaviour {
     protected void UpdateActive(OvrAvatar avatar, ovrAvatarVisibilityFlags mask)
     {
         bool active = avatar.ShowFirstPerson && (mask & ovrAvatarVisibilityFlags.FirstPerson) != 0;
-        active |= avatar.ShowThirdPerson && (mask & ovrAvatarVisibilityFlags.ThirdPerson) != 0;
-        this.gameObject.SetActive(active);
+        //active |= avatar.ShowThirdPerson && (mask & ovrAvatarVisibilityFlags.ThirdPerson) != 0;
+        //this.gameObject.SetActive(active);
     }
 
     protected SkinnedMeshRenderer CreateSkinnedMesh(ulong assetID, ovrAvatarVisibilityFlags visibilityMask, int thirdPersonLayer, int firstPersonLayer, int sortingOrder)

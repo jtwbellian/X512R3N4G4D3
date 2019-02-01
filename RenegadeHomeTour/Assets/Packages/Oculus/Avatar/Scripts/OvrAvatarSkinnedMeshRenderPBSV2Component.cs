@@ -116,6 +116,7 @@ public class OvrAvatarSkinnedMeshPBSV2RenderComponent : OvrAvatarRenderComponent
         mesh.sharedMaterial.SetVector(OvrAvatarMaterialManager.AVATAR_SHADER_COLOR, 
             materialState.albedoMultiplier);
 
+        /*
         mesh.sharedMaterial.SetFloat(OvrAvatarMaterialManager.AVATAR_SHADER_DIFFUSEINTENSITY,
             defaultProperties[componentType].DiffuseIntensity);
 
@@ -127,7 +128,7 @@ public class OvrAvatarSkinnedMeshPBSV2RenderComponent : OvrAvatarRenderComponent
 
         mesh.sharedMaterial.SetFloat(OvrAvatarMaterialManager.AVATAR_SHADER_REFLECTIONINTENSITY,
             defaultProperties[componentType].ReflectionIntensity);
-
+            */
         mesh.GetClosestReflectionProbes(AvatarMaterialManager.ReflectionProbes);
         if (AvatarMaterialManager.ReflectionProbes != null &&
             AvatarMaterialManager.ReflectionProbes.Count > 0)
