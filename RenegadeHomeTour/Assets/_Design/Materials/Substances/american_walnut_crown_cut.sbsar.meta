@@ -17,27 +17,9 @@ ScriptedImporter:
     generateMipMaps: 1
     preset: " <sbspreset pkgurl=\"pkg://american_walnut_crown_cut\" label=\"\" >\n
       </sbspreset>\n"
-    shaderName: Standard
-    outputNames: baseColor,normal,metallic,height
-    texturePackingList:
-    - outputName: diffuse
-      alphaSource: diffuse
-    - outputName: baseColor
-      alphaSource: baseColor
-    - outputName: normal
-      alphaSource: normal
-    - outputName: specular
-      alphaSource: specular
-    - outputName: glossiness
-      alphaSource: glossiness
-    - outputName: roughness
-      alphaSource: roughness
-    - outputName: metallic
-      alphaSource: smoothness
-    - outputName: specularLevel
-      alphaSource: specularLevel
-    - outputName: height
-      alphaSource: height
+    shaderName: Lightweight Render Pipeline/Lit
+    outputNames: diffuse,normal,specular,metallic
+    texturePackingList: []
     textureParameters:
     - textureName: American Walnut Crown Cut - glossiness
       wrapMode: 0
@@ -102,5 +84,6 @@ ScriptedImporter:
       textureHeight: 256
       textureFormat: 0
       bGenerateOnLoad: 1
-    material: {instanceID: 0}
+    material: {fileID: -1814915747653404143, guid: 180aa22ed07db2143bf68b801819e0a5,
+      type: 3}
     generatedTextures: []

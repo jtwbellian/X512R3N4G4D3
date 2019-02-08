@@ -17,6 +17,8 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
+** Modified by James Bellian to support OVRClimbable
+
 ************************************************************************************/
 
 using System.Collections.Generic;
@@ -66,6 +68,10 @@ public class OVRGrabber : MonoBehaviour
     protected Quaternion m_grabbedObjectRotOff;
 	protected Dictionary<OVRGrabbable, int> m_grabCandidates = new Dictionary<OVRGrabbable, int>();
 	protected bool operatingWithoutOVRCameraRig = true;
+    protected Vector3 bodyPos;
+    protected Vector3 prevPos;
+
+    protected Rigidbody rb;
 
     /// <summary>
     /// The currently grabbed object.
@@ -96,6 +102,7 @@ public class OVRGrabber : MonoBehaviour
 		// If we are being used with an OVRCameraRig, let it drive input updates, which may come from Update or FixedUpdate.
 
 		OVRCameraRig rig = null;
+
 		if (transform.parent != null && transform.parent.parent != null)
 			rig = transform.parent.parent.GetComponent<OVRCameraRig>();
 		
@@ -104,12 +111,22 @@ public class OVRGrabber : MonoBehaviour
 			rig.UpdatedAnchors += (r) => {OnUpdatedAnchors();};
 			operatingWithoutOVRCameraRig = false;
 		}
+
+        // Find rigid body for player
+        rb = transform.root.GetComponentInChildren<Rigidbody>();
+
+        if (rb == null)
+        {
+            Debug.Log("No rigid body found.");
+        }
     }
 
     protected virtual void Start()
     {
         m_lastPos = transform.position;
         m_lastRot = transform.rotation;
+        bodyPos = prevPos = transform.root.position;
+
         if(m_parentTransform == null)
         {
             if(gameObject.transform.parent != null)
@@ -129,7 +146,8 @@ public class OVRGrabber : MonoBehaviour
 	{
 		if (operatingWithoutOVRCameraRig)
 			OnUpdatedAnchors();
-	}
+
+    }
 
     // Hands follow the touch anchors by calling MovePosition each frame to reach the anchor.
     // This is done instead of parenting to achieve workable physics. If you don't require physics on 
@@ -143,10 +161,16 @@ public class OVRGrabber : MonoBehaviour
         GetComponent<Rigidbody>().MovePosition(destPos);
         GetComponent<Rigidbody>().MoveRotation(destRot);
 
+        if (m_grabbedObj is OVRClimbable)
+        {
+            ClimbGrabbedObject(handPos);
+        }
+        else
         if (!m_parentHeldObject)
         {
             MoveGrabbedObject(destPos, destRot);
         }
+
         m_lastPos = transform.position;
         m_lastRot = transform.rotation;
 
@@ -322,6 +346,18 @@ public class OVRGrabber : MonoBehaviour
             grabbedRigidbody.MovePosition(grabbablePosition);
             grabbedRigidbody.MoveRotation(grabbableRotation);
         }
+    }
+
+    // Added by James Bellian to allow for climbing
+    protected virtual void ClimbGrabbedObject(Vector3 pos)
+    {
+        if (m_grabbedObj == null)
+        {
+            return;
+        }
+
+
+        rb.AddForce((transform.position - m_lastPos) * Time.deltaTime,ForceMode.Force);
     }
 
     protected void GrabEnd()

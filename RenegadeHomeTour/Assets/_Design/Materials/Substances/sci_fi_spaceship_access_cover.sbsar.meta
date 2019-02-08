@@ -17,27 +17,9 @@ ScriptedImporter:
     generateMipMaps: 1
     preset: " <sbspreset pkgurl=\"pkg://sci_fi_spaceship_access_cover\" label=\"\"
       >\n </sbspreset>\n"
-    shaderName: Standard
-    outputNames: baseColor,normal,metallic,height,ambientOcclusion
-    texturePackingList:
-    - outputName: diffuse
-      alphaSource: diffuse
-    - outputName: baseColor
-      alphaSource: baseColor
-    - outputName: normal
-      alphaSource: normal
-    - outputName: specular
-      alphaSource: specular
-    - outputName: glossiness
-      alphaSource: glossiness
-    - outputName: roughness
-      alphaSource: roughness
-    - outputName: metallic
-      alphaSource: smoothness
-    - outputName: height
-      alphaSource: height
-    - outputName: ambientOcclusion
-      alphaSource: ambientOcclusion
+    shaderName: Lightweight Render Pipeline/Lit
+    outputNames: diffuse,normal,specular,metallic,ambientOcclusion
+    texturePackingList: []
     textureParameters:
     - textureName: Sci Fi Spaceship Access Cover - glossiness
       wrapMode: 0
@@ -102,5 +84,6 @@ ScriptedImporter:
       textureHeight: 256
       textureFormat: 0
       bGenerateOnLoad: 1
-    material: {instanceID: 0}
+    material: {fileID: 4319968660437696791, guid: 1b2b24d12daad6f4395094de27c3795c,
+      type: 3}
     generatedTextures: []

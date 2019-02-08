@@ -6,9 +6,19 @@ public class vrt_gun : VRTool
 {
 
     private bool canFire = true;
+    private AudioSource audioSource;
+    private Animator anim;
+
     public Rigidbody bulletType;
     public float fireSpeed = 10f;
     public Transform gunBarrel;
+    
+
+    public override void Init()
+    {
+        audioSource = GetComponent<AudioSource>();
+        anim = GetComponentInChildren<Animator>();
+    }
 
     public override void IndexRelease()
     {
@@ -20,6 +30,12 @@ public class vrt_gun : VRTool
         Rigidbody shot;
 
         shot = Instantiate(bulletType);
+
+        if (audioSource != null)
+            audioSource.Play();
+
+        if (anim != null)
+            anim.Play("Fire", 0, 0.0f);
 
         //shot.transform.parent = null;
 

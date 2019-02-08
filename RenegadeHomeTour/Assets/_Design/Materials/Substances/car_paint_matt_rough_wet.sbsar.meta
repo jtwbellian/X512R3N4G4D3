@@ -17,25 +17,9 @@ ScriptedImporter:
     generateMipMaps: 1
     preset: " <sbspreset pkgurl=\"pkg://car_paint_matt_rough_wet\" label=\"\" >\n
       </sbspreset>\n"
-    shaderName: Standard
-    outputNames: baseColor,normal,metallic,height
-    texturePackingList:
-    - outputName: diffuse
-      alphaSource: diffuse
-    - outputName: baseColor
-      alphaSource: baseColor
-    - outputName: normal
-      alphaSource: normal
-    - outputName: specular
-      alphaSource: specular
-    - outputName: glossiness
-      alphaSource: glossiness
-    - outputName: roughness
-      alphaSource: roughness
-    - outputName: metallic
-      alphaSource: smoothness
-    - outputName: height
-      alphaSource: height
+    shaderName: Lightweight Render Pipeline/Lit
+    outputNames: diffuse,normal,specular,metallic
+    texturePackingList: []
     textureParameters:
     - textureName: Car Paint Matt Rough Wet - glossiness
       wrapMode: 0
@@ -94,5 +78,6 @@ ScriptedImporter:
       textureHeight: 256
       textureFormat: 0
       bGenerateOnLoad: 1
-    material: {instanceID: 0}
+    material: {fileID: 5917787123146206426, guid: fd743eebad6d7794aa42051f78f22684,
+      type: 3}
     generatedTextures: []

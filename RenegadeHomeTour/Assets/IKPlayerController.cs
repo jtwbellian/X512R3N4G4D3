@@ -70,7 +70,7 @@ public class IKPlayerController : MonoBehaviour
 
         UpdateGestures();
 
-        // Turn towards our target rotation.
-        transform.rotation = Quaternion.RotateTowards(transform.rotation, target.rotation, turningRate * Time.deltaTime);
+        // Turn towards our target rotation
+        //transform.rotation = Quaternion.Euler(new Vector3(transform.rotation.eulerAngles.x, target.rotation.eulerAngles.y, transform.rotation.eulerAngles.z));
     }
 }

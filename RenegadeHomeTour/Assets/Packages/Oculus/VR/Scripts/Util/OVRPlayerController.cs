@@ -297,9 +297,6 @@ public class OVRPlayerController : MonoBehaviour
 	}
 
 
-
-
-
 	public virtual void UpdateMovement()
 	{
 		if (HaltUpdateMovement)
@@ -327,7 +324,11 @@ public class OVRPlayerController : MonoBehaviour
 				dpad_move = true;
 			}
 
-			MoveScale = 1.0f;
+            if (OVRInput.GetDown(OVRInput.Button.One))
+            {
+                Jump();
+            }
+                MoveScale = 1.0f;
 
 			if ((moveForward && moveLeft) || (moveForward && moveRight) ||
 				(moveBack && moveLeft) || (moveBack && moveRight))
@@ -451,6 +452,8 @@ public class OVRPlayerController : MonoBehaviour
 				euler.y += secondaryAxis.x * rotateInfluence;
 			}
 
+            // ROTATE JUST THE PLAYER
+
 			transform.rotation = Quaternion.Euler(euler);
 		}
 	}
@@ -490,7 +493,7 @@ public class OVRPlayerController : MonoBehaviour
 		if (!Controller.isGrounded)
 			return false;
 
-		MoveThrottle += new Vector3(0, transform.lossyScale.y * JumpForce, 0);
+        MoveThrottle += Vector3.forward * JumpForce; //(0, transform.lossyScale.y * JumpForce, 0);
 
 		return true;
 	}
@@ -500,9 +503,9 @@ public class OVRPlayerController : MonoBehaviour
 	/// </summary>
 	public void Stop()
 	{
-		Controller.Move(Vector3.zero);
-		MoveThrottle = Vector3.zero;
-		FallSpeed = 0.0f;
+		//Controller.Move(Vector3.zero);
+		//MoveThrottle = Vector3.zero;
+		//FallSpeed = 0.0f;
 	}
 
 	/// <summary>

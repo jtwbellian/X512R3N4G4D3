@@ -16,6 +16,7 @@ public abstract class VRTool : MonoBehaviour
     void Start()
     {
         grabInfo = GetComponent<OVRGrabbable>();
+        Init();
     }
 
     // Update is called once per frame
@@ -84,6 +85,7 @@ public abstract class VRTool : MonoBehaviour
          }
     }
 
+    public abstract void Init();
     public abstract void IndexTouch();
     public abstract void IndexRelease();
 

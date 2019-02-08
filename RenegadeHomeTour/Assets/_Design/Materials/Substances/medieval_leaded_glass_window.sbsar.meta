@@ -16,14 +16,15 @@ ScriptedImporter:
     generateAllOutputs: 0
     generateMipMaps: 1
     preset: " <sbspreset pkgurl=\"pkg://medieval_leaded_glass_window\" label=\"\"
-      >\n </sbspreset>\n"
-    shaderName: Standard
-    outputNames: baseColor,normal,emissive,metallic,height,ambientOcclusion
+      >\n  <presetinput identifier=\"$outputsize\" uid=\"681651243\" type=\"8\" value=\"11,11\"
+      />\n </sbspreset>\n"
+    shaderName: Lightweight Render Pipeline/Lit
+    outputNames: diffuse,normal,specular,emissive,metallic,ambientOcclusion
     texturePackingList:
     - outputName: diffuse
       alphaSource: diffuse
     - outputName: baseColor
-      alphaSource: opacity
+      alphaSource: baseColor
     - outputName: normal
       alphaSource: normal
     - outputName: specular
@@ -35,7 +36,7 @@ ScriptedImporter:
     - outputName: roughness
       alphaSource: roughness
     - outputName: metallic
-      alphaSource: smoothness
+      alphaSource: metallic
     - outputName: height
       alphaSource: height
     - outputName: ambientOcclusion
@@ -114,9 +115,10 @@ ScriptedImporter:
     targetSettingList:
     - label: 
       bLockRatio: 1
-      textureWidth: 256
-      textureHeight: 256
+      textureWidth: 2048
+      textureHeight: 2048
       textureFormat: 0
       bGenerateOnLoad: 1
-    material: {instanceID: 0}
+    material: {fileID: -8670032651228005010, guid: 822196aac1ffb4c43b269c9b872eb57c,
+      type: 3}
     generatedTextures: []
