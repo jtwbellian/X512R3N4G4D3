@@ -10,7 +10,7 @@ public class VRMovementController : MonoBehaviour
     private float boostbar_width = 0.0f;
     private Rigidbody rb;
     private Transform headPos;
-    private float rechargeRate = 4;
+    private float rechargeRate = 1f;
     private Transform body;
 
     public float speed = 2f;
@@ -42,13 +42,16 @@ public class VRMovementController : MonoBehaviour
         if (Mathf.Abs(stickY) > 0f && boost > 0.5f)
         {
 
-            rb.AddForce(headPos.forward * (speed * stickY), ForceMode.Force);
+            rb.AddForce(headPos.forward * (speed * stickY * boost), ForceMode.Force);
             boost -= Time.deltaTime * Mathf.Abs(stickY);
         }
         else if (boost < 1f)
         {
             boost += Time.deltaTime * rechargeRate;
         }
+
+        boostBar.localScale = new Vector3(boostbar_width * boost, boostBar.localScale.y, boostBar.localScale.z);
     }
+
 
 }
