@@ -238,12 +238,13 @@ public class OVRGrabber : MonoBehaviour
 
     protected virtual void GrabBegin()
     {
+
         float closestMagSq = float.MaxValue;
-		OVRGrabbable closestGrabbable = null;
+        OVRGrabbable closestGrabbable = null;
         Collider closestGrabbableCollider = null;
 
         // Iterate grab candidates and find the closest grabbable candidate
-		foreach (OVRGrabbable grabbable in m_grabCandidates.Keys)
+        foreach (OVRGrabbable grabbable in m_grabCandidates.Keys)
         {
             bool canGrab = !(grabbable.isGrabbed && !grabbable.allowOffhandGrab);
             if (!canGrab)
@@ -283,10 +284,10 @@ public class OVRGrabber : MonoBehaviour
             m_lastRot = transform.rotation;
 
             // Set up offsets for grabbed object desired position relative to hand.
-            if(m_grabbedObj.snapPosition)
+            if (m_grabbedObj.snapPosition)
             {
                 m_grabbedObjectPosOff = m_gripTransform.localPosition;
-                if(m_grabbedObj.snapOffset)
+                if (m_grabbedObj.snapOffset)
                 {
                     Vector3 snapOffset = m_grabbedObj.snapOffset.position;
                     if (m_controller == OVRInput.Controller.LTouch) snapOffset.x = -snapOffset.x;
@@ -303,7 +304,7 @@ public class OVRGrabber : MonoBehaviour
             if (m_grabbedObj.snapOrientation)
             {
                 m_grabbedObjectRotOff = m_gripTransform.localRotation;
-                if(m_grabbedObj.snapOffset)
+                if (m_grabbedObj.snapOffset)
                 {
                     m_grabbedObjectRotOff = m_grabbedObj.snapOffset.rotation * m_grabbedObjectRotOff;
                 }
@@ -317,16 +318,28 @@ public class OVRGrabber : MonoBehaviour
             // Note: force teleport on grab, to avoid high-speed travel to dest which hits a lot of other objects at high
             // speed and sends them flying. The grabbed object may still teleport inside of other objects, but fixing that
             // is beyond the scope of this demo.
+
+            // Stop player when climb begins
+            if (m_grabbedObj is OVRClimbable)
+            {
+                rb.velocity = Vector3.zero;
+                return;
+            }
+
+
             MoveGrabbedObject(m_lastPos, m_lastRot, true);
-            if(m_parentHeldObject)
+
+            if (m_parentHeldObject)
             {
                 m_grabbedObj.transform.parent = transform;
             }
+
         }
     }
 
     protected virtual void MoveGrabbedObject(Vector3 pos, Quaternion rot, bool forceTeleport = false)
     {
+
         if (m_grabbedObj == null)
         {
             return;
@@ -356,8 +369,7 @@ public class OVRGrabber : MonoBehaviour
             return;
         }
 
-
-        rb.AddForce((transform.position - m_lastPos) * Time.deltaTime,ForceMode.Force);
+        rb.AddForce((m_lastPos - transform.position) / Time.deltaTime, ForceMode.VelocityChange);
     }
 
     protected void GrabEnd()

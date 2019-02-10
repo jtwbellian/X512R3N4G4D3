@@ -13,5 +13,11 @@ using UnityEngine;
 
 public class OVRClimbable : OVRGrabbable
 {
+    public override void GrabBegin(OVRGrabber hand, Collider grabPoint)
+    {
+    }
 
+    public override void GrabEnd(Vector3 linearVelocity, Vector3 angularVelocity)
+    {
+    }
 }
