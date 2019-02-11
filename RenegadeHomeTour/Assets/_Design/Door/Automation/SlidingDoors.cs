@@ -27,10 +27,10 @@ public class SlidingDoors : MonoBehaviour
         //if (coll.gameObject.tag == "Player")
         if (coll.gameObject.CompareTag("Player"))
         {
-           // var state = true;
-            SlideDoors(state);
-            LongAnim.Play("Long_Open", 0, 1f);
-            ShortAnim.Play("Short_Open", 0, 1f);
+            var State = true;
+            SlideDoors(State);
+            LongAnim.Play("Long_Open", 1, 0.5f);
+            ShortAnim.Play("Short_Open", 1, 0.5f);
         }
     }
 
@@ -38,16 +38,16 @@ public class SlidingDoors : MonoBehaviour
 
 		if (coll.gameObject.CompareTag("Player"))
         {
-           // var state = false;
-            //SlideDoors(state);
+            var State = false;
+            SlideDoors(State);
 	    }
 	}
 
-//	void SlideDoors(bool state){
+	void SlideDoors(bool State){
 
-//        Debug.Log("ShortAnim = " + ShortAnim.ToString());
+        Debug.Log("ShortAnim = " + ShortAnim.ToString());
 
-		//ShortAnim.SetBool("Slide", state);
-		//LongAnim.SetBool("Slide", state);
-//	}
+		ShortAnim.SetBool("Slide", State);
+	    LongAnim.SetBool("Slide", State);
+	}
 }
