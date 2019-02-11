@@ -16,9 +16,10 @@ ScriptedImporter:
     generateAllOutputs: 0
     generateMipMaps: 1
     preset: " <sbspreset pkgurl=\"pkg://zombie_skin_transformation\" label=\"\" >\n
-      </sbspreset>\n"
-    shaderName: Standard
-    outputNames: baseColor,normal,metallic,height
+      \ <presetinput identifier=\"subdermal_color\" uid=\"1469638650\" type=\"2\"
+      value=\"0.528302,0.105808,0.0971876\" />\n </sbspreset>\n"
+    shaderName: Lightweight Render Pipeline/Lit
+    outputNames: diffuse,normal,specular,metallic
     texturePackingList:
     - outputName: diffuse
       alphaSource: diffuse
@@ -33,7 +34,7 @@ ScriptedImporter:
     - outputName: roughness
       alphaSource: roughness
     - outputName: metallic
-      alphaSource: smoothness
+      alphaSource: metallic
     - outputName: specularLevel
       alphaSource: specularLevel
     - outputName: height
@@ -110,5 +111,6 @@ ScriptedImporter:
       textureHeight: 256
       textureFormat: 0
       bGenerateOnLoad: 1
-    material: {instanceID: 0}
+    material: {fileID: -160516339851467522, guid: 0f32b6a75356e764f96e49bd403e76f7,
+      type: 3}
     generatedTextures: []

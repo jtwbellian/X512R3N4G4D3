@@ -17,6 +17,8 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
+** Modified by James Bellian to support OVRClimbable
+
 ************************************************************************************/
 
 using System.Collections.Generic;
@@ -50,7 +52,7 @@ public class OVRGrabber : MonoBehaviour
 
     // Should be OVRInput.Controller.LTouch or OVRInput.Controller.RTouch.
     [SerializeField]
-    protected OVRInput.Controller m_controller;
+    public OVRInput.Controller m_controller;
 
     [SerializeField]
     protected Transform m_parentTransform;
@@ -66,6 +68,10 @@ public class OVRGrabber : MonoBehaviour
     protected Quaternion m_grabbedObjectRotOff;
 	protected Dictionary<OVRGrabbable, int> m_grabCandidates = new Dictionary<OVRGrabbable, int>();
 	protected bool operatingWithoutOVRCameraRig = true;
+    protected Vector3 bodyPos;
+    protected Vector3 prevPos;
+
+    protected Rigidbody rb;
 
     /// <summary>
     /// The currently grabbed object.
@@ -73,6 +79,7 @@ public class OVRGrabber : MonoBehaviour
     public OVRGrabbable grabbedObject
     {
         get { return m_grabbedObj; }
+        
     }
 
 	public void ForceRelease(OVRGrabbable grabbable)
@@ -95,6 +102,7 @@ public class OVRGrabber : MonoBehaviour
 		// If we are being used with an OVRCameraRig, let it drive input updates, which may come from Update or FixedUpdate.
 
 		OVRCameraRig rig = null;
+
 		if (transform.parent != null && transform.parent.parent != null)
 			rig = transform.parent.parent.GetComponent<OVRCameraRig>();
 		
@@ -103,12 +111,22 @@ public class OVRGrabber : MonoBehaviour
 			rig.UpdatedAnchors += (r) => {OnUpdatedAnchors();};
 			operatingWithoutOVRCameraRig = false;
 		}
+
+        // Find rigid body for player
+        rb = transform.root.GetComponentInChildren<Rigidbody>();
+
+        if (rb == null)
+        {
+            Debug.Log("No rigid body found.");
+        }
     }
 
     protected virtual void Start()
     {
         m_lastPos = transform.position;
         m_lastRot = transform.rotation;
+        bodyPos = prevPos = transform.root.position;
+
         if(m_parentTransform == null)
         {
             if(gameObject.transform.parent != null)
@@ -128,7 +146,8 @@ public class OVRGrabber : MonoBehaviour
 	{
 		if (operatingWithoutOVRCameraRig)
 			OnUpdatedAnchors();
-	}
+
+    }
 
     // Hands follow the touch anchors by calling MovePosition each frame to reach the anchor.
     // This is done instead of parenting to achieve workable physics. If you don't require physics on 
@@ -142,10 +161,16 @@ public class OVRGrabber : MonoBehaviour
         GetComponent<Rigidbody>().MovePosition(destPos);
         GetComponent<Rigidbody>().MoveRotation(destRot);
 
+        if (m_grabbedObj is OVRClimbable)
+        {
+            ClimbGrabbedObject(handPos);
+        }
+        else
         if (!m_parentHeldObject)
         {
             MoveGrabbedObject(destPos, destRot);
         }
+
         m_lastPos = transform.position;
         m_lastRot = transform.rotation;
 
@@ -213,12 +238,13 @@ public class OVRGrabber : MonoBehaviour
 
     protected virtual void GrabBegin()
     {
+
         float closestMagSq = float.MaxValue;
-		OVRGrabbable closestGrabbable = null;
+        OVRGrabbable closestGrabbable = null;
         Collider closestGrabbableCollider = null;
 
         // Iterate grab candidates and find the closest grabbable candidate
-		foreach (OVRGrabbable grabbable in m_grabCandidates.Keys)
+        foreach (OVRGrabbable grabbable in m_grabCandidates.Keys)
         {
             bool canGrab = !(grabbable.isGrabbed && !grabbable.allowOffhandGrab);
             if (!canGrab)
@@ -258,10 +284,10 @@ public class OVRGrabber : MonoBehaviour
             m_lastRot = transform.rotation;
 
             // Set up offsets for grabbed object desired position relative to hand.
-            if(m_grabbedObj.snapPosition)
+            if (m_grabbedObj.snapPosition)
             {
                 m_grabbedObjectPosOff = m_gripTransform.localPosition;
-                if(m_grabbedObj.snapOffset)
+                if (m_grabbedObj.snapOffset)
                 {
                     Vector3 snapOffset = m_grabbedObj.snapOffset.position;
                     if (m_controller == OVRInput.Controller.LTouch) snapOffset.x = -snapOffset.x;
@@ -278,7 +304,7 @@ public class OVRGrabber : MonoBehaviour
             if (m_grabbedObj.snapOrientation)
             {
                 m_grabbedObjectRotOff = m_gripTransform.localRotation;
-                if(m_grabbedObj.snapOffset)
+                if (m_grabbedObj.snapOffset)
                 {
                     m_grabbedObjectRotOff = m_grabbedObj.snapOffset.rotation * m_grabbedObjectRotOff;
                 }
@@ -292,16 +318,28 @@ public class OVRGrabber : MonoBehaviour
             // Note: force teleport on grab, to avoid high-speed travel to dest which hits a lot of other objects at high
             // speed and sends them flying. The grabbed object may still teleport inside of other objects, but fixing that
             // is beyond the scope of this demo.
+
+            // Stop player when climb begins
+            if (m_grabbedObj is OVRClimbable)
+            {
+                rb.velocity = Vector3.zero;
+                return;
+            }
+
+
             MoveGrabbedObject(m_lastPos, m_lastRot, true);
-            if(m_parentHeldObject)
+
+            if (m_parentHeldObject)
             {
                 m_grabbedObj.transform.parent = transform;
             }
+
         }
     }
 
     protected virtual void MoveGrabbedObject(Vector3 pos, Quaternion rot, bool forceTeleport = false)
     {
+
         if (m_grabbedObj == null)
         {
             return;
@@ -321,6 +359,17 @@ public class OVRGrabber : MonoBehaviour
             grabbedRigidbody.MovePosition(grabbablePosition);
             grabbedRigidbody.MoveRotation(grabbableRotation);
         }
+    }
+
+    // Added by James Bellian to allow for climbing
+    protected virtual void ClimbGrabbedObject(Vector3 pos)
+    {
+        if (m_grabbedObj == null)
+        {
+            return;
+        }
+
+        rb.AddForce((m_lastPos - transform.position) / Time.deltaTime, ForceMode.VelocityChange);
     }
 
     protected void GrabEnd()

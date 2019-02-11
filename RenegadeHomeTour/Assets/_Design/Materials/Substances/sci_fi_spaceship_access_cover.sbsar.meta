@@ -16,9 +16,10 @@ ScriptedImporter:
     generateAllOutputs: 0
     generateMipMaps: 1
     preset: " <sbspreset pkgurl=\"pkg://sci_fi_spaceship_access_cover\" label=\"\"
-      >\n </sbspreset>\n"
-    shaderName: Standard
-    outputNames: baseColor,normal,metallic,height,ambientOcclusion
+      >\n  <presetinput identifier=\"$outputsize\" uid=\"1119051612\" type=\"8\" value=\"11,11\"
+      />\n </sbspreset>\n"
+    shaderName: Lightweight Render Pipeline/Lit
+    outputNames: diffuse,normal,specular,metallic,ambientOcclusion
     texturePackingList:
     - outputName: diffuse
       alphaSource: diffuse
@@ -33,7 +34,7 @@ ScriptedImporter:
     - outputName: roughness
       alphaSource: roughness
     - outputName: metallic
-      alphaSource: smoothness
+      alphaSource: metallic
     - outputName: height
       alphaSource: height
     - outputName: ambientOcclusion
@@ -98,9 +99,10 @@ ScriptedImporter:
     targetSettingList:
     - label: 
       bLockRatio: 1
-      textureWidth: 256
-      textureHeight: 256
+      textureWidth: 2048
+      textureHeight: 2048
       textureFormat: 0
       bGenerateOnLoad: 1
-    material: {instanceID: 0}
+    material: {fileID: 4319968660437696791, guid: 1b2b24d12daad6f4395094de27c3795c,
+      type: 3}
     generatedTextures: []

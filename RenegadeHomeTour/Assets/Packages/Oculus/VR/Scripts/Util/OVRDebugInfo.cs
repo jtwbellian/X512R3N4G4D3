@@ -93,7 +93,7 @@ public class OVRDebugInfo : MonoBehaviour
         // Create canvas for using new GUI
         debugUIManager = new GameObject();
         debugUIManager.name = "DebugUIManager";
-        debugUIManager.transform.parent = GameObject.Find("LeftEyeAnchor").transform;
+        debugUIManager.transform.parent = GameObject.Find("CenterEyeAnchor").transform;
 
         RectTransform rectTransform = debugUIManager.AddComponent<RectTransform>();
         rectTransform.sizeDelta = new Vector2(100f, 100f);

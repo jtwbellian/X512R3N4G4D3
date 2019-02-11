@@ -17,29 +17,9 @@ ScriptedImporter:
     generateMipMaps: 1
     preset: " <sbspreset pkgurl=\"pkg://spandex_heather_jacquard_terry\" label=\"\"
       >\n </sbspreset>\n"
-    shaderName: Standard
-    outputNames: baseColor,normal,metallic,height,ambientOcclusion
-    texturePackingList:
-    - outputName: diffuse
-      alphaSource: diffuse
-    - outputName: baseColor
-      alphaSource: baseColor
-    - outputName: normal
-      alphaSource: normal
-    - outputName: specular
-      alphaSource: specular
-    - outputName: glossiness
-      alphaSource: glossiness
-    - outputName: roughness
-      alphaSource: roughness
-    - outputName: metallic
-      alphaSource: smoothness
-    - outputName: specularLevel
-      alphaSource: specularLevel
-    - outputName: height
-      alphaSource: height
-    - outputName: ambientOcclusion
-      alphaSource: ambientOcclusion
+    shaderName: Lightweight Render Pipeline/Lit
+    outputNames: diffuse,normal,specular,metallic,ambientOcclusion
+    texturePackingList: []
     textureParameters:
     - textureName: Spandex Heather Jacquard Terry - glossiness
       wrapMode: 0
@@ -110,5 +90,6 @@ ScriptedImporter:
       textureHeight: 256
       textureFormat: 0
       bGenerateOnLoad: 1
-    material: {instanceID: 0}
+    material: {fileID: -1307482259560256249, guid: 8f8ab4f5be3afd846ab8f2bacf0cd20f,
+      type: 3}
     generatedTextures: []

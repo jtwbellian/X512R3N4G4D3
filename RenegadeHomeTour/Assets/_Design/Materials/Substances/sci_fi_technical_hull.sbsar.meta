@@ -17,10 +17,9 @@ ScriptedImporter:
     generateMipMaps: 1
     preset: " <sbspreset pkgurl=\"pkg://sci_fi_technical_hull\" label=\"\" >\n  <presetinput
       identifier=\"$outputsize\" uid=\"4041127233\" type=\"8\" value=\"11,11\" />\n
-      \ <presetinput identifier=\"age\" uid=\"2230193457\" type=\"0\" value=\"0.18\"
-      />\n </sbspreset>\n"
-    shaderName: Lightweight Render Pipeline/Simple Lit
-    outputNames: diffuse,normal,specular
+      </sbspreset>\n"
+    shaderName: Lightweight Render Pipeline/Lit
+    outputNames: diffuse,normal,specular,metallic,ambientOcclusion
     texturePackingList:
     - outputName: diffuse
       alphaSource: diffuse

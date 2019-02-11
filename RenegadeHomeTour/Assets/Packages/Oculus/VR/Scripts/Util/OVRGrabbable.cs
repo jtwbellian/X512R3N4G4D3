@@ -118,10 +118,26 @@ public class OVRGrabbable : MonoBehaviour
 	/// Notifies the object that it has been grabbed.
 	/// </summary>
 	virtual public void GrabBegin(OVRGrabber hand, Collider grabPoint)
-    {
+    {    
         m_grabbedBy = hand;
         m_grabbedCollider = grabPoint;
         gameObject.GetComponent<Rigidbody>().isKinematic = true;
+
+        VRTool tool = GetComponent<VRTool>();
+        if (tool == null)
+            return;
+
+        // Give tool hand info
+
+        if (grabbedBy.transform.CompareTag("RightHand"))
+            tool.hand = 0;
+        else
+        if (grabbedBy.transform.CompareTag("LeftHand"))
+            tool.hand = 1;
+        else
+            tool.hand = -1;
+
+        Debug.Log("Tool grabbed in hand " + tool.hand);
     }
 
 	/// <summary>

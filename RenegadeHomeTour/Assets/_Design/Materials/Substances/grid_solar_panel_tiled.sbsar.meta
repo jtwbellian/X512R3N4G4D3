@@ -15,10 +15,28 @@ ScriptedImporter:
     graphDescIndex: 0
     generateAllOutputs: 0
     generateMipMaps: 1
-    preset: " <sbspreset pkgurl=\"pkg://grid_solar_panel_tiled\" label=\"\" >\n </sbspreset>\n"
+    preset: " <sbspreset pkgurl=\"pkg://grid_solar_panel_tiled\" label=\"\" >\n  <presetinput
+      identifier=\"$outputsize\" uid=\"3247049564\" type=\"8\" value=\"11,11\" />\n
+      </sbspreset>\n"
     shaderName: Lightweight Render Pipeline/Lit
     outputNames: diffuse,normal,specular,metallic
-    texturePackingList: []
+    texturePackingList:
+    - outputName: diffuse
+      alphaSource: diffuse
+    - outputName: baseColor
+      alphaSource: baseColor
+    - outputName: normal
+      alphaSource: normal
+    - outputName: specular
+      alphaSource: specular
+    - outputName: glossiness
+      alphaSource: glossiness
+    - outputName: roughness
+      alphaSource: roughness
+    - outputName: metallic
+      alphaSource: metallic
+    - outputName: height
+      alphaSource: height
     textureParameters:
     - textureName: Solar Panel Grid - glossiness
       wrapMode: 0
@@ -73,8 +91,8 @@ ScriptedImporter:
     targetSettingList:
     - label: 
       bLockRatio: 1
-      textureWidth: 256
-      textureHeight: 256
+      textureWidth: 2048
+      textureHeight: 2048
       textureFormat: 0
       bGenerateOnLoad: 1
     material: {fileID: 3514131400214700652, guid: 4d3e077e7627bea4ba1bb9dc599d9e55,

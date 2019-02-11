@@ -16,31 +16,9 @@ ScriptedImporter:
     generateAllOutputs: 0
     generateMipMaps: 1
     preset: " <sbspreset pkgurl=\"pkg://3d_printed_mesh_voronoi\" label=\"\" >\n </sbspreset>\n"
-    shaderName: Standard
-    outputNames: baseColor,normal,metallic,height,ambientOcclusion
-    texturePackingList:
-    - outputName: diffuse
-      alphaSource: diffuse
-    - outputName: baseColor
-      alphaSource: opacity
-    - outputName: normal
-      alphaSource: normal
-    - outputName: specular
-      alphaSource: specular
-    - outputName: glossiness
-      alphaSource: glossiness
-    - outputName: roughness
-      alphaSource: roughness
-    - outputName: metallic
-      alphaSource: smoothness
-    - outputName: height
-      alphaSource: height
-    - outputName: opacity
-      alphaSource: opacity
-    - outputName: ambientOcclusion
-      alphaSource: ambientOcclusion
-    - outputName: specularLevel
-      alphaSource: specularLevel
+    shaderName: Lightweight Render Pipeline/Lit
+    outputNames: diffuse,normal,specular,metallic,ambientOcclusion
+    texturePackingList: []
     textureParameters:
     - textureName: 3D Printed Mesh Voronoi - glossiness
       wrapMode: 0
@@ -117,5 +95,6 @@ ScriptedImporter:
       textureHeight: 256
       textureFormat: 0
       bGenerateOnLoad: 1
-    material: {instanceID: 0}
+    material: {fileID: -2397908637044532457, guid: 3ce44d15bc95dea438b536b4d8748058,
+      type: 3}
     generatedTextures: []

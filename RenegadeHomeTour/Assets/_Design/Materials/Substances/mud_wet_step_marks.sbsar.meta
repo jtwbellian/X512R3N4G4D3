@@ -15,9 +15,17 @@ ScriptedImporter:
     graphDescIndex: 0
     generateAllOutputs: 0
     generateMipMaps: 1
-    preset: " <sbspreset pkgurl=\"pkg://mud_wet_step_marks\" label=\"\" >\n </sbspreset>\n"
-    shaderName: Standard
-    outputNames: baseColor,normal,metallic,height
+    preset: " <sbspreset pkgurl=\"pkg://mud_wet_step_marks\" label=\"\" >\n  <presetinput
+      identifier=\"$outputsize\" uid=\"1455641275\" type=\"8\" value=\"12,12\" />\n
+      \ <presetinput identifier=\"leave_color_variation\" uid=\"550316340\" type=\"0\"
+      value=\"0.63\" />\n  <presetinput identifier=\"leave_density\" uid=\"549543218\"
+      type=\"0\" value=\"0.511\" />\n  <presetinput identifier=\"water_amount\" uid=\"549524922\"
+      type=\"0\" value=\"0.022\" />\n  <presetinput identifier=\"footprint_density\"
+      uid=\"549524656\" type=\"0\" value=\"0\" />\n  <presetinput identifier=\"pebble_density\"
+      uid=\"549525122\" type=\"0\" value=\"0.423\" />\n  <presetinput identifier=\"water_dirt_density\"
+      uid=\"550331676\" type=\"0\" value=\"0.641\" />\n </sbspreset>\n"
+    shaderName: Lightweight Render Pipeline/Lit
+    outputNames: diffuse,normal,specular,metallic
     texturePackingList:
     - outputName: diffuse
       alphaSource: diffuse
@@ -32,7 +40,7 @@ ScriptedImporter:
     - outputName: roughness
       alphaSource: roughness
     - outputName: metallic
-      alphaSource: smoothness
+      alphaSource: metallic
     - outputName: height
       alphaSource: height
     textureParameters:
@@ -89,9 +97,10 @@ ScriptedImporter:
     targetSettingList:
     - label: 
       bLockRatio: 1
-      textureWidth: 256
-      textureHeight: 256
+      textureWidth: 4096
+      textureHeight: 4096
       textureFormat: 0
       bGenerateOnLoad: 1
-    material: {instanceID: 0}
+    material: {fileID: -2513520989207281000, guid: f16cebfe4dd02764b8a242022aad3ed2,
+      type: 3}
     generatedTextures: []
