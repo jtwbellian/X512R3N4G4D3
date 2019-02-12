@@ -14,6 +14,10 @@ GameObject:
   - component: {fileID: 450340409778296004}
   - component: {fileID: 4747251960089826817}
   - component: {fileID: 1590598209561998251}
+  - component: {fileID: 3750495893517846563}
+  - component: {fileID: 8500549470139286491}
+  - component: {fileID: 969439959763660940}
+  - component: {fileID: 6281650122960979718}
   m_Layer: 0
   m_Name: Window_pfab
   m_TagString: Untagged
@@ -115,10 +119,10 @@ MonoBehaviour:
   m_snapOffset: {fileID: 0}
   m_grabPoints:
   - {fileID: 1590598209561998251}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 3750495893517846563}
+  - {fileID: 8500549470139286491}
+  - {fileID: 969439959763660940}
+  - {fileID: 6281650122960979718}
 --- !u!136 &1590598209561998251
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -133,3 +137,59 @@ CapsuleCollider:
   m_Height: 15.098112
   m_Direction: 2
   m_Center: {x: 2.5306988, y: 0.097957335, z: 14.517926}
+--- !u!136 &3750495893517846563
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 849933027851723105}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 0.12817383
+  m_Height: 15.098112
+  m_Direction: 2
+  m_Center: {x: 2.5306988, y: 10.116192, z: 14.518083}
+--- !u!136 &8500549470139286491
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 849933027851723105}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 0.16722107
+  m_Height: 15.098112
+  m_Direction: 2
+  m_Center: {x: 2.5306988, y: 20.104664, z: 14.518392}
+--- !u!136 &969439959763660940
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 849933027851723105}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 0.14215851
+  m_Height: 15.098112
+  m_Direction: 2
+  m_Center: {x: 2.5306988, y: -9.892968, z: 14.518212}
+--- !u!136 &6281650122960979718
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 849933027851723105}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 0.1889286
+  m_Height: 15.090769
+  m_Direction: 2
+  m_Center: {x: 2.5306988, y: -19.870138, z: 14.473838}
