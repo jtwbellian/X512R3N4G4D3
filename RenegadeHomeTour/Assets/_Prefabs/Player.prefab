@@ -11,7 +11,7 @@ CapsuleCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 0.2735232
-  m_Height: 1.7085454
+  m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0.76728266, z: 0.018882742}
 --- !u!1001 &6003178559531758607
@@ -1109,6 +1109,10 @@ PrefabInstance:
       propertyPath: m_grabVolumes.Array.data[0]
       value: 
       objectReference: {fileID: 6003178558455517104}
+    - target: {fileID: 1205484477, guid: 7a091b963a4bf4c43a82347beef22551, type: 3}
+      propertyPath: bodyCol
+      value: 
+      objectReference: {fileID: 2298289945788538177}
     - target: {fileID: 1205484476, guid: 7a091b963a4bf4c43a82347beef22551, type: 3}
       propertyPath: Character
       value: 
@@ -1589,6 +1593,10 @@ PrefabInstance:
       propertyPath: m_grabVolumes.Array.data[0]
       value: 
       objectReference: {fileID: 6003178559148955053}
+    - target: {fileID: 426844576, guid: 7a091b963a4bf4c43a82347beef22551, type: 3}
+      propertyPath: bodyCol
+      value: 
+      objectReference: {fileID: 2298289945788538177}
     - target: {fileID: 446693855, guid: 7a091b963a4bf4c43a82347beef22551, type: 3}
       propertyPath: Character
       value: 
@@ -1941,6 +1949,10 @@ PrefabInstance:
       propertyPath: Z.Joint
       value: 
       objectReference: {fileID: 6003178557898923486}
+    - target: {fileID: 1624810948, guid: 7a091b963a4bf4c43a82347beef22551, type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: 06e2868c2b5563a4b8c59595847c9b4a, type: 2}
     - target: {fileID: 1633424800, guid: 7a091b963a4bf4c43a82347beef22551, type: 3}
       propertyPath: Segment
       value: 
@@ -2213,6 +2225,10 @@ PrefabInstance:
       propertyPath: m_RootBone
       value: 
       objectReference: {fileID: 6003178558641689348}
+    - target: {fileID: 1505936251, guid: 7a091b963a4bf4c43a82347beef22551, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 06e2868c2b5563a4b8c59595847c9b4a, type: 2}
     - target: {fileID: 1511635350, guid: 7a091b963a4bf4c43a82347beef22551, type: 3}
       propertyPath: Character
       value: 
@@ -2763,6 +2779,7 @@ PrefabInstance:
       objectReference: {fileID: 6003178558656021298}
     m_RemovedComponents:
     - {fileID: 1881428934, guid: 7a091b963a4bf4c43a82347beef22551, type: 3}
+    - {fileID: 1991408097, guid: 7a091b963a4bf4c43a82347beef22551, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 7a091b963a4bf4c43a82347beef22551, type: 3}
 --- !u!114 &6003178557650888650 stripped
 MonoBehaviour:

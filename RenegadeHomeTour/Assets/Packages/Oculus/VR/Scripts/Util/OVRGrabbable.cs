@@ -124,6 +124,7 @@ public class OVRGrabbable : MonoBehaviour
         gameObject.GetComponent<Rigidbody>().isKinematic = true;
 
         VRTool tool = GetComponent<VRTool>();
+
         if (tool == null)
             return;
 
