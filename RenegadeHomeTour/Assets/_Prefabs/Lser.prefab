@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 7063345123328604759}
   m_Layer: 0
   m_Name: Lser
-  m_TagString: Untagged
+  m_TagString: laser
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -27,8 +27,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1051235288331705225}
   m_LocalRotation: {x: -0.4999998, y: -0.5, z: 0.5000001, w: 0.5000001}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.03, y: 0.08337, z: 0.03}
+  m_LocalPosition: {x: 0, y: 0, z: 0.0532}
+  m_LocalScale: {x: 0.018490773, y: 0.08337, z: 0.010474799}
   m_Children: []
   m_Father: {fileID: 5425066507552543783}
   m_RootOrder: 0
@@ -58,7 +58,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 68dde1e181867d24ca5ad61942e90635, type: 2}
+  - {fileID: 2100000, guid: a7b45b4f6811eda45b9dc01bddeab4a9, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -86,12 +86,12 @@ CapsuleCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1051235288331705225}
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.4
+  m_Radius: 0.92276967
   m_Height: 2.0324576
   m_Direction: 1
-  m_Center: {x: -1.6841212e-17, y: -0.009195514, z: 0}
+  m_Center: {x: 0.043452114, y: -0.009195484, z: 2.8617127e-15}
 --- !u!1 &9002566493376900348
 GameObject:
   m_ObjectHideFlags: 0
@@ -104,7 +104,7 @@ GameObject:
   - component: {fileID: 310914464749162283}
   m_Layer: 0
   m_Name: Lser
-  m_TagString: Untagged
+  m_TagString: laser
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -132,7 +132,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9002566493376900348}
   serializedVersion: 2
-  m_Mass: 1
+  m_Mass: 5
   m_Drag: 0
   m_AngularDrag: 0
   m_UseGravity: 0

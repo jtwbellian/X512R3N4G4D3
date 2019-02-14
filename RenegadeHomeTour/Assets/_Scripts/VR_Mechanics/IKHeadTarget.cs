@@ -9,7 +9,7 @@ public class IKHeadTarget : MonoBehaviour
     public float pitchMax;
     [Range(-180f, 180f)]
     public float pitchMin;
-    public Vector3 offset;
+    public float offset = 0.0f;
 
     // Start is called before the first frame update
     void Start()
@@ -26,7 +26,7 @@ public class IKHeadTarget : MonoBehaviour
 
         Vector3 newRot = new Vector3(rx, ry, rz);
 
-        transform.position = target.position;
+        transform.position = target.position + target.transform.forward * offset;
         //transform.localPosition = offset;
     }
 }

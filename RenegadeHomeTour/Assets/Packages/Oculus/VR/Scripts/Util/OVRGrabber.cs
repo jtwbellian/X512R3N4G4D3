@@ -349,13 +349,6 @@ public class OVRGrabber : MonoBehaviour
 
             Physics.IgnoreCollision(m_grabbedObj.GetComponent<Collider>(), bodyCol.GetComponent<Collider>());
 
-            // iSpecialGrabbable onGrab
-            if (m_grabbedObj is iSpecial_Grabbable)
-            {
-                var iSpecial = (iSpecial_Grabbable)m_grabbedObj;
-                iSpecial.OnGrab();
-            }
-
         }
     }
 
@@ -413,12 +406,6 @@ public class OVRGrabber : MonoBehaviour
         // Re-enable grab volumes to allow overlap events
         GrabVolumeEnable(true);
 
-        // iSpecialGrabbable OnRelease
-        if (m_grabbedObj is iSpecial_Grabbable)
-        {
-            var iSpecial = (iSpecial_Grabbable)m_grabbedObj;
-            iSpecial.OnRelease();
-        }
     }
 
     protected void GrabbableRelease(Vector3 linearVelocity, Vector3 angularVelocity)
