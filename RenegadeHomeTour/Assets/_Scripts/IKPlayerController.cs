@@ -4,18 +4,18 @@ using UnityEngine;
 
 public class IKPlayerController : MonoBehaviour
 {
-    public Transform target;
-    public float height = 1.5f;
-    public bool leftyMode = false;
-    
-    [SerializeField]
+
     private float lGrab = 0f;
-    [SerializeField]
     private float lFinger = 0f;
     private float lThumb = 0f;
     private float rGrab = 0f;
     private float rFinger = 0f;
     private float rThumb = 0f;
+
+    public Transform target;
+    public float height = 1.5f;
+    public bool leftyMode = false;
+    public float offset = 0.0f;
 
     private float turningRate = 1f;
     private Animator animator;
@@ -65,7 +65,7 @@ public class IKPlayerController : MonoBehaviour
     {
         if (transform.position != target.position)
         {
-            transform.position = new Vector3(target.position.x, target.position.y - height, target.position.z);
+            transform.position = new Vector3(target.position.x, target.position.y - height, target.position.z) + target.transform.forward * offset;
         }
 
         UpdateGestures();

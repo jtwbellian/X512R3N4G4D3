@@ -19,6 +19,7 @@ public abstract class VRTool : MonoBehaviour
         Init();
     }
 
+
     // Update is called once per frame
     void Update()
     {

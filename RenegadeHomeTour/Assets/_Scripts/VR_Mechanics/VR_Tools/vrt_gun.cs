@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class vrt_gun : VRTool
+public class vrt_gun : VRTool, iSpecial_Grabbable
 {
 
     private bool canFire = true;
@@ -58,4 +58,13 @@ public class vrt_gun : VRTool
         //throw new System.NotImplementedException();
     }
 
+     void iSpecial_Grabbable.OnGrab()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    void iSpecial_Grabbable.OnRelease()
+    {
+        throw new System.NotImplementedException();
+    }
 }

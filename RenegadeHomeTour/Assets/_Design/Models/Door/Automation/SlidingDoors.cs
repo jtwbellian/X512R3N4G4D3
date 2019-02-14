@@ -15,10 +15,6 @@ public class SlidingDoors : MonoBehaviour
     {
        	ShortAnim = ShortDoor.GetComponent <Animator> ();
 	    LongAnim = LongDoor.GetComponent <Animator> ();
-        //ShortAnim.updateMode.UnscaledTime;
-        //LongAnim.updateMode.UnscaledTime;
-        Debug.Log((LongAnim == null) ? "Long anim is NULL" : "We good");
-        Debug.Log((ShortAnim == null) ? "Short anim is NULL" : "We good");
     }
 
 	void OnTriggerEnter(Collider coll){

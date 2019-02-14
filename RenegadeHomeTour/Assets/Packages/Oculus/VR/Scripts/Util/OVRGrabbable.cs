@@ -123,7 +123,17 @@ public class OVRGrabbable : MonoBehaviour
         m_grabbedCollider = grabPoint;
         gameObject.GetComponent<Rigidbody>().isKinematic = true;
 
+        Debug.Log("Picked Up");
+
+        // iSpecialGrabbable onGrab
+        if (this is iSpecial_Grabbable)
+        {
+            var iSpecial = (iSpecial_Grabbable)this;
+            iSpecial.OnGrab();
+        }
+
         VRTool tool = GetComponent<VRTool>();
+
         if (tool == null)
             return;
 
@@ -136,8 +146,6 @@ public class OVRGrabbable : MonoBehaviour
             tool.hand = 1;
         else
             tool.hand = -1;
-
-        Debug.Log("Tool grabbed in hand " + tool.hand);
     }
 
 	/// <summary>
@@ -151,6 +159,14 @@ public class OVRGrabbable : MonoBehaviour
         rb.angularVelocity = angularVelocity;
         m_grabbedBy = null;
         m_grabbedCollider = null;
+
+        Debug.Log("Dropped");
+        // iSpecialGrabbable OnRelease
+        if (this is iSpecial_Grabbable)
+        {
+            var iSpecial = (iSpecial_Grabbable)this;
+            iSpecial.OnRelease();
+        }
     }
 
     void Awake()
