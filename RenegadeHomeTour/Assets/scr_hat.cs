@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(OVRGrabbable))]
 public class scr_hat : VRTool, iSpecial_Grabbable
 {
 

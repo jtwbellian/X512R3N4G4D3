@@ -19,8 +19,6 @@ public class SlidingDoors : MonoBehaviour
 
 	void OnTriggerEnter(Collider coll){
 
-        Debug.Log("Trigger entered");
-        //if (coll.gameObject.tag == "Player")
         if (coll.gameObject.CompareTag("Player"))
         {
             var State = true;

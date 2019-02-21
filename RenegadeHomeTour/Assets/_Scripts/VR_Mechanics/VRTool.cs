@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
+[RequireComponent(typeof(OVRGrabbable))]
 public abstract class VRTool : MonoBehaviour
 {
     private Rigidbody rb;
@@ -114,6 +116,11 @@ public abstract class VRTool : MonoBehaviour
 
     public bool isHeld()
     {
+        if (grabInfo == null)
+        {
+            return false;
+        }
+
         return grabInfo.isGrabbed;
     }
 

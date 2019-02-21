@@ -15,12 +15,17 @@ public class AirVent : MonoBehaviour
         }
     }
 
+    public void Reset()
+    {
+        anim.SetBool("Flap", false);
+    }
+
     public void Flap()
     {
         Debug.Log("flap triggered");
 
-        anim.speed = 1f;
-        //anim.SetBool("Flap", true);
-        anim.Play("swing",0);
+        anim.speed = 2f;
+        anim.SetBool("Flap", true);
+        Invoke("Reset", 2f);
     }
 }
