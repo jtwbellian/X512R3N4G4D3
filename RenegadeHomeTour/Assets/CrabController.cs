@@ -4,8 +4,26 @@ using UnityEngine;
 
 public class CrabController : MonoBehaviour
 {
+    public enum state { Walk, Jump, Attack };
+
     private Animator animator;
     private Material [] mats;
+    private Rigidbody rb;
+    private Transform myJumpPoint;
+    private AudioSource audioSource;
+
+    private float lastJumpTime = 0f;
+    [SerializeField]
+    private float jumpDelay = 10f;
+    [SerializeField]
+    private float jumpForce = 100f;
+
+    public state current_state;
+    public float speed = 2f;
+    public float jumpDist = 4f;
+
+    public Transform target;
+
     private bool alive = true;
 
     // Start is called before the first frame update
@@ -13,21 +31,95 @@ public class CrabController : MonoBehaviour
     {
         var renderer = GetComponentInChildren<Renderer>();
         mats = renderer.materials;
-        //animator.set
+        rb = GetComponent<Rigidbody>();
+
+        current_state = state.Walk;
+
+        animator = GetComponent<Animator>();
+        animator.speed = 1f;
+        animator.Play("RUN");
+
+        float offset = Random.Range(0f, 2f);
+        animator.SetFloat("offset", offset);
+
+        jumpDelay = Random.Range(2f, 15f);
     }
 
-    void OnCollisionEnter(Collision collision)
+
+    void OnTriggerEnter(Collider col)
     {
-        if (collision.transform.CompareTag("laser") && alive)
+        if (col.transform.CompareTag("jumpPoint"))
+        {
+            myJumpPoint = col.transform;
+
+            current_state = state.Jump;
+        }
+    }
+
+    void OnCollisionEnter(Collision col)
+    {
+        if (col.transform.CompareTag("laser") && alive)
         {
             StartCoroutine("Dissolve");
             alive = false;
+            audioSource.Play();
         }
     }
 
     // Update is called once per frame
     void Update()
     {
+        switch (current_state)
+        {
+            case state.Walk:
+            {
+                    animator.speed = 1.5f;
+                    transform.LookAt(target);
+                    rb.AddForce(transform.forward * speed ,  ForceMode.Force);
+
+                    if (!target.CompareTag("jumpPoint") && Vector3.Distance(transform.position, target.position) < jumpDist)
+                    {
+                        current_state = state.Attack;
+                    }
+
+                    break;
+            }
+
+            case state.Attack:
+            {
+                    if (Time.time - lastJumpTime > jumpDelay)
+                    {
+                        animator.speed = Random.Range(0.8f,3.0f);
+                        animator.SetBool("jump", true);
+                        lastJumpTime = Time.time;
+                        rb.AddForce(transform.forward * jumpForce, ForceMode.Impulse);
+                    }
+                    else // back up slowly
+                    {
+                        transform.LookAt(target);
+                        animator.speed = 1f;
+                        rb.AddForce(transform.forward * -0.1f, ForceMode.Force);
+                    }
+
+                break;
+            }
+
+            case state.Jump:
+                {
+
+                    target = Camera.main.transform;
+
+                    transform.rotation = myJumpPoint.rotation;
+                    rb.AddForce(transform.up * jumpForce, ForceMode.Impulse);
+                    rb.AddForce(transform.forward * jumpForce, ForceMode.Impulse);
+                    current_state = state.Walk;
+                     
+                    break;
+                }
+
+
+        }
+
     }
 
     IEnumerator Dissolve()

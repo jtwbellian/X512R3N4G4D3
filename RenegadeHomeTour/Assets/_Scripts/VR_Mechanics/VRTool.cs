@@ -4,9 +4,16 @@ using UnityEngine;
 
 public abstract class VRTool : MonoBehaviour
 {
+    private Rigidbody rb;
     private OVRGrabbable grabInfo;
     private bool indexDown = false;
     private bool thumbDown = false;
+
+    public bool usesIndex = true;
+    public bool usesThumb = false;
+
+    public bool isHat = false;
+    public float indexValue = 0f;
 
     [HideInInspector]
     public int hand; // 0 = primary 1 = secondary
@@ -16,28 +23,37 @@ public abstract class VRTool : MonoBehaviour
     void Start()
     {
         grabInfo = GetComponent<OVRGrabbable>();
+        rb = GetComponent<Rigidbody>();
         Init();
     }
 
+    void OnTriggerEnter(Collider col)
+    {
+
+    }
 
     // Update is called once per frame
     void Update()
     {
 
-        if (grabInfo.isGrabbed)
+        if (!isHat && grabInfo.isGrabbed)
         {
             //transform.localPosition = grabInfo.grabbedTransform.position;
 
             switch (hand)
             {
                 case 1: // right hand
+
+                    indexValue = OVRInput.Get(OVRInput.Axis1D.PrimaryIndexTrigger);
+
+
                     // Index Finger Primary
-                    if (OVRInput.Get(OVRInput.Axis1D.PrimaryIndexTrigger) > 0.5f && !indexDown)
+                    if (indexValue > 0.5f && !indexDown)
                     {
                         IndexTouch();
                         indexDown = true;
                     }
-                    else if(OVRInput.Get(OVRInput.Axis1D.PrimaryIndexTrigger) <= 0.5f && indexDown)
+                    else if(indexValue <= 0.5f && indexDown)
                     {
                         IndexRelease();
                         indexDown = false;
@@ -57,13 +73,16 @@ public abstract class VRTool : MonoBehaviour
                     break;
 
                 case 0: // left hand
+
+                    indexValue = OVRInput.Get(OVRInput.Axis1D.SecondaryIndexTrigger);
+
                     // Index Finger Secondary
-                    if (OVRInput.Get(OVRInput.Axis1D.SecondaryIndexTrigger) > 0.5f && !indexDown)
+                    if (indexValue > 0.5f && !indexDown)
                     {
                         IndexTouch();
                         indexDown = true;
                     }
-                    else if (OVRInput.Get(OVRInput.Axis1D.SecondaryIndexTrigger) <= 0.5f && indexDown)
+                    else if (indexValue <= 0.5f && indexDown)
                     {
                         IndexRelease();
                         indexDown = false;
@@ -92,5 +111,10 @@ public abstract class VRTool : MonoBehaviour
 
     public abstract void ThumbTouch();
     public abstract void ThumbRelease();
+
+    public bool isHeld()
+    {
+        return grabInfo.isGrabbed;
+    }
 
 }

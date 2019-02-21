@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class scr_hat : MonoBehaviour, iSpecial_Grabbable
+public class scr_hat : VRTool, iSpecial_Grabbable
 {
     private SphereCollider myCollider;
     public SphereCollider hatSpot;
@@ -13,7 +13,7 @@ public class scr_hat : MonoBehaviour, iSpecial_Grabbable
 
     void iSpecial_Grabbable.OnRelease()
     {
-        Debug.Log("Hat Drop");
+        /*Debug.Log("Hat Drop");
 
         if (myCollider.bounds.Intersects(hatSpot.bounds))
         {
@@ -26,18 +26,44 @@ public class scr_hat : MonoBehaviour, iSpecial_Grabbable
         else
         {
             GetComponent<Rigidbody>().isKinematic = false;
-        }
+        }*/
     }
 
     // Start is called before the first frame update
     void Start()
     {
         myCollider = GetComponent<SphereCollider>();
+        isHat = true;
     }
 
     // Update is called once per frame
     void Update()
     {
         
+    }
+
+    public override void Init()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public override void IndexTouch()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public override void IndexRelease()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public override void ThumbTouch()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public override void ThumbRelease()
+    {
+        throw new System.NotImplementedException();
     }
 }

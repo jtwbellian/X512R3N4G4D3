@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class IKPlayerController : MonoBehaviour
 {
+    private const float MAX_FOOT_HEIGHT = -3f;
+    private const float DEFAULT_HEIGHT = 1.7f;
 
     private float lGrab = 0f;
     private float lFinger = 0f;
@@ -11,9 +13,11 @@ public class IKPlayerController : MonoBehaviour
     private float rGrab = 0f;
     private float rFinger = 0f;
     private float rThumb = 0f;
+    private Transform []  feet;
+    private int numFeet = 0;
 
-    public Transform target;
-    public float height = 1.5f;
+    public Transform head;
+    public float height = 1.88f;
     public bool leftyMode = false;
     public float offset = 0.0f;
 
@@ -38,9 +42,24 @@ public class IKPlayerController : MonoBehaviour
 
     }
 
+    public void UpdatePlayerHeight()
+    {
+        var height = head.localPosition.y;
+
+        float newScale = height / DEFAULT_HEIGHT;
+
+        transform.localScale = new Vector3(newScale, newScale, newScale);
+    }
+
     void UpdateGestures()
     {
 
+        // Click both sticks in to reset height and scale
+        if(OVRInput.Get(OVRInput.Button.SecondaryThumbstick) && OVRInput.Get(OVRInput.Button.PrimaryThumbstick))
+        {
+            Debug.Log("heightReset");
+            UpdatePlayerHeight();
+        }
         
         rGrab = (leftyMode) ? OVRInput.Get(OVRInput.Axis1D.PrimaryHandTrigger) : OVRInput.Get(OVRInput.Axis1D.SecondaryHandTrigger);
         rFinger = (leftyMode) ? OVRInput.Get(OVRInput.Axis1D.PrimaryIndexTrigger) : OVRInput.Get(OVRInput.Axis1D.SecondaryIndexTrigger);
@@ -63,13 +82,13 @@ public class IKPlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (transform.position != target.position)
+        if (transform.position !=  head.position)
         {
-            transform.position = new Vector3(target.position.x, target.position.y - height, target.position.z) + target.transform.forward * offset;
+            transform.position = new Vector3(head.position.x, head.position.y - height, head.position.z) + head.transform.forward * offset;
         }
 
         UpdateGestures();
-
+        //CalcFeet();
         // Turn towards our target rotation
         //transform.rotation = Quaternion.Euler(new Vector3(transform.rotation.eulerAngles.x, target.rotation.eulerAngles.y, transform.rotation.eulerAngles.z));
     }
