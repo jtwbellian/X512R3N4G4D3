@@ -20,14 +20,18 @@ public class GrabMagnet : MonoBehaviour
     
         item = col.GetComponent<VRTool>();
 
-        if (holdsHat && !item.isHat)
-        {
+        if (item == null)
             return;
-        }
 
+        if (item.isHat && !holdsHat)
+            return;
+       /*
+        if (holdsHat && !item.isHat)
+            return;
+ 
         if (!holdsTool && !item.isHat)
             return;
-
+            */
 
         // grab a tool 
         if (!item.isHeld() && col.transform.parent != transform)

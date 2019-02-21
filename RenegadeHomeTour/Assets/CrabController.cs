@@ -46,6 +46,7 @@ public class CrabController : MonoBehaviour
         animator.SetFloat("offset", offset);
 
         jumpDelay = Random.Range(2f, 15f); // add some variation to aggression
+        audioSource = GetComponent<AudioSource>();
     }
 
 
@@ -54,18 +55,22 @@ public class CrabController : MonoBehaviour
         if (col.transform.CompareTag("jumpPoint"))
         {
             myJumpPoint = col.transform;
-
             current_state = state.Jump;
         }
     }
 
     void OnCollisionEnter(Collision col)
     {
-        if (col.transform.CompareTag("laser") && alive)
+        if (col.transform.CompareTag("laser"))
         {
-            StartCoroutine("Dissolve");
-            alive = false;
             audioSource.Play();
+
+            if (alive)
+            { 
+                StartCoroutine("Dissolve");
+                alive = false;
+            }
+ 
         }
     }
 

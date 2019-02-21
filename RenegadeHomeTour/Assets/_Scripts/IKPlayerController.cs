@@ -17,7 +17,7 @@ public class IKPlayerController : MonoBehaviour
     private int numFeet = 0;
 
     public Transform head;
-    public float height = 1.88f;
+    public float height = 1.7f;
     public bool leftyMode = false;
     public float offset = 0.0f;
 
@@ -37,15 +37,11 @@ public class IKPlayerController : MonoBehaviour
 
         for (int i = 0; i < 7; i ++)
             animator.SetLayerWeight(i, 1);
-
-//        animator.Play(0)
-
     }
 
     public void UpdatePlayerHeight()
     {
         var height = head.localPosition.y;
-
         float newScale = height / DEFAULT_HEIGHT;
 
         transform.localScale = new Vector3(newScale, newScale, newScale);

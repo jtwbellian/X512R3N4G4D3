@@ -15,8 +15,9 @@ public class Spawner : MonoBehaviour
   // Start is called before the first frame update
   void Start()
     {
-        StartCoroutine("Spawn");
+        StartSpawning();
     }
+
 
     IEnumerator Spawn()
     {
@@ -34,6 +35,11 @@ public class Spawner : MonoBehaviour
 
             yield return new WaitForSeconds(delay);
         }
+    }
+
+    public void StartSpawning()
+    {
+        StartCoroutine("Spawn");
     }
 
     // Update is called once per frame

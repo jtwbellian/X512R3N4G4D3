@@ -60,7 +60,8 @@ public class VRMovementController : MonoBehaviour
         
         // Turn view 
         Vector3 euler = transform.rotation.eulerAngles;
-        Vector3 lastPos = body.transform.position;
+        Vector3 lastPos = body.transform.localPosition;
+        body.transform.localPosition = Vector3.zero;
 
         if (OVRInput.Get(OVRInput.Button.SecondaryThumbstickLeft))
         {
@@ -83,7 +84,7 @@ public class VRMovementController : MonoBehaviour
             ReadyToSnapTurn = true;
         }
 
-        body.transform.position = lastPos;
+        body.transform.localPosition = lastPos;
         transform.rotation = Quaternion.Euler(euler);
     }
 

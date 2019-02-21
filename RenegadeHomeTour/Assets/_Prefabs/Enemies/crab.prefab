@@ -384,6 +384,7 @@ GameObject:
   - component: {fileID: 1722680771345179218}
   - component: {fileID: 2555077654743643154}
   - component: {fileID: 2220097811020516610}
+  - component: {fileID: 1569317452578643698}
   m_Layer: 0
   m_Name: RArm
   m_TagString: Untagged
@@ -438,6 +439,22 @@ MonoBehaviour:
   m_snapOffset: {fileID: 0}
   m_grabPoints:
   - {fileID: 2555077654743643154}
+--- !u!54 &1569317452578643698
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1558759499902231067}
+  serializedVersion: 2
+  m_Mass: 2
+  m_Drag: 1
+  m_AngularDrag: 1
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &1578660560207912496
 GameObject:
   m_ObjectHideFlags: 0
@@ -958,20 +975,20 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: ece37b5e29075374883e823a31f9eed5, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 768e637190acc7d4bbcada07a15d2793, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 0.562
+  m_Volume: 0.926
   m_Pitch: 1
   Loop: 0
   Mute: 0
-  Spatialize: 1
+  Spatialize: 0
   SpatializePostEffects: 0
   Priority: 128
-  DopplerLevel: 1
+  DopplerLevel: 1.63
   MinDistance: 1
   MaxDistance: 500
   Pan2D: 0
-  rolloffMode: 0
+  rolloffMode: 1
   BypassEffects: 0
   BypassListenerEffects: 0
   BypassReverbZones: 0
@@ -1003,7 +1020,7 @@ AudioSource:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
-      time: 0
+      time: 0.016393661
       value: 0
       inSlope: 0
       outSlope: 0
@@ -1019,7 +1036,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 0.08888889
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -1395,6 +1412,7 @@ GameObject:
   - component: {fileID: 6204768870936109302}
   - component: {fileID: 3683976394202965045}
   - component: {fileID: 754061005941235271}
+  - component: {fileID: 6968925460607182790}
   m_Layer: 0
   m_Name: LARM
   m_TagString: Untagged
@@ -1449,6 +1467,22 @@ MonoBehaviour:
   m_snapOffset: {fileID: 0}
   m_grabPoints:
   - {fileID: 3683976394202965045}
+--- !u!54 &6968925460607182790
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3737465266893794770}
+  serializedVersion: 2
+  m_Mass: 2
+  m_Drag: 1
+  m_AngularDrag: 1
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &4119519212033391186
 GameObject:
   m_ObjectHideFlags: 0
