@@ -18,6 +18,9 @@ public class CrabController : MonoBehaviour
     [SerializeField]
     private float jumpForce = 100f;
 
+    private float numAttacks = 3;
+    private float attack = 0;
+
     public state current_state;
     public float speed = 2f;
     public float jumpDist = 4f;
@@ -39,10 +42,10 @@ public class CrabController : MonoBehaviour
         animator.speed = 1f;
         animator.Play("RUN");
 
-        float offset = Random.Range(0f, 2f);
+        float offset = Random.Range(0f, 2f); // adds variation to the animations
         animator.SetFloat("offset", offset);
 
-        jumpDelay = Random.Range(2f, 15f);
+        jumpDelay = Random.Range(2f, 15f); // add some variation to aggression
     }
 
 
@@ -93,6 +96,14 @@ public class CrabController : MonoBehaviour
                         animator.SetBool("jump", true);
                         lastJumpTime = Time.time;
                         rb.AddForce(transform.forward * jumpForce, ForceMode.Impulse);
+
+                        if (attack > numAttacks)
+                        {
+                            attack = 0;
+                            current_state = state.Walk;
+                        }
+                        else
+                            attack++;
                     }
                     else // back up slowly
                     {
