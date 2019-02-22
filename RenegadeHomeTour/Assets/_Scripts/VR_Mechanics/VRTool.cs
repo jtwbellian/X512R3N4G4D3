@@ -29,11 +29,6 @@ public abstract class VRTool : MonoBehaviour
         Init();
     }
 
-    void OnTriggerEnter(Collider col)
-    {
-
-    }
-
     // Update is called once per frame
     void Update()
     {
@@ -113,6 +108,28 @@ public abstract class VRTool : MonoBehaviour
 
     public abstract void ThumbTouch();
     public abstract void ThumbRelease();
+
+    public void Dropped()
+    {
+        Collider[] toolCols = transform.GetComponentsInChildren<Collider>();
+
+        foreach (Collider c in toolCols)
+        {
+            if (!c.enabled)
+                c.enabled = true;
+        }
+    }
+
+    public void Grabbed()
+    {
+        Collider[] toolCols = transform.GetComponentsInChildren<Collider>();
+
+        foreach (Collider c in toolCols)
+        {
+            if (!c.isTrigger && c.enabled)
+                c.enabled = false;
+        }
+    }
 
     public bool isHeld()
     {

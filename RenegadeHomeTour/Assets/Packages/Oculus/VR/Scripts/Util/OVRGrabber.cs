@@ -240,7 +240,6 @@ public class OVRGrabber : MonoBehaviour
 
     protected virtual void GrabBegin()
     {
-
         float closestMagSq = float.MaxValue;
         OVRGrabbable closestGrabbable = null;
         Collider closestGrabbableCollider = null;
@@ -321,34 +320,44 @@ public class OVRGrabber : MonoBehaviour
             // speed and sends them flying. The grabbed object may still teleport inside of other objects, but fixing that
             // is beyond the scope of this demo.
 
-            // Stop player and release other hand if climb begins
-            if (m_grabbedObj is OVRClimbable)
+            if (m_grabbedObj != null)
             {
-                OVRGrabber [] hands = transform.parent.GetComponentsInChildren<OVRGrabber>();
+                VRTool vrTool = m_grabbedObj.GetComponent<VRTool>();
 
-                // lift opposite hand to avoid blasting off 
-                if (hands[0] != this && hands[0].m_grabbedObj is OVRClimbable)
+                if (vrTool != null)
                 {
-                    hands[0].GrabbableRelease(Vector3.zero, Vector3.zero);
-                }
-                else if (hands[1] != this && hands[1].m_grabbedObj is OVRClimbable)
-                {
-                    hands[1].GrabbableRelease(Vector3.zero, Vector3.zero);
+                    vrTool.Grabbed();
                 }
 
-                rb.velocity = Vector3.zero;
-                return;
+                // Stop player and release other hand if climb begins
+                if (m_grabbedObj is OVRClimbable)
+                {
+                    OVRGrabber[] hands = transform.parent.GetComponentsInChildren<OVRGrabber>();
+
+                    // lift opposite hand to avoid blasting off 
+                    if (hands[0] != this && hands[0].m_grabbedObj is OVRClimbable)
+                    {
+                        hands[0].GrabbableRelease(Vector3.zero, Vector3.zero);
+                    }
+                    else if (hands[1] != this && hands[1].m_grabbedObj is OVRClimbable)
+                    {
+                        hands[1].GrabbableRelease(Vector3.zero, Vector3.zero);
+                    }
+
+                    rb.velocity = Vector3.zero;
+                    return;
+                }
+
+                MoveGrabbedObject(m_lastPos, m_lastRot, true);
+
+                if (m_parentHeldObject)
+                {
+                    m_grabbedObj.transform.parent = transform;
+                }
+
+                Physics.IgnoreCollision(m_grabbedObj.GetComponent<Collider>(), bodyCol.GetComponent<Collider>());
+
             }
-
-            MoveGrabbedObject(m_lastPos, m_lastRot, true);
-
-            if (m_parentHeldObject)
-            {
-                m_grabbedObj.transform.parent = transform;
-            }
-
-            Physics.IgnoreCollision(m_grabbedObj.GetComponent<Collider>(), bodyCol.GetComponent<Collider>());
-
         }
     }
 
@@ -391,6 +400,14 @@ public class OVRGrabber : MonoBehaviour
     {
         if (m_grabbedObj != null)
         {
+            VRTool vrTool = m_grabbedObj.GetComponent<VRTool>();
+
+            if (vrTool != null)
+            {
+                vrTool.Dropped();
+            }
+
+
             Physics.IgnoreCollision(m_grabbedObj.GetComponent<Collider>(), bodyCol.GetComponent<Collider>(), false);
             OVRPose localPose = new OVRPose { position = OVRInput.GetLocalControllerPosition(m_controller), orientation = OVRInput.GetLocalControllerRotation(m_controller) };
             OVRPose offsetPose = new OVRPose { position = m_anchorOffsetPosition, orientation = m_anchorOffsetRotation };

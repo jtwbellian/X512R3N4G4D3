@@ -23,29 +23,18 @@ public class GrabMagnet : MonoBehaviour
         if (item == null)
             return;
 
-        if (item.isHat && !holdsHat)
+        if ((holdsHat && !item.isHat) || (!holdsHat && item.isHat))
             return;
-       /*
-        if (holdsHat && !item.isHat)
-            return;
- 
-        if (!holdsTool && !item.isHat)
-            return;
-            */
 
         // grab a tool 
         if (!item.isHeld() && col.transform.parent != transform)
         {
-            Collider [] allCol = col.transform.GetComponentsInChildren<Collider>();
             Rigidbody rb = col.transform.GetComponent<Rigidbody>();
-
-            foreach (Collider c in allCol)
-            {
-                c.isTrigger = true;
-            }
 
             item.GetComponent<Rigidbody>().velocity = Vector3.zero;
             rb.isKinematic = true;
+
+            item.Grabbed();
 
             item.transform.parent = transform;
             item.transform.localPosition = Vector3.zero;
