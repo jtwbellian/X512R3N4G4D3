@@ -2,18 +2,20 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Rendering.PostProcessing;
 
 public class VRMovementController : MonoBehaviour
 {
-
+    private const float TOL = 0.05f;
+    private const float MAX_VIGNETTE = 0.8f;
+    private const float MIN_VIGNETTE = 0.2f;
     private const float MAX_SPEED = 20f;
     private float boostbar_width = 0.0f;
-    private Rigidbody rb;
+    public Rigidbody rigidBody;
     private Transform headPos;
     private float rechargeRate = 0.5f;
-    private Transform body;
     private bool ReadyToSnapTurn = false;
-
+    private Vignette vignette;
 
     public float speed = 2f;
     public float boost = 1f;
@@ -21,7 +23,7 @@ public class VRMovementController : MonoBehaviour
 
     public Text velocityLabel;
     public Transform boostBar;
-
+    public PostProcessVolume ppVolume;
 
     // Start is called before the first frame update
     void Start()
@@ -31,10 +33,14 @@ public class VRMovementController : MonoBehaviour
         else
             boostbar_width = boostBar.localScale.x;
 
-        rb = GetComponentInChildren<Rigidbody>();
-        rb.freezeRotation = true;
+
+
+        ppVolume.profile.TryGetSettings(out vignette);
+
+        //body = GetComponentInChildren<IKPlayerController>().transform;
+        //rb = body.GetComponent<Rigidbody>();
+        rigidBody.freezeRotation = true;
         headPos = GetComponentInChildren<Camera>().transform;
-        body = GetComponentInChildren<IKPlayerController>().transform;
 
     }
 
@@ -48,7 +54,7 @@ public class VRMovementController : MonoBehaviour
         if (Mathf.Abs(stickY) > 0f && boost > 0f)
         {
 
-            rb.AddForce(headPos.forward * (speed * stickY * boost), ForceMode.Force);
+            rigidBody.AddForce(headPos.forward * (speed * stickY * boost), ForceMode.Force);
             boost -= Time.deltaTime * Mathf.Abs(stickY);
         }
         else if (boost < 1f)
@@ -60,8 +66,8 @@ public class VRMovementController : MonoBehaviour
         
         // Turn view 
         Vector3 euler = transform.rotation.eulerAngles;
-        Vector3 lastPos = body.transform.localPosition;
-        body.transform.localPosition = Vector3.zero;
+        //Vector3 lastPos = body.transform.localPosition;
+        //body.transform.localPosition = Vector3.zero;
 
         if (OVRInput.Get(OVRInput.Button.SecondaryThumbstickLeft))
         {
@@ -84,8 +90,14 @@ public class VRMovementController : MonoBehaviour
             ReadyToSnapTurn = true;
         }
 
-        body.transform.localPosition = lastPos;
+        //body.transform.localPosition = lastPos;
         transform.rotation = Quaternion.Euler(euler);
+        
+        if (vignette != null)
+        {
+            vignette.intensity.value = Mathf.Clamp(Mathf.Abs(rigidBody.velocity.magnitude), MIN_VIGNETTE, MAX_VIGNETTE);
+        }
+ 
     }
 
 }

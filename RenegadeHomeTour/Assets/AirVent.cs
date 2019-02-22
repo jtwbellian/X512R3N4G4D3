@@ -22,9 +22,11 @@ public class AirVent : MonoBehaviour
 
     public void Flap()
     {
-        Debug.Log("flap triggered");
 
-        anim.speed = 2f;
+        if (anim == null)
+            anim = GetComponent<Animator>();
+
+        anim.speed = 1f;
         anim.SetBool("Flap", true);
         Invoke("Reset", 2f);
     }

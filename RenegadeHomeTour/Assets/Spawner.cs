@@ -6,11 +6,13 @@ public class Spawner : MonoBehaviour
 {
 
     public GameObject obj;
-    public float delay = 1f;
+    public float delay = 5f;
     public Transform initialTarget;
     public Vector3 initialForce;
     [SerializeField]
     public UnityEvent onSpawn;
+    private float invocationDelay = 1.5f;
+    private bool hasBeenInvoked = false;
 
   // Start is called before the first frame update
   void Start()
@@ -23,7 +25,16 @@ public class Spawner : MonoBehaviour
     {
         while (true)
         {
-            onSpawn.Invoke();
+            
+            // If has NOT been invoked, invoke the delegate and wait to spawn
+            if (!hasBeenInvoked)
+            {
+                hasBeenInvoked = true;
+                onSpawn.Invoke();
+                yield return new WaitForSeconds(invocationDelay);
+            }
+
+            // Spawn the object and reset hasBeenInvoked
             GameObject instance = Instantiate(obj, transform.position, transform.rotation);
             instance.GetComponent<Rigidbody>().AddForce(initialForce);
 
@@ -32,6 +43,8 @@ public class Spawner : MonoBehaviour
 
             if (crab != null)
                 crab.target = initialTarget;
+
+            hasBeenInvoked = false;
 
             yield return new WaitForSeconds(delay);
         }

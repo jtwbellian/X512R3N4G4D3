@@ -31,7 +31,7 @@ public class vrt_gun : VRTool, iSpecial_Grabbable
     {
         Rigidbody shot;
         light.intensity = .5f;
-        Invoke("LightOff", 0.6f);
+        Invoke("LightOff", 0.2f);
 
         shot = Instantiate(bulletType);
 
