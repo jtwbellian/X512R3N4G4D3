@@ -17,6 +17,8 @@ GameObject:
   - component: {fileID: 5626088104548114129}
   - component: {fileID: 3893587840873262559}
   - component: {fileID: 2436695501890235076}
+  - component: {fileID: 4800249141331953956}
+  - component: {fileID: 2297015649872892113}
   m_Layer: 0
   m_Name: LedgeGrabber
   m_TagString: Untagged
@@ -140,6 +142,8 @@ MonoBehaviour:
   - {fileID: 7763857018968803384}
   - {fileID: 7434331514347264807}
   - {fileID: 5626088104548114129}
+  - {fileID: 4800249141331953956}
+  - {fileID: 2297015649872892113}
 --- !u!54 &2436695501890235076
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -156,6 +160,32 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!65 &4800249141331953956
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2570134142337728777}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.47216797, y: 0.40771484, z: 43.133545}
+  m_Center: {x: -2475.258, y: 1305.6086, z: 1373.4005}
+--- !u!65 &2297015649872892113
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2570134142337728777}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.4140625, y: 0.40771484, z: 43.133545}
+  m_Center: {x: -2472.7456, y: 1305.6086, z: 1373.4005}
 --- !u!1 &4580416379249744901
 GameObject:
   m_ObjectHideFlags: 0
