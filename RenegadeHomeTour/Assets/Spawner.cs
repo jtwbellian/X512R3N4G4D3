@@ -11,7 +11,7 @@ public class Spawner : MonoBehaviour
     public Vector3 initialForce;
     [SerializeField]
     public UnityEvent onSpawn;
-    private float invocationDelay = 1.5f;
+    private float invocationDelay = 0.8f;
     private bool hasBeenInvoked = false;
 
   // Start is called before the first frame update

@@ -59,7 +59,7 @@ public class VRButton : MonoBehaviour
         }
 
         canPush = false;
-        Invoke("AllowPush", 5f);
+        Invoke("AllowPush", 10f);
 
     }
 

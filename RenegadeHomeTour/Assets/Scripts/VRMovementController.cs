@@ -7,7 +7,7 @@ using UnityEngine.Rendering.PostProcessing;
 public class VRMovementController : MonoBehaviour
 {
     private const float TOL = 0.05f;
-    private const float MAX_VIGNETTE = 0.8f;
+    private const float MAX_VIGNETTE = 0.7f;
     private const float MIN_VIGNETTE = 0.2f;
     private const float MAX_SPEED = 20f;
     private float boostbar_width = 0.0f;
@@ -16,6 +16,8 @@ public class VRMovementController : MonoBehaviour
     private float rechargeRate = 0.5f;
     private bool ReadyToSnapTurn = false;
     private Vignette vignette;
+
+    private OVRGrabber[] grabbers;
 
     public float speed = 2f;
     public float boost = 1f;
@@ -33,7 +35,7 @@ public class VRMovementController : MonoBehaviour
         else
             boostbar_width = boostBar.localScale.x;
 
-
+        grabbers = GetComponentsInChildren<OVRGrabber>();
 
         ppVolume.profile.TryGetSettings(out vignette);
 
@@ -92,10 +94,23 @@ public class VRMovementController : MonoBehaviour
 
         //body.transform.localPosition = lastPos;
         transform.rotation = Quaternion.Euler(euler);
-        
-        if (vignette != null)
+
+        var canVig = true;
+
+        for(int i = 0; i < grabbers.Length - 1; i ++)
         {
-            vignette.intensity.value = Mathf.Clamp(Mathf.Abs(rigidBody.velocity.magnitude), MIN_VIGNETTE, MAX_VIGNETTE);
+            if (grabbers[i].grabbedObject is OVRClimbable)
+            {
+                canVig = false;
+            }
+        }
+
+        if (vignette != null )
+        {
+            if (canVig)
+                vignette.intensity.value = Mathf.Clamp(Mathf.Abs(rigidBody.velocity.magnitude) / 2f, MIN_VIGNETTE, MAX_VIGNETTE);
+            else
+                vignette.intensity.value = MAX_VIGNETTE / 2f;
         }
  
     }

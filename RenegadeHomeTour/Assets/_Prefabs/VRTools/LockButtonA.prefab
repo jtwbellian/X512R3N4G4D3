@@ -198,6 +198,9 @@ MonoBehaviour:
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
   lightSignal: {fileID: 0}
+  canPush: 1
+  onSound: {fileID: 0}
+  offSound: {fileID: 0}
 --- !u!65 &6542264035758754260
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -337,6 +340,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Text
       value: "VENT \nLOCK"
+      objectReference: {fileID: 0}
+    - target: {fileID: 7410893326700167268, guid: f52a7ce9a576803458a7af965c0345e1,
+        type: 3}
+      propertyPath: m_Color.r
+      value: 0.14150941
+      objectReference: {fileID: 0}
+    - target: {fileID: 7410893326700167268, guid: f52a7ce9a576803458a7af965c0345e1,
+        type: 3}
+      propertyPath: m_Color.g
+      value: 0.14150941
+      objectReference: {fileID: 0}
+    - target: {fileID: 7410893326700167268, guid: f52a7ce9a576803458a7af965c0345e1,
+        type: 3}
+      propertyPath: m_Color.b
+      value: 0.14150941
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f52a7ce9a576803458a7af965c0345e1, type: 3}
