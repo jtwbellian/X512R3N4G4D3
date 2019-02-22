@@ -46,6 +46,9 @@ GameObject:
   - component: {fileID: 2178877769941476728}
   - component: {fileID: 3510007185792642609}
   - component: {fileID: 2735014718537529644}
+  - component: {fileID: 6501942784695966525}
+  - component: {fileID: 30796466964911761}
+  - component: {fileID: 8488376900684967443}
   m_Layer: 0
   m_Name: AirDuct_PFAB
   m_TagString: Untagged
@@ -167,6 +170,9 @@ MonoBehaviour:
   - {fileID: 4310279481794962760}
   - {fileID: 8393044690829704729}
   - {fileID: 2178877769941476728}
+  - {fileID: 8488376900684967443}
+  - {fileID: 30796466964911761}
+  - {fileID: 6501942784695966525}
 --- !u!54 &2735014718537529644
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -183,6 +189,48 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!136 &6501942784695966525
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1177081009479927987}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 0.06225586
+  m_Height: 0.49108887
+  m_Direction: 2
+  m_Center: {x: 0.17317045, y: 0.8866272, z: -1.6106741}
+--- !u!136 &30796466964911761
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1177081009479927987}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 0.058685303
+  m_Height: 0.49108887
+  m_Direction: 2
+  m_Center: {x: 0.17317045, y: 1.0779724, z: -1.6106741}
+--- !u!136 &8488376900684967443
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1177081009479927987}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 0.050369263
+  m_Height: 0.49108887
+  m_Direction: 2
+  m_Center: {x: 0.17317045, y: 1.287674, z: -1.6106741}
 --- !u!1 &2167982819241809519
 GameObject:
   m_ObjectHideFlags: 0
