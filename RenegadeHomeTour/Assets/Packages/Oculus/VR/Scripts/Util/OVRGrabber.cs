@@ -53,7 +53,8 @@ public class OVRGrabber : MonoBehaviour
     // Should be OVRInput.Controller.LTouch or OVRInput.Controller.RTouch.
     [SerializeField]
     public OVRInput.Controller m_controller;
-
+    [SerializeField]
+    public Collider bodyCol;
     [SerializeField]
     protected Transform m_parentTransform;
 
@@ -69,6 +70,7 @@ public class OVRGrabber : MonoBehaviour
 	protected Dictionary<OVRGrabbable, int> m_grabCandidates = new Dictionary<OVRGrabbable, int>();
 	protected bool operatingWithoutOVRCameraRig = true;
     protected Vector3 bodyPos;
+
     protected Vector3 prevPos;
 
     protected Rigidbody rb;
@@ -319,13 +321,24 @@ public class OVRGrabber : MonoBehaviour
             // speed and sends them flying. The grabbed object may still teleport inside of other objects, but fixing that
             // is beyond the scope of this demo.
 
-            // Stop player when climb begins
+            // Stop player and release other hand if climb begins
             if (m_grabbedObj is OVRClimbable)
             {
+                OVRGrabber [] hands = transform.parent.GetComponentsInChildren<OVRGrabber>();
+
+                // lift opposite hand to avoid blasting off 
+                if (hands[0] != this && hands[0].m_grabbedObj is OVRClimbable)
+                {
+                    hands[0].GrabbableRelease(Vector3.zero, Vector3.zero);
+                }
+                else if (hands[1] != this && hands[1].m_grabbedObj is OVRClimbable)
+                {
+                    hands[1].GrabbableRelease(Vector3.zero, Vector3.zero);
+                }
+
                 rb.velocity = Vector3.zero;
                 return;
             }
-
 
             MoveGrabbedObject(m_lastPos, m_lastRot, true);
 
@@ -333,6 +346,8 @@ public class OVRGrabber : MonoBehaviour
             {
                 m_grabbedObj.transform.parent = transform;
             }
+
+            Physics.IgnoreCollision(m_grabbedObj.GetComponent<Collider>(), bodyCol.GetComponent<Collider>());
 
         }
     }
@@ -376,7 +391,8 @@ public class OVRGrabber : MonoBehaviour
     {
         if (m_grabbedObj != null)
         {
-			OVRPose localPose = new OVRPose { position = OVRInput.GetLocalControllerPosition(m_controller), orientation = OVRInput.GetLocalControllerRotation(m_controller) };
+            Physics.IgnoreCollision(m_grabbedObj.GetComponent<Collider>(), bodyCol.GetComponent<Collider>(), false);
+            OVRPose localPose = new OVRPose { position = OVRInput.GetLocalControllerPosition(m_controller), orientation = OVRInput.GetLocalControllerRotation(m_controller) };
             OVRPose offsetPose = new OVRPose { position = m_anchorOffsetPosition, orientation = m_anchorOffsetRotation };
             localPose = localPose * offsetPose;
 
@@ -389,6 +405,7 @@ public class OVRGrabber : MonoBehaviour
 
         // Re-enable grab volumes to allow overlap events
         GrabVolumeEnable(true);
+
     }
 
     protected void GrabbableRelease(Vector3 linearVelocity, Vector3 angularVelocity)

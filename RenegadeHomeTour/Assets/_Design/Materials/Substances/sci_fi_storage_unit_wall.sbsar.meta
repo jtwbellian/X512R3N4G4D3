@@ -16,12 +16,30 @@ ScriptedImporter:
     generateAllOutputs: 0
     generateMipMaps: 1
     preset: " <sbspreset pkgurl=\"pkg://sci_fi_storage_unit_wall\" label=\"\" >\n
-      \ <presetinput identifier=\"$outputsize\" uid=\"3108416346\" type=\"8\" value=\"11,11\"
+      \ <presetinput identifier=\"$outputsize\" uid=\"3108416346\" type=\"8\" value=\"10,10\"
       />\n  <presetinput identifier=\"door_paint_color\" uid=\"3454536265\" type=\"2\"
       value=\"1,1,1\" />\n </sbspreset>\n"
     shaderName: Lightweight Render Pipeline/Simple Lit
     outputNames: diffuse,normal,specular
-    texturePackingList: []
+    texturePackingList:
+    - outputName: diffuse
+      alphaSource: diffuse
+    - outputName: baseColor
+      alphaSource: baseColor
+    - outputName: normal
+      alphaSource: normal
+    - outputName: specular
+      alphaSource: specular
+    - outputName: glossiness
+      alphaSource: glossiness
+    - outputName: roughness
+      alphaSource: roughness
+    - outputName: metallic
+      alphaSource: metallic
+    - outputName: height
+      alphaSource: height
+    - outputName: ambientOcclusion
+      alphaSource: ambientOcclusion
     textureParameters:
     - textureName: Sci Fi Storage Unit Wall - glossiness
       wrapMode: 0
@@ -82,8 +100,8 @@ ScriptedImporter:
     targetSettingList:
     - label: 
       bLockRatio: 1
-      textureWidth: 2048
-      textureHeight: 2048
+      textureWidth: 1024
+      textureHeight: 1024
       textureFormat: 0
       bGenerateOnLoad: 1
     material: {fileID: -3682039499008682431, guid: 21c30f8b1da284f449bb45902fbb6916,
