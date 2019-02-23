@@ -123,8 +123,6 @@ public class OVRGrabbable : MonoBehaviour
         m_grabbedCollider = grabPoint;
         gameObject.GetComponent<Rigidbody>().isKinematic = true;
 
-        Debug.Log("Picked Up");
-
         // iSpecialGrabbable onGrab
         if (this is iSpecial_Grabbable)
         {
@@ -160,13 +158,18 @@ public class OVRGrabbable : MonoBehaviour
         m_grabbedBy = null;
         m_grabbedCollider = null;
 
-        Debug.Log("Dropped");
         // iSpecialGrabbable OnRelease
         if (this is iSpecial_Grabbable)
         {
             var iSpecial = (iSpecial_Grabbable)this;
             iSpecial.OnRelease();
         }
+    }
+
+    public void CancelGrab()
+    {
+        m_grabbedBy = null;
+        m_grabbedCollider = null;
     }
 
     void Awake()

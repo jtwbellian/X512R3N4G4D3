@@ -7,8 +7,8 @@ using UnityEngine.Rendering.PostProcessing;
 public class VRMovementController : MonoBehaviour
 {
     private const float TOL = 0.05f;
-    private const float MAX_VIGNETTE = 0.7f;
-    private const float MIN_VIGNETTE = 0.2f;
+    private const float MAX_VIGNETTE = 0.8f;
+    private const float MIN_VIGNETTE = 0.25f;
     private const float MAX_SPEED = 20f;
     private float boostbar_width = 0.0f;
     public Rigidbody rigidBody;
@@ -36,7 +36,8 @@ public class VRMovementController : MonoBehaviour
             boostbar_width = boostBar.localScale.x;
 
         grabbers = GetComponentsInChildren<OVRGrabber>();
-
+        Debug.Log("GrabbersFound:" + grabbers.Length);
+        
         ppVolume.profile.TryGetSettings(out vignette);
 
         //body = GetComponentInChildren<IKPlayerController>().transform;

@@ -5,7 +5,6 @@ using UnityEngine;
 public class scr_hat : VRTool, iSpecial_Grabbable
 {
     private SphereCollider myCollider;
-    public SphereCollider hatSpot;
 
     void iSpecial_Grabbable.OnGrab()
     {
@@ -30,6 +29,7 @@ public class scr_hat : VRTool, iSpecial_Grabbable
     public override void Init()
     {
         isHat = true;
+        myCollider = GetComponent<SphereCollider>();
     }
 
     public override void IndexTouch()

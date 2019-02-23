@@ -5,6 +5,7 @@ using UnityEngine;
 public class vrt_gun : VRTool, iSpecial_Grabbable
 {
 
+
     private bool canFire = true;
     private AudioSource audioSource;
     private Animator anim;
@@ -23,15 +24,20 @@ public class vrt_gun : VRTool, iSpecial_Grabbable
 
     public override void IndexRelease()
     {
-        light.intensity = 0f;
+        if (light != null)
+            light.intensity = 0f;
         canFire = true;
     }
 
     public override void IndexTouch()
     {
         Rigidbody shot;
-        light.intensity = .5f;
-        Invoke("LightOff", 0.2f);
+
+        if (light != null)
+        {
+            light.intensity = .5f;
+            Invoke("LightOff", 0.2f);
+        }
 
         shot = Instantiate(bulletType);
 
@@ -69,7 +75,7 @@ public class vrt_gun : VRTool, iSpecial_Grabbable
 
      void iSpecial_Grabbable.OnGrab()
     {
-        throw new System.NotImplementedException();
+        LinesOff();
     }
 
     void iSpecial_Grabbable.OnRelease()
