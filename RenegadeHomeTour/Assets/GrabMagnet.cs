@@ -7,11 +7,16 @@ public class GrabMagnet : MonoBehaviour
 {
     public bool holdsHat;
     public bool holdsTool;
+    public bool empty = true;
 
-    // Start is called before the first frame update
-    void Start()
+    void OnTriggerExit(Collider col)
     {
-        
+        VRTool item;
+
+        item = col.GetComponent<VRTool>();
+
+        if (item == null)
+            return;
     }
 
     void OnTriggerStay(Collider col)
@@ -20,10 +25,11 @@ public class GrabMagnet : MonoBehaviour
     
         item = col.GetComponent<VRTool>();
 
-        if (item == null)
+
+        if (item == null || (item.isHat && !holdsHat))
             return;
 
-        if ((holdsHat && !item.isHat) || (!holdsHat && item.isHat))
+        if (!item.isHat && !holdsTool)
             return;
 
         // grab a tool 
@@ -34,8 +40,8 @@ public class GrabMagnet : MonoBehaviour
             item.GetComponent<Rigidbody>().velocity = Vector3.zero;
             rb.isKinematic = true;
 
-            item.Grabbed();
-
+            item.Release();
+            
             item.transform.parent = transform;
             item.transform.localPosition = Vector3.zero;
             item.transform.localRotation = Quaternion.identity;

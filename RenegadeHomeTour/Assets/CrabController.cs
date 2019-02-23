@@ -70,6 +70,8 @@ public class CrabController : MonoBehaviour
                 StartCoroutine("Dissolve");
                 alive = false;
             }
+
+            animator.speed = 0f;
  
         }
     }

@@ -7,7 +7,10 @@ using UnityEngine;
 public abstract class VRTool : MonoBehaviour
 {
     private Rigidbody rb;
+    private Collider[] toolCols;
     private OVRGrabbable grabInfo;
+    //private Renderer[] renderers;
+
     private bool indexDown = false;
     private bool thumbDown = false;
 
@@ -16,14 +19,16 @@ public abstract class VRTool : MonoBehaviour
 
     public bool isHat = false;
     public float indexValue = 0f;
+    public GrabMagnet home;
 
     [HideInInspector]
     public int hand; // 0 = primary 1 = secondary
 
-
     // Start is called before the first frame update
     void Start()
     {
+        toolCols = GetComponentsInChildren<Collider>();
+
         grabInfo = GetComponent<OVRGrabbable>();
         rb = GetComponent<Rigidbody>();
         Init();
@@ -50,14 +55,14 @@ public abstract class VRTool : MonoBehaviour
                         IndexTouch();
                         indexDown = true;
                     }
-                    else if(indexValue <= 0.5f && indexDown)
+                    else if (indexValue <= 0.5f && indexDown)
                     {
                         IndexRelease();
                         indexDown = false;
                     }
 
                     // Thumb Primary
-                    if (OVRInput.Get(OVRInput.NearTouch.PrimaryThumbButtons) && ! thumbDown)
+                    if (OVRInput.Get(OVRInput.NearTouch.PrimaryThumbButtons) && !thumbDown)
                     {
                         ThumbTouch();
                         thumbDown = true;
@@ -99,7 +104,7 @@ public abstract class VRTool : MonoBehaviour
 
                     break;
             }
-         }
+        }
     }
 
     public abstract void Init();
@@ -111,8 +116,6 @@ public abstract class VRTool : MonoBehaviour
 
     public void Dropped()
     {
-        Collider[] toolCols = transform.GetComponentsInChildren<Collider>();
-
         foreach (Collider c in toolCols)
         {
             if (!c.enabled)
@@ -122,13 +125,28 @@ public abstract class VRTool : MonoBehaviour
 
     public void Grabbed()
     {
-        Collider[] toolCols = transform.GetComponentsInChildren<Collider>();
+        LinesOff();
+        toolCols = GetComponentsInChildren<Collider>();
 
         foreach (Collider c in toolCols)
         {
             if (!c.isTrigger && c.enabled)
                 c.enabled = false;
         }
+    }
+
+    public void Release()
+    {
+        toolCols = GetComponentsInChildren<Collider>();
+
+        foreach (Collider c in toolCols)
+        {
+            if (c.enabled && !c.isTrigger)
+                c.enabled = false;
+        }
+
+        if (grabInfo != null)
+            grabInfo.CancelGrab();
     }
 
     public bool isHeld()
@@ -139,6 +157,58 @@ public abstract class VRTool : MonoBehaviour
         }
 
         return grabInfo.isGrabbed;
+    }
+
+    void OnTriggerEnter(Collider col)
+    {
+        if (isHeld())
+            return; 
+
+        if ((col.CompareTag("LeftHand") || col.CompareTag("RightHand")))
+        {
+            LinesOn();
+        }
+    }
+
+    void OnTriggerExit(Collider col)
+    {
+        if (isHeld())
+            return;
+
+        if ((col.CompareTag("LeftHand") || col.CompareTag("RightHand")))
+        {
+            LinesOff();
+        }
+    }
+
+    void OnColliderEnter(Collider col)
+    {
+        OnTriggerEnter(col);
+    }
+
+    void OnColliderExit(Collider col)
+    {
+        OnTriggerExit(col);
+    }
+
+    public void LinesOn()
+    {
+        var renderers = GetComponentsInChildren<Renderer>();
+        // Set interactable lines on or off
+        foreach (Renderer r in renderers)
+        {
+            r.material.SetInt("_lineMode", 1);
+        }
+    }
+
+    public void LinesOff()
+    {
+        var renderers = GetComponentsInChildren<Renderer>();
+        // Set interactable lines on or off
+        foreach (Renderer r in renderers)
+        {
+            r.material.SetInt("_lineMode", 0);
+        }
     }
 
 }
