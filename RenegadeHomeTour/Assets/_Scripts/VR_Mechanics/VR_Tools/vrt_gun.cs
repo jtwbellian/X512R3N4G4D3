@@ -15,11 +15,13 @@ public class vrt_gun : VRTool, iSpecial_Grabbable
     public float fireSpeed = 10f;
     public Transform gunBarrel;
 
+
     public override void Init()
     {
         light = GetComponentInChildren<Light>();
         audioSource = GetComponent<AudioSource>();
         anim = GetComponentInChildren<Animator>();
+
     }
 
     public override void IndexRelease()
@@ -46,6 +48,8 @@ public class vrt_gun : VRTool, iSpecial_Grabbable
 
         if (anim != null)
             anim.Play("Fire", 0, 0.0f);
+
+        haptics.Play(VibrationForce.Hard, grabInfo.grabbedBy.m_controller, 0.15f);
 
         //shot.transform.parent = null;
 

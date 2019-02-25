@@ -407,7 +407,6 @@ public class OVRGrabber : MonoBehaviour
                 vrTool.Dropped();
             }
 
-
             Physics.IgnoreCollision(m_grabbedObj.GetComponent<Collider>(), bodyCol.GetComponent<Collider>(), false);
             OVRPose localPose = new OVRPose { position = OVRInput.GetLocalControllerPosition(m_controller), orientation = OVRInput.GetLocalControllerRotation(m_controller) };
             OVRPose offsetPose = new OVRPose { position = m_anchorOffsetPosition, orientation = m_anchorOffsetRotation };

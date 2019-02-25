@@ -16,6 +16,7 @@ public class VRMovementController : MonoBehaviour
     private float rechargeRate = 0.5f;
     private bool ReadyToSnapTurn = false;
     private Vignette vignette;
+    private float boostRate = 0.5f;
 
     private OVRGrabber[] grabbers;
 
@@ -58,7 +59,7 @@ public class VRMovementController : MonoBehaviour
         {
 
             rigidBody.AddForce(headPos.forward * (speed * stickY * boost), ForceMode.Force);
-            boost -= Time.deltaTime * Mathf.Abs(stickY);
+            boost -= Time.deltaTime * (Mathf.Abs(stickY) * boostRate);
         }
         else if (boost < 1f)
         {

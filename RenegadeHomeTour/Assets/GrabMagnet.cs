@@ -8,6 +8,7 @@ public class GrabMagnet : MonoBehaviour
     public bool holdsHat;
     public bool holdsTool;
     public bool empty = true;
+    public VRTool heldTool;
 
     void OnTriggerExit(Collider col)
     {
@@ -17,6 +18,9 @@ public class GrabMagnet : MonoBehaviour
 
         if (item == null)
             return;
+
+        if (item == heldTool)
+            heldTool = null;
     }
 
     void OnTriggerStay(Collider col)
@@ -45,6 +49,7 @@ public class GrabMagnet : MonoBehaviour
             item.transform.parent = transform;
             item.transform.localPosition = Vector3.zero;
             item.transform.localRotation = Quaternion.identity;
+            heldTool = item;
         }
 
     }

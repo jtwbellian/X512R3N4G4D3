@@ -8,7 +8,7 @@ public abstract class VRTool : MonoBehaviour
 {
     private Rigidbody rb;
     private Collider[] toolCols;
-    private OVRGrabbable grabInfo;
+    public OVRGrabbable grabInfo;
     //private Renderer[] renderers;
 
     private bool indexDown = false;
@@ -20,6 +20,7 @@ public abstract class VRTool : MonoBehaviour
     public bool isHat = false;
     public float indexValue = 0f;
     public GrabMagnet home;
+    public OVRHapticsManager haptics;
 
     [HideInInspector]
     public int hand; // 0 = primary 1 = secondary
@@ -31,6 +32,9 @@ public abstract class VRTool : MonoBehaviour
 
         grabInfo = GetComponent<OVRGrabbable>();
         rb = GetComponent<Rigidbody>();
+ 
+        haptics = OVRHapticsManager.instance;
+
         Init();
     }
 
@@ -123,6 +127,14 @@ public abstract class VRTool : MonoBehaviour
         }
     }
 
+
+    public void GoHome()
+    {
+        if (home == null)
+            return;
+        transform.position = home.transform.position;
+    }
+
     public void Grabbed()
     {
         LinesOff();
@@ -141,7 +153,7 @@ public abstract class VRTool : MonoBehaviour
 
         foreach (Collider c in toolCols)
         {
-            if (c.enabled && !c.isTrigger)
+            if (!c.isTrigger && c.enabled )
                 c.enabled = false;
         }
 
@@ -167,6 +179,8 @@ public abstract class VRTool : MonoBehaviour
         if ((col.CompareTag("LeftHand") || col.CompareTag("RightHand")))
         {
             LinesOn();
+            haptics.Play(VibrationForce.Light, grabInfo.grabbedBy.m_controller, 1f);
+
         }
     }
 

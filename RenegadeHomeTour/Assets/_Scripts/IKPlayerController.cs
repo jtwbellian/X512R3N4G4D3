@@ -137,10 +137,13 @@ public class IKPlayerController : MonoBehaviour
         {
             animator.SetBool("LegsUp", true);
             crouch = true;
+            Debug.Log("Crouch");
             GetComponent<CapsuleCollider>().height = height / 2f;
         }
-        else if (crouch)
+
+        if (crouch && head.localPosition.y > height *0.9)
         {
+            Debug.Log("unCrouch");
             animator.SetBool("LegsUp", false);
             crouch = false;
             GetComponent<CapsuleCollider>().height = height;

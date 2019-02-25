@@ -5,6 +5,7 @@ using UnityEngine;
 public class scr_hat : VRTool, iSpecial_Grabbable
 {
     private SphereCollider myCollider;
+    public bool armorSet = false;
 
     void iSpecial_Grabbable.OnGrab()
     {
