@@ -16,6 +16,7 @@ public class VRMovementController : MonoBehaviour
     private float rechargeRate = 0.5f;
     private bool ReadyToSnapTurn = false;
     private Vignette vignette;
+    private float boostRate = 0.5f;
 
     private OVRGrabber[] grabbers;
 
@@ -35,8 +36,7 @@ public class VRMovementController : MonoBehaviour
         else
             boostbar_width = boostBar.localScale.x;
 
-        grabbers = GetComponentsInChildren<OVRGrabber>();
-        Debug.Log("GrabbersFound:" + grabbers.Length);
+        grabbers = transform.root.GetComponentsInChildren<OVRGrabber>();
         
         ppVolume.profile.TryGetSettings(out vignette);
 
@@ -58,7 +58,7 @@ public class VRMovementController : MonoBehaviour
         {
 
             rigidBody.AddForce(headPos.forward * (speed * stickY * boost), ForceMode.Force);
-            boost -= Time.deltaTime * Mathf.Abs(stickY);
+            boost -= Time.deltaTime * Mathf.Abs(stickY) * 0.5f; 
         }
         else if (boost < 1f)
         {
@@ -98,13 +98,16 @@ public class VRMovementController : MonoBehaviour
 
         var canVig = true;
 
-        for(int i = 0; i < grabbers.Length - 1; i ++)
+        /*for(int i = 0; i < grabbers.Length - 1; i ++)
         {
             if (grabbers[i].grabbedObject is OVRClimbable)
             {
                 canVig = false;
             }
-        }
+        }*/
+
+        if (grabbers[0].grabbedObject is OVRClimbable || grabbers[1].grabbedObject is OVRClimbable)
+            canVig = false;
 
         if (vignette != null )
         {

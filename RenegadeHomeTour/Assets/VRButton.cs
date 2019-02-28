@@ -29,8 +29,9 @@ public class VRButton : MonoBehaviour
         if (on)
         {
             on = false;
-            mat.color = Color.red;
+            mat.SetColor("_color", Color.red);
             turnOff.Invoke();
+
 
             if (lightSignal != null)
                 lightSignal.color = Color.red;
@@ -44,8 +45,8 @@ public class VRButton : MonoBehaviour
         else
         {
            on = true;
-           mat.color = Color.green;
-           turnOn.Invoke();
+            mat.SetColor("_color", Color.green);
+            turnOn.Invoke();
 
             if (lightSignal != null)
                 lightSignal.color = Color.green;
@@ -59,7 +60,7 @@ public class VRButton : MonoBehaviour
         }
 
         canPush = false;
-        Invoke("AllowPush", 10f);
+        Invoke("AllowPush", 15f);
 
     }
 

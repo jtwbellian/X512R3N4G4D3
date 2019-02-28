@@ -2,24 +2,27 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class vrt_gun : VRTool, iSpecial_Grabbable
+public class vrt_gun : VRTool
 {
-
 
     private bool canFire = true;
     private AudioSource audioSource;
     private Animator anim;
     private Light light;
+    private OVRHapticsManager hm;
 
     public Rigidbody bulletType;
     public float fireSpeed = 10f;
     public Transform gunBarrel;
+
 
     public override void Init()
     {
         light = GetComponentInChildren<Light>();
         audioSource = GetComponent<AudioSource>();
         anim = GetComponentInChildren<Animator>();
+        hm = OVRHapticsManager.instance;
+
     }
 
     public override void IndexRelease()
@@ -47,7 +50,10 @@ public class vrt_gun : VRTool, iSpecial_Grabbable
         if (anim != null)
             anim.Play("Fire", 0, 0.0f);
 
-        //shot.transform.parent = null;
+        
+        if (hm != null)
+            hm.Play(VibrationForce.Hard, GetGrabber().grabbedBy.m_controller, 0.15f);
+
 
         shot.transform.position = gunBarrel.position;
         shot.transform.rotation = gunBarrel.rotation;
@@ -73,13 +79,15 @@ public class vrt_gun : VRTool, iSpecial_Grabbable
         //throw new System.NotImplementedException();
     }
 
-     void iSpecial_Grabbable.OnGrab()
+    public new void OnGrab()
     {
-        LinesOff();
+        base.OnGrab();
+        light.gameObject.SetActive(true);
     }
 
-    void iSpecial_Grabbable.OnRelease()
+    public new void OnRelease()
     {
-        throw new System.NotImplementedException();
+        base.OnRelease();
+        light.gameObject.SetActive(false);
     }
 }
