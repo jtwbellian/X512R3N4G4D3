@@ -18,8 +18,8 @@ public class Hud : MonoBehaviour
     public Transform hudAnchor; 
 
     public float smoothTime = 0.1f;
-    public float speed = 25f;
-    public Vector3 velocity = Vector3.zero;
+    public float speed = 6f;
+    //public Vector3 velocity = Vector3.zero;
 
 
 
@@ -28,21 +28,21 @@ public class Hud : MonoBehaviour
     {
         gm = GameManager.GetInstance();
         canvasGroup = GetComponentInChildren<CanvasGroup>();
-        playerBody = hudAnchor.transform.root.GetComponentInChildren<VRMovementController>().rigidBody;
+        //playerBody = hudAnchor.transform.root.GetComponentInChildren<VRMovementController>().rigidBody;
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         if (Time.time - lastRefresh > fadeOutTime && canvasGroup.alpha > 0)
         {
-            canvasGroup.alpha -= Time.deltaTime*2f;
+            canvasGroup.alpha -= Time.deltaTime;
         }
 
-        velocity = playerBody.velocity;
+        //velocity = playerBody.velocity;
 
         transform.position = SmoothApproach(lastPos, lastHudAnchorPos, hudAnchor.position, speed);
-        //Vector3.SmoothDamp(transform.position, HudAnchor.position, ref velocity, smoothTime);
+
         lastPos = transform.position;
         lastHudAnchorPos = hudAnchor.transform.position;
         transform.LookAt(Camera.main.transform.position);

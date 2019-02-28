@@ -61,6 +61,7 @@ public class CrabController : MonoBehaviour
             current_state = state.Jump;
             return;
         }
+
         DoesDammage dd = col.transform.GetComponent<DoesDammage>();
         
         if (dd != null)
@@ -72,8 +73,6 @@ public class CrabController : MonoBehaviour
 
             audioSource.clip = dd.impactSnd;
             audioSource.Play();
-
-            rb.AddTorque((col.transform.position - transform.position) * 10f);
 
             health -= dmg;
 

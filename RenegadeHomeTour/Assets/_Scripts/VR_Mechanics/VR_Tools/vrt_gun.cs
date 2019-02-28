@@ -9,6 +9,7 @@ public class vrt_gun : VRTool
     private AudioSource audioSource;
     private Animator anim;
     private Light light;
+    private OVRHapticsManager hm;
 
     public Rigidbody bulletType;
     public float fireSpeed = 10f;
@@ -20,6 +21,7 @@ public class vrt_gun : VRTool
         light = GetComponentInChildren<Light>();
         audioSource = GetComponent<AudioSource>();
         anim = GetComponentInChildren<Animator>();
+        hm = OVRHapticsManager.instance;
 
     }
 
@@ -48,9 +50,10 @@ public class vrt_gun : VRTool
         if (anim != null)
             anim.Play("Fire", 0, 0.0f);
 
-        haptics.Play(VibrationForce.Hard, grabInfo.grabbedBy.m_controller, 0.15f);
+        
+        if (hm != null)
+            hm.Play(VibrationForce.Hard, GetGrabber().grabbedBy.m_controller, 0.15f);
 
-        //shot.transform.parent = null;
 
         shot.transform.position = gunBarrel.position;
         shot.transform.rotation = gunBarrel.rotation;

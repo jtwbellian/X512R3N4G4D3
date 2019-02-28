@@ -8,7 +8,7 @@ public abstract class VRTool : MonoBehaviour, iSpecial_Grabbable
 {
     private Rigidbody rb;
     private Collider[] toolCols;
-    private OVRGrabbable grabInfo;
+    protected OVRGrabbable grabInfo;
     private Renderer [] renderers;
 
     private bool indexDown = false;
@@ -30,14 +30,16 @@ public abstract class VRTool : MonoBehaviour, iSpecial_Grabbable
     void Start()
     {
         toolCols = GetComponentsInChildren<Collider>();
-
         grabInfo = GetComponent<OVRGrabbable>();
-
         rb = GetComponentInChildren<Rigidbody>();
-
         renderers = GetComponentsInChildren<Renderer>();
 
         Init();
+    }
+
+    public OVRGrabbable GetGrabber()
+    {
+        return grabInfo;
     }
 
     // Update is called once per frame
@@ -218,7 +220,7 @@ public abstract class VRTool : MonoBehaviour, iSpecial_Grabbable
         rb.isKinematic = true;
         rb.velocity = Vector3.zero;
 
-        Debug.Log("Home Set to " + grabSpot.ToString());
+        //Debug.Log("Home Set to " + grabSpot.ToString());
     }
 
     public void GoHome()
@@ -226,7 +228,7 @@ public abstract class VRTool : MonoBehaviour, iSpecial_Grabbable
         if (home == null || grabInfo.isGrabbed)
             return;
 
-        Debug.Log("Attempting to send " + this.ToString() + " To its home @ " + home.ToString());
+       // Debug.Log("Attempting to send " + this.ToString() + " To its home @ " + home.ToString());
 
         if (home.IsFree())
         {
@@ -234,7 +236,7 @@ public abstract class VRTool : MonoBehaviour, iSpecial_Grabbable
         }
         else
         {
-            Debug.Log("Home Full");
+            //Debug.Log("Home Full");
             home = null;
         }
 
