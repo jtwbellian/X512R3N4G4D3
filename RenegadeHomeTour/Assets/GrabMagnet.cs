@@ -5,56 +5,78 @@ using UnityEngine;
 [RequireComponent(typeof(Collider))]
 public class GrabMagnet : MonoBehaviour
 {
+    public MeshRenderer orb;
     public bool holdsHat;
     public bool holdsTool;
-    public bool empty = true;
+    private bool empty = true;
+    private VRTool lastItem;
+    
 
-    void OnTriggerExit(Collider col)
+    public void Free()
     {
-        VRTool item;
+        Debug.Log("Holster Free");
+        empty = true;
 
-        item = col.GetComponent<VRTool>();
+        if (orb != null)
+            orb.enabled = true;
+    }
 
-        if (item == null)
-            return;
+    public bool IsFree()
+    {
+        return empty;
     }
 
     void OnTriggerStay(Collider col)
     {
         VRTool item;
-    
         item = col.GetComponent<VRTool>();
 
+        if (!empty)
+        {
+            // To fix the glitch where the holsters bug out
+            if (lastItem.home != this )
+            {
+                // It is a child so fix the home
+                if (lastItem.transform.IsChildOf(transform))
+                    lastItem.home = this;
+                else
+                    Free();
+            }
 
-        if (item == null || (item.isHat && !holdsHat))
             return;
+        }
 
-        if (!item.isHat && !holdsTool)
+
+
+        if (item == null || 
+        item.isHeld() || 
+        (item.isHat && !holdsHat) ||
+        (!item.isHat && !holdsTool))
             return;
 
         // grab a tool 
-        if (!item.isHeld() && col.transform.parent != transform)
+        if (col.transform.parent != transform)
         {
-            Rigidbody rb = col.transform.GetComponent<Rigidbody>();
-
-            item.GetComponent<Rigidbody>().velocity = Vector3.zero;
-            rb.isKinematic = true;
-
-            item.Release();
+            lastItem = item;
             
-            item.transform.parent = transform;
-            item.transform.localPosition = Vector3.zero;
-            item.transform.localRotation = Quaternion.identity;
+            if (item.home != null)
+                item.home.Free();
+
+            Free();
+
+            item.SetHome(this); 
+            
+            empty = false;
+
+            if (orb != null)
+            {
+                orb.enabled = false;
+            }
+
+            Debug.Log("Home Set to "  + this.ToString());
         }
 
-    }
 
-
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
 

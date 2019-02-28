@@ -2,17 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class scr_hat : VRTool, iSpecial_Grabbable
+public class scr_hat : VRTool
 {
     private SphereCollider myCollider;
 
-    void iSpecial_Grabbable.OnGrab()
-    {
-    }
-
-    void iSpecial_Grabbable.OnRelease()
-    {
-    }
 
     // Start is called before the first frame update
     void Start()

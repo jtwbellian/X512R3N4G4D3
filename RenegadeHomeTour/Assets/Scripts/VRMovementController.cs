@@ -35,7 +35,7 @@ public class VRMovementController : MonoBehaviour
         else
             boostbar_width = boostBar.localScale.x;
 
-        grabbers = GetComponentsInChildren<OVRGrabber>();
+        grabbers = transform.root.GetComponentsInChildren<OVRGrabber>();
         Debug.Log("GrabbersFound:" + grabbers.Length);
         
         ppVolume.profile.TryGetSettings(out vignette);
@@ -98,13 +98,16 @@ public class VRMovementController : MonoBehaviour
 
         var canVig = true;
 
-        for(int i = 0; i < grabbers.Length - 1; i ++)
+        /*for(int i = 0; i < grabbers.Length - 1; i ++)
         {
             if (grabbers[i].grabbedObject is OVRClimbable)
             {
                 canVig = false;
             }
-        }
+        }*/
+
+        if (grabbers[0].grabbedObject is OVRClimbable || grabbers[1].grabbedObject is OVRClimbable)
+            canVig = false;
 
         if (vignette != null )
         {
