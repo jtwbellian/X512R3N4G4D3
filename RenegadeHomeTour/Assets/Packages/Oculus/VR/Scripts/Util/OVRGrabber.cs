@@ -30,6 +30,8 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody))]
 public class OVRGrabber : MonoBehaviour
 {
+
+    private GameManager gm;
     // Grip trigger thresholds for picking up objects, with some hysteresis.
     public float grabBegin = 0.55f;
     public float grabEnd = 0.35f;
@@ -125,6 +127,8 @@ public class OVRGrabber : MonoBehaviour
 
     protected virtual void Start()
     {
+        gm = GameManager.GetInstance();
+
         m_lastPos = transform.position;
         m_lastRot = transform.rotation;
         bodyPos = prevPos = transform.root.position;
@@ -193,6 +197,11 @@ public class OVRGrabber : MonoBehaviour
 
     void OnTriggerEnter(Collider otherCollider)
     {
+        if (otherCollider.CompareTag("UNAVAILABLE"))
+        {
+            gm.CreatePopup(transform.position, "Content Currently Unvailable", 5f);
+        }
+
         // Get the grab trigger
 		OVRGrabbable grabbable = otherCollider.GetComponent<OVRGrabbable>() ?? otherCollider.GetComponentInParent<OVRGrabbable>();
         if (grabbable == null) return;
@@ -322,11 +331,11 @@ public class OVRGrabber : MonoBehaviour
 
             if (m_grabbedObj != null)
             {
-                VRTool vrTool = m_grabbedObj.GetComponent<VRTool>();
+                iSpecial_Grabbable special = m_grabbedObj.GetComponent<iSpecial_Grabbable>();
 
-                if (vrTool != null)
+                if (special != null)
                 {
-                    vrTool.Grabbed();
+                    special.OnGrab();
                 }
 
                 // Stop player and release other hand if climb begins
@@ -396,15 +405,22 @@ public class OVRGrabber : MonoBehaviour
         rb.AddForce((m_lastPos - transform.position) / Time.deltaTime, ForceMode.VelocityChange);
     }
 
+
+    // calculate hand velocity based on the last position it was recorded in
+    public Vector3 GetHandVelocity()
+    {
+        return (m_lastPos - transform.position) / Time.deltaTime;
+    }
+
     protected void GrabEnd()
     {
         if (m_grabbedObj != null)
         {
-            VRTool vrTool = m_grabbedObj.GetComponent<VRTool>();
+            iSpecial_Grabbable special = m_grabbedObj.GetComponent<iSpecial_Grabbable>();
 
-            if (vrTool != null)
+            if (special != null)
             {
-                vrTool.Dropped();
+                special.OnRelease();
             }
 
             Physics.IgnoreCollision(m_grabbedObj.GetComponent<Collider>(), bodyCol.GetComponent<Collider>(), false);

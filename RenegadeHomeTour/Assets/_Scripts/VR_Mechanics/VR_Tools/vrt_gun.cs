@@ -2,9 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class vrt_gun : VRTool, iSpecial_Grabbable
+public class vrt_gun : VRTool
 {
-
 
     private bool canFire = true;
     private AudioSource audioSource;
@@ -77,13 +76,15 @@ public class vrt_gun : VRTool, iSpecial_Grabbable
         //throw new System.NotImplementedException();
     }
 
-     void iSpecial_Grabbable.OnGrab()
+    public new void OnGrab()
     {
-        LinesOff();
+        base.OnGrab();
+        light.gameObject.SetActive(true);
     }
 
-    void iSpecial_Grabbable.OnRelease()
+    public new void OnRelease()
     {
-        throw new System.NotImplementedException();
+        base.OnRelease();
+        light.gameObject.SetActive(false);
     }
 }

@@ -6,11 +6,13 @@ public class CrabController : MonoBehaviour
 {
     public enum state { Walk, Jump, Attack };
 
+    private const float TOL = 0.1f;
     private Animator animator;
     private Material [] mats;
     private Rigidbody rb;
     private Transform myJumpPoint;
     private AudioSource audioSource;
+    public AudioClip stabSnd, shotSnd, deathSnd;
 
     private float lastJumpTime = 0f;
     [SerializeField]
@@ -20,6 +22,7 @@ public class CrabController : MonoBehaviour
 
     private float numAttacks = 3;
     private float attack = 0;
+    private float health = 100f;
 
     public state current_state;
     public float speed = 2f;
@@ -56,25 +59,40 @@ public class CrabController : MonoBehaviour
         {
             myJumpPoint = col.transform;
             current_state = state.Jump;
+            return;
         }
-    }
-
-    void OnCollisionEnter(Collision col)
-    {
-        if (col.transform.CompareTag("laser"))
+        DoesDammage dd = col.transform.GetComponent<DoesDammage>();
+        
+        if (dd != null)
         {
+            var dmg = dd.GetDmg();
+
+            if (dmg < TOL)
+                return;
+
+            audioSource.clip = dd.impactSnd;
             audioSource.Play();
 
-            if (alive)
-            { 
-                StartCoroutine("Dissolve");
-                alive = false;
-            }
+            rb.AddTorque((col.transform.position - transform.position) * 10f);
 
-            animator.speed = 0f;
- 
+            health -= dmg;
+
+            if (alive && health <= 0)
+            {
+                StartCoroutine("Dissolve");
+                audioSource.clip = dd.impactSnd;
+                audioSource.Play();
+                alive = false;
+                rb.isKinematic = false;
+                rb.AddTorque(col.transform.position - transform.position);
+                animator.SetBool("dead", true);
+
+                GameManager gm = GameManager.GetInstance();
+                gm.IncrementKillCount();
+            }
         }
     }
+
 
     // Update is called once per frame
     void Update()
@@ -134,10 +152,7 @@ public class CrabController : MonoBehaviour
                      
                     break;
                 }
-
-
         }
-
     }
 
     IEnumerator Dissolve()

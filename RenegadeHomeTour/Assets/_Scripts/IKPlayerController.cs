@@ -8,8 +8,6 @@ public class IKPlayerController : MonoBehaviour
     private const float DEFAULT_HEIGHT = 1.7f;
     private const float MAX_RAYDIST = 25f;
 
-
-    private bool crouch = false;
     private float lGrab = 0f;
     private float lFinger = 0f;
     private float lThumb = 0f;
@@ -23,6 +21,9 @@ public class IKPlayerController : MonoBehaviour
     private Transform handL;
     private Collider fistR;
     private Collider fistL;
+    private CapsuleCollider capsule;
+
+
 
     public Transform head;
     public float height = 1.7f;
@@ -42,16 +43,36 @@ public class IKPlayerController : MonoBehaviour
             Debug.Log("Error: Animator component not found");
         }
 
-
-        for (int i = 0; i < 8; i ++)
+        for (int i = 0; i < 9; i ++)
             animator.SetLayerWeight(i, 1);
+
+        animator.speed = 1f;
 
         handL = GameObject.FindWithTag("LeftHand").transform;
         handR = GameObject.FindWithTag("RightHand").transform;
 
         fistL = handL.GetComponent<Collider>();
         fistR = handR.GetComponent<Collider>();
-    }
+        capsule = GetComponent<CapsuleCollider>();
+
+        Physics.IgnoreCollision(capsule, head.transform.GetComponent<Collider>());
+
+        // Find all Passable objects and set physics to ignore collisions between them and the player
+        GameObject [] passableObjs =  GameObject.FindGameObjectsWithTag("passable");
+
+        for(var i = 0; i < passableObjs.Length; i ++)
+        {
+            var colliders = passableObjs[i].GetComponentsInChildren<Collider>();
+
+            foreach (Collider c in colliders)
+            {
+                Physics.IgnoreCollision(capsule, c);
+                Physics.IgnoreCollision(fistR, c);
+                Physics.IgnoreCollision(fistL, c);
+            }
+        }
+
+       }
 
     public void UpdatePlayerHeight()
     {
@@ -132,22 +153,9 @@ public class IKPlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // if head lower than 3/4 height
-        if (head.localPosition.y < height * 0.75f && !crouch)
-        {
-            animator.SetBool("LegsUp", true);
-            crouch = true;
-            Debug.Log("Crouch");
-            GetComponent<CapsuleCollider>().height = height / 2f;
-        }
 
-        if (crouch && head.localPosition.y > height *0.9)
-        {
-            Debug.Log("unCrouch");
-            animator.SetBool("LegsUp", false);
-            crouch = false;
-            GetComponent<CapsuleCollider>().height = height;
-        }
+        // make collider match your current height
+        capsule.height = Mathf.Abs(head.localPosition.y) * 0.5f;
 
         // position the players body
         if (transform.position !=  head.position)
@@ -185,6 +193,10 @@ public class IKPlayerController : MonoBehaviour
             UpdatePlayerHeight();
         }
 
+        var lerp = (head.localPosition.y - 0.75f) * 2f / height;
+
+
+        animator.SetFloat("Legs", lerp); //Mathf.Clamp(head.localPosition.y / (height * 0.75f), 0f, 1f));
     }
 
 }
