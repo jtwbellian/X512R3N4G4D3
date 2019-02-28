@@ -14,7 +14,7 @@ public class GrabMagnet : MonoBehaviour
 
     public void Free()
     {
-        Debug.Log("Holster Free");
+ //       Debug.Log("Holster Free");
         empty = true;
 
         if (orb != null)
@@ -73,11 +73,7 @@ public class GrabMagnet : MonoBehaviour
                 orb.enabled = false;
             }
 
-            Debug.Log("Home Set to "  + this.ToString());
+//            Debug.Log("Home Set to "  + this.ToString());
         }
-
-
     }
-
-
 }

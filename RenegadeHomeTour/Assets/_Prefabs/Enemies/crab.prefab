@@ -561,6 +561,7 @@ GameObject:
   - component: {fileID: 1014697572107976251}
   - component: {fileID: 6826063245509624400}
   - component: {fileID: 1160472411487933759}
+  - component: {fileID: 7569505592221388711}
   m_Layer: 0
   m_Name: crab
   m_TagString: Untagged
@@ -635,12 +636,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stabSnd: {fileID: 8300000, guid: ce078ab3503464247a2d9c6681b01e26, type: 3}
   shotSnd: {fileID: 8300000, guid: 768e637190acc7d4bbcada07a15d2793, type: 3}
-  deathSnd: {fileID: 0}
+  deathSnd: {fileID: 8300000, guid: ece37b5e29075374883e823a31f9eed5, type: 3}
   jumpDelay: 25
   jumpForce: 3.5
   current_state: 0
   speed: 15
-  jumpDist: 2
+  jumpDist: 1.2
   target: {fileID: 0}
 --- !u!82 &1014697572107976251
 AudioSource:
@@ -772,6 +773,19 @@ MonoBehaviour:
   m_grabPoints:
   - {fileID: 2555077654743643154}
   - {fileID: 3683976394202965045}
+--- !u!135 &7569505592221388711
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2311565940336529617}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.4
+  m_Center: {x: 0, y: 0.38, z: 0.72}
 --- !u!1 &2491244556056111061
 GameObject:
   m_ObjectHideFlags: 0

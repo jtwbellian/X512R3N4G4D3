@@ -17,15 +17,17 @@ public class OVRClimbable : OVRGrabbable
     public bool isHeld = false;
     public Renderer[] renderers;
 
-    void Start()
+    new void Start()
     {
         base.Start();
+
         renderers = GetComponentsInChildren<Renderer>();
+        LinesOn();
     }
 
     public override void GrabBegin(OVRGrabber hand, Collider grabPoint)
     {
-        Debug.Log("Climbable Grabbed");
+        //Debug.Log("Climbable Grabbed");
         isHeld = true;
         LinesOff();
 
@@ -34,11 +36,11 @@ public class OVRClimbable : OVRGrabbable
 
     public override void GrabEnd(Vector3 linearVelocity, Vector3 angularVelocity)
     {
-        Debug.Log("Climbable Released");
+        //Debug.Log("Climbable Released");
         isHeld = false;
         base.GrabEnd(linearVelocity, angularVelocity);
     }
-
+    /*
     void OnTriggerStay(Collider col)
     {
         if (isHeld)
@@ -48,8 +50,8 @@ public class OVRClimbable : OVRGrabbable
         {
             LinesOn();
         }
-    }
-
+    }*/
+    /*
     void OnTriggerExit(Collider col)
     {
         if (isHeld)
@@ -60,7 +62,7 @@ public class OVRClimbable : OVRGrabbable
             LinesOff();
         }
     }
-
+*/
     public void LinesOn()
     {
         // Set interactable lines on or off
@@ -69,7 +71,7 @@ public class OVRClimbable : OVRGrabbable
             r.material.SetInt("_lineMode", 1);
         }
     }
-
+    
     public void LinesOff()
     {
         var renderers = GetComponentsInChildren<Renderer>();

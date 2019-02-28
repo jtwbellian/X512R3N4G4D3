@@ -36,7 +36,6 @@ public class VRMovementController : MonoBehaviour
             boostbar_width = boostBar.localScale.x;
 
         grabbers = transform.root.GetComponentsInChildren<OVRGrabber>();
-        Debug.Log("GrabbersFound:" + grabbers.Length);
         
         ppVolume.profile.TryGetSettings(out vignette);
 
@@ -58,7 +57,7 @@ public class VRMovementController : MonoBehaviour
         {
 
             rigidBody.AddForce(headPos.forward * (speed * stickY * boost), ForceMode.Force);
-            boost -= Time.deltaTime * Mathf.Abs(stickY);
+            boost -= Time.deltaTime * Mathf.Abs(stickY) * 0.5f; 
         }
         else if (boost < 1f)
         {

@@ -248,7 +248,6 @@ GameObject:
   - component: {fileID: 1822568435186962918}
   - component: {fileID: 1822568435186962912}
   - component: {fileID: 1822568435186962914}
-  - component: {fileID: 4214299696693598903}
   - component: {fileID: 41105589334980748}
   - component: {fileID: 3104014136377871025}
   - component: {fileID: 6637728404217401730}
@@ -334,24 +333,6 @@ MonoBehaviour:
     type: 3}
   fireSpeed: 15
   gunBarrel: {fileID: 6278779228977084512}
---- !u!114 &4214299696693598903
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7668219783584443178}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_GeneratorAsset: {fileID: 0}
-  m_Script: {fileID: 11500000, guid: ad1cef2d297383c4183739b09016ea42, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  tool: {fileID: 1822568435186962914}
-  velocityBased: 1
-  power: 4
-  rb: {fileID: 1822568435186962918}
-  impactSnd: {fileID: 0}
 --- !u!65 &41105589334980748
 BoxCollider:
   m_ObjectHideFlags: 0

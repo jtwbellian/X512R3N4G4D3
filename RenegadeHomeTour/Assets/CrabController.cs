@@ -83,10 +83,14 @@ public class CrabController : MonoBehaviour
                 audioSource.clip = dd.impactSnd;
                 audioSource.Play();
                 alive = false;
+                rb.isKinematic = false;
+                rb.AddTorque(col.transform.position - transform.position);
                 animator.SetBool("dead", true);
+
+                GameManager gm = GameManager.GetInstance();
+                gm.IncrementKillCount();
             }
         }
-
     }
 
 
@@ -148,10 +152,7 @@ public class CrabController : MonoBehaviour
                      
                     break;
                 }
-
-
         }
-
     }
 
     IEnumerator Dissolve()

@@ -19,7 +19,11 @@ public class vrt_blade : VRTool
         rotationDown = knife.localRotation;
         positionDown = knife.localPosition;
         rotationUp = knife.localRotation * Quaternion.Euler( 180f, 0f, 0f);
-        positionUp = positionDown + new Vector3(0f, -0.1f, 0f);
+        positionUp = positionDown + new Vector3(0f, -0.0664f, -0.0392f);
+        orientation = 0;
+        StopCoroutine("Flip");
+        knife.rotation = rotationUp;
+        StartCoroutine("Flip");
     }
 
     public override void IndexRelease()
@@ -49,8 +53,8 @@ public class vrt_blade : VRTool
             {
                 rb.velocity = Vector3.zero;
 
-                rb.AddForce(Vector3.forward * 10f, ForceMode.Impulse);
-                rb.AddTorque(transform.up * 50f);
+                rb.AddForce(Vector3.forward * 50f, ForceMode.Impulse);
+                //rb.AddTorque(transform.up * 50f);
             }
             else Debug.Log("Could not find knife rigid body :(");
         }
