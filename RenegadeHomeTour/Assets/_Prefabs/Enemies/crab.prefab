@@ -635,7 +635,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stabSnd: {fileID: 8300000, guid: ce078ab3503464247a2d9c6681b01e26, type: 3}
   shotSnd: {fileID: 8300000, guid: 768e637190acc7d4bbcada07a15d2793, type: 3}
-  deathSnd: {fileID: 8300000, guid: ece37b5e29075374883e823a31f9eed5, type: 3}
+  deathSnd: {fileID: 8300000, guid: 713106c3d4bcccd4d820adfb58d55766, type: 3}
+  chirp1: {fileID: 8300000, guid: f360ab2290969964b8c9fc44e9761c6e, type: 3}
+  chirp2: {fileID: 8300000, guid: 65a7ff8627bd39c4095b9112dd2a5983, type: 3}
+  chirp3: {fileID: 8300000, guid: 07c3b4289d4693c4d83e654ad7f5c1a7, type: 3}
+  chirp4: {fileID: 0}
   jumpDelay: 25
   jumpForce: 3.5
   current_state: 0
@@ -658,7 +662,7 @@ AudioSource:
   m_Pitch: 1
   Loop: 0
   Mute: 0
-  Spatialize: 0
+  Spatialize: 1
   SpatializePostEffects: 0
   Priority: 128
   DopplerLevel: 1.63

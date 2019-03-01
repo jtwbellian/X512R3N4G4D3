@@ -145,7 +145,7 @@ public abstract class VRTool : MonoBehaviour, iSpecial_Grabbable
         if ((col.CompareTag("LeftHand") || col.CompareTag("RightHand")))
         {
             LinesOn();
-            haptics.Play(VibrationForce.Light, GetGrabber().grabbedBy.m_controller, 1f);
+            //haptics.Play(VibrationForce.Light, GetGrabber().grabbedBy.m_controller, 1f);
 
         }
     }
@@ -247,7 +247,8 @@ public abstract class VRTool : MonoBehaviour, iSpecial_Grabbable
 
     public void OnGrab()
     {
-        Debug.Log(this.ToString() + " Grabbed");
+        //Debug.Log(this.ToString() + " Grabbed");
+        GameManager.GetInstance().direc.Ping(PING.ItemGrabbed);
 
         if (home != null)
         {
@@ -269,7 +270,8 @@ public abstract class VRTool : MonoBehaviour, iSpecial_Grabbable
 
     public void OnRelease()
     {
-        Debug.Log(this.ToString() + " Released");
+        //Debug.Log(this.ToString() + " Released");
+        GameManager.GetInstance().direc.Ping(PING.ItemDropped);
 
         toolCols = GetComponentsInChildren<Collider>();
 

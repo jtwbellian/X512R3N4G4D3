@@ -8,11 +8,12 @@ public enum PING
 {
     NONE = -1,
     calibrated,
-    GunGrabbed,
+    ItemGrabbed,
     gunFired,
-    gunDropped,
+    ItemDropped,
     targetHit,
-    gameWon
+    analogFwd,
+    gameWon,
 }
 
 [System.Serializable]
@@ -35,6 +36,7 @@ public class Director : MonoBehaviour
     public Line[] script;
     public bool autoStart = false;
     public bool trainingMode = true;
+    public bool wasInvoked = false;
     
 
     // Start is called before the first frame update
@@ -48,16 +50,29 @@ public class Director : MonoBehaviour
         }
     }
 
+    public void Restart()
+    {
+        Application.LoadLevel(Application.loadedLevel);
+    }
+
     public void Ping(PING ping)
     {
+        if (currentLine >= script.Length)
+        {
+            Debug.Log("End of Script Reached");
+            return;
+        }
+
         Debug.Log("Ping recieved with " + ping.ToString());
 
         if (ping.Equals(script[currentLine].waitFor))
         {
             script[currentLine].onEnd.Invoke();
-            currentLine++;
             Invoke("Action", script[currentLine].margin);
-        }else if (trainingMode && ping.Equals(PING.gunDropped))
+            currentLine++;
+            wasInvoked = true;
+        }
+        else if (trainingMode && ping.Equals(PING.ItemDropped))
         {
             // Have Dallas remind player to pick up gun from holster
         }
@@ -71,6 +86,14 @@ public class Director : MonoBehaviour
 
     public void Action()
     {
+        wasInvoked = false;
+
+        if (currentLine >= script.Length)
+        {
+            Debug.Log("End of Script Reached");
+            return;
+        }
+
         Debug.Log("Action Called for event ");
         script[currentLine].onStart.Invoke();
 
@@ -79,8 +102,8 @@ public class Director : MonoBehaviour
         if (script[currentLine].waitFor == PING.NONE)
         {
             script[currentLine].onEnd.Invoke();
-            currentLine++;
             Invoke("Action", script[currentLine].margin);
+            currentLine++;
         }
     }
 }

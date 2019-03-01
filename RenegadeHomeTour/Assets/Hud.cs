@@ -18,7 +18,9 @@ public class Hud : MonoBehaviour
     private Rigidbody playerBody;
     private Vector3 lastPos = Vector3.zero;
     private Vector3 lastHudAnchorPos = Vector3.zero;
+    public Text[] messageField;
 
+    public string message;
     public Text[] scoreField;
     public Transform hudAnchor; 
     public Animator iconAnimator;
@@ -81,12 +83,36 @@ public class Hud : MonoBehaviour
         iconAnimator.transform.GetComponent<SpriteRenderer>().color = new Vector4(0.9f, 0.9f, 0.9f, 0f);
     }
 
+    public void HideSubtitles()
+    {
+        foreach (Text t in messageField)
+        {
+            t.gameObject.SetActive(false);
+        }
+
+    }
+
+    public void ShowSubtitles()
+    {
+        foreach (Text t in messageField)
+        {
+            t.gameObject.SetActive(true);
+        }
+
+    }
+
     public void Refresh()
     {
         foreach (Text t in scoreField)
         {
             t.text = gm.GetCrabsKilled().ToString();
         }
+
+        foreach (Text t in messageField)
+        {
+            t.text = message;
+        }
+
         canvasGroup.alpha = 1;
         lastRefresh = Time.time;
     }

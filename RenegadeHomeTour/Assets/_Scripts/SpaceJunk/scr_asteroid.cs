@@ -15,8 +15,8 @@ public class scr_asteroid : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if (linearForce.magnitude + angularForce.magnitude == 0f)
-            Randomize();
+        //if (linearForce.magnitude> 0f)
+       //     Randomize();
 
         Init();
     }

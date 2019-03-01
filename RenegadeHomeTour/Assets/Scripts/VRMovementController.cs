@@ -20,7 +20,7 @@ public class VRMovementController : MonoBehaviour
 
     private OVRGrabber[] grabbers;
 
-    public bool canBoost = true;
+    public bool canBoost = false;
     public float speed = 2f;
     public float boost = 1f;
     public float rotationRatchet = 45f;
@@ -71,9 +71,13 @@ public class VRMovementController : MonoBehaviour
             boostBar.localScale = new Vector3(boostbar_width * boost, boostBar.localScale.y, boostBar.localScale.z);
 
         }
+        else if (OVRInput.Get(OVRInput.Axis2D.PrimaryThumbstick).y > 0f)
+        {
+            GameManager.GetInstance().direc.Ping(PING.analogFwd);
+        }
 
         // Turn view 
-        Vector3 euler = transform.rotation.eulerAngles;
+            Vector3 euler = transform.rotation.eulerAngles;
 
         Vector3 lastPos = head.position;
 

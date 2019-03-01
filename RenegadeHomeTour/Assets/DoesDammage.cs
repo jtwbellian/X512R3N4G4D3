@@ -11,6 +11,22 @@ public class DoesDammage : MonoBehaviour
     public Rigidbody rb;
     public AudioClip impactSnd;
 
+    void OnTriggerEnter(Collider col)
+    {
+        if (col.CompareTag("target"))
+        {
+            GameManager.GetInstance().direc.Ping(PING.targetHit);
+            var audio = col.transform.GetComponent<AudioSource>();
+
+            if (audio != null)
+            {
+                audio.Play();
+            }
+
+            col.gameObject.SetActive(false);
+        }
+    }
+
     public float GetDmg()
     {
         if (velocityBased)
