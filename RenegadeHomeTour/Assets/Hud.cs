@@ -6,8 +6,9 @@ using UnityEngine.UI;
 
 public enum Icon
 {
-    Recenter, LTrigger, LGrab, RTrigger, RGrab
+    analogFwd, analogClick, grab, holster, calibrate, use, NONE = -1
 }
+
 public class Hud : MonoBehaviour
 {
     private CanvasGroup canvasGroup;
@@ -20,7 +21,7 @@ public class Hud : MonoBehaviour
 
     public Text[] scoreField;
     public Transform hudAnchor; 
-    public Image centerImage;
+    public Animator iconAnimator;
 
     public float smoothTime = 0.1f;
     public float speed = 6f;
@@ -58,10 +59,26 @@ public class Hud : MonoBehaviour
         Vector3 f = pastPosition - pastTargetPosition + v;
         return targetPosition - v + f * Mathf.Exp(-t);
     }
-
+        
     public void ShowImage(Icon icon, float time)
     {
-        
+        iconAnimator.transform.GetComponent<SpriteRenderer>().color = new Vector4(0.9f, 0.9f, 0.9f, 0.8f);
+        iconAnimator.SetInteger("index",(int) icon);
+        Invoke("HideImage", time);
+    }
+
+    public void ShowImage()
+    {
+        var icon = GameManager.GetInstance().direc.GetIcon();
+
+        iconAnimator.transform.GetComponent<SpriteRenderer>().color = new Vector4(0.9f, 0.9f, 0.9f, 0.8f);
+        iconAnimator.SetInteger("index", (int)icon);
+        Refresh();
+    }
+
+    public void HideImage()
+    {
+        iconAnimator.transform.GetComponent<SpriteRenderer>().color = new Vector4(0.9f, 0.9f, 0.9f, 0f);
     }
 
     public void Refresh()

@@ -20,7 +20,7 @@ public class VRMovementController : MonoBehaviour
 
     private OVRGrabber[] grabbers;
 
-    public bool canBoost = false;
+    public bool canBoost = true;
     public float speed = 2f;
     public float boost = 1f;
     public float rotationRatchet = 45f;
@@ -117,5 +117,11 @@ public class VRMovementController : MonoBehaviour
         }
  
     }
+
+    public void AllowBoost()
+    {
+        canBoost = true;
+    }
+        
 
 }

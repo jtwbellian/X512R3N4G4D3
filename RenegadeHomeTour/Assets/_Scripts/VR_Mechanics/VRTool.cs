@@ -145,7 +145,7 @@ public abstract class VRTool : MonoBehaviour, iSpecial_Grabbable
         if ((col.CompareTag("LeftHand") || col.CompareTag("RightHand")))
         {
             LinesOn();
-            haptics.Play(VibrationForce.Light, grabInfo.grabbedBy.m_controller, 1f);
+            haptics.Play(VibrationForce.Light, GetGrabber().grabbedBy.m_controller, 1f);
 
         }
     }

@@ -49,7 +49,9 @@ public class CrabController : MonoBehaviour
         animator.SetFloat("offset", offset);
 
         jumpDelay = Random.Range(2f, 15f); // add some variation to aggression
+
         audioSource = GetComponent<AudioSource>();
+
     }
 
 
@@ -71,16 +73,16 @@ public class CrabController : MonoBehaviour
             if (dmg < TOL)
                 return;
 
-            audioSource.clip = dd.impactSnd;
-            audioSource.Play();
+            audioSource.PlayOneShot(dd.impactSnd);
 
             health -= dmg;
 
             if (alive && health <= 0)
             {
                 StartCoroutine("Dissolve");
-                audioSource.clip = dd.impactSnd;
-                audioSource.Play();
+
+                audioSource.PlayOneShot(deathSnd);
+
                 alive = false;
                 rb.isKinematic = false;
                 rb.AddTorque(col.transform.position - transform.position);
