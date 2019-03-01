@@ -64,7 +64,7 @@ public class OVRHapticsManager : MonoBehaviour
 
     public IEnumerator VibrateTime(VibrationForce force, OVRInput.Controller hand, float time)
     {
-        Debug.Log("HapticsCalled");
+        //Debug.Log("HapticsCalled");
         var forcedHaptic = true;
 
         var channel = OVRHaptics.RightChannel;

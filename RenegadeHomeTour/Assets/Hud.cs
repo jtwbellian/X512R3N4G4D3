@@ -42,7 +42,7 @@ public class Hud : MonoBehaviour
     {
         if (Time.time - lastRefresh > fadeOutTime && canvasGroup.alpha > 0)
         {
-            canvasGroup.alpha -= Time.deltaTime;
+            canvasGroup.alpha -= Time.deltaTime * 1.2f;
         }
 
         //velocity = playerBody.velocity;
@@ -67,11 +67,22 @@ public class Hud : MonoBehaviour
         iconAnimator.transform.GetComponent<SpriteRenderer>().color = new Vector4(0.9f, 0.9f, 0.9f, 0.8f);
         iconAnimator.SetInteger("index",(int) icon);
         Invoke("HideImage", time);
+        canvasGroup.alpha = 1;
     }
 
     public void ShowImage()
     {
         var icon = GameManager.GetInstance().direc.GetIcon();
+
+        switch (icon)
+        {
+            case Icon.analogClick: message = "Recalibrating..."; break;
+            case Icon.analogFwd: message = "Use Jet Boost"; break;
+            case Icon.grab: message = "Squeeze and Hold grab trigger"; break;
+            case Icon.holster: message = "Holster Your Weapons"; break;
+            case Icon.use: message = "Pull the Trigger"; break;
+            default: message = "RENEGADE VR - DEMO" ; break;
+        }
 
         iconAnimator.transform.GetComponent<SpriteRenderer>().color = new Vector4(0.9f, 0.9f, 0.9f, 0.8f);
         iconAnimator.SetInteger("index", (int)icon);
@@ -103,6 +114,8 @@ public class Hud : MonoBehaviour
 
     public void Refresh()
     {
+        gm = GameManager.GetInstance();
+
         foreach (Text t in scoreField)
         {
             t.text = gm.GetCrabsKilled().ToString();
@@ -113,7 +126,9 @@ public class Hud : MonoBehaviour
             t.text = message;
         }
 
-        canvasGroup.alpha = 1;
+        if (canvasGroup != null)
+            canvasGroup.alpha = 1;
+
         lastRefresh = Time.time;
     }
 }

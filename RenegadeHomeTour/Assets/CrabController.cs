@@ -119,7 +119,7 @@ public class CrabController : MonoBehaviour
             {
                     if (Time.time - lastJumpTime > jumpDelay)
                     {
-                        audioSource.PlayOneShot(chirp1);
+                        //audioSource.PlayOneShot(chirp1);
                         animator.speed = Random.Range(0.8f,3.0f);
                         animator.SetBool("jump", true);
                         lastJumpTime = Time.time;

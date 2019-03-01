@@ -32,7 +32,7 @@ public class Director : MonoBehaviour
     private string lastAction;
     private SoundManager sm;
     [SerializeField]
-    private int currentLine = 0;
+    public int currentLine = 0;
     public Line[] script;
     public bool autoStart = false;
     public bool trainingMode = true;
@@ -55,6 +55,11 @@ public class Director : MonoBehaviour
         Application.LoadLevel(Application.loadedLevel);
     }
 
+
+    public void EndTrainingMode()
+    {
+        trainingMode = false;
+    }
     public void Ping(PING ping)
     {
         if (currentLine >= script.Length)
@@ -63,9 +68,9 @@ public class Director : MonoBehaviour
             return;
         }
 
-        Debug.Log("Ping recieved with " + ping.ToString());
+        //Debug.Log("Ping recieved with " + ping.ToString());
 
-        if (ping.Equals(script[currentLine].waitFor))
+        if ( ! wasInvoked && ping.Equals(script[currentLine].waitFor))
         {
             script[currentLine].onEnd.Invoke();
             Invoke("Action", script[currentLine].margin);
@@ -97,7 +102,8 @@ public class Director : MonoBehaviour
         Debug.Log("Action Called for event ");
         script[currentLine].onStart.Invoke();
 
-        sm.dialogue.PlayOneShot(script[currentLine].clip);
+        sm.dialogue.clip = script[currentLine].clip;
+        sm.dialogue.Play();
 
         if (script[currentLine].waitFor == PING.NONE)
         {

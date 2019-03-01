@@ -28,10 +28,12 @@ public class VRMovementController : MonoBehaviour
     public Text velocityLabel;
     public Transform boostBar;
     public PostProcessVolume ppVolume;
+    private GameManager gm;
 
     // Start is called before the first frame update
     void Start()
     {
+        gm = GameManager.GetInstance();
         if (boostBar == null)
             Debug.Log("ERROR: Boost bar is null, dummy!");
         else
@@ -60,6 +62,11 @@ public class VRMovementController : MonoBehaviour
             if (Mathf.Abs(stickY) > 0f && boost > 0f)
             {
 
+                if (gm.direc.trainingMode)
+                {
+                    GameManager.GetInstance().direc.Ping(PING.analogFwd);
+                }
+
                 rigidBody.AddForce(head.forward * (speed * stickY * boost), ForceMode.Force);
                 boost -= Time.deltaTime * Mathf.Abs(stickY) * 0.5f;
             }
@@ -70,10 +77,6 @@ public class VRMovementController : MonoBehaviour
 
             boostBar.localScale = new Vector3(boostbar_width * boost, boostBar.localScale.y, boostBar.localScale.z);
 
-        }
-        else if (OVRInput.Get(OVRInput.Axis2D.PrimaryThumbstick).y > 0f)
-        {
-            GameManager.GetInstance().direc.Ping(PING.analogFwd);
         }
 
         // Turn view 

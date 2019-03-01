@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.Events;
 public class Spawner : MonoBehaviour
 {
-
+    public static int totalSpawns = 0;
     public GameObject obj;
     public float delay = 5f;
     public Transform initialTarget;
@@ -25,7 +25,6 @@ public class Spawner : MonoBehaviour
     {
         while (true)
         {
-            
             // If has NOT been invoked, invoke the delegate and wait to spawn
             if (!hasBeenInvoked)
             {
@@ -45,7 +44,7 @@ public class Spawner : MonoBehaviour
                 crab.target = initialTarget;
 
             hasBeenInvoked = false;
-
+            totalSpawns++;
             yield return new WaitForSeconds(delay);
         }
     }

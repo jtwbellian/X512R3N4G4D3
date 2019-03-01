@@ -6,15 +6,20 @@ public class lightSwitch : MonoBehaviour
 {
 
 
-    private bool lightOn = true;
-    private float coolDown = 0;
+    public Light myLight;
 
     // Use this for initialization
     void Start()
     {
-
+        if (myLight == null)
+            myLight = GetComponentInChildren<Light>();
     }
 
+    public void ChangeRed()
+    {
+        myLight.color = Color.red;
+    }
+    /*
     void OnTriggerEnter(Collider other)
     {
         if (other.tag == "RightHand" && coolDown <= 0)
@@ -37,7 +42,9 @@ public class lightSwitch : MonoBehaviour
     {
         if (coolDown > 0)
             coolDown -= 1;
-    }
+    }*/
+
+
 
 
 }

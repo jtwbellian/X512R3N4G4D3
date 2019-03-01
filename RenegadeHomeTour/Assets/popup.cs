@@ -34,7 +34,7 @@ public class popup : MonoBehaviour
 
         transform.LookAt(Camera.main.transform);
         audioSource.Play();
-        Destroy(this, 5f);
+        Destroy(gameObject, 1f);
     }
 
     public void SetText(string text)

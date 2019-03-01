@@ -17,13 +17,18 @@ public class DoesDammage : MonoBehaviour
         {
             GameManager.GetInstance().direc.Ping(PING.targetHit);
             var audio = col.transform.GetComponent<AudioSource>();
+            MeshRenderer renderer = col.transform.GetComponent<MeshRenderer>();
+
+            if (renderer !=  null)
+                renderer.material.SetFloat("Boolean_4AD6AAEC", 1f);
 
             if (audio != null)
             {
                 audio.Play();
             }
 
-            col.gameObject.SetActive(false);
+            Destroy(col.gameObject, 5f);
+                //col.gameObject.SetActive(false);
         }
     }
 
