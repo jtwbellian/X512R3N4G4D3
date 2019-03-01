@@ -3,9 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+
+public enum Icon
+{
+    Recenter, LTrigger, LGrab, RTrigger, RGrab
+}
 public class Hud : MonoBehaviour
 {
-
     private CanvasGroup canvasGroup;
     private GameManager gm;
     private float lastRefresh;
@@ -16,19 +20,18 @@ public class Hud : MonoBehaviour
 
     public Text[] scoreField;
     public Transform hudAnchor; 
+    public Image centerImage;
 
     public float smoothTime = 0.1f;
     public float speed = 6f;
-    //public Vector3 velocity = Vector3.zero;
-
-
+    public Vector3 velocity = Vector3.zero;
 
     // Start is called before the first frame update
     void Start()
     {
         gm = GameManager.GetInstance();
         canvasGroup = GetComponentInChildren<CanvasGroup>();
-        //playerBody = hudAnchor.transform.root.GetComponentInChildren<VRMovementController>().rigidBody;
+        playerBody = hudAnchor.transform.root.GetComponentInChildren<VRMovementController>().rigidBody;
     }
 
     // Update is called once per frame
@@ -50,10 +53,15 @@ public class Hud : MonoBehaviour
 
     Vector3 SmoothApproach(Vector3 pastPosition, Vector3 pastTargetPosition, Vector3 targetPosition, float speed)
     {
-        float t = Time.deltaTime * speed;
+        float t = Time.deltaTime * (speed + playerBody.velocity.magnitude);
         Vector3 v = (targetPosition - pastTargetPosition) / t;
         Vector3 f = pastPosition - pastTargetPosition + v;
         return targetPosition - v + f * Mathf.Exp(-t);
+    }
+
+    public void ShowImage(Icon icon, float time)
+    {
+        
     }
 
     public void Refresh()

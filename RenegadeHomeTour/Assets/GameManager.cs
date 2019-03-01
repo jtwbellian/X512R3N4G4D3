@@ -55,7 +55,7 @@ public class GameManager : MonoBehaviour
         popup pop = Instantiate(popupPrefab).GetComponent<popup>();
         pop.transform.position = pos;
         pop.SetText(message);
-        Destroy(pop, 2f);
+        //Destroy(pop, 2f);
     }
 
     public static GameManager GetInstance()

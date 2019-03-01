@@ -76,11 +76,15 @@ public class IKPlayerController : MonoBehaviour
 
     public void UpdatePlayerHeight()
     {
+        OVRManager.display.RecenterPose();
         height = head.localPosition.y;
         float newScale = height / DEFAULT_HEIGHT;
-
         transform.localScale = new Vector3(newScale, newScale, newScale);
         GetComponent<CapsuleCollider>().height = newScale;
+
+        GameManager gm = GameManager.GetInstance();
+        gm.hud.ShowImage(Icon.Recenter, 2f);
+
     }
 
 
