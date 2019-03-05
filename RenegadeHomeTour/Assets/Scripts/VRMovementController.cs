@@ -90,7 +90,7 @@ public class VRMovementController : MonoBehaviour
             {
                 euler.y -= rotationRatchet;
                 transform.rotation = Quaternion.Euler(euler);
-                transform.position += head.position - lastPos;
+                transform.position += lastPos - head.position;
                 ReadyToSnapTurn = false;
             }
         }
@@ -100,7 +100,7 @@ public class VRMovementController : MonoBehaviour
             {
                 euler.y += rotationRatchet;
                 transform.rotation = Quaternion.Euler(euler);
-                transform.position += head.position - lastPos;
+                transform.position += lastPos - head.position;
                 ReadyToSnapTurn = false;
             }
         }
