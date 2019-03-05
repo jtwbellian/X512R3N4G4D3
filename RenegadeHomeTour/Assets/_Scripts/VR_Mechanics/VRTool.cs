@@ -13,6 +13,8 @@ public abstract class VRTool : MonoBehaviour, iSpecial_Grabbable
 
     private bool indexDown = false;
     private bool thumbDown = false;
+    private float minRadius = 0.05f;
+    private float maxRadius = 0.3f;
 
     public bool usesIndex = true;
     public bool usesThumb = false;
@@ -263,6 +265,12 @@ public abstract class VRTool : MonoBehaviour, iSpecial_Grabbable
         {
             if (!c.isTrigger && c.enabled)
                 c.enabled = false;
+            // Shrink sphere collider on grab
+            if (c.isTrigger && c.GetType() == typeof(SphereCollider))
+            {
+                SphereCollider sc = (SphereCollider)c;
+                sc.radius = minRadius;
+            }
         }
 
         rb.isKinematic = true;
@@ -279,6 +287,13 @@ public abstract class VRTool : MonoBehaviour, iSpecial_Grabbable
         {
             if (!c.enabled && !c.isTrigger)
                 c.enabled = true;
+
+            // Grow sphere collider on release
+            if (c.isTrigger && c.GetType() == typeof(SphereCollider))
+            {
+                SphereCollider sc = (SphereCollider)c;
+                sc.radius = maxRadius;
+            }
         }
 
         if (rb != null)

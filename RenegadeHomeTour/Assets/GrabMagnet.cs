@@ -64,14 +64,16 @@ public class GrabMagnet : MonoBehaviour
 
             Free();
 
-            item.SetHome(this); 
-            
+            item.SetHome(this);
+            item.OnRelease();
+
             empty = false;
 
             if (orb != null)
             {
                 orb.enabled = false;
             }
+            GameManager.GetInstance().direc.Ping(PING.weaponHolstered);
 
 //            Debug.Log("Home Set to "  + this.ToString());
         }

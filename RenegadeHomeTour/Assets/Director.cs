@@ -14,6 +14,7 @@ public enum PING
     targetHit,
     analogFwd,
     gameWon,
+    weaponHolstered
 }
 
 [System.Serializable]

@@ -26,8 +26,6 @@ public class DoesDammage : MonoBehaviour
             {
                 audio.Play();
             }
-
-            Destroy(col.gameObject, 5f);
                 //col.gameObject.SetActive(false);
         }
     }
