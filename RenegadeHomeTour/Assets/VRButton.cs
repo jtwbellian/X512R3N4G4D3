@@ -26,42 +26,59 @@ public class VRButton : MonoBehaviour
 
     void OnTriggerEnter(Collider otherCollider)
     {
-        if (on)
+        var isWeapon = otherCollider.transform.GetComponent<DoesDammage>();
+
+        if (otherCollider.transform.CompareTag("RightHand") || otherCollider.transform.CompareTag("LeftHand") || isWeapon != null)
         {
-            on = false;
-            mat.SetColor("_color", Color.red);
-            turnOff.Invoke();
-
-
-            if (lightSignal != null)
-                lightSignal.color = Color.red;
-
-            if (audioSource != null)
-            { 
-                audioSource.clip = offSound;
-                audioSource.Play();
-            }
-        }
-        else
-        {
-           on = true;
-            mat.SetColor("_color", Color.green);
-            turnOn.Invoke();
-
-            if (lightSignal != null)
-                lightSignal.color = Color.green;
-
-            if (audioSource != null)
+            if (on)
             {
-                audioSource.clip = onSound;
-                audioSource.Play();
+                Off();
+            }
+            else
+            {
+                On();
             }
 
+            canPush = false;
+            Invoke("AllowPush", 15f);
+        }
+    }
+    
+    public void On()
+    {
+        on = true;
+
+        mat.SetColor("_color", Color.green);
+        turnOn.Invoke();
+
+        if (lightSignal != null)
+            lightSignal.color = Color.green;
+
+        if (audioSource != null)
+        {
+            audioSource.clip = onSound;
+            audioSource.Play();
         }
 
-        canPush = false;
-        Invoke("AllowPush", 15f);
+    }
 
+
+    public void Off()
+    {
+        on = false;
+
+        mat.SetColor("_color", Color.red);
+        turnOff.Invoke();
+
+
+        if (lightSignal != null)
+            lightSignal.color = Color.red;
+
+        if (audioSource != null)
+        {
+            audioSource.clip = offSound;
+            audioSource.Play();
+        }
     }
 
     public void AllowPush()

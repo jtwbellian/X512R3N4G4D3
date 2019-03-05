@@ -12,7 +12,7 @@ public class CrabController : MonoBehaviour
     private Rigidbody rb;
     private Transform myJumpPoint;
     private AudioSource audioSource;
-    public AudioClip stabSnd, shotSnd, deathSnd;
+    public AudioClip stabSnd, shotSnd, deathSnd, chirp1, chirp2, chirp3, chirp4;
 
     private float lastJumpTime = 0f;
     [SerializeField]
@@ -22,7 +22,7 @@ public class CrabController : MonoBehaviour
 
     private float numAttacks = 3;
     private float attack = 0;
-    private float health = 100f;
+    private float health = 500f;
 
     public state current_state;
     public float speed = 2f;
@@ -49,7 +49,9 @@ public class CrabController : MonoBehaviour
         animator.SetFloat("offset", offset);
 
         jumpDelay = Random.Range(2f, 15f); // add some variation to aggression
+
         audioSource = GetComponent<AudioSource>();
+
     }
 
 
@@ -59,6 +61,7 @@ public class CrabController : MonoBehaviour
         {
             myJumpPoint = col.transform;
             current_state = state.Jump;
+            audioSource.PlayOneShot(chirp3);
             return;
         }
 
@@ -71,16 +74,16 @@ public class CrabController : MonoBehaviour
             if (dmg < TOL)
                 return;
 
-            audioSource.clip = dd.impactSnd;
-            audioSource.Play();
+            audioSource.PlayOneShot(dd.impactSnd);
 
             health -= dmg;
 
             if (alive && health <= 0)
             {
                 StartCoroutine("Dissolve");
-                audioSource.clip = dd.impactSnd;
-                audioSource.Play();
+
+                audioSource.PlayOneShot(deathSnd);
+
                 alive = false;
                 rb.isKinematic = false;
                 rb.AddTorque(col.transform.position - transform.position);
@@ -116,6 +119,7 @@ public class CrabController : MonoBehaviour
             {
                     if (Time.time - lastJumpTime > jumpDelay)
                     {
+                        //audioSource.PlayOneShot(chirp1);
                         animator.speed = Random.Range(0.8f,3.0f);
                         animator.SetBool("jump", true);
                         lastJumpTime = Time.time;
@@ -123,6 +127,7 @@ public class CrabController : MonoBehaviour
 
                         if (attack > numAttacks)
                         {
+                            audioSource.PlayOneShot(chirp2);
                             attack = 0;
                             current_state = state.Walk;
                         }
@@ -143,7 +148,7 @@ public class CrabController : MonoBehaviour
                 {
 
                     target = Camera.main.transform;
-
+                    audioSource.PlayOneShot(chirp4);
                     transform.rotation = myJumpPoint.rotation;
                     rb.AddForce(transform.up * jumpForce, ForceMode.Impulse);
                     rb.AddForce(transform.forward * jumpForce, ForceMode.Impulse);

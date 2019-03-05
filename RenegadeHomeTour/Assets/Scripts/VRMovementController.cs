@@ -12,7 +12,7 @@ public class VRMovementController : MonoBehaviour
     private const float MAX_SPEED = 20f;
     private float boostbar_width = 0.0f;
     public Rigidbody rigidBody;
-    private Transform headPos;
+    private Transform head;
     private float rechargeRate = 0.5f;
     private bool ReadyToSnapTurn = false;
     private Vignette vignette;
@@ -20,6 +20,7 @@ public class VRMovementController : MonoBehaviour
 
     private OVRGrabber[] grabbers;
 
+    public bool canBoost = false;
     public float speed = 2f;
     public float boost = 1f;
     public float rotationRatchet = 45f;
@@ -27,10 +28,12 @@ public class VRMovementController : MonoBehaviour
     public Text velocityLabel;
     public Transform boostBar;
     public PostProcessVolume ppVolume;
+    private GameManager gm;
 
     // Start is called before the first frame update
     void Start()
     {
+        gm = GameManager.GetInstance();
         if (boostBar == null)
             Debug.Log("ERROR: Boost bar is null, dummy!");
         else
@@ -43,7 +46,7 @@ public class VRMovementController : MonoBehaviour
         //body = GetComponentInChildren<IKPlayerController>().transform;
         //rb = body.GetComponent<Rigidbody>();
         rigidBody.freezeRotation = true;
-        headPos = GetComponentInChildren<Camera>().transform;
+        head = GetComponentInChildren<Camera>().transform;
 
     }
 
@@ -51,32 +54,43 @@ public class VRMovementController : MonoBehaviour
     void Update()
     {
 
-        // Use Boost Jets
-        var stickY = OVRInput.Get(OVRInput.Axis2D.PrimaryThumbstick).y;
-
-        if (Mathf.Abs(stickY) > 0f && boost > 0f)
+        if (canBoost)
         {
+            // Use Boost Jets
+            var stickY = OVRInput.Get(OVRInput.Axis2D.PrimaryThumbstick).y;
 
-            rigidBody.AddForce(headPos.forward * (speed * stickY * boost), ForceMode.Force);
-            boost -= Time.deltaTime * Mathf.Abs(stickY) * 0.5f; 
-        }
-        else if (boost < 1f)
-        {
-            boost += Time.deltaTime * rechargeRate;
+            if (Mathf.Abs(stickY) > 0f && boost > 0f)
+            {
+
+                if (gm.direc.trainingMode)
+                {
+                    GameManager.GetInstance().direc.Ping(PING.analogFwd);
+                }
+
+                rigidBody.AddForce(head.forward * (speed * stickY * boost), ForceMode.Force);
+                boost -= Time.deltaTime * Mathf.Abs(stickY) * 0.5f;
+            }
+            else if (boost < 1f)
+            {
+                boost += Time.deltaTime * rechargeRate;
+            }
+
+            boostBar.localScale = new Vector3(boostbar_width * boost, boostBar.localScale.y, boostBar.localScale.z);
+
         }
 
-        boostBar.localScale = new Vector3(boostbar_width * boost, boostBar.localScale.y, boostBar.localScale.z);
-        
         // Turn view 
-        Vector3 euler = transform.rotation.eulerAngles;
-        //Vector3 lastPos = body.transform.localPosition;
-        //body.transform.localPosition = Vector3.zero;
+            Vector3 euler = transform.rotation.eulerAngles;
+
+        Vector3 lastPos = head.position;
 
         if (OVRInput.Get(OVRInput.Button.SecondaryThumbstickLeft))
         {
             if (ReadyToSnapTurn)
             {
                 euler.y -= rotationRatchet;
+                transform.rotation = Quaternion.Euler(euler);
+                transform.position += head.position - lastPos;
                 ReadyToSnapTurn = false;
             }
         }
@@ -85,6 +99,8 @@ public class VRMovementController : MonoBehaviour
             if (ReadyToSnapTurn)
             {
                 euler.y += rotationRatchet;
+                transform.rotation = Quaternion.Euler(euler);
+                transform.position += head.position - lastPos;
                 ReadyToSnapTurn = false;
             }
         }
@@ -93,18 +109,8 @@ public class VRMovementController : MonoBehaviour
             ReadyToSnapTurn = true;
         }
 
-        //body.transform.localPosition = lastPos;
-        transform.rotation = Quaternion.Euler(euler);
 
         var canVig = true;
-
-        /*for(int i = 0; i < grabbers.Length - 1; i ++)
-        {
-            if (grabbers[i].grabbedObject is OVRClimbable)
-            {
-                canVig = false;
-            }
-        }*/
 
         if (grabbers[0].grabbedObject is OVRClimbable || grabbers[1].grabbedObject is OVRClimbable)
             canVig = false;
@@ -118,5 +124,11 @@ public class VRMovementController : MonoBehaviour
         }
  
     }
+
+    public void AllowBoost()
+    {
+        canBoost = true;
+    }
+        
 
 }

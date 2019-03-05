@@ -13,6 +13,8 @@ public abstract class VRTool : MonoBehaviour, iSpecial_Grabbable
 
     private bool indexDown = false;
     private bool thumbDown = false;
+    private float minRadius = 0.05f;
+    private float maxRadius = 0.3f;
 
     public bool usesIndex = true;
     public bool usesThumb = false;
@@ -145,7 +147,7 @@ public abstract class VRTool : MonoBehaviour, iSpecial_Grabbable
         if ((col.CompareTag("LeftHand") || col.CompareTag("RightHand")))
         {
             LinesOn();
-            haptics.Play(VibrationForce.Light, grabInfo.grabbedBy.m_controller, 1f);
+            //haptics.Play(VibrationForce.Light, GetGrabber().grabbedBy.m_controller, 1f);
 
         }
     }
@@ -247,7 +249,8 @@ public abstract class VRTool : MonoBehaviour, iSpecial_Grabbable
 
     public void OnGrab()
     {
-        Debug.Log(this.ToString() + " Grabbed");
+        //Debug.Log(this.ToString() + " Grabbed");
+        GameManager.GetInstance().direc.Ping(PING.ItemGrabbed);
 
         if (home != null)
         {
@@ -262,6 +265,12 @@ public abstract class VRTool : MonoBehaviour, iSpecial_Grabbable
         {
             if (!c.isTrigger && c.enabled)
                 c.enabled = false;
+            // Shrink sphere collider on grab
+            if (c.isTrigger && c.GetType() == typeof(SphereCollider))
+            {
+                SphereCollider sc = (SphereCollider)c;
+                sc.radius = minRadius;
+            }
         }
 
         rb.isKinematic = true;
@@ -269,7 +278,8 @@ public abstract class VRTool : MonoBehaviour, iSpecial_Grabbable
 
     public void OnRelease()
     {
-        Debug.Log(this.ToString() + " Released");
+        //Debug.Log(this.ToString() + " Released");
+        GameManager.GetInstance().direc.Ping(PING.ItemDropped);
 
         toolCols = GetComponentsInChildren<Collider>();
 
@@ -277,6 +287,13 @@ public abstract class VRTool : MonoBehaviour, iSpecial_Grabbable
         {
             if (!c.enabled && !c.isTrigger)
                 c.enabled = true;
+
+            // Grow sphere collider on release
+            if (c.isTrigger && c.GetType() == typeof(SphereCollider))
+            {
+                SphereCollider sc = (SphereCollider)c;
+                sc.radius = maxRadius;
+            }
         }
 
         if (rb != null)

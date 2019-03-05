@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class vrt_gun : VRTool
 {
-
+    [SerializeField]
+    private bool tutorialGun = false;
     private bool canFire = true;
     private AudioSource audioSource;
     private Animator anim;
@@ -14,6 +15,7 @@ public class vrt_gun : VRTool
     public Rigidbody bulletType;
     public float fireSpeed = 10f;
     public Transform gunBarrel;
+    public Transform muzzleFlash;
 
 
     public override void Init()
@@ -50,18 +52,32 @@ public class vrt_gun : VRTool
         if (anim != null)
             anim.Play("Fire", 0, 0.0f);
 
-        
+
         if (hm != null)
             hm.Play(VibrationForce.Hard, GetGrabber().grabbedBy.m_controller, 0.15f);
 
 
         shot.transform.position = gunBarrel.position;
         shot.transform.rotation = gunBarrel.rotation;
-        
+
         shot.velocity = transform.forward * fireSpeed;
 
         Destroy(shot.gameObject, 4f);
         canFire = false;
+
+        if (tutorialGun)
+        {
+            GameManager.GetInstance().direc.Ping(PING.gunFired);
+        }
+    }
+
+    public void Authenicate()
+    {
+        tutorialGun = false;
+    }
+    public void MakeTutorial()
+    {
+        tutorialGun = true;
     }
 
     public void LightOff()
@@ -79,13 +95,13 @@ public class vrt_gun : VRTool
         //throw new System.NotImplementedException();
     }
 
-    public new void OnGrab()
+    public void OnGrab()
     {
         base.OnGrab();
         light.gameObject.SetActive(true);
     }
 
-    public new void OnRelease()
+    public void OnRelease()
     {
         base.OnRelease();
         light.gameObject.SetActive(false);

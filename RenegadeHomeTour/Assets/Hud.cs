@@ -3,9 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+
+public enum Icon
+{
+    analogFwd, analogClick, grab, holster, calibrate, use, NONE = -1
+}
+
 public class Hud : MonoBehaviour
 {
-
     private CanvasGroup canvasGroup;
     private GameManager gm;
     private float lastRefresh;
@@ -13,22 +18,23 @@ public class Hud : MonoBehaviour
     private Rigidbody playerBody;
     private Vector3 lastPos = Vector3.zero;
     private Vector3 lastHudAnchorPos = Vector3.zero;
+    public Text[] messageField;
 
+    public string message;
     public Text[] scoreField;
     public Transform hudAnchor; 
+    public Animator iconAnimator;
 
     public float smoothTime = 0.1f;
     public float speed = 6f;
-    //public Vector3 velocity = Vector3.zero;
-
-
+    public Vector3 velocity = Vector3.zero;
 
     // Start is called before the first frame update
     void Start()
     {
         gm = GameManager.GetInstance();
         canvasGroup = GetComponentInChildren<CanvasGroup>();
-        //playerBody = hudAnchor.transform.root.GetComponentInChildren<VRMovementController>().rigidBody;
+        playerBody = hudAnchor.transform.root.GetComponentInChildren<VRMovementController>().rigidBody;
     }
 
     // Update is called once per frame
@@ -36,7 +42,7 @@ public class Hud : MonoBehaviour
     {
         if (Time.time - lastRefresh > fadeOutTime && canvasGroup.alpha > 0)
         {
-            canvasGroup.alpha -= Time.deltaTime;
+            canvasGroup.alpha -= Time.deltaTime * 1.2f;
         }
 
         //velocity = playerBody.velocity;
@@ -50,19 +56,79 @@ public class Hud : MonoBehaviour
 
     Vector3 SmoothApproach(Vector3 pastPosition, Vector3 pastTargetPosition, Vector3 targetPosition, float speed)
     {
-        float t = Time.deltaTime * speed;
+        float t = Time.deltaTime * (speed + playerBody.velocity.magnitude);
         Vector3 v = (targetPosition - pastTargetPosition) / t;
         Vector3 f = pastPosition - pastTargetPosition + v;
         return targetPosition - v + f * Mathf.Exp(-t);
     }
+        
+    public void ShowImage(Icon icon, float time)
+    {
+        iconAnimator.transform.GetComponent<SpriteRenderer>().color = new Vector4(0.9f, 0.9f, 0.9f, 0.8f);
+        iconAnimator.SetInteger("index",(int) icon);
+        Invoke("HideImage", time);
+        canvasGroup.alpha = 1;
+    }
+
+    public void ShowImage()
+    {
+        var icon = GameManager.GetInstance().direc.GetIcon();
+
+        switch (icon)
+        {
+            case Icon.analogClick: message = "Recalibrating..."; break;
+            case Icon.analogFwd: message = "Use Jet Boost"; break;
+            case Icon.grab: message = "Squeeze and Hold grab trigger"; break;
+            case Icon.holster: message = "Holster Your Weapons"; break;
+            case Icon.use: message = "Pull the Trigger"; break;
+            default: message = "RENEGADE VR - DEMO" ; break;
+        }
+
+        iconAnimator.transform.GetComponent<SpriteRenderer>().color = new Vector4(0.9f, 0.9f, 0.9f, 0.8f);
+        iconAnimator.SetInteger("index", (int)icon);
+        Refresh();
+    }
+
+    public void HideImage()
+    {
+        iconAnimator.transform.GetComponent<SpriteRenderer>().color = new Vector4(0.9f, 0.9f, 0.9f, 0f);
+    }
+
+    public void HideSubtitles()
+    {
+        foreach (Text t in messageField)
+        {
+            t.gameObject.SetActive(false);
+        }
+
+    }
+
+    public void ShowSubtitles()
+    {
+        foreach (Text t in messageField)
+        {
+            t.gameObject.SetActive(true);
+        }
+
+    }
 
     public void Refresh()
     {
+        gm = GameManager.GetInstance();
+
         foreach (Text t in scoreField)
         {
             t.text = gm.GetCrabsKilled().ToString();
         }
-        canvasGroup.alpha = 1;
+
+        foreach (Text t in messageField)
+        {
+            t.text = message;
+        }
+
+        if (canvasGroup != null)
+            canvasGroup.alpha = 1;
+
         lastRefresh = Time.time;
     }
 }

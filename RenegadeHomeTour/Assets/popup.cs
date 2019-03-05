@@ -14,7 +14,7 @@ public class popup : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Debug.Log("Popup Spawned");
+        //Debug.Log("Popup Spawned");
         if (textField == null)
         {
             textField = GetComponentInChildren<Text>();
@@ -34,6 +34,7 @@ public class popup : MonoBehaviour
 
         transform.LookAt(Camera.main.transform);
         audioSource.Play();
+        Destroy(gameObject, 1f);
     }
 
     public void SetText(string text)

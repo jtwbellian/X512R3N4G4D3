@@ -199,7 +199,8 @@ public class OVRGrabber : MonoBehaviour
     {
         if (otherCollider.CompareTag("UNAVAILABLE"))
         {
-            gm.CreatePopup(transform.position, "Content Currently Unvailable", 5f);
+            gm = GameManager.GetInstance();
+            gm.CreatePopup(transform.position, "Content Currently Unvailable", 1f);
         }
 
         // Get the grab trigger
