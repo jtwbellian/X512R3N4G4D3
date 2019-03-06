@@ -168,7 +168,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   obj: {fileID: 2311565940336529617, guid: 1e7190a7ce92253439107d840886a9a1, type: 3}
-  delay: 25
+  delay: 35
   initialTarget: {fileID: 1304581348163089540}
   initialForce: {x: 0, y: 0, z: 2}
   onSpawn:
@@ -232,7 +232,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   obj: {fileID: 2311565940336529617, guid: 1e7190a7ce92253439107d840886a9a1, type: 3}
-  delay: 25
+  delay: 35
   initialTarget: {fileID: 8354861095221620194}
   initialForce: {x: 0, y: 5, z: 0}
   onSpawn:
@@ -452,7 +452,7 @@ Transform:
   m_GameObject: {fileID: 686992877335727233}
   m_LocalRotation: {x: -0.7071056, y: 0.70710796, z: -0.000000015284982, w: 0.00000005237318}
   m_LocalPosition: {x: -3.318, y: 4.837, z: 9.369}
-  m_LocalScale: {x: 0.117615804, y: 0.015418491, z: 0.1798755}
+  m_LocalScale: {x: 0.117615804, y: 0.027250642, z: 0.1798755}
   m_Children:
   - {fileID: 686992877078812425}
   - {fileID: 686992876886417867}
@@ -992,7 +992,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   obj: {fileID: 2311565940336529617, guid: 1e7190a7ce92253439107d840886a9a1, type: 3}
-  delay: 25
+  delay: 68
   initialTarget: {fileID: 7022672206743816660}
   initialForce: {x: 0, y: 0, z: 2}
   onSpawn:
@@ -1127,7 +1127,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -27, y: -261}
+  m_AnchoredPosition: {x: -27, y: -342}
   m_SizeDelta: {x: 300, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7419925674180720576
@@ -1331,7 +1331,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -27, y: -264}
+  m_AnchoredPosition: {x: -27, y: -345}
   m_SizeDelta: {x: 300, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8019037232476466483
@@ -1505,7 +1505,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   obj: {fileID: 2311565940336529617, guid: 1e7190a7ce92253439107d840886a9a1, type: 3}
-  delay: 25
+  delay: 68
   initialTarget: {fileID: 2756989423791310274}
   initialForce: {x: 0, y: 0, z: 2}
   onSpawn:
@@ -1613,7 +1613,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   obj: {fileID: 2311565940336529617, guid: 1e7190a7ce92253439107d840886a9a1, type: 3}
-  delay: 25
+  delay: 35
   initialTarget: {fileID: 2756989423510952303}
   initialForce: {x: 0, y: 5, z: 0}
   onSpawn:
@@ -1801,7 +1801,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   obj: {fileID: 2311565940336529617, guid: 1e7190a7ce92253439107d840886a9a1, type: 3}
-  delay: 25
+  delay: 68
   initialTarget: {fileID: 2756989423510952303}
   initialForce: {x: 0, y: 5, z: 0}
   onSpawn:
@@ -1850,7 +1850,7 @@ Transform:
   m_GameObject: {fileID: 2756989424396088711}
   m_LocalRotation: {x: -0, y: -0, z: -0.7071079, w: 0.7071057}
   m_LocalPosition: {x: -0.269, y: 4.838, z: 8.562}
-  m_LocalScale: {x: 0.117615804, y: 0.015418491, z: 0.1798755}
+  m_LocalScale: {x: 0.117615804, y: 0.027250642, z: 0.1798755}
   m_Children:
   - {fileID: 3575424878142856470}
   - {fileID: 2756989424963885261}
@@ -2084,13 +2084,14 @@ GameObject:
   - component: {fileID: 2756989424697681676}
   - component: {fileID: 2756989424697681679}
   - component: {fileID: 2756989424697681678}
+  - component: {fileID: 76528272}
   m_Layer: 0
   m_Name: RedLighting
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &2756989424697681677
 Transform:
   m_ObjectHideFlags: 0
@@ -2115,7 +2116,7 @@ Light:
   m_Enabled: 1
   serializedVersion: 9
   m_Type: 1
-  m_Color: {r: 0.8207547, g: 0.023389248, b: 0, a: 1}
+  m_Color: {r: 0, g: 0, b: 0, a: 1}
   m_Intensity: 1
   m_Range: 10
   m_SpotAngle: 30
@@ -2175,6 +2176,20 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 14
   m_CollisionDetection: 0
+--- !u!114 &76528272
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2756989424697681681}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_GeneratorAsset: {fileID: 0}
+  m_Script: {fileID: 11500000, guid: 8474f93b3f7ad9148833b4dde2e481f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  myLight: {fileID: 2756989424697681676}
 --- !u!1 &2756989424963885260
 GameObject:
   m_ObjectHideFlags: 0
@@ -2292,7 +2307,7 @@ MonoBehaviour:
   currentLine: 0
   script:
   - clip: {fileID: 8300000, guid: ec80011dc5f5fc94f8a6ea168a27857d, type: 3}
-    margin: 6
+    margin: 5
     waitFor: -1
     icon: -1
     onStart:
@@ -2317,7 +2332,7 @@ MonoBehaviour:
       m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
         Culture=neutral, PublicKeyToken=null
   - clip: {fileID: 8300000, guid: cc59650a57134eb46b4f116dd9508a70, type: 3}
-    margin: 2
+    margin: 1
     waitFor: 0
     icon: 1
     onStart:
@@ -2350,11 +2365,23 @@ MonoBehaviour:
         Culture=neutral, PublicKeyToken=null
     onEnd:
       m_PersistentCalls:
-        m_Calls: []
+        m_Calls:
+        - m_Target: {fileID: 3280493067134077604, guid: 3ed8e6236fe9c9740baaee288822ed66,
+            type: 3}
+          m_MethodName: HideImage
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
       m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
         Culture=neutral, PublicKeyToken=null
-  - clip: {fileID: 8300000, guid: 072c8cca5ff8a6443bc5b8d176174a02, type: 3}
-    margin: 7
+  - clip: {fileID: 8300000, guid: 7458d46472d6ab541a776f0983f3d346, type: 3}
+    margin: 5
     waitFor: -1
     icon: -1
     onStart:
@@ -2371,20 +2398,6 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 1
           m_CallState: 2
-      m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
-        Culture=neutral, PublicKeyToken=null
-    onEnd:
-      m_PersistentCalls:
-        m_Calls: []
-      m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
-        Culture=neutral, PublicKeyToken=null
-  - clip: {fileID: 8300000, guid: e059f184bd65688479090d848f39d1cf, type: 3}
-    margin: 7.5
-    waitFor: -1
-    icon: -1
-    onStart:
-      m_PersistentCalls:
-        m_Calls: []
       m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
         Culture=neutral, PublicKeyToken=null
     onEnd:
@@ -2409,7 +2422,7 @@ MonoBehaviour:
   - clip: {fileID: 8300000, guid: 8a722456a16a3a147bfad77976773a69, type: 3}
     margin: 4
     waitFor: -1
-    icon: -1
+    icon: 2
     onStart:
       m_PersistentCalls:
         m_Calls: []
@@ -2417,19 +2430,25 @@ MonoBehaviour:
         Culture=neutral, PublicKeyToken=null
     onEnd:
       m_PersistentCalls:
-        m_Calls: []
+        m_Calls:
+        - m_Target: {fileID: 2756989425430743126}
+          m_MethodName: ShowImage
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
       m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
         Culture=neutral, PublicKeyToken=null
-  - clip: {fileID: 8300000, guid: 8c4919698fab247439aadadfa90cd35d, type: 3}
-    margin: 8
-    waitFor: -1
-    icon: -1
+  - clip: {fileID: 8300000, guid: 5d4eb62893ef0dd47b61f72be04ba2ea, type: 3}
+    margin: 1
+    waitFor: 1
+    icon: 2
     onStart:
-      m_PersistentCalls:
-        m_Calls: []
-      m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
-        Culture=neutral, PublicKeyToken=null
-    onEnd:
       m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 5487695543459237016}
@@ -2454,104 +2473,18 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 1
           m_CallState: 2
-      m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
-        Culture=neutral, PublicKeyToken=null
-  - clip: {fileID: 8300000, guid: fd558d393b9579440b7d77ff8cfa0192, type: 3}
-    margin: 2
-    waitFor: 1
-    icon: 2
-    onStart:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 2756989425430743126}
-          m_MethodName: ShowImage
-          m_Mode: 1
+        - m_Target: {fileID: 0}
+          m_MethodName: SetActive
+          m_Mode: 6
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
             m_IntArgument: 0
             m_FloatArgument: 0
             m_StringArgument: 
-            m_BoolArgument: 0
+            m_BoolArgument: 1
           m_CallState: 2
-      m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
-        Culture=neutral, PublicKeyToken=null
-    onEnd:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 2756989425430743126}
-          m_MethodName: HideImage
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-      m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
-        Culture=neutral, PublicKeyToken=null
-  - clip: {fileID: 8300000, guid: 26cf4f78cb874844894b5c373ffb85cc, type: 3}
-    margin: 6
-    waitFor: -1
-    icon: -1
-    onStart:
-      m_PersistentCalls:
-        m_Calls: []
-      m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
-        Culture=neutral, PublicKeyToken=null
-    onEnd:
-      m_PersistentCalls:
-        m_Calls: []
-      m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
-        Culture=neutral, PublicKeyToken=null
-  - clip: {fileID: 8300000, guid: 8b1e2f0c7c2a946419a9799dc4fb2eba, type: 3}
-    margin: 4
-    waitFor: 2
-    icon: 5
-    onStart:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 3280493067134077604, guid: 3ed8e6236fe9c9740baaee288822ed66,
-            type: 3}
-          m_MethodName: ShowImage
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-      m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
-        Culture=neutral, PublicKeyToken=null
-    onEnd:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 3280493067134077604, guid: 3ed8e6236fe9c9740baaee288822ed66,
-            type: 3}
-          m_MethodName: HideImage
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-      m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
-        Culture=neutral, PublicKeyToken=null
-  - clip: {fileID: 8300000, guid: cd3c7c725dfc52346b512a5363f78a7a, type: 3}
-    margin: 3
-    waitFor: -1
-    icon: -1
-    onStart:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 4105284936402122991}
+        - m_Target: {fileID: 0}
           m_MethodName: SetActive
           m_Mode: 6
           m_Arguments:
@@ -2570,50 +2503,22 @@ MonoBehaviour:
       m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
         Culture=neutral, PublicKeyToken=null
   - clip: {fileID: 8300000, guid: 11f51958cb812894b8336f961f1197a0, type: 3}
-    margin: 8
-    waitFor: -1
-    icon: -1
-    onStart:
-      m_PersistentCalls:
-        m_Calls: []
-      m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
-        Culture=neutral, PublicKeyToken=null
-    onEnd:
-      m_PersistentCalls:
-        m_Calls: []
-      m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
-        Culture=neutral, PublicKeyToken=null
-  - clip: {fileID: 8300000, guid: 31350efad4184a54bbbf2ab5d7b39111, type: 3}
-    margin: 4
-    waitFor: -1
-    icon: -1
-    onStart:
-      m_PersistentCalls:
-        m_Calls: []
-      m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
-        Culture=neutral, PublicKeyToken=null
-    onEnd:
-      m_PersistentCalls:
-        m_Calls: []
-      m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
-        Culture=neutral, PublicKeyToken=null
-  - clip: {fileID: 8300000, guid: 03f889f1c1917ea45bd5377fb46d4259, type: 3}
-    margin: 1
-    waitFor: 4
+    margin: 5
+    waitFor: 2
     icon: 5
     onStart:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 2756989425430743126}
-          m_MethodName: ShowImage
-          m_Mode: 1
+        - m_Target: {fileID: 4105284936402122991}
+          m_MethodName: SetActive
+          m_Mode: 6
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
             m_IntArgument: 0
             m_FloatArgument: 0
             m_StringArgument: 
-            m_BoolArgument: 0
+            m_BoolArgument: 1
           m_CallState: 2
       m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
         Culture=neutral, PublicKeyToken=null
@@ -2634,9 +2539,34 @@ MonoBehaviour:
           m_CallState: 2
       m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
         Culture=neutral, PublicKeyToken=null
+  - clip: {fileID: 8300000, guid: 31350efad4184a54bbbf2ab5d7b39111, type: 3}
+    margin: 1
+    waitFor: 4
+    icon: -1
+    onStart:
+      m_PersistentCalls:
+        m_Calls: []
+      m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+    onEnd:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 4105284936402122991}
+          m_MethodName: SetActive
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+      m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
   - clip: {fileID: 8300000, guid: 4db61e758f343cd4ea5963537c9d1c36, type: 3}
-    margin: 10
-    waitFor: 3
+    margin: 1
+    waitFor: 7
     icon: 3
     onStart:
       m_PersistentCalls:
@@ -2672,7 +2602,7 @@ MonoBehaviour:
       m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
         Culture=neutral, PublicKeyToken=null
   - clip: {fileID: 8300000, guid: 7f00beee5728c224baa42d3e41b3f2ed, type: 3}
-    margin: 5
+    margin: 4
     waitFor: -1
     icon: -1
     onStart:
@@ -2700,19 +2630,8 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-        - m_Target: {fileID: 0}
-          m_MethodName: 
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: 
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-        - m_Target: {fileID: 0}
-          m_MethodName: StartShaking
+        - m_Target: {fileID: 2756989425430743126}
+          m_MethodName: HideImage
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -2741,7 +2660,7 @@ MonoBehaviour:
       m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
         Culture=neutral, PublicKeyToken=null
   - clip: {fileID: 8300000, guid: ce1572de84b3ad846bd8d5b8c8ea241b, type: 3}
-    margin: 6
+    margin: 5
     waitFor: -1
     icon: -1
     onStart:
@@ -2766,7 +2685,7 @@ MonoBehaviour:
       m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
         Culture=neutral, PublicKeyToken=null
   - clip: {fileID: 8300000, guid: d0ffb16d336f360478a68e2484e3bccf, type: 3}
-    margin: 5
+    margin: 4
     waitFor: -1
     icon: -1
     onStart:
@@ -2819,9 +2738,9 @@ MonoBehaviour:
     onStart:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 2756989424697681681}
-          m_MethodName: SetActive
-          m_Mode: 6
+        - m_Target: {fileID: 76528272}
+          m_MethodName: ChangeRed
+          m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -2849,7 +2768,7 @@ MonoBehaviour:
       m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
         Culture=neutral, PublicKeyToken=null
   - clip: {fileID: 8300000, guid: cb7ea37827bfc904188a543628110ae3, type: 3}
-    margin: 4
+    margin: 1
     waitFor: 5
     icon: 0
     onStart:
@@ -2896,7 +2815,7 @@ MonoBehaviour:
       m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
         Culture=neutral, PublicKeyToken=null
   - clip: {fileID: 8300000, guid: 2f107afa2572313479dbdbcd957dce40, type: 3}
-    margin: 10
+    margin: 5
     waitFor: -1
     icon: -1
     onStart:
@@ -2990,29 +2909,6 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 1
           m_CallState: 2
-        - m_Target: {fileID: 2756989425430743126}
-          m_MethodName: ShowImage
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 1
-          m_CallState: 2
-        - m_Target: {fileID: 3280493067134077604, guid: 3ed8e6236fe9c9740baaee288822ed66,
-            type: 3}
-          m_MethodName: HideImage
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 1
-          m_CallState: 2
       m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
         Culture=neutral, PublicKeyToken=null
     onEnd:
@@ -3075,6 +2971,28 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 1
           m_CallState: 2
+        - m_Target: {fileID: 2756989425068350900}
+          m_MethodName: EndTrainingMode
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 1
+          m_CallState: 2
+        - m_Target: {fileID: 0}
+          m_MethodName: PlayFortune
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 1
+          m_CallState: 2
       m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
         Culture=neutral, PublicKeyToken=null
   - clip: {fileID: 8300000, guid: c3cfa112fc050524e9dbe7168aa11cfd, type: 3}
@@ -3092,7 +3010,7 @@ MonoBehaviour:
       m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
         Culture=neutral, PublicKeyToken=null
   - clip: {fileID: 8300000, guid: 4db61e758f343cd4ea5963537c9d1c36, type: 3}
-    margin: 5.19
+    margin: 5
     waitFor: 6
     icon: 3
     onStart:
@@ -3139,12 +3057,12 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-        - m_Target: {fileID: 2756989425068350902}
-          m_MethodName: 
+        - m_Target: {fileID: 2756989425068350900}
+          m_MethodName: Restart
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: 
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
             m_IntArgument: 0
             m_FloatArgument: 0
             m_StringArgument: 
@@ -3412,7 +3330,7 @@ Transform:
   m_GameObject: {fileID: 3331152127747327391}
   m_LocalRotation: {x: 0.7071056, y: -0.707108, z: 0.000000052738997, w: 0.000000037033786}
   m_LocalPosition: {x: -3.329, y: 4.725, z: -2.382}
-  m_LocalScale: {x: 0.117615804, y: 0.015418491, z: 0.1798755}
+  m_LocalScale: {x: 0.117615804, y: 0.027250642, z: 0.1798755}
   m_Children:
   - {fileID: 3331152128004251159}
   - {fileID: 3331152129404610773}
@@ -4222,14 +4140,14 @@ AudioSource:
   m_Pitch: 1
   Loop: 0
   Mute: 0
-  Spatialize: 0
+  Spatialize: 1
   SpatializePostEffects: 0
   Priority: 128
   DopplerLevel: 1
   MinDistance: 1
   MaxDistance: 500
   Pan2D: 0
-  rolloffMode: 0
+  rolloffMode: 1
   BypassEffects: 0
   BypassListenerEffects: 0
   BypassReverbZones: 0
@@ -4513,7 +4431,7 @@ Transform:
   m_GameObject: {fileID: 5087745746550905812}
   m_LocalRotation: {x: 0.70710814, y: -0.7071055, z: -0.000042647123, w: 0.00004261732}
   m_LocalPosition: {x: -2.738, y: -2.852, z: 23.277}
-  m_LocalScale: {x: 0.11761586, y: 0.015418499, z: 0.17987567}
+  m_LocalScale: {x: 0.11761586, y: 0.027250655, z: 0.17987567}
   m_Children:
   - {fileID: 5856917508799624005}
   - {fileID: 5856917507365668231}
@@ -4946,7 +4864,7 @@ Transform:
   m_GameObject: {fileID: 5112744136937510951}
   m_LocalRotation: {x: 0.00004263009, y: -0.000042654356, z: 0.70710564, w: -0.707108}
   m_LocalPosition: {x: -3.298, y: -3.143, z: 23.149}
-  m_LocalScale: {x: 0.11761586, y: 0.015418499, z: 0.17987567}
+  m_LocalScale: {x: 0.11761586, y: 0.027250655, z: 0.17987567}
   m_Children:
   - {fileID: 5112744136655455151}
   - {fileID: 5112744137435067757}
@@ -6364,7 +6282,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   obj: {fileID: 2311565940336529617, guid: 1e7190a7ce92253439107d840886a9a1, type: 3}
-  delay: 25
+  delay: 68
   initialTarget: {fileID: 8354861095221620194}
   initialForce: {x: 0, y: 5, z: 0}
   onSpawn:
@@ -6679,7 +6597,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   obj: {fileID: 2311565940336529617, guid: 1e7190a7ce92253439107d840886a9a1, type: 3}
-  delay: 25
+  delay: 35
   initialTarget: {fileID: 2756989423907578464}
   initialForce: {x: 0, y: 0, z: 2}
   onSpawn:
@@ -7413,7 +7331,7 @@ Transform:
   m_GameObject: {fileID: 7827508995457941387}
   m_LocalRotation: {x: -0.000041037798, y: 0.000041097403, z: -0.707108, w: 0.70710564}
   m_LocalPosition: {x: -0.896, y: -3.173, z: -16.16}
-  m_LocalScale: {x: 0.11761592, y: 0.015418506, z: 0.1798755}
+  m_LocalScale: {x: 0.11761592, y: 0.027250668, z: 0.1798755}
   m_Children:
   - {fileID: 7827508995201016835}
   - {fileID: 7827508996971549377}
@@ -8219,7 +8137,7 @@ Transform:
   m_GameObject: {fileID: 8973423615392707588}
   m_LocalRotation: {x: -0, y: -0, z: -0.7071079, w: 0.7071057}
   m_LocalPosition: {x: -0.2798, y: 4.774, z: -3.0078}
-  m_LocalScale: {x: 0.117615804, y: 0.015418491, z: 0.1798755}
+  m_LocalScale: {x: 0.117615804, y: 0.027250642, z: 0.1798755}
   m_Children:
   - {fileID: 7734017023742237845}
   - {fileID: 7734017024588950103}
@@ -8471,7 +8389,7 @@ Transform:
   m_GameObject: {fileID: 8973423616672362580}
   m_LocalRotation: {x: -0.000041037798, y: 0.000041097403, z: -0.707108, w: 0.70710564}
   m_LocalPosition: {x: -0.334, y: -3.16, z: -16.161}
-  m_LocalScale: {x: 0.11761592, y: 0.015418506, z: 0.1798755}
+  m_LocalScale: {x: 0.11761592, y: 0.027250668, z: 0.1798755}
   m_Children:
   - {fileID: 7734017025146935493}
   - {fileID: 7734017023176125959}
@@ -8759,17 +8677,17 @@ PrefabInstance:
     - target: {fileID: 7211853641458031574, guid: 7214225d97a80f948962e174d1f963b5,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 15.293865
+      value: 12.22
       objectReference: {fileID: 0}
     - target: {fileID: 7211853641458031574, guid: 7214225d97a80f948962e174d1f963b5,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -19.444948
+      value: -18.89
       objectReference: {fileID: 0}
     - target: {fileID: 7211853641458031574, guid: 7214225d97a80f948962e174d1f963b5,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 3.7819996
+      value: 3.78
       objectReference: {fileID: 0}
     - target: {fileID: 7211853641458031574, guid: 7214225d97a80f948962e174d1f963b5,
         type: 3}
@@ -8814,17 +8732,17 @@ PrefabInstance:
     - target: {fileID: 7211853641458031574, guid: 7214225d97a80f948962e174d1f963b5,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 75
+      value: 48.041996
       objectReference: {fileID: 0}
     - target: {fileID: 7211853641458031574, guid: 7214225d97a80f948962e174d1f963b5,
         type: 3}
       propertyPath: m_LocalScale.y
-      value: 75
+      value: 48.041996
       objectReference: {fileID: 0}
     - target: {fileID: 7211853641458031574, guid: 7214225d97a80f948962e174d1f963b5,
         type: 3}
       propertyPath: m_LocalScale.z
-      value: 75
+      value: 48.041996
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7214225d97a80f948962e174d1f963b5, type: 3}

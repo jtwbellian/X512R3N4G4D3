@@ -5,8 +5,11 @@ using UnityEngine;
 public class IKPlayerController : MonoBehaviour
 {
     private const float MAX_FOOT_HEIGHT = -3f;
-    private const float DEFAULT_HEIGHT = 1.7f;
+    private const float DEFAULT_HEIGHT = 1.6f;
     private const float MAX_RAYDIST = 25f;
+    private float minHandRadius = 0.01f;
+    private float maxHandRadius = 0.05f;
+
 
     private float lGrab = 0f;
     private float lFinger = 0f;
@@ -19,8 +22,8 @@ public class IKPlayerController : MonoBehaviour
 
     private Transform handR;
     private Transform handL;
-    private Collider fistR;
-    private Collider fistL;
+    private SphereCollider fistR;
+    private SphereCollider fistL;
     private CapsuleCollider capsule;
 
 
@@ -51,8 +54,8 @@ public class IKPlayerController : MonoBehaviour
         handL = GameObject.FindWithTag("LeftHand").transform;
         handR = GameObject.FindWithTag("RightHand").transform;
 
-        fistL = handL.GetComponent<Collider>();
-        fistR = handR.GetComponent<Collider>();
+        fistL = handL.GetComponent<SphereCollider>();
+        fistR = handR.GetComponent<SphereCollider>();
         capsule = GetComponent<CapsuleCollider>();
 
         Physics.IgnoreCollision(capsule, head.transform.GetComponent<Collider>());
@@ -168,23 +171,27 @@ public class IKPlayerController : MonoBehaviour
         }
 
         // Turn on Left fist
-        if (lGrab > 0.5f && !fistL.isTrigger && !handL.GetComponent<OVRGrabber>().grabbedObject)
-        {
-            fistL.isTrigger = true;
-        }
-        else if (fistL.isTrigger)
+        if (lGrab > 0.5f && fistL.isTrigger && handL.GetComponent<OVRGrabber>().grabbedObject == null)
         {
             fistL.isTrigger = false;
+            fistL.radius = minHandRadius;
+        }
+        else if (!fistL.isTrigger)
+        {
+            fistL.isTrigger = true;
+            fistL.radius = maxHandRadius;
         }
 
         // Turn on Right fist
-        if (rGrab > 0.5f && !fistR.isTrigger && !handR.GetComponent<OVRGrabber>().grabbedObject)
-        {
-            fistR.isTrigger = true;
-        }
-        else if (fistR.isTrigger)
+        if (rGrab > 0.5f && fistR.isTrigger && handR.GetComponent<OVRGrabber>().grabbedObject == null)
         {
             fistR.isTrigger = false;
+            fistR.radius = minHandRadius;
+        }
+        else if (!fistR.isTrigger)
+        {
+            fistR.isTrigger = true;
+            fistR.radius = maxHandRadius;
         }
 
         UpdateGestures();

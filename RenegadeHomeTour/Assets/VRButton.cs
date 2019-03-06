@@ -24,11 +24,13 @@ public class VRButton : MonoBehaviour
         audioSource = GetComponent<AudioSource>();
     }
 
-    void OnTriggerEnter(Collider otherCollider)
-    {
-        var isWeapon = otherCollider.transform.GetComponent<DoesDammage>();
+    void OnColliderEnter(Collider other) => OnTriggerEnter(other);
 
-        if (otherCollider.transform.CompareTag("RightHand") || otherCollider.transform.CompareTag("LeftHand") || isWeapon != null)
+    void OnTriggerEnter(Collider other)
+    {
+        var isWeapon = other.transform.GetComponent<DoesDammage>();
+
+        if (other.transform.CompareTag("RightHand") || other.transform.CompareTag("LeftHand") || isWeapon != null)
         {
             if (on)
             {

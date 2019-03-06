@@ -22,7 +22,7 @@ public class CrabController : MonoBehaviour
 
     private float numAttacks = 3;
     private float attack = 0;
-    private float health = 500f;
+    private float health = 50f;
 
     public state current_state;
     public float speed = 2f;
@@ -54,22 +54,26 @@ public class CrabController : MonoBehaviour
 
     }
 
+    void OnColliderEnter(Collider other) => OnTriggerEnter(other);
 
-    void OnTriggerEnter(Collider col)
+    void OnTriggerEnter(Collider other)
     {
-        if (col.transform.CompareTag("jumpPoint"))
+        if (other.transform.CompareTag("jumpPoint"))
         {
-            myJumpPoint = col.transform;
+            myJumpPoint = other.transform;
             current_state = state.Jump;
             audioSource.PlayOneShot(chirp3);
             return;
         }
 
-        DoesDammage dd = col.transform.GetComponent<DoesDammage>();
-        
+        DoesDammage dd = other.transform.GetComponent<DoesDammage>();
+
         if (dd != null)
         {
+
+
             var dmg = dd.GetDmg();
+            Debug.Log("Hit for " + dmg + " dammage");
 
             if (dmg < TOL)
                 return;
@@ -86,13 +90,16 @@ public class CrabController : MonoBehaviour
 
                 alive = false;
                 rb.isKinematic = false;
-                rb.AddTorque(col.transform.position - transform.position);
+                rb.AddTorque(other.transform.position - transform.position);
                 animator.SetBool("dead", true);
 
                 GameManager gm = GameManager.GetInstance();
                 gm.IncrementKillCount();
             }
+
+            rb.AddForce((other.transform.position - transform.position) * (dmg / 100f));
         }
+
     }
 
 

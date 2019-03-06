@@ -67,8 +67,8 @@ public class VRMovementController : MonoBehaviour
                     GameManager.GetInstance().direc.Ping(PING.analogFwd);
                 }
 
-                rigidBody.AddForce(head.forward * (speed * stickY * boost), ForceMode.Force);
-                boost -= Time.deltaTime * Mathf.Abs(stickY) * 0.5f;
+                rigidBody.AddForce(head.forward * (speed * stickY * (boost + 0.1f)), ForceMode.Force);
+                boost -= Time.deltaTime * Mathf.Abs(stickY) * 0.25f;
             }
             else if (boost < 1f)
             {

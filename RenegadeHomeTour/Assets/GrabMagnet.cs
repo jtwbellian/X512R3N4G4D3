@@ -46,8 +46,6 @@ public class GrabMagnet : MonoBehaviour
             return;
         }
 
-
-
         if (item == null || 
         item.isHeld() || 
         (item.isHat && !holdsHat) ||
@@ -57,15 +55,21 @@ public class GrabMagnet : MonoBehaviour
         // grab a tool 
         if (col.transform.parent != transform)
         {
+            if (item.GetGrabber() != null)
+            {
+                item.GetGrabber().GrabEnd(Vector3.zero, Vector3.zero);
+            }
+
             lastItem = item;
             
             if (item.home != null)
                 item.home.Free();
 
+            item.OnGrab();
+
             Free();
 
             item.SetHome(this);
-            item.OnRelease();
 
             empty = false;
 
@@ -74,8 +78,6 @@ public class GrabMagnet : MonoBehaviour
                 orb.enabled = false;
             }
             GameManager.GetInstance().direc.Ping(PING.weaponHolstered);
-
-//            Debug.Log("Home Set to "  + this.ToString());
         }
     }
 }

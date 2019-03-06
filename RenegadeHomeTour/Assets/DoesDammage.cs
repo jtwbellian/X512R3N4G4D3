@@ -36,10 +36,10 @@ public class DoesDammage : MonoBehaviour
         {
             if (tool == null && rb != null)
             {
-                 return power * rb.velocity.magnitude/Time.deltaTime;
+                 return power * rb.velocity.magnitude / 10f;
             }
 
-            return power * tool.GetVelocity().magnitude / Time.deltaTime;
+            return power * tool.GetVelocity().magnitude * 1000f;
         }
 
         return power;
