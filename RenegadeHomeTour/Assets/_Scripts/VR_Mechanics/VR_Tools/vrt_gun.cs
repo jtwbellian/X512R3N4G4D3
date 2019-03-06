@@ -15,7 +15,7 @@ public class vrt_gun : VRTool
     public Rigidbody bulletType;
     public float fireSpeed = 10f;
     public Transform gunBarrel;
-    public Transform muzzleFlash;
+    public ParticleSystem muzzleFlash;
 
 
     public override void Init()
@@ -24,7 +24,7 @@ public class vrt_gun : VRTool
         audioSource = GetComponent<AudioSource>();
         anim = GetComponentInChildren<Animator>();
         hm = OVRHapticsManager.instance;
-
+        muzzleFlash = GetComponentInChildren<ParticleSystem>();
     }
 
     public override void IndexRelease()
@@ -69,6 +69,12 @@ public class vrt_gun : VRTool
         {
             GameManager.GetInstance().direc.Ping(PING.gunFired);
         }
+
+        if (!gameObject.GetComponent<ParticleSystem>().isPlaying)
+        {
+        muzzleFlash.Play();
+        }
+        
     }
 
     public void Authenicate()
