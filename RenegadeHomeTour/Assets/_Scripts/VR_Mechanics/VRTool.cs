@@ -13,7 +13,7 @@ public abstract class VRTool : MonoBehaviour, iSpecial_Grabbable
 
     private bool indexDown = false;
     private bool thumbDown = false;
-    private float minRadius = 0.05f;
+    private float minRadius = 0.1f;
     private float maxRadius = 0.3f;
 
     public bool usesIndex = true;
@@ -168,7 +168,11 @@ public abstract class VRTool : MonoBehaviour, iSpecial_Grabbable
         var grabHand = grabInfo.grabbedBy;
 
         if (grabHand == null)
+        {
+            Debug.Log("GrabHand not found");
             return Vector3.zero;
+        }
+
 
         return grabHand.GetHandVelocity();
     }
@@ -213,16 +217,8 @@ public abstract class VRTool : MonoBehaviour, iSpecial_Grabbable
         transform.localPosition = Vector3.zero;
         transform.localRotation = Quaternion.identity;
 
-        foreach (Collider c in toolCols)
-        {
-            if (!c.isTrigger && c.enabled)
-                c.enabled = false;
-        }
-
         rb.isKinematic = true;
         rb.velocity = Vector3.zero;
-
-        //Debug.Log("Home Set to " + grabSpot.ToString());
     }
 
     public void GoHome()
@@ -230,15 +226,12 @@ public abstract class VRTool : MonoBehaviour, iSpecial_Grabbable
         if (home == null || grabInfo.isGrabbed)
             return;
 
-       // Debug.Log("Attempting to send " + this.ToString() + " To its home @ " + home.ToString());
-
         if (home.IsFree())
         {
             transform.position = home.transform.position;
         }
         else
         {
-            //Debug.Log("Home Full");
             home = null;
         }
 
@@ -263,14 +256,18 @@ public abstract class VRTool : MonoBehaviour, iSpecial_Grabbable
 
         foreach (Collider c in toolCols)
         {
-            if (!c.isTrigger && c.enabled)
-                c.enabled = false;
             // Shrink sphere collider on grab
             if (c.isTrigger && c.GetType() == typeof(SphereCollider))
             {
                 SphereCollider sc = (SphereCollider)c;
                 sc.radius = minRadius;
             }
+            else if (!c.isTrigger)
+            {
+                c.isTrigger = true;
+            }
+
+
         }
 
         rb.isKinematic = true;
@@ -285,14 +282,15 @@ public abstract class VRTool : MonoBehaviour, iSpecial_Grabbable
 
         foreach (Collider c in toolCols)
         {
-            if (!c.enabled && !c.isTrigger)
-                c.enabled = true;
-
             // Grow sphere collider on release
             if (c.isTrigger && c.GetType() == typeof(SphereCollider))
             {
                 SphereCollider sc = (SphereCollider)c;
                 sc.radius = maxRadius;
+            }
+            else if (c.GetType() != typeof(SphereCollider))
+            {
+                c.isTrigger = false;
             }
         }
 

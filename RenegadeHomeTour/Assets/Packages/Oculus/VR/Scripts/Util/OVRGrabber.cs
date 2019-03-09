@@ -413,7 +413,7 @@ public class OVRGrabber : MonoBehaviour
         return (m_lastPos - transform.position) / Time.deltaTime;
     }
 
-    protected void GrabEnd()
+    public void GrabEnd()
     {
         if (m_grabbedObj != null)
         {

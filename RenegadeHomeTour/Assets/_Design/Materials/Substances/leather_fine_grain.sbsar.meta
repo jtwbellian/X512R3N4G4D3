@@ -15,9 +15,22 @@ ScriptedImporter:
     graphDescIndex: 0
     generateAllOutputs: 0
     generateMipMaps: 1
-    preset: " <sbspreset pkgurl=\"pkg://leather_fine_grain\" label=\"\" >\n </sbspreset>\n"
-    shaderName: Standard
-    outputNames: baseColor,normal,metallic,height,ambientOcclusion
+    preset: " <sbspreset pkgurl=\"pkg://leather_fine_grain\" label=\"\" >\n  <presetinput
+      identifier=\"$outputsize\" uid=\"4001080892\" type=\"8\" value=\"10,10\" />\n
+      \ <presetinput identifier=\"$randomseed\" uid=\"3104419950\" type=\"4\" value=\"5917\"
+      />\n  <presetinput identifier=\"color\" uid=\"2559783926\" type=\"2\" value=\"0.292453,0.257965,0.188991\"
+      />\n  <presetinput identifier=\"variation_hue\" uid=\"2565564261\" type=\"0\"
+      value=\"31\" />\n  <presetinput identifier=\"roughness\" uid=\"2559783882\"
+      type=\"0\" value=\"0.433\" />\n  <presetinput identifier=\"metallic\" uid=\"2559783877\"
+      type=\"0\" value=\"0.063\" />\n  <presetinput identifier=\"channel_normal\"
+      uid=\"2451408523\" type=\"4\" value=\"0\" />\n  <presetinput identifier=\"contrast\"
+      uid=\"2493699749\" type=\"0\" value=\"0.262\" />\n  <presetinput identifier=\"normal_intensity\"
+      uid=\"3945193702\" type=\"0\" value=\"0.555\" />\n  <presetinput identifier=\"height_range\"
+      uid=\"2466704583\" type=\"0\" value=\"0.611\" />\n  <presetinput identifier=\"height_position\"
+      uid=\"2466704566\" type=\"0\" value=\"0.559\" />\n  <presetinput identifier=\"ao_intensity\"
+      uid=\"2565659829\" type=\"0\" value=\"0.564\" />\n </sbspreset>\n"
+    shaderName: Lightweight Render Pipeline/Lit
+    outputNames: diffuse,normal,specular,metallic,ambientOcclusion
     texturePackingList:
     - outputName: diffuse
       alphaSource: diffuse
@@ -32,7 +45,7 @@ ScriptedImporter:
     - outputName: roughness
       alphaSource: roughness
     - outputName: metallic
-      alphaSource: smoothness
+      alphaSource: metallic
     - outputName: specularLevel
       alphaSource: specularLevel
     - outputName: height
@@ -105,9 +118,10 @@ ScriptedImporter:
     targetSettingList:
     - label: 
       bLockRatio: 1
-      textureWidth: 256
-      textureHeight: 256
+      textureWidth: 1024
+      textureHeight: 1024
       textureFormat: 0
       bGenerateOnLoad: 1
-    material: {instanceID: 0}
+    material: {fileID: -2026362965356651475, guid: 22f0894404fddd341a89620e545b4113,
+      type: 3}
     generatedTextures: []

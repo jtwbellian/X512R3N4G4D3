@@ -70,9 +70,10 @@ public class vrt_gun : VRTool
             GameManager.GetInstance().direc.Ping(PING.gunFired);
         }
 
-        if (!gameObject.GetComponentInChildren<ParticleSystem>().isPlaying)
+        if (muzzleFlash != null)
         {
-        muzzleFlash.Play();
+            muzzleFlash.Clear();
+            muzzleFlash.Play();
         }
         
     }

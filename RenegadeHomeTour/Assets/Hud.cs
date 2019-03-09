@@ -49,6 +49,8 @@ public class Hud : MonoBehaviour
 
         transform.position = SmoothApproach(lastPos, lastHudAnchorPos, hudAnchor.position, speed);
 
+        speed = 6f + playerBody.velocity.magnitude;
+
         lastPos = transform.position;
         lastHudAnchorPos = hudAnchor.transform.position;
         transform.LookAt(Camera.main.transform.position);
@@ -77,8 +79,8 @@ public class Hud : MonoBehaviour
         switch (icon)
         {
             case Icon.analogClick: message = "Recalibrating..."; break;
-            case Icon.analogFwd: message = "Use Jet Boost"; break;
-            case Icon.grab: message = "Squeeze and Hold grab trigger"; break;
+            case Icon.analogFwd: message = "Use the left thumbstick to Jet Boost"; break;
+            case Icon.grab: message = "Squeeze and hold Grab Trigger to Grab objects"; break;
             case Icon.holster: message = "Holster Your Weapons"; break;
             case Icon.use: message = "Pull the Trigger"; break;
             default: message = "RENEGADE VR - DEMO" ; break;

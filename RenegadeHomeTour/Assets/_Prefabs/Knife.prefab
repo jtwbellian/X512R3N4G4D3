@@ -121,7 +121,7 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1506683974670753884}
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 0.004464034, y: 0.014773291, z: 0.08421062}
@@ -141,7 +141,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tool: {fileID: 8944295312853187838}
   velocityBased: 1
-  power: 50
+  power: 5000
   rb: {fileID: 5147155168233737493}
   impactSnd: {fileID: 8300000, guid: ce078ab3503464247a2d9c6681b01e26, type: 3}
 --- !u!1 &1766359334558862333
@@ -246,6 +246,7 @@ MonoBehaviour:
   isHat: 0
   indexValue: 0
   home: {fileID: 0}
+  haptics: {fileID: 0}
   hand: 0
 --- !u!1 &2085198286373019297
 GameObject:

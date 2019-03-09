@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class DoesDammage : MonoBehaviour
 {
+    private const float MAX_DAMMAGE = 500f; 
     [SerializeField]
     public VRTool tool;
     public bool velocityBased;
@@ -36,13 +37,13 @@ public class DoesDammage : MonoBehaviour
         {
             if (tool == null && rb != null)
             {
-                 return power * rb.velocity.magnitude/Time.deltaTime;
+                 return Mathf.Max(power * rb.velocity.magnitude / 10f, MAX_DAMMAGE);
             }
 
-            return power * tool.GetVelocity().magnitude / Time.deltaTime;
+            return Mathf.Max(power * tool.GetVelocity().magnitude * 100f, MAX_DAMMAGE);
         }
 
-        return power;
+        return Mathf.Max(power, MAX_DAMMAGE);
     }
 
 }
