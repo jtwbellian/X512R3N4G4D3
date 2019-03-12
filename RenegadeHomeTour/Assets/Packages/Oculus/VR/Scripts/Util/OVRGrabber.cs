@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-** Modified by James Bellian to support OVRClimbable
+** Modified by James Bellian to support OVRClimbable and raygrab
 
 ************************************************************************************/
 
@@ -32,6 +32,9 @@ public class OVRGrabber : MonoBehaviour
 {
 
     private GameManager gm;
+    private GameObject currentPOI = null;
+    private GameObject previousPOI = null;
+
     // Grip trigger thresholds for picking up objects, with some hysteresis.
     public float grabBegin = 0.55f;
     public float grabEnd = 0.35f;
@@ -66,11 +69,11 @@ public class OVRGrabber : MonoBehaviour
     protected Quaternion m_anchorOffsetRotation;
     protected Vector3 m_anchorOffsetPosition;
     protected float m_prevFlex;
-	protected OVRGrabbable m_grabbedObj = null;
+    protected OVRGrabbable m_grabbedObj = null;
     protected Vector3 m_grabbedObjectPosOff;
     protected Quaternion m_grabbedObjectRotOff;
-	protected Dictionary<OVRGrabbable, int> m_grabCandidates = new Dictionary<OVRGrabbable, int>();
-	protected bool operatingWithoutOVRCameraRig = true;
+    protected Dictionary<OVRGrabbable, int> m_grabCandidates = new Dictionary<OVRGrabbable, int>();
+    protected bool operatingWithoutOVRCameraRig = true;
     protected Vector3 bodyPos;
 
     protected Vector3 prevPos;
@@ -83,10 +86,10 @@ public class OVRGrabber : MonoBehaviour
     public OVRGrabbable grabbedObject
     {
         get { return m_grabbedObj; }
-        
+
     }
 
-	public void ForceRelease(OVRGrabbable grabbable)
+    public void ForceRelease(OVRGrabbable grabbable)
     {
         bool canRelease = (
             (m_grabbedObj != null) &&
@@ -103,18 +106,18 @@ public class OVRGrabber : MonoBehaviour
         m_anchorOffsetPosition = transform.localPosition;
         m_anchorOffsetRotation = transform.localRotation;
 
-		// If we are being used with an OVRCameraRig, let it drive input updates, which may come from Update or FixedUpdate.
+        // If we are being used with an OVRCameraRig, let it drive input updates, which may come from Update or FixedUpdate.
 
-		OVRCameraRig rig = null;
+        OVRCameraRig rig = null;
 
-		if (transform.parent != null && transform.parent.parent != null)
-			rig = transform.parent.parent.GetComponent<OVRCameraRig>();
-		
-		if (rig != null)
-		{
-			rig.UpdatedAnchors += (r) => {OnUpdatedAnchors();};
-			operatingWithoutOVRCameraRig = false;
-		}
+        if (transform.parent != null && transform.parent.parent != null)
+            rig = transform.parent.parent.GetComponent<OVRCameraRig>();
+
+        if (rig != null)
+        {
+            rig.UpdatedAnchors += (r) => { OnUpdatedAnchors(); };
+            operatingWithoutOVRCameraRig = false;
+        }
 
         // Find rigid body for player
         rb = transform.root.GetComponentInChildren<Rigidbody>();
@@ -133,9 +136,9 @@ public class OVRGrabber : MonoBehaviour
         m_lastRot = transform.rotation;
         bodyPos = prevPos = transform.root.position;
 
-        if(m_parentTransform == null)
+        if (m_parentTransform == null)
         {
-            if(gameObject.transform.parent != null)
+            if (gameObject.transform.parent != null)
             {
                 m_parentTransform = gameObject.transform.parent.transform;
             }
@@ -148,10 +151,10 @@ public class OVRGrabber : MonoBehaviour
         }
     }
 
-	void FixedUpdate()
-	{
-		if (operatingWithoutOVRCameraRig)
-			OnUpdatedAnchors();
+    void FixedUpdate()
+    {
+        if (operatingWithoutOVRCameraRig)
+            OnUpdatedAnchors();
 
     }
 
@@ -180,11 +183,11 @@ public class OVRGrabber : MonoBehaviour
         m_lastPos = transform.position;
         m_lastRot = transform.rotation;
 
-		float prevFlex = m_prevFlex;
-		// Update values from inputs
-		m_prevFlex = OVRInput.Get(OVRInput.Axis1D.PrimaryHandTrigger, m_controller);
+        float prevFlex = m_prevFlex;
+        // Update values from inputs
+        m_prevFlex = OVRInput.Get(OVRInput.Axis1D.PrimaryHandTrigger, m_controller);
 
-		CheckForGrabOrRelease(prevFlex);
+        CheckForGrabOrRelease(prevFlex);
     }
 
     void OnDestroy()
@@ -193,6 +196,11 @@ public class OVRGrabber : MonoBehaviour
         {
             GrabEnd();
         }
+    }
+
+    void OnColliderEnter(Collider otherCollider)
+    {
+        OnTriggerEnter(otherCollider);
     }
 
     void OnTriggerEnter(Collider otherCollider)
@@ -204,7 +212,7 @@ public class OVRGrabber : MonoBehaviour
         }
 
         // Get the grab trigger
-		OVRGrabbable grabbable = otherCollider.GetComponent<OVRGrabbable>() ?? otherCollider.GetComponentInParent<OVRGrabbable>();
+        OVRGrabbable grabbable = otherCollider.GetComponent<OVRGrabbable>() ?? otherCollider.GetComponentInParent<OVRGrabbable>();
         if (grabbable == null) return;
 
         // Add the grabbable
@@ -215,7 +223,7 @@ public class OVRGrabber : MonoBehaviour
 
     void OnTriggerExit(Collider otherCollider)
     {
-		OVRGrabbable grabbable = otherCollider.GetComponent<OVRGrabbable>() ?? otherCollider.GetComponentInParent<OVRGrabbable>();
+        OVRGrabbable grabbable = otherCollider.GetComponent<OVRGrabbable>() ?? otherCollider.GetComponentInParent<OVRGrabbable>();
         if (grabbable == null) return;
 
         // Remove the grabbable
@@ -240,12 +248,66 @@ public class OVRGrabber : MonoBehaviour
     {
         if ((m_prevFlex >= grabBegin) && (prevFlex < grabBegin))
         {
+
+            //Check for nearby grabbables
+           // GrabRay();
             GrabBegin();
         }
         else if ((m_prevFlex <= grabEnd) && (prevFlex > grabEnd))
         {
             GrabEnd();
         }
+    }
+
+    protected virtual bool GrabRay()
+    {
+
+        RaycastHit hit;
+        VRTool newTool = null;
+        VRTool oldTool = null;
+
+
+        if (Physics.Raycast(transform.position, transform.forward, out hit, 10f))
+        {
+            currentPOI = hit.collider.gameObject;
+            
+            if (currentPOI.Equals(previousPOI))
+            {
+                return false;
+            }
+
+
+
+            // Get the grabbable
+            OVRGrabbable grabbable = currentPOI.GetComponent<OVRGrabbable>() ?? currentPOI.GetComponentInParent<OVRGrabbable>();
+
+            if (grabbable == null)
+                return false;
+
+            // Add the grabbable
+            int refCount = 0;
+            m_grabCandidates.TryGetValue(grabbable, out refCount);
+            m_grabCandidates[grabbable] = refCount + 1;
+
+            //Get Tool
+            newTool = currentPOI.GetComponent<VRTool>();
+
+            if (newTool != null)
+                newTool.LinesOn();
+
+            if (previousPOI != null)
+            {
+                oldTool = previousPOI.GetComponent<VRTool>();
+            }
+
+            if (oldTool != null)
+                oldTool.LinesOff();
+
+            previousPOI = currentPOI;
+            return true;
+        }
+
+        return false;
     }
 
     protected virtual void GrabBegin()

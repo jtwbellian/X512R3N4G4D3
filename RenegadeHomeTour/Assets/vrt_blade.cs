@@ -44,7 +44,6 @@ public class vrt_blade : VRTool
 
     public new void OnRelease()
     {
-        base.OnRelease();
 
         if (orientation == 0)
         {
@@ -52,11 +51,13 @@ public class vrt_blade : VRTool
             if (rb != null)
             {
                 Debug.Log("Knife Thrown");
-                rb.AddForce(rb.velocity * 10f, ForceMode.Impulse);
+                rb.AddForce(rb.velocity * 50f, ForceMode.Impulse);
                 //rb.AddTorque(transform.up * 50f);
             }
             else Debug.Log("Could not find knife rigid body :(");
         }
+        base.OnRelease();
+
     }
 
 

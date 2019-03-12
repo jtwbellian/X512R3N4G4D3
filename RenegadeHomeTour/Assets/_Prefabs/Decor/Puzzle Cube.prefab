@@ -12,11 +12,8 @@ GameObject:
   - component: {fileID: 8969190032597330443}
   - component: {fileID: 7301475992684014209}
   - component: {fileID: 4939478852636923696}
-  - component: {fileID: 6306905387687556187}
   - component: {fileID: 4746661986427472689}
-  - component: {fileID: 7183369925757971234}
   - component: {fileID: 6258359987966190889}
-  - component: {fileID: 966462464878982974}
   m_Layer: 0
   m_Name: Puzzle Cube
   m_TagString: Untagged
@@ -31,13 +28,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6507961269375619108}
-  m_LocalRotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
+  m_LocalRotation: {x: -0.7069834, y: 0, z: 0, w: 0.7072302}
   m_LocalPosition: {x: 0.1424588, y: -8.553, z: -40.785583}
-  m_LocalScale: {x: 6.195973, y: 6.195973, z: 6.195973}
+  m_LocalScale: {x: 4, y: 4, z: 4}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -89.98, y: 0, z: 0}
 --- !u!33 &8969190032597330443
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -96,19 +93,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.02, y: 0.019999996, z: 0.019999996}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!65 &6306905387687556187
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6507961269375619108}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.03, y: 0.03, z: 0.03}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &4746661986427472689
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -127,22 +111,7 @@ MonoBehaviour:
   m_snapOrientation: 0
   m_snapOffset: {fileID: 0}
   m_grabPoints:
-  - {fileID: 6306905387687556187}
---- !u!114 &7183369925757971234
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6507961269375619108}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_GeneratorAsset: {fileID: 0}
-  m_Script: {fileID: 11500000, guid: 5756ee98a09379240917abcf48431b3e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  linearForce: {x: 0, y: 0, z: 0}
-  angularForce: {x: 0.1, y: 0, z: 0}
+  - {fileID: 4939478852636923696}
 --- !u!54 &6258359987966190889
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -159,23 +128,3 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &966462464878982974
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6507961269375619108}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_GeneratorAsset: {fileID: 0}
-  m_Script: {fileID: 11500000, guid: 87c6cdaa166661b4bb5a09ec97061f00, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  usesIndex: 1
-  usesThumb: 0
-  isHat: 0
-  indexValue: 0
-  home: {fileID: 0}
-  haptics: {fileID: 0}
-  hand: 0
