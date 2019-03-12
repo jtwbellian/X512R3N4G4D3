@@ -114,6 +114,16 @@ public class Hud : MonoBehaviour
 
     }
 
+    public void ShowKills()
+    {
+        foreach(Text s in scoreField)
+        {
+            s.gameObject.SetActive(true);
+        }
+        
+
+    }
+
     public void Refresh()
     {
         gm = GameManager.GetInstance();

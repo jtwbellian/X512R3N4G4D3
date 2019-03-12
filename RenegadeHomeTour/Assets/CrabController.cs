@@ -14,6 +14,7 @@ public class CrabController : MonoBehaviour
     private AudioSource audioSource;
     public AudioClip stabSnd, shotSnd, deathSnd, chirp1, chirp2, chirp3, chirp4;
     public ParticleSystem psDissolve, psChunk;
+    public Collider[] myCols;
 
     private float lastJumpTime = 0f;
     [SerializeField]
@@ -53,6 +54,13 @@ public class CrabController : MonoBehaviour
 
         audioSource = GetComponent<AudioSource>();
 
+        Collider playerCol = Camera.main.transform.root.GetComponentInChildren<CapsuleCollider>();
+
+        if (playerCol != null)
+            foreach (Collider c in myCols)
+            {
+                Physics.IgnoreCollision(playerCol, c);
+            }
     }
 
     void OnColliderEnter(Collider other) => OnTriggerEnter(other);
@@ -113,7 +121,12 @@ public class CrabController : MonoBehaviour
             case state.Walk:
             {
                     animator.speed = 1.5f;
-                    transform.LookAt(target);
+
+                    var tFuture = transform;
+                    tFuture.LookAt(target);
+                    var toQuat = tFuture.rotation;
+
+                    Quaternion.RotateTowards(transform.rotation, toQuat, Time.deltaTime);
                     rb.AddForce(transform.forward * speed ,  ForceMode.Force);
 
                     if (!target.CompareTag("jumpPoint") && Vector3.Distance(transform.position, target.position) < jumpDist)

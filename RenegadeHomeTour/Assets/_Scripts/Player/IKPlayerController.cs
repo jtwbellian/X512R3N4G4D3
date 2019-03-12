@@ -57,7 +57,7 @@ public class IKPlayerController : MonoBehaviour
         fistR = handR.GetComponent<SphereCollider>();
         capsule = GetComponent<CapsuleCollider>();
 
-        Physics.IgnoreCollision(capsule, head.transform.GetComponent<Collider>());
+        //Physics.IgnoreCollision(capsule, head.transform.GetComponent<Collider>());
 
         // Find all Passable objects and set physics to ignore collisions between them and the player
         GameObject [] passableObjs =  GameObject.FindGameObjectsWithTag("passable");
@@ -206,7 +206,6 @@ public class IKPlayerController : MonoBehaviour
         }
 
         var lerp = (head.localPosition.y - 0.75f) * 2f / height;
-
 
         animator.SetFloat("Legs", lerp); //Mathf.Clamp(head.localPosition.y / (height * 0.75f), 0f, 1f));
     }

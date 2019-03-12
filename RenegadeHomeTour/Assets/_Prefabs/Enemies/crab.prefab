@@ -125,7 +125,7 @@ Transform:
   m_LocalScale: {x: 2.2759013, y: 2.2759025, z: 2.2759025}
   m_Children: []
   m_Father: {fileID: 1494552838610717804}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
 --- !u!198 &667844383791763846
 ParticleSystem:
@@ -5308,7 +5308,6 @@ Transform:
   m_Children:
   - {fileID: 4606391879447153765}
   - {fileID: 3165086073984206121}
-  - {fileID: 119293145156501474}
   - {fileID: 667844383791763865}
   - {fileID: 8337299923410453943}
   m_Father: {fileID: 0}
@@ -5371,11 +5370,13 @@ MonoBehaviour:
   chirp4: {fileID: 8300000, guid: ea577046039c65d4982dd3fbfe6c0f3e, type: 3}
   psDissolve: {fileID: 667844383791763846}
   psChunk: {fileID: 0}
+  myCols:
+  - {fileID: 6826063245509624400}
   jumpDelay: 25
   jumpForce: 3.5
   current_state: 0
   speed: 15
-  jumpDist: 0.6
+  jumpDist: 1.5
   target: {fileID: 0}
 --- !u!82 &1014697572107976251
 AudioSource:
@@ -5663,12 +5664,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2869522009142353084}
-  m_LocalRotation: {x: -0.17678982, y: -0.30363077, z: 0.044456195, w: 0.9351885}
-  m_LocalPosition: {x: 0.022, y: 1.823, z: 0.133}
-  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_LocalRotation: {x: 0.33903044, y: 0.09043335, z: 0.6302159, w: -0.69260967}
+  m_LocalPosition: {x: -0.0028518017, y: -0.00018692244, z: -0.0006340076}
+  m_LocalScale: {x: 0.02122067, y: 0.021220664, z: 0.021220675}
   m_Children: []
-  m_Father: {fileID: 1494552838610717804}
-  m_RootOrder: 2
+  m_Father: {fileID: 8692656748251571057}
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: -17.678, y: -37.774, z: 11.534}
 --- !u!135 &4022291768209402926
 SphereCollider:
@@ -5681,7 +5682,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.2
+  m_Radius: 0.3
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &6032822451549090752
 MonoBehaviour:
@@ -6224,6 +6225,7 @@ Transform:
   - {fileID: 1431405432893490966}
   - {fileID: 3604707544108267490}
   - {fileID: 7956833610293336251}
+  - {fileID: 119293145156501474}
   m_Father: {fileID: 3165086073984206121}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -6711,7 +6713,7 @@ PrefabInstance:
     - target: {fileID: 5066915441391392205, guid: c39c3c6a5feae0e4d90b9ddcc33dbac2,
         type: 3}
       propertyPath: m_RootOrder
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 5066915441391392205, guid: c39c3c6a5feae0e4d90b9ddcc33dbac2,
         type: 3}

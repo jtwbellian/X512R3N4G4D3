@@ -20,6 +20,29 @@ public class Spawner : MonoBehaviour
         //StartSpawning();
     }
 
+    void OnDrawGizmos()
+    {
+        var skinnedRenderer = obj.GetComponentInChildren<SkinnedMeshRenderer>();
+        var staticRenderer = obj.GetComponentInChildren<MeshFilter>();
+
+        Gizmos.color = Color.red;
+
+        if (skinnedRenderer != null)
+        {
+            Mesh gizmoMesh = skinnedRenderer.sharedMesh;
+            Gizmos.DrawWireMesh(gizmoMesh, 0, transform.position, transform.rotation, skinnedRenderer.transform.localScale);
+        }
+        else if (staticRenderer != null)
+        {
+            Mesh gizmoMesh = staticRenderer.sharedMesh;
+            Gizmos.DrawWireMesh(gizmoMesh, 0, transform.position, transform.rotation, staticRenderer.transform.localScale);
+
+        }
+        else
+        {
+            Gizmos.DrawWireSphere(transform.position, 1f);
+        }
+    }
 
     IEnumerator Spawn()
     {

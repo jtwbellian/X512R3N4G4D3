@@ -17,6 +17,8 @@ public enum PING
     weaponHolstered
 }
 
+
+// OLD SYSTEM 
 [System.Serializable]
 public class Line
 {
@@ -38,7 +40,6 @@ public class Director : MonoBehaviour
     public bool autoStart = false;
     public bool trainingMode = true;
     public bool wasInvoked = false;
-    
 
     // Start is called before the first frame update
     void Start()
@@ -61,6 +62,7 @@ public class Director : MonoBehaviour
     {
         trainingMode = false;
     }
+
     public void Ping(PING ping)
     {
         if (currentLine >= script.Length)
@@ -71,13 +73,14 @@ public class Director : MonoBehaviour
 
         //Debug.Log("Ping recieved with " + ping.ToString());
 
-        if ( ! wasInvoked && ping.Equals(script[currentLine].waitFor))
+        if ( !wasInvoked && ping.Equals(script[currentLine].waitFor))
         {
             script[currentLine].onEnd.Invoke();
-            Invoke("Action", script[currentLine].margin);
             currentLine++;
+            Invoke("Action", script[currentLine].margin);
             wasInvoked = true;
         }
+
         else if (trainingMode && ping.Equals(PING.ItemDropped))
         {
             // Have Dallas remind player to pick up gun from holster
@@ -92,7 +95,6 @@ public class Director : MonoBehaviour
 
     public void Action()
     {
-        wasInvoked = false;
 
         if (currentLine >= script.Length)
         {
@@ -103,8 +105,8 @@ public class Director : MonoBehaviour
         Debug.Log("Action Called for event ");
         script[currentLine].onStart.Invoke();
 
-        sm.dialogue.clip = script[currentLine].clip;
-        sm.dialogue.Play();
+  
+        sm.dialogue.PlayOneShot(script[currentLine].clip);
 
         if (script[currentLine].waitFor == PING.NONE)
         {
@@ -112,5 +114,7 @@ public class Director : MonoBehaviour
             Invoke("Action", script[currentLine].margin);
             currentLine++;
         }
+
+        wasInvoked = false;
     }
 }

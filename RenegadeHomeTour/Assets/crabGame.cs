@@ -20,6 +20,19 @@ public class crabGame : MonoBehaviour
         }
     }
 
+    //Set up the crab game 
+    public void PreGame()
+    {
+        foreach(VRButton vrb in switches)
+        {
+            vrb.Off();
+        }
+
+        Hud hud = GameManager.GetInstance().hud;
+        hud.ShowKills();
+
+    }
+
     // Update is called once per frame
     void Update()
     {

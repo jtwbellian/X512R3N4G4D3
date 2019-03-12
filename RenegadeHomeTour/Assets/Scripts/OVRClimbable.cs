@@ -16,6 +16,7 @@ public class OVRClimbable : OVRGrabbable
 {
     public bool isHeld = false;
     public Renderer[] renderers;
+    private Collider playerBody;
 
     new void Start()
     {
@@ -23,6 +24,8 @@ public class OVRClimbable : OVRGrabbable
 
         renderers = GetComponentsInChildren<Renderer>();
         LinesOn();
+
+        playerBody = Camera.main.transform.root.GetComponentInChildren<IKPlayerController>().transform.GetComponent<Collider>();
     }
 
     public override void GrabBegin(OVRGrabber hand, Collider grabPoint)
@@ -30,7 +33,6 @@ public class OVRClimbable : OVRGrabbable
         //Debug.Log("Climbable Grabbed");
         isHeld = true;
         LinesOff();
-
         base.GrabBegin(hand, grabPoint);
     }
 
@@ -40,7 +42,8 @@ public class OVRClimbable : OVRGrabbable
         isHeld = false;
         base.GrabEnd(linearVelocity, angularVelocity);
     }
-    /*
+    
+
     void OnTriggerStay(Collider col)
     {
         if (isHeld)
@@ -50,8 +53,8 @@ public class OVRClimbable : OVRGrabbable
         {
             LinesOn();
         }
-    }*/
-    /*
+    }
+    
     void OnTriggerExit(Collider col)
     {
         if (isHeld)
@@ -62,7 +65,7 @@ public class OVRClimbable : OVRGrabbable
             LinesOff();
         }
     }
-*/
+
     public void LinesOn()
     {
         // Set interactable lines on or off

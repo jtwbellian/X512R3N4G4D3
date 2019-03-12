@@ -39,6 +39,7 @@ public class AirVent : MonoBehaviour
     public void StopShaking()
     {
         rattle = false;
+        transform.position = startPos;
     }
 
     public void Reset()
@@ -51,7 +52,7 @@ public class AirVent : MonoBehaviour
     {
         if (rattle)
         {
-            float shake = Mathf.Sin(Time.time * 500f) * 0.02f;
+            float shake = Mathf.Sin(Time.time * 500f) * 0.01f;
 
             transform.position = startPos + new Vector3(shake, -shake, shake );
         }
