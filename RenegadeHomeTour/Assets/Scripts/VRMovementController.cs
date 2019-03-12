@@ -9,7 +9,7 @@ public class VRMovementController : MonoBehaviour
     private const float TOL = 0.05f;
     private const float MAX_VIGNETTE = 0.8f;
     private const float MIN_VIGNETTE = 0.25f;
-    private const float MAX_SPEED = 20f;
+    private const float MAX_SPEED =8f;
     private float boostbar_width = 0.0f;
     public Rigidbody rigidBody;
     private Transform head;
@@ -34,11 +34,12 @@ public class VRMovementController : MonoBehaviour
     void Start()
     {
         gm = GameManager.GetInstance();
+        
         if (boostBar == null)
             Debug.Log("ERROR: Boost bar is null, dummy!");
         else
             boostbar_width = boostBar.localScale.x;
-
+            
         grabbers = transform.root.GetComponentsInChildren<OVRGrabber>();
         
         ppVolume.profile.TryGetSettings(out vignette);
@@ -46,7 +47,7 @@ public class VRMovementController : MonoBehaviour
         //body = GetComponentInChildren<IKPlayerController>().transform;
         //rb = body.GetComponent<Rigidbody>();
         rigidBody.freezeRotation = true;
-        head = GetComponentInChildren<Camera>().transform;
+        head = Camera.main.transform; //GetComponentInChildren<Camera>().transform;
 
     }
 
@@ -59,7 +60,7 @@ public class VRMovementController : MonoBehaviour
             // Use Boost Jets
             var stickY = OVRInput.Get(OVRInput.Axis2D.PrimaryThumbstick).y;
 
-            if (Mathf.Abs(stickY) > 0f && boost > 0f)
+            if (Mathf.Abs(stickY) > 0f && boost > 0f)//rigidBody.velocity.magnitude < MAX_SPEED)
             {
 
                 if (gm.direc.trainingMode)

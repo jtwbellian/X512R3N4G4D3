@@ -37,10 +37,10 @@ public class DoesDammage : MonoBehaviour
         {
             if (tool == null && rb != null)
             {
-                 return Mathf.Max(power * rb.velocity.magnitude / 10f, MAX_DAMMAGE);
+                 return Mathf.Max(power * rb.velocity.magnitude / Time.deltaTime, MAX_DAMMAGE);
             }
 
-            return Mathf.Max(power * tool.GetVelocity().magnitude * 100f, MAX_DAMMAGE);
+            return Mathf.Max(power * tool.GetVelocity().magnitude / Time.deltaTime, MAX_DAMMAGE);
         }
 
         return Mathf.Max(power, MAX_DAMMAGE);

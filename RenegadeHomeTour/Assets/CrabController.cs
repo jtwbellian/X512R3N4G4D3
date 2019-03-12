@@ -13,6 +13,7 @@ public class CrabController : MonoBehaviour
     private Transform myJumpPoint;
     private AudioSource audioSource;
     public AudioClip stabSnd, shotSnd, deathSnd, chirp1, chirp2, chirp3, chirp4;
+    public ParticleSystem psDissolve, psChunk;
 
     private float lastJumpTime = 0f;
     [SerializeField]
@@ -22,7 +23,7 @@ public class CrabController : MonoBehaviour
 
     private float numAttacks = 3;
     private float attack = 0;
-    private float health = 50f;
+    private float health = 1000f;
 
     public state current_state;
     public float speed = 2f;
@@ -71,12 +72,13 @@ public class CrabController : MonoBehaviour
         if (dd != null)
         {
 
-
             var dmg = dd.GetDmg();
             Debug.Log("Hit for " + dmg + " dammage");
 
             if (dmg < TOL)
                 return;
+
+            //psChunk.Play();
 
             audioSource.PlayOneShot(dd.impactSnd);
 
@@ -92,7 +94,7 @@ public class CrabController : MonoBehaviour
                 rb.isKinematic = false;
                 rb.AddTorque(other.transform.position - transform.position);
                 animator.SetBool("dead", true);
-
+                psDissolve.Play();
                 GameManager gm = GameManager.GetInstance();
                 gm.IncrementKillCount();
             }

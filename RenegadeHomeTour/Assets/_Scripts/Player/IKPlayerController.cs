@@ -27,7 +27,6 @@ public class IKPlayerController : MonoBehaviour
     private CapsuleCollider capsule;
 
 
-
     public Transform head;
     public float height = 1.7f;
     public bool leftyMode = false;

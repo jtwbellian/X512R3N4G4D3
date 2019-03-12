@@ -6,10 +6,12 @@ public class GameManager : MonoBehaviour
 {
 
     public static GameManager instance;
+    public Transform playerStart;
     public GameObject popupPrefab;
     public Hud hud;
     public SoundManager sm;
     public Director direc;
+    private bool popupShown = false;
 
     public static int crabsKilled = 0;
 
@@ -55,9 +57,20 @@ public class GameManager : MonoBehaviour
 
     public void CreatePopup(Vector3 pos, string message, float time)
     {
+        if (popupShown)
+            return;
+
         popup pop = Instantiate(popupPrefab).GetComponent<popup>();
         pop.transform.position = pos;
         pop.SetText(message);
+
+        popupShown = true;
+        Invoke("CanShowPopups", 1f);
+    }
+
+    public void CanShowPopups()
+    {
+        popupShown = false;
     }
 
     public static GameManager GetInstance()

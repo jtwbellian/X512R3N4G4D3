@@ -13,8 +13,8 @@ public abstract class VRTool : MonoBehaviour, iSpecial_Grabbable
 
     private bool indexDown = false;
     private bool thumbDown = false;
-    private float minRadius = 0.1f;
-    private float maxRadius = 0.3f;
+    private float minRadius = 0.25f;
+    private float maxRadius = 0.35f;
 
     public bool usesIndex = true;
     public bool usesThumb = false;
