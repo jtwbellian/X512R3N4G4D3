@@ -250,8 +250,8 @@ public class OVRGrabber : MonoBehaviour
         {
 
             //Check for nearby grabbables
-           // GrabRay();
             GrabBegin();
+            //GrabRay();
         }
         else if ((m_prevFlex <= grabEnd) && (prevFlex > grabEnd))
         {
@@ -276,19 +276,17 @@ public class OVRGrabber : MonoBehaviour
                 return false;
             }
 
-
-
             // Get the grabbable
             OVRGrabbable grabbable = currentPOI.GetComponent<OVRGrabbable>() ?? currentPOI.GetComponentInParent<OVRGrabbable>();
 
             if (grabbable == null)
                 return false;
 
-            // Add the grabbable
+            /* Add the grabbable
             int refCount = 0;
             m_grabCandidates.TryGetValue(grabbable, out refCount);
             m_grabCandidates[grabbable] = refCount + 1;
-
+            */
             //Get Tool
             newTool = currentPOI.GetComponent<VRTool>();
 
@@ -464,8 +462,9 @@ public class OVRGrabber : MonoBehaviour
         {
             return;
         }
-
+        
         rb.AddForce((m_lastPos - transform.position) / Time.deltaTime, ForceMode.VelocityChange);
+        Physics.IgnoreCollision(m_grabbedObj.GetComponent<Collider>(), bodyCol.GetComponent<Collider>());
     }
 
 

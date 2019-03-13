@@ -6,7 +6,7 @@ public class GameManager : MonoBehaviour
 {
 
     public static GameManager instance;
-    public Transform playerStart;
+    public Vector3 playerStart;
     public GameObject popupPrefab;
     public Hud hud;
     public SoundManager sm;
@@ -51,7 +51,7 @@ public class GameManager : MonoBehaviour
 
     void Init()
     {
-
+        //Camera.main.transform.root.GetComponentInChildren<Rigidbody>().MovePosition(playerStart);
     }
 
 

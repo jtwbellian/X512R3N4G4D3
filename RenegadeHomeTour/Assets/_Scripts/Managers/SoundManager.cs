@@ -30,6 +30,7 @@ public class SoundManager : MonoBehaviour
 
     public void PlayFortune()
     {
+        music.Stop();
         music.clip = song_fortuna;
         music.Play();
         Invoke("PlayMusic", 21f);
@@ -37,6 +38,7 @@ public class SoundManager : MonoBehaviour
 
     public void PlayMusic()
     {
+        music.Stop();
         music.clip = song_music;
         music.Play();
     }

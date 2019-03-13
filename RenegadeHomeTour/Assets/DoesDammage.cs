@@ -27,7 +27,7 @@ public class DoesDammage : MonoBehaviour
             {
                 audio.Play();
             }
-                //col.gameObject.SetActive(false);
+            Destroy(this);
         }
     }
 
@@ -40,7 +40,7 @@ public class DoesDammage : MonoBehaviour
                  return Mathf.Max(power * rb.velocity.magnitude / Time.deltaTime, MAX_DAMMAGE);
             }
 
-            return Mathf.Max(power * tool.GetVelocity().magnitude / Time.deltaTime, MAX_DAMMAGE);
+            return Mathf.Max(power * tool.GetVelocity().magnitude / Time.deltaTime*4, MAX_DAMMAGE);
         }
 
         return Mathf.Max(power, MAX_DAMMAGE);

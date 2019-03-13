@@ -69,7 +69,9 @@ public class Hud : MonoBehaviour
         iconAnimator.transform.GetComponent<SpriteRenderer>().color = new Vector4(0.9f, 0.9f, 0.9f, 0.8f);
         iconAnimator.SetInteger("index",(int) icon);
         Invoke("HideImage", time);
-        canvasGroup.alpha = 1;
+
+        if (canvasGroup!=null)
+            canvasGroup.alpha = 1;
     }
 
     public void ShowImage()
@@ -111,6 +113,16 @@ public class Hud : MonoBehaviour
         {
             t.gameObject.SetActive(true);
         }
+
+    }
+
+    public void ShowKills()
+    {
+        foreach(Text s in scoreField)
+        {
+            s.gameObject.SetActive(true);
+        }
+        
 
     }
 
