@@ -1054,8 +1054,8 @@ Rigidbody:
   m_GameObject: {fileID: 6003178557650888652}
   serializedVersion: 2
   m_Mass: 100
-  m_Drag: 3
-  m_AngularDrag: 2
+  m_Drag: 0.85
+  m_AngularDrag: 0.85
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
@@ -1692,7 +1692,6 @@ GameObject:
   m_Component:
   - component: {fileID: 6003178557864764033}
   - component: {fileID: 6003178557864764034}
-  - component: {fileID: 6662695960638210801}
   m_Layer: 0
   m_Name: ball_l
   m_TagString: Untagged
@@ -1736,28 +1735,7 @@ MonoBehaviour:
   - {fileID: 8678544669478240911}
   - {fileID: 6003178559226028716}
   Joint: {fileID: 0}
-  Objectives:
-  - {fileID: 6662695960638210801}
---- !u!114 &6662695960638210801
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6003178557864764035}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_GeneratorAsset: {fileID: 0}
-  m_Script: {fileID: 11500000, guid: 9463c0da940cf43e5aa26edf005dbf39, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Segment: {fileID: 6003178557864764034}
-  Weight: 1
-  Target: {fileID: 5131953713782632840}
-  TPX: -0.3416416049003601
-  TPY: 0.10034461319446564
-  TPZ: 0.3498198688030243
-  MaximumError: 0.001
+  Objectives: []
 --- !u!1 &6003178557872176292
 GameObject:
   m_ObjectHideFlags: 0
@@ -2997,7 +2975,6 @@ GameObject:
   m_Component:
   - component: {fileID: 6003178558037721924}
   - component: {fileID: 6003178558037721925}
-  - component: {fileID: 9177658554174881578}
   - component: {fileID: 4230548202597763465}
   m_Layer: 0
   m_Name: ball_r
@@ -3042,28 +3019,7 @@ MonoBehaviour:
   - {fileID: 6242272213493830350}
   - {fileID: 6003178557917080811}
   Joint: {fileID: 0}
-  Objectives:
-  - {fileID: 9177658554174881578}
---- !u!114 &9177658554174881578
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6003178558037721926}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_GeneratorAsset: {fileID: 0}
-  m_Script: {fileID: 11500000, guid: 9463c0da940cf43e5aa26edf005dbf39, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Segment: {fileID: 6003178558037721925}
-  Weight: 1
-  Target: {fileID: 8428158015005821236}
-  TPX: 0.34743425250053406
-  TPY: 0.13440445065498352
-  TPZ: 0.3741346597671509
-  MaximumError: 0.001
+  Objectives: []
 --- !u!54 &4230548202597763465
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -3568,7 +3524,6 @@ GameObject:
   m_Component:
   - component: {fileID: 6003178558157690638}
   - component: {fileID: 6003178558157690608}
-  - component: {fileID: 6003178558157690639}
   m_Layer: 0
   m_Name: foot_r
   m_TagString: Untagged
@@ -3583,7 +3538,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6003178558157690609}
-  m_LocalRotation: {x: -0.30686644, y: -0.055330824, z: 0.017635865, w: 0.94997925}
+  m_LocalRotation: {x: -0.54228294, y: -0.058009945, z: 0.0027143434, w: 0.8381866}
   m_LocalPosition: {x: -0.00000007487833, y: 1.8294016, z: 0.00000001311302}
   m_LocalScale: {x: 0.99999994, y: 1, z: 1}
   m_Children:
@@ -3609,68 +3564,8 @@ MonoBehaviour:
   Parent: {fileID: 6003178558372962578}
   Childs:
   - {fileID: 6003178558037721925}
-  Joint: {fileID: 6003178558157690639}
+  Joint: {fileID: 0}
   Objectives: []
---- !u!114 &6003178558157690639
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6003178558157690609}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_GeneratorAsset: {fileID: 0}
-  m_Script: {fileID: 11500000, guid: 3531dc447309b4dfe8f7f4652bffd3fa, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Segment: {fileID: 6003178558157690608}
-  X:
-    Joint: {fileID: 6003178558157690639}
-    Enabled: 1
-    Constrained: 1
-    LowerLimit: -30
-    UpperLimit: 30
-    TargetValue: 30
-    CurrentValue: 30
-    CurrentError: 0
-    CurrentVelocity: 0
-    CurrentAcceleration: 0
-    Axis: {x: 1, y: 0, z: -0.00000030931741}
-  Y:
-    Joint: {fileID: 6003178558157690639}
-    Enabled: 0
-    Constrained: 1
-    LowerLimit: 0
-    UpperLimit: 0
-    TargetValue: 0
-    CurrentValue: 0
-    CurrentError: 0
-    CurrentVelocity: 0
-    CurrentAcceleration: 0
-    Axis: {x: -0.00000030931741, y: 0.00000005960462, z: -0.99999994}
-  Z:
-    Joint: {fileID: 6003178558157690639}
-    Enabled: 0
-    Constrained: 1
-    LowerLimit: 0
-    UpperLimit: 0
-    TargetValue: 0
-    CurrentValue: 0
-    CurrentError: 0
-    CurrentVelocity: 0
-    CurrentAcceleration: 0
-    Axis: {x: 0, y: 0.99999994, z: 0.00000005960462}
-  JointType: 0
-  Anchor: {x: 0, y: 0, z: 0}
-  Orientation: {x: 270, y: 0.000017722583, z: 0}
-  DPX: -0.00000007487833
-  DPY: 1.8294016
-  DPZ: 0.00000001311302
-  DRX: -0.54228294
-  DRY: -0.058009945
-  DRZ: 0.0027143434
-  DRW: 0.8381866
 --- !u!1 &6003178558160972178
 GameObject:
   m_ObjectHideFlags: 0
@@ -4087,7 +3982,6 @@ GameObject:
   m_Component:
   - component: {fileID: 6003178558372962576}
   - component: {fileID: 6003178558372962578}
-  - component: {fileID: 6003178558372962577}
   m_Layer: 0
   m_Name: calf_r
   m_TagString: Untagged
@@ -4102,7 +3996,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6003178558372962579}
-  m_LocalRotation: {x: 0.35849398, y: 0.23115064, z: -0.08853981, w: 0.9001179}
+  m_LocalRotation: {x: 0.14933008, y: 0.24505283, z: -0.03491464, w: 0.9573038}
   m_LocalPosition: {x: -0.000000009536742, y: 1.6494082, z: 0.00000007629394}
   m_LocalScale: {x: 1, y: 0.9999998, z: 1.0000001}
   m_Children:
@@ -4132,68 +4026,8 @@ MonoBehaviour:
   - {fileID: 6003178558157690608}
   - {fileID: 4315025368701808971}
   - {fileID: 7339426173579990377}
-  Joint: {fileID: 6003178558372962577}
+  Joint: {fileID: 0}
   Objectives: []
---- !u!114 &6003178558372962577
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6003178558372962579}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_GeneratorAsset: {fileID: 0}
-  m_Script: {fileID: 11500000, guid: 3531dc447309b4dfe8f7f4652bffd3fa, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Segment: {fileID: 6003178558372962578}
-  X:
-    Joint: {fileID: 6003178558372962577}
-    Enabled: 1
-    Constrained: 1
-    LowerLimit: 0
-    UpperLimit: 90
-    TargetValue: 25.700000762939453
-    CurrentValue: 25.700000762939453
-    CurrentError: 0
-    CurrentVelocity: 0
-    CurrentAcceleration: 0
-    Axis: {x: 1, y: 0, z: 0.000000081861}
-  Y:
-    Joint: {fileID: 6003178558372962577}
-    Enabled: 0
-    Constrained: 1
-    LowerLimit: 0
-    UpperLimit: 0
-    TargetValue: 0
-    CurrentValue: 0
-    CurrentError: 0
-    CurrentVelocity: 0
-    CurrentAcceleration: 0
-    Axis: {x: 0.000000081861, y: 0.000000059604645, z: -0.99999994}
-  Z:
-    Joint: {fileID: 6003178558372962577}
-    Enabled: 0
-    Constrained: 1
-    LowerLimit: 0
-    UpperLimit: 0
-    TargetValue: 0
-    CurrentValue: 0
-    CurrentError: 0
-    CurrentVelocity: 0
-    CurrentAcceleration: 0
-    Axis: {x: 0, y: 0.99999994, z: 0.000000059604645}
-  JointType: 0
-  Anchor: {x: 0, y: 0, z: 0}
-  Orientation: {x: 270, y: -0.00000469029, z: 0}
-  DPX: -0.000000009536742
-  DPY: 1.6494082
-  DPZ: 0.00000007629394
-  DRX: 0.14933008
-  DRY: 0.24505283
-  DRZ: -0.03491464
-  DRW: 0.9573038
 --- !u!1 &6003178558438502631
 GameObject:
   m_ObjectHideFlags: 0
@@ -4203,7 +4037,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6003178558438502628}
-  - component: {fileID: 6003178558438502629}
   - component: {fileID: 6003178558438502630}
   m_Layer: 0
   m_Name: thigh_l
@@ -4219,7 +4052,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6003178558438502631}
-  m_LocalRotation: {x: -0.95844966, y: 0.056854766, z: -0.19177897, w: -0.20337807}
+  m_LocalRotation: {x: -0.97072077, y: 0.12661996, z: -0.1933616, w: 0.06542064}
   m_LocalPosition: {x: -0.44275844, y: -0.013202803, z: -0.050502494}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -4228,66 +4061,6 @@ Transform:
   m_Father: {fileID: 6003178558666334436}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: -11.550321, y: 154.56532, z: -168.10838}
---- !u!114 &6003178558438502629
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6003178558438502631}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_GeneratorAsset: {fileID: 0}
-  m_Script: {fileID: 11500000, guid: 3531dc447309b4dfe8f7f4652bffd3fa, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Segment: {fileID: 6003178558438502630}
-  X:
-    Joint: {fileID: 6003178558438502629}
-    Enabled: 1
-    Constrained: 1
-    LowerLimit: -30
-    UpperLimit: 30
-    TargetValue: -28.799999237060547
-    CurrentValue: -28.799999237060547
-    CurrentError: 0
-    CurrentVelocity: 0
-    CurrentAcceleration: 0
-    Axis: {x: 1, y: 0, z: -0.00000004625533}
-  Y:
-    Joint: {fileID: 6003178558438502629}
-    Enabled: 1
-    Constrained: 1
-    LowerLimit: -30
-    UpperLimit: 30
-    TargetValue: 14
-    CurrentValue: 14
-    CurrentError: 0
-    CurrentVelocity: 0
-    CurrentAcceleration: 0
-    Axis: {x: -0.00000004625533, y: 0.000000059604645, z: -0.99999994}
-  Z:
-    Joint: {fileID: 6003178558438502629}
-    Enabled: 1
-    Constrained: 1
-    LowerLimit: -30
-    UpperLimit: 30
-    TargetValue: 0
-    CurrentValue: 0
-    CurrentError: 0
-    CurrentVelocity: 0
-    CurrentAcceleration: 0
-    Axis: {x: 0, y: 0.99999994, z: 0.000000059604645}
-  JointType: 0
-  Anchor: {x: 0, y: 0, z: 0}
-  Orientation: {x: 270, y: 0.0000026502355, z: 0}
-  DPX: -0.44275844
-  DPY: -0.013202803
-  DPZ: -0.050502494
-  DRX: -0.9707207
-  DRY: 0.12661995
-  DRZ: -0.19336158
-  DRW: 0.065420635
 --- !u!114 &6003178558438502630
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4307,7 +4080,7 @@ MonoBehaviour:
   Childs:
   - {fileID: 2052431661341125854}
   - {fileID: 6003178559264040105}
-  Joint: {fileID: 6003178558438502629}
+  Joint: {fileID: 0}
   Objectives: []
 --- !u!1 &6003178558455517109
 GameObject:
@@ -5029,9 +4802,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   UseThreading: 1
-  Generations: 3
-  PopulationSize: 100
-  Elites: 2
+  Generations: 2
+  PopulationSize: 80
+  Elites: 1
   Smoothing: 0.457
   AnimationWeight: 1
   AnimationBlend: 0
@@ -5125,8 +4898,8 @@ MonoBehaviour:
   - {fileID: 7339426173579990377}
   Root: {fileID: 6003178558641689347}
   Solution: []
-  SelectedSegment: {fileID: 0}
-  Scroll: {x: 0, y: 120}
+  SelectedSegment: {fileID: 6003178559264040105}
+  Scroll: {x: 0, y: 2040}
 --- !u!114 &6003178558641689375
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5618,7 +5391,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6003178558801109163}
-  - component: {fileID: 6003178558801109164}
   - component: {fileID: 6003178558801109165}
   m_Layer: 0
   m_Name: thigh_r
@@ -5634,7 +5406,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6003178558801109166}
-  m_LocalRotation: {x: -0.9548707, y: -0.054152552, z: 0.19643076, w: -0.21611242}
+  m_LocalRotation: {x: -0.9707976, y: -0.12067729, z: 0.19755591, w: 0.06293526}
   m_LocalPosition: {x: 0.44275844, y: -0.013202776, z: -0.050502528}
   m_LocalScale: {x: 0.9999996, y: 0.99999994, z: 0.99999833}
   m_Children:
@@ -5643,66 +5415,6 @@ Transform:
   m_Father: {fileID: 6003178558666334436}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: -11.550328, y: -154.5653, z: 168.10823}
---- !u!114 &6003178558801109164
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6003178558801109166}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_GeneratorAsset: {fileID: 0}
-  m_Script: {fileID: 11500000, guid: 3531dc447309b4dfe8f7f4652bffd3fa, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Segment: {fileID: 6003178558801109165}
-  X:
-    Joint: {fileID: 6003178558801109164}
-    Enabled: 1
-    Constrained: 1
-    LowerLimit: -30
-    UpperLimit: 30
-    TargetValue: -30
-    CurrentValue: -30
-    CurrentError: 0
-    CurrentVelocity: 0
-    CurrentAcceleration: 0
-    Axis: {x: 1, y: 0, z: 0.000000011563836}
-  Y:
-    Joint: {fileID: 6003178558801109164}
-    Enabled: 1
-    Constrained: 1
-    LowerLimit: -30
-    UpperLimit: 30
-    TargetValue: -14
-    CurrentValue: -14
-    CurrentError: 0
-    CurrentVelocity: 0
-    CurrentAcceleration: 0
-    Axis: {x: 0.000000011563836, y: 0.000000059604645, z: -0.99999994}
-  Z:
-    Joint: {fileID: 6003178558801109164}
-    Enabled: 1
-    Constrained: 1
-    LowerLimit: -30
-    UpperLimit: 30
-    TargetValue: 0
-    CurrentValue: 0
-    CurrentError: 0
-    CurrentVelocity: 0
-    CurrentAcceleration: 0
-    Axis: {x: 0, y: 0.99999994, z: 0.000000059604645}
-  JointType: 0
-  Anchor: {x: 0, y: 0, z: 0}
-  Orientation: {x: 270, y: -0.000000662559, z: 0}
-  DPX: 0.44275844
-  DPY: -0.013202776
-  DPZ: -0.050502528
-  DRX: -0.9707976
-  DRY: -0.12067729
-  DRZ: 0.19755591
-  DRW: 0.06293526
 --- !u!114 &6003178558801109165
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5722,7 +5434,7 @@ MonoBehaviour:
   Childs:
   - {fileID: 4085825577917587227}
   - {fileID: 6003178558372962578}
-  Joint: {fileID: 6003178558801109164}
+  Joint: {fileID: 0}
   Objectives: []
 --- !u!1 &6003178558924517223
 GameObject:
@@ -5847,7 +5559,6 @@ GameObject:
   m_Component:
   - component: {fileID: 6003178558934741380}
   - component: {fileID: 6003178558934741382}
-  - component: {fileID: 6003178558934741381}
   m_Layer: 0
   m_Name: foot_l
   m_TagString: Untagged
@@ -5862,7 +5573,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6003178558934741383}
-  m_LocalRotation: {x: -0.39931673, y: 0.11872092, z: -0.029468542, w: 0.90861607}
+  m_LocalRotation: {x: -0.5350812, y: 0.12185063, z: -0.010746285, w: 0.83589774}
   m_LocalPosition: {x: -0.000000009313225, y: 1.8294019, z: 0.000000009834765}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -5888,68 +5599,8 @@ MonoBehaviour:
   Parent: {fileID: 6003178559264040105}
   Childs:
   - {fileID: 6003178557864764034}
-  Joint: {fileID: 6003178558934741381}
+  Joint: {fileID: 0}
   Objectives: []
---- !u!114 &6003178558934741381
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6003178558934741383}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_GeneratorAsset: {fileID: 0}
-  m_Script: {fileID: 11500000, guid: 3531dc447309b4dfe8f7f4652bffd3fa, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Segment: {fileID: 6003178558934741382}
-  X:
-    Joint: {fileID: 6003178558934741381}
-    Enabled: 1
-    Constrained: 1
-    LowerLimit: -30
-    UpperLimit: 30
-    TargetValue: 17.799999237060547
-    CurrentValue: 17.799999237060547
-    CurrentError: 0
-    CurrentVelocity: 0
-    CurrentAcceleration: 0
-    Axis: {x: 1, y: 0, z: -0.00000067431176}
-  Y:
-    Joint: {fileID: 6003178558934741381}
-    Enabled: 0
-    Constrained: 1
-    LowerLimit: 0
-    UpperLimit: 0
-    TargetValue: 0
-    CurrentValue: 0
-    CurrentError: 0
-    CurrentVelocity: 0
-    CurrentAcceleration: 0
-    Axis: {x: -0.00000067431176, y: 0.0003452897, z: -0.99999994}
-  Z:
-    Joint: {fileID: 6003178558934741381}
-    Enabled: 0
-    Constrained: 1
-    LowerLimit: 0
-    UpperLimit: 0
-    TargetValue: 0
-    CurrentValue: 0
-    CurrentError: 0
-    CurrentVelocity: 0
-    CurrentAcceleration: 0
-    Axis: {x: 2.3280222e-10, y: 0.99999994, z: 0.0003452897}
-  JointType: 0
-  Anchor: {x: 0, y: 0, z: 0}
-  Orientation: {x: 270.01978, y: 0.000038635222, z: 0}
-  DPX: -0.000000009313225
-  DPY: 1.8294019
-  DPZ: 0.000000009834765
-  DRX: -0.5350812
-  DRY: 0.12185063
-  DRZ: -0.010746285
-  DRW: 0.83589774
 --- !u!1 &6003178558960360283
 GameObject:
   m_ObjectHideFlags: 0
@@ -7196,7 +6847,6 @@ GameObject:
   m_Component:
   - component: {fileID: 6003178559264040103}
   - component: {fileID: 6003178559264040105}
-  - component: {fileID: 6003178559264040104}
   m_Layer: 0
   m_Name: calf_l
   m_TagString: Untagged
@@ -7211,7 +6861,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6003178559264040106}
-  m_LocalRotation: {x: 0.386251, y: -0.22050436, z: 0.08882471, w: 0.8912341}
+  m_LocalRotation: {x: 0.1432599, y: -0.23595522, z: 0.02893328, w: 0.96071047}
   m_LocalPosition: {x: 0.00000003814697, y: 1.6494086, z: 0.000000019073484}
   m_LocalScale: {x: 0.99999994, y: 0.99999994, z: 1}
   m_Children:
@@ -7237,68 +6887,8 @@ MonoBehaviour:
   Parent: {fileID: 6003178558438502630}
   Childs:
   - {fileID: 6003178558934741382}
-  Joint: {fileID: 6003178559264040104}
+  Joint: {fileID: 0}
   Objectives: []
---- !u!114 &6003178559264040104
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6003178559264040106}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_GeneratorAsset: {fileID: 0}
-  m_Script: {fileID: 11500000, guid: 3531dc447309b4dfe8f7f4652bffd3fa, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Segment: {fileID: 6003178559264040105}
-  X:
-    Joint: {fileID: 6003178559264040104}
-    Enabled: 1
-    Constrained: 1
-    LowerLimit: 0
-    UpperLimit: 90
-    TargetValue: 29.899999618530273
-    CurrentValue: 29.899999618530273
-    CurrentError: 0
-    CurrentVelocity: 0
-    CurrentAcceleration: 0
-    Axis: {x: 1, y: 0, z: 0.000000010181715}
-  Y:
-    Joint: {fileID: 6003178559264040104}
-    Enabled: 0
-    Constrained: 1
-    LowerLimit: 0
-    UpperLimit: 0
-    TargetValue: 0
-    CurrentValue: 0
-    CurrentError: 0
-    CurrentVelocity: 0
-    CurrentAcceleration: 0
-    Axis: {x: 0.000000010181715, y: 0.000000059604645, z: -0.99999994}
-  Z:
-    Joint: {fileID: 6003178559264040104}
-    Enabled: 0
-    Constrained: 1
-    LowerLimit: 0
-    UpperLimit: 0
-    TargetValue: 0
-    CurrentValue: 0
-    CurrentError: 0
-    CurrentVelocity: 0
-    CurrentAcceleration: 0
-    Axis: {x: 0, y: 0.99999994, z: 0.000000059604645}
-  JointType: 0
-  Anchor: {x: 0, y: 0, z: 0}
-  Orientation: {x: 270, y: -0.0000005833693, z: 0}
-  DPX: 0.00000003814697
-  DPY: 1.6494086
-  DPZ: 0.000000019073484
-  DRX: 0.1432599
-  DRY: -0.23595522
-  DRZ: 0.02893328
-  DRW: 0.96071047
 --- !u!1 &6003178559278958497
 GameObject:
   m_ObjectHideFlags: 0

@@ -98,11 +98,11 @@ public class Director : MonoBehaviour
 
         if (currentLine >= script.Length)
         {
-            Debug.Log("End of Script Reached");
+            //Debug.Log("End of Script Reached");
             return;
         }
 
-        Debug.Log("Action Called for event ");
+        //Debug.Log("Action Called for event ");
         script[currentLine].onStart.Invoke();
 
   

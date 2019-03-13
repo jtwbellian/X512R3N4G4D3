@@ -169,6 +169,7 @@ public class IKPlayerController : MonoBehaviour
             transform.position = new Vector3(head.position.x, head.position.y - height, head.position.z) + head.transform.forward * offset;
         }
 
+        /*
         // Turn on Left fist
         if (lGrab > 0.5f && fistL.isTrigger && handL.GetComponent<OVRGrabber>().grabbedObject == null)
         {
@@ -192,7 +193,7 @@ public class IKPlayerController : MonoBehaviour
             fistR.isTrigger = true;
             fistR.radius = maxHandRadius;
         }
-
+        */
         UpdateGestures();
 
         //CheckPointing();
@@ -200,7 +201,6 @@ public class IKPlayerController : MonoBehaviour
         // Click both sticks in to reset height and scale
         if (OVRInput.Get(OVRInput.Button.SecondaryThumbstick) && OVRInput.Get(OVRInput.Button.PrimaryThumbstick))
         {
-
             GameManager.GetInstance().direc.Ping(PING.calibrated);
             UpdatePlayerHeight();
         }

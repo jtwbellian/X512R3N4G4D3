@@ -251,7 +251,7 @@ public class OVRGrabber : MonoBehaviour
 
             //Check for nearby grabbables
             GrabBegin();
-            GrabRay();
+            //GrabRay();
         }
         else if ((m_prevFlex <= grabEnd) && (prevFlex > grabEnd))
         {

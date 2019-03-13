@@ -23,12 +23,16 @@ public class VRMovementController : MonoBehaviour
     public bool canBoost = false;
     public float speed = 2f;
     public float boost = 1f;
-    public float rotationRatchet = 45f;
+    //public float rotationRatchet = 45f;
 
     public Text velocityLabel;
     public Transform boostBar;
     public PostProcessVolume ppVolume;
     private GameManager gm;
+
+    private Vector3 euler;
+
+    private Vector3 lastPos; 
 
     // Start is called before the first frame update
     void Start()
@@ -49,6 +53,17 @@ public class VRMovementController : MonoBehaviour
         rigidBody.freezeRotation = true;
         head = Camera.main.transform; //GetComponentInChildren<Camera>().transform;
 
+    }
+
+    public void ViewRatchet(float amt)
+    {
+        euler = transform.rotation.eulerAngles;
+        lastPos = head.position;
+
+        euler.y += amt;
+        transform.rotation = Quaternion.Euler(euler);
+        transform.position += lastPos - head.position;
+        ReadyToSnapTurn = false;
     }
 
     // Update is called once per frame
@@ -80,32 +95,22 @@ public class VRMovementController : MonoBehaviour
 
         }
 
-        // Turn view 
-            Vector3 euler = transform.rotation.eulerAngles;
-
-        Vector3 lastPos = head.position;
-
+        // Turn View Left
         if (OVRInput.Get(OVRInput.Button.SecondaryThumbstickLeft))
         {
             if (ReadyToSnapTurn)
             {
-                euler.y -= rotationRatchet;
-                transform.rotation = Quaternion.Euler(euler);
-                transform.position += lastPos - head.position;
-                ReadyToSnapTurn = false;
+                ViewRatchet(-45f);
             }
         }
         else if (OVRInput.Get(OVRInput.Button.SecondaryThumbstickRight))
         {
             if (ReadyToSnapTurn)
             {
-                euler.y += rotationRatchet;
-                transform.rotation = Quaternion.Euler(euler);
-                transform.position += lastPos - head.position;
-                ReadyToSnapTurn = false;
+                ViewRatchet(45f);
             }
         }
-        else
+        else if (ReadyToSnapTurn == false)
         {
             ReadyToSnapTurn = true;
         }
