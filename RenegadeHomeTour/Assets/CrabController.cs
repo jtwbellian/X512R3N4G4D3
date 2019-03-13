@@ -81,7 +81,7 @@ public class CrabController : MonoBehaviour
         {
 
             var dmg = dd.GetDmg();
-            Debug.Log("Hit for " + dmg + " dammage");
+            //Debug.Log("Hit for " + dmg + " dammage");
 
             if (dmg < TOL)
                 return;

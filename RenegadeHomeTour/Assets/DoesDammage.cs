@@ -4,13 +4,24 @@ using UnityEngine;
 
 public class DoesDammage : MonoBehaviour
 {
-    private const float MAX_DAMMAGE = 500f; 
+    private const float MAX_DAMMAGE = 500f;
+    private bool active = true;
     [SerializeField]
     public VRTool tool;
     public bool velocityBased;
     public float power;
     public Rigidbody rb;
     public AudioClip impactSnd;
+
+    public void Enable()
+    {
+        active = true;
+    }
+
+    public void Disable()
+    {
+        active = false;
+    }
 
     void OnTriggerEnter(Collider col)
     {
@@ -33,17 +44,23 @@ public class DoesDammage : MonoBehaviour
 
     public float GetDmg()
     {
-        if (velocityBased)
+        if (active)
         {
-            if (tool == null && rb != null)
+            if (velocityBased)
             {
-                 return Mathf.Max(power * rb.velocity.magnitude / Time.deltaTime, MAX_DAMMAGE);
+                if (tool == null && rb != null)
+                {
+                    return Mathf.Max(power * rb.velocity.magnitude / Time.deltaTime, MAX_DAMMAGE);
+                }
+
+                return Mathf.Max(power * tool.GetVelocity().magnitude / Time.deltaTime * 4, MAX_DAMMAGE);
             }
 
-            return Mathf.Max(power * tool.GetVelocity().magnitude / Time.deltaTime*4, MAX_DAMMAGE);
+            return Mathf.Max(power, MAX_DAMMAGE);
         }
 
-        return Mathf.Max(power, MAX_DAMMAGE);
+        return 0f;
     }
+
 
 }

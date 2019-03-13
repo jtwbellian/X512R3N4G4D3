@@ -169,10 +169,9 @@ public abstract class VRTool : MonoBehaviour, iSpecial_Grabbable
 
         if (grabHand == null)
         {
-            Debug.Log("GrabHand not found");
+            //Debug.Log("GrabHand not found");
             return Vector3.zero;
         }
-
 
         return grabHand.GetHandVelocity();
     }
@@ -247,7 +246,7 @@ public abstract class VRTool : MonoBehaviour, iSpecial_Grabbable
 
         if (home != null)
         {
-            Debug.Log("Home: " + home.ToString() + "\n Attempting to free..." );
+            //Debug.Log("Home: " + home.ToString() + "\n Attempting to free..." );
             home.Free();
         }
 

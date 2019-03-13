@@ -169,7 +169,6 @@ GameObject:
   - component: {fileID: 3377769346022420609}
   - component: {fileID: 6682077620149564755}
   - component: {fileID: 1274386190894786417}
-  - component: {fileID: 1610254110417181345}
   - component: {fileID: 1476827197962619538}
   - component: {fileID: 6597986802391188299}
   m_Layer: 0
@@ -218,7 +217,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 0b6c70a1ec619c947bf29f6eaed0a755, type: 2}
+  - {fileID: 2100000, guid: a9f9d6abd9c77d043a3d54e4d4914665, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -238,25 +237,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!114 &1610254110417181345
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1618770889464070042}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_GeneratorAsset: {fileID: 0}
-  m_Script: {fileID: 11500000, guid: 5cc329982edfc412a8a508a8e175eef1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Character: {fileID: 6003178558641689374}
-  Transform: {fileID: 3377769346022420609}
-  Parent: {fileID: 0}
-  Childs: []
-  Joint: {fileID: 0}
-  Objectives: []
 --- !u!114 &1476827197962619538
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -573,7 +553,6 @@ GameObject:
   - component: {fileID: 2118268856925337912}
   - component: {fileID: 3194448892738635955}
   - component: {fileID: 7049777283217007981}
-  - component: {fileID: 8982714834557835962}
   - component: {fileID: 9210290894378150815}
   - component: {fileID: 2810161974630865058}
   m_Layer: 0
@@ -622,7 +601,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 0b6c70a1ec619c947bf29f6eaed0a755, type: 2}
+  - {fileID: 2100000, guid: a9f9d6abd9c77d043a3d54e4d4914665, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -642,25 +621,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!114 &8982714834557835962
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4855327350855331950}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_GeneratorAsset: {fileID: 0}
-  m_Script: {fileID: 11500000, guid: 5cc329982edfc412a8a508a8e175eef1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Character: {fileID: 6003178558641689374}
-  Transform: {fileID: 2118268856925337912}
-  Parent: {fileID: 0}
-  Childs: []
-  Joint: {fileID: 0}
-  Objectives: []
 --- !u!114 &9210290894378150815
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4885,7 +4845,7 @@ MonoBehaviour:
   - {fileID: 6003178559168951760}
   - {fileID: 6003178557894670297}
   - {fileID: 2052431661341125854}
-  - {fileID: 328872476904101430}
+  - {fileID: 0}
   - {fileID: 4315025368701808971}
   - {fileID: 4085825577917587227}
   - {fileID: 9222686432734498269}
@@ -5736,7 +5696,6 @@ MonoBehaviour:
   canBoost: 0
   speed: 700
   boost: 1
-  rotationRatchet: 45
   velocityLabel: {fileID: 0}
   boostBar: {fileID: 6003178557894670298}
   ppVolume: {fileID: 0}
@@ -8248,7 +8207,7 @@ MonoBehaviour:
   Transform: {fileID: 5704957048765307103}
   Parent: {fileID: 6003178558438502630}
   Childs:
-  - {fileID: 328872476904101430}
+  - {fileID: 0}
   Joint: {fileID: 0}
   Objectives: []
 --- !u!1 &6347372083046542784
@@ -8262,7 +8221,6 @@ GameObject:
   - component: {fileID: 1731743808707591620}
   - component: {fileID: 8405985341791939097}
   - component: {fileID: 8605185604577034435}
-  - component: {fileID: 2844960525091099794}
   - component: {fileID: 9222686432734498269}
   m_Layer: 0
   m_Name: Sphere
@@ -8310,7 +8268,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 0b6c70a1ec619c947bf29f6eaed0a755, type: 2}
+  - {fileID: 2100000, guid: a9f9d6abd9c77d043a3d54e4d4914665, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -8330,25 +8288,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!114 &2844960525091099794
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6347372083046542784}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_GeneratorAsset: {fileID: 0}
-  m_Script: {fileID: 11500000, guid: 5cc329982edfc412a8a508a8e175eef1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Character: {fileID: 6003178558641689374}
-  Transform: {fileID: 1731743808707591620}
-  Parent: {fileID: 0}
-  Childs: []
-  Joint: {fileID: 0}
-  Objectives: []
 --- !u!114 &9222686432734498269
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8483,7 +8422,6 @@ GameObject:
   - component: {fileID: 3488041647515678862}
   - component: {fileID: 5897761753823234363}
   - component: {fileID: 3641047209402131251}
-  - component: {fileID: 328872476904101430}
   m_Layer: 0
   m_Name: Sphere
   m_TagString: Untagged
@@ -8530,7 +8468,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 0b6c70a1ec619c947bf29f6eaed0a755, type: 2}
+  - {fileID: 2100000, guid: a9f9d6abd9c77d043a3d54e4d4914665, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -8550,25 +8488,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!114 &328872476904101430
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8739562814653204995}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_GeneratorAsset: {fileID: 0}
-  m_Script: {fileID: 11500000, guid: 5cc329982edfc412a8a508a8e175eef1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Character: {fileID: 6003178558641689374}
-  Transform: {fileID: 3488041647515678862}
-  Parent: {fileID: 2052431661341125854}
-  Childs: []
-  Joint: {fileID: 0}
-  Objectives: []
 --- !u!1 &8960191112813804895
 GameObject:
   m_ObjectHideFlags: 0
