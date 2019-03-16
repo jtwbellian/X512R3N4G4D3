@@ -25,9 +25,13 @@ public class DoesDammage : MonoBehaviour
 
     void OnTriggerEnter(Collider col)
     {
+        var gm = GameManager.GetInstance();
+
         if (col.CompareTag("target"))
         {
-            GameManager.GetInstance().direc.Ping(PING.targetHit);
+            col.gameObject.tag = "Untagged";
+
+            gm.direc.Ping(PING.targetHit);
             var audio = col.transform.GetComponent<AudioSource>();
             MeshRenderer renderer = col.transform.GetComponent<MeshRenderer>();
 
