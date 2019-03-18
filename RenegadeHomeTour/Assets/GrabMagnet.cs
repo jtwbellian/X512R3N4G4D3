@@ -10,6 +10,7 @@ public class GrabMagnet : MonoBehaviour
     public bool holdsTool;
     private bool empty = true;
     private VRTool lastItem;
+    private Collider lastCol;
     
 
     public void Free()
@@ -28,6 +29,12 @@ public class GrabMagnet : MonoBehaviour
 
     void OnTriggerStay(Collider col)
     {
+        //may cause player to not be able to grab/drop over holster 
+        if (lastCol == col)
+            return;
+
+        lastCol = col;
+                
         VRTool item;
         item = col.GetComponent<VRTool>();
 
@@ -77,6 +84,8 @@ public class GrabMagnet : MonoBehaviour
             {
                 orb.enabled = false;
             }
+
+
             GameManager.GetInstance().direc.Ping(PING.weaponHolstered);
         }
     }

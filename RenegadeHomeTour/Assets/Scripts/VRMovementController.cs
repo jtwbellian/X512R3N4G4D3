@@ -31,7 +31,6 @@ public class VRMovementController : MonoBehaviour
     private GameManager gm;
 
     private Vector3 euler;
-
     private Vector3 lastPos; 
 
     // Start is called before the first frame update

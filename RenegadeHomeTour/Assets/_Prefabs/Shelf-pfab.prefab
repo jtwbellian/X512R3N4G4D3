@@ -26,10 +26,10 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
-  m_Radius: 0.054505885
+  m_Radius: 0.076028414
   m_Height: 0.7218075
   m_Direction: 0
-  m_Center: {x: 0.0032377243, y: 0.04761698, z: 0.0010417105}
+  m_Center: {x: 0.0032377243, y: 0.026094466, z: 0.0010417105}
 --- !u!114 &6427555527875985356
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -49,6 +49,8 @@ MonoBehaviour:
   m_snapOffset: {fileID: 0}
   m_grabPoints:
   - {fileID: 8769714013756429960}
+  - {fileID: 4353756092302330297}
+  - {fileID: 6890301024232434474}
   isHeld: 0
   renderers: []
 --- !u!1 &2957724386588857509
@@ -62,6 +64,8 @@ GameObject:
   - component: {fileID: 509322581707606752}
   - component: {fileID: 8118994119907885614}
   - component: {fileID: 5680271373057110215}
+  - component: {fileID: 4353756092302330297}
+  - component: {fileID: 6890301024232434474}
   m_Layer: 0
   m_Name: Shelf-pfab
   m_TagString: Untagged
@@ -130,6 +134,32 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!65 &4353756092302330297
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2957724386588857509}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 2.8657703, y: 0.5746971, z: 0.09073234}
+  m_Center: {x: -0.002120018, y: -0.10864045, z: -0.3981566}
+--- !u!65 &6890301024232434474
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2957724386588857509}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 2.8657703, y: 0.5746971, z: 0.09073234}
+  m_Center: {x: -0.002120018, y: 0.1, z: 0.41}
 --- !u!1001 &8778085341721393454
 PrefabInstance:
   m_ObjectHideFlags: 0

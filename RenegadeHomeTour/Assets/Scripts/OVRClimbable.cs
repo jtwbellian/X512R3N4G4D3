@@ -18,6 +18,22 @@ public class OVRClimbable : OVRGrabbable
     public Renderer[] renderers;
     private Collider playerBody;
 
+    void Awake()
+    {
+        if (m_grabPoints.Length == 0)
+        {
+            // Get the collider from the grabbable
+            Collider collider = this.GetComponent<Collider>();
+            if (collider == null)
+            {
+                throw new ArgumentException("Grabbables cannot have zero grab points and no collider -- please add a grab point or collider.");
+            }
+
+            // Create a default grab point
+            m_grabPoints = new Collider[1] { collider };
+        }
+    }
+
     new void Start()
     {
         base.Start();

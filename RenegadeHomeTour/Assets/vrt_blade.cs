@@ -10,6 +10,7 @@ public class vrt_blade : VRTool
     private Quaternion rotationUp;
     private Vector3 positionUp;
     private Vector3 positionDown;
+    private DoesDammage dd;
 
     Transform knife;
 
@@ -24,6 +25,8 @@ public class vrt_blade : VRTool
         StopCoroutine("Flip");
         knife.rotation = rotationUp;
         StartCoroutine("Flip");
+        dd = GetComponentInChildren<DoesDammage>();
+
     }
 
     public override void IndexRelease()
@@ -41,9 +44,17 @@ public class vrt_blade : VRTool
         knife.rotation = rotationDown;
         StartCoroutine("Flip");
     }
-
-    public new void OnRelease()
+    
+    public void OnGrab()
     {
+        base.OnGrab();
+        dd.Enable();
+        Debug.Log("Knife Grabbed");
+    }
+
+    public void OnRelease()
+    {
+        dd.Disable();
 
         if (orientation == 0)
         {
