@@ -8,7 +8,7 @@ public class GrabMagnet : MonoBehaviour
     public MeshRenderer orb;
     public bool holdsHat;
     public bool holdsTool;
-    private bool empty = true;
+    public bool empty = true;
     private VRTool lastItem;
     private Collider lastCol;
     

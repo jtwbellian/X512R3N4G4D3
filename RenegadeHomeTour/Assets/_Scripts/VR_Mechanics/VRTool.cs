@@ -263,7 +263,9 @@ public abstract class VRTool : MonoBehaviour, iSpecial_Grabbable
             }
             else if (!c.isTrigger)
             {
-                c.isTrigger = true;
+                //c.isTrigger = true;
+                var playerBody = GameManager.GetInstance().playerBody;
+                Physics.IgnoreCollision(c, playerBody);
             }
 
 
@@ -289,7 +291,9 @@ public abstract class VRTool : MonoBehaviour, iSpecial_Grabbable
             }
             else if (c.GetType() != typeof(SphereCollider))
             {
-                c.isTrigger = false;
+                var playerBody = GameManager.GetInstance().playerBody;
+                Physics.IgnoreCollision(c, playerBody, false);
+                //c.isTrigger = false;
             }
         }
 

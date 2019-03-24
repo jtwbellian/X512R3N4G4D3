@@ -192,6 +192,19 @@ public class CrabController : MonoBehaviour
 
             if (i > 0.8f)
             {
+                // Remove hats before destroying self
+                GrabMagnet mag = GetComponentInChildren<GrabMagnet>();
+                 
+                if (!mag.empty)
+                {
+                    Transform tool = mag.transform.GetChild(0);
+
+                    if (tool != null)
+                    {
+                        tool.parent = null;
+                    }
+                }
+
                 Destroy(this.gameObject);
             }
             yield return new WaitForSeconds(0.01f);

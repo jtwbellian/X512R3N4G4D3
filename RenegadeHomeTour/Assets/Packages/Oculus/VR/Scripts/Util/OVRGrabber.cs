@@ -75,6 +75,7 @@ public class OVRGrabber : MonoBehaviour
     protected Dictionary<OVRGrabbable, int> m_grabCandidates = new Dictionary<OVRGrabbable, int>();
     protected bool operatingWithoutOVRCameraRig = true;
     protected Vector3 bodyPos;
+    VRTool lastTool;
 
     protected Vector3 prevPos;
 
@@ -188,6 +189,25 @@ public class OVRGrabber : MonoBehaviour
         m_prevFlex = OVRInput.Get(OVRInput.Axis1D.PrimaryHandTrigger, m_controller);
 
         CheckForGrabOrRelease(prevFlex);
+
+
+        // Force grab weapons
+        if (m_grabbedObj == null)
+        {
+            VRTool nearTool = GrabRay();
+
+            if (nearTool != null && nearTool != lastTool)
+            {
+                if (lastTool != null)
+                    lastTool.LinesOff();
+
+                nearTool.LinesOn();
+                lastTool = nearTool;
+            }
+            
+        }
+
+
     }
 
     void OnDestroy()
@@ -251,7 +271,6 @@ public class OVRGrabber : MonoBehaviour
 
             //Check for nearby grabbables
             GrabBegin();
-            //GrabRay();
         }
         else if ((m_prevFlex <= grabEnd) && (prevFlex > grabEnd))
         {
@@ -259,7 +278,7 @@ public class OVRGrabber : MonoBehaviour
         }
     }
 
-    protected virtual bool GrabRay()
+    protected virtual VRTool GrabRay()
     {
 
         RaycastHit hit;
@@ -267,20 +286,20 @@ public class OVRGrabber : MonoBehaviour
         VRTool oldTool = null;
 
 
-        if (Physics.Raycast(transform.position, transform.forward, out hit, 10f))
+        if (Physics.Raycast(transform.position, transform.forward, out hit, 100f))
         {
             currentPOI = hit.collider.gameObject;
             
             if (currentPOI.Equals(previousPOI))
             {
-                return false;
+                return null;
             }
 
             // Get the grabbable
             OVRGrabbable grabbable = currentPOI.GetComponent<OVRGrabbable>() ?? currentPOI.GetComponentInParent<OVRGrabbable>();
 
             if (grabbable == null)
-                return false;
+                return null;
 
             /* Add the grabbable
             int refCount = 0;
@@ -302,10 +321,12 @@ public class OVRGrabber : MonoBehaviour
                 oldTool.LinesOff();
 
             previousPOI = currentPOI;
-            return true;
+
+            Debug.Log("old: " + previousPOI.ToString() + " new: " + currentPOI.ToString());
+            return newTool;
         }
 
-        return false;
+        return null;
     }
 
     protected virtual void GrabBegin()
@@ -425,7 +446,7 @@ public class OVRGrabber : MonoBehaviour
                     m_grabbedObj.transform.parent = transform;
                 }
 
-                Physics.IgnoreCollision(m_grabbedObj.GetComponent<Collider>(), bodyCol.GetComponent<Collider>());
+                Physics.IgnoreCollision(m_grabbedObj.GetComponent<Collider>(), bodyCol);
 
             }
         }

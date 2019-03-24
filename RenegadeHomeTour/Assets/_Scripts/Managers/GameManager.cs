@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour
     public Vector3 playerStart;
     public GameObject popupPrefab;
     public Hud hud;
+    public Collider playerBody;
     public SoundManager sm;
     public Director direc;
     private bool popupShown = false;

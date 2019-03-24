@@ -78,6 +78,7 @@ public class Director : MonoBehaviour
             script[currentLine].onEnd.Invoke();
             currentLine++;
             Invoke("Action", script[currentLine].margin);
+            GameManager.GetInstance().hud.HideImage();
             wasInvoked = true;
         }
 
@@ -105,8 +106,8 @@ public class Director : MonoBehaviour
         //Debug.Log("Action Called for event ");
         script[currentLine].onStart.Invoke();
 
-  
-        sm.dialogue.PlayOneShot(script[currentLine].clip);
+        sm.dialogue.clip = script[currentLine].clip;
+        sm.dialogue.Play();
 
         if (script[currentLine].waitFor == PING.NONE)
         {

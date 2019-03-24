@@ -56,6 +56,7 @@ MonoBehaviour:
   - {fileID: 6592303139130369487}
   - {fileID: 495168595551367311}
   - {fileID: -1293536768979601534}
+  - {fileID: 7046399638994627027}
 --- !u!114 &495168595551367311
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -92,7 +93,7 @@ MonoBehaviour:
     overrideState: 1
     value: 1
   rounded:
-    overrideState: 0
+    overrideState: 1
     value: 0
   mask:
     overrideState: 0
@@ -203,10 +204,10 @@ MonoBehaviour:
     value: 1
   temperature:
     overrideState: 1
-    value: 10
+    value: 0
   tint:
     overrideState: 1
-    value: 3
+    value: 27
   colorFilter:
     overrideState: 0
     value: {r: 1, g: 1, b: 1, a: 1}
@@ -215,7 +216,7 @@ MonoBehaviour:
     value: 0
   saturation:
     overrideState: 1
-    value: -3
+    value: 0
   brightness:
     overrideState: 0
     value: 0
@@ -224,7 +225,7 @@ MonoBehaviour:
     value: 1.4
   contrast:
     overrideState: 1
-    value: 1
+    value: 2
   mixerRedOutRedIn:
     overrideState: 0
     value: 0
@@ -1461,3 +1462,53 @@ MonoBehaviour:
       - 0.5
       - 0.5
       - 0.5
+--- !u!114 &7046399638994627027
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_GeneratorAsset: {fileID: 0}
+  m_Script: {fileID: 11500000, guid: c1cb7e9e120078f43bce4f0b1be547a7, type: 3}
+  m_Name: AmbientOcclusion
+  m_EditorClassIdentifier: 
+  active: 0
+  enabled:
+    overrideState: 1
+    value: 0
+  mode:
+    overrideState: 0
+    value: 1
+  intensity:
+    overrideState: 0
+    value: 4
+  color:
+    overrideState: 0
+    value: {r: 0.120772526, g: 0.19568442, b: 0.4339623, a: 1}
+  ambientOnly:
+    overrideState: 0
+    value: 1
+  noiseFilterTolerance:
+    overrideState: 0
+    value: 0
+  blurTolerance:
+    overrideState: 0
+    value: -4.6
+  upsampleTolerance:
+    overrideState: 0
+    value: -12
+  thicknessModifier:
+    overrideState: 0
+    value: 7.01
+  directLightingStrength:
+    overrideState: 0
+    value: 1
+  radius:
+    overrideState: 0
+    value: 0.25
+  quality:
+    overrideState: 0
+    value: 2
