@@ -356,6 +356,7 @@ MonoBehaviour:
   orb: {fileID: 7049777283217007981}
   holdsHat: 0
   holdsTool: 1
+  empty: 1
 --- !u!135 &8863167662683407241
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -509,6 +510,7 @@ MonoBehaviour:
   orb: {fileID: 8605185604577034435}
   holdsHat: 0
   holdsTool: 1
+  empty: 1
 --- !u!135 &8001115610695771899
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -1111,8 +1113,8 @@ Camera:
   m_AllowDynamicResolution: 0
   m_ForceIntoRT: 0
   m_OcclusionCulling: 1
-  m_StereoConvergence: 10
-  m_StereoSeparation: 0.022
+  m_StereoConvergence: 0
+  m_StereoSeparation: 0
 --- !u!114 &968549841882928552
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1765,11 +1767,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Segment: {fileID: 6003178557872176291}
-  Weight: 1
+  Weight: 5
   Target: {fileID: 6003178559522453393}
-  TPX: -947.3348999023438
-  TPY: 2.467400074005127
-  TPZ: -3168.9755859375
+  TPX: -0.0348999984562397
+  TPY: -0.022600000724196434
+  TPZ: -0.10660000145435333
   MaximumError: 0
 --- !u!114 &6003178557872176290
 MonoBehaviour:
@@ -1785,7 +1787,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Segment: {fileID: 6003178557872176291}
-  Weight: 1
+  Weight: 5
   Target: {fileID: 6003178559522453393}
   TRX: 0.6700104475021362
   TRY: -0.18036282062530518
@@ -3663,7 +3665,7 @@ CapsuleCollider:
   m_Radius: 0.13
   m_Height: 1.7
   m_Direction: 1
-  m_Center: {x: 0, y: 1.07, z: -0.3}
+  m_Center: {x: 0, y: 1.4, z: 0}
 --- !u!1 &6003178558185184677
 GameObject:
   m_ObjectHideFlags: 0
@@ -3887,7 +3889,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Segment: {fileID: 6003178558368427043}
-  Weight: 1
+  Weight: 5
   Target: {fileID: 6003178558090382746}
   TPX: 0.02199999988079071
   TPY: -0.027000000700354576
@@ -3907,7 +3909,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Segment: {fileID: 6003178558368427043}
-  Weight: 1
+  Weight: 5
   Target: {fileID: 6003178558090382746}
   TRX: -0.20418709516525269
   TRY: 0.6539771556854248
@@ -4766,12 +4768,12 @@ MonoBehaviour:
   Generations: 2
   PopulationSize: 80
   Elites: 1
-  Smoothing: 0.457
+  Smoothing: 0.501
   AnimationWeight: 1
   AnimationBlend: 0
   MotionType: 0
-  MaximumVelocity: 10000
-  MaximumAcceleration: 10000
+  MaximumVelocity: 90000
+  MaximumAcceleration: 90000
   Segments:
   - {fileID: 6003178558641689347}
   - {fileID: 6003178558666334435}
@@ -4859,8 +4861,8 @@ MonoBehaviour:
   - {fileID: 1744350043417341887}
   Root: {fileID: 6003178558641689347}
   Solution: []
-  SelectedSegment: {fileID: 6003178558368427043}
-  Scroll: {x: 0, y: 2505}
+  SelectedSegment: {fileID: 6003178559562312243}
+  Scroll: {x: 0, y: 345}
 --- !u!114 &6003178558641689375
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5449,7 +5451,7 @@ MonoBehaviour:
     Enabled: 1
     Constrained: 1
     LowerLimit: -30
-    UpperLimit: 90
+    UpperLimit: 115
     TargetValue: 0
     CurrentValue: 0
     CurrentError: 0
@@ -7936,7 +7938,7 @@ MonoBehaviour:
     Enabled: 1
     Constrained: 1
     LowerLimit: -30
-    UpperLimit: 90
+    UpperLimit: 115
     TargetValue: 0
     CurrentValue: 0
     CurrentError: 0
@@ -8178,6 +8180,7 @@ MonoBehaviour:
   orb: {fileID: 3641047209402131251}
   holdsHat: 0
   holdsTool: 1
+  empty: 1
 --- !u!135 &6112208362202493421
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -8319,13 +8322,14 @@ GameObject:
   - component: {fileID: 7189325596894930367}
   - component: {fileID: 8174811329841538727}
   - component: {fileID: 7092561664880357614}
+  - component: {fileID: 8746159625817890649}
   m_Layer: 0
   m_Name: RenderCam
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &7189325596894930367
 Transform:
   m_ObjectHideFlags: 0
@@ -8353,7 +8357,7 @@ Camera:
   m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
-  m_FOVAxisMode: 0
+  m_FOVAxisMode: 1
   m_SensorSize: {x: 36, y: 24}
   m_LensShift: {x: 0, y: 0}
   m_FocalLength: 50
@@ -8365,16 +8369,16 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 3000
-  field of view: 110
+  field of view: 141.40932
   orthographic: 0
-  orthographic size: 5
+  orthographic size: 35.6
   m_Depth: 2
   m_CullingMask:
     serializedVersion: 2
     m_Bits: 1815
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 8400000, guid: 0935793e71c3f4846a763abf63550bd7, type: 2}
-  m_TargetDisplay: 0
+  m_TargetDisplay: 5
   m_TargetEye: 0
   m_HDR: 1
   m_AllowMSAA: 1
@@ -8382,7 +8386,7 @@ Camera:
   m_ForceIntoRT: 0
   m_OcclusionCulling: 1
   m_StereoConvergence: 0
-  m_StereoSeparation: 0
+  m_StereoSeparation: 0.022
 --- !u!114 &7092561664880357614
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8402,6 +8406,25 @@ MonoBehaviour:
   Childs: []
   Joint: {fileID: 0}
   Objectives: []
+--- !u!114 &8746159625817890649
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6951054079428120144}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_GeneratorAsset: {fileID: 0}
+  m_Script: {fileID: 11500000, guid: a79441f348de89743a2939f4d699eac1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_RenderShadows: 0
+  m_RequiresDepthTextureOption: 2
+  m_RequiresOpaqueTextureOption: 2
+  m_RequiresDepthTexture: 0
+  m_RequiresColorTexture: 0
+  m_Version: 2
 --- !u!1 &7750008747227317425
 GameObject:
   m_ObjectHideFlags: 0
@@ -8453,6 +8476,7 @@ MonoBehaviour:
   orb: {fileID: 1274386190894786417}
   holdsHat: 0
   holdsTool: 1
+  empty: 1
 --- !u!135 &4580155583027278771
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -8664,3 +8688,4 @@ MonoBehaviour:
   orb: {fileID: 0}
   holdsHat: 1
   holdsTool: 0
+  empty: 1
