@@ -11,7 +11,6 @@ public class GrabMagnet : MonoBehaviour
     public bool empty = true;
     private VRTool lastItem;
     private Collider lastCol;
-    
 
     public void Free()
     {
@@ -72,11 +71,11 @@ public class GrabMagnet : MonoBehaviour
             if (item.home != null)
                 item.home.Free();
 
+            item.SetHome(this);
             item.OnGrab();
 
             Free();
-
-            item.SetHome(this);
+  
 
             empty = false;
 
@@ -85,8 +84,18 @@ public class GrabMagnet : MonoBehaviour
                 orb.enabled = false;
             }
 
-
             GameManager.GetInstance().direc.Ping(PING.weaponHolstered);
+
+            if (holdsHat && transform.root.CompareTag("Player"))
+            {
+                Debug.Log("Hat changed");
+                SkinnedMeshRenderer armor = Camera.main.transform.root.GetComponentInChildren<SkinnedMeshRenderer>();
+                MeshRenderer helmet = Camera.main.transform.root.GetComponentInChildren<MeshRenderer>();
+                MeshRenderer mr = transform.GetComponentInChildren<MeshRenderer>();
+                armor.material = mr.materials[1];
+                helmet.materials[1] = mr.materials[1];
+                mr.enabled = false;
+            }
         }
     }
 }

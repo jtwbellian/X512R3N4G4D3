@@ -20,7 +20,7 @@ public abstract class VRTool : MonoBehaviour, iSpecial_Grabbable
     public bool usesThumb = false;
 
     public bool isHat = false;
-    public float indexValue = 0f;
+    private float indexValue = 0f;
     public GrabMagnet home;
     public OVRHapticsManager haptics;
 

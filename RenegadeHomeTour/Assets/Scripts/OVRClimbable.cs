@@ -39,8 +39,6 @@ public class OVRClimbable : OVRGrabbable
         base.Start();
 
         renderers = GetComponentsInChildren<Renderer>();
-        LinesOn();
-
         playerBody = Camera.main.transform.root.GetComponentInChildren<IKPlayerController>().transform.GetComponent<Collider>();
     }
 

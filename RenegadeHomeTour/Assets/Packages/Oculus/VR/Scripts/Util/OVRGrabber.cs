@@ -322,7 +322,7 @@ public class OVRGrabber : MonoBehaviour
 
             previousPOI = currentPOI;
 
-            Debug.Log("old: " + previousPOI.ToString() + " new: " + currentPOI.ToString());
+            //Debug.Log("old: " + previousPOI.ToString() + " new: " + currentPOI.ToString());
             return newTool;
         }
 

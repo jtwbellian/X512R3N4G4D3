@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour
     public Collider playerBody;
     public SoundManager sm;
     public Director direc;
+    public Material defaultPlayerMat;
     private bool popupShown = false;
 
     public static int crabsKilled = 0;
