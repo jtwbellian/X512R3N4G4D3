@@ -9701,7 +9701,7 @@ GameObject:
   - component: {fileID: 159337430203104444}
   - component: {fileID: 4069476530753621809}
   m_Layer: 0
-  m_Name: GunFlare_Particle
+  m_Name: MuzzleFlash
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -14448,6 +14448,36 @@ ParticleSystemRenderer:
   m_Mesh2: {fileID: 0}
   m_Mesh3: {fileID: 0}
   m_MaskInteraction: 0
+--- !u!1 &4773299213921633891
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8344506400425809666}
+  m_Layer: 0
+  m_Name: Offset
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8344506400425809666
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4773299213921633891}
+  m_LocalRotation: {x: -0.0560176, y: -0, z: -0, w: 0.9984298}
+  m_LocalPosition: {x: 0, y: -0.0153, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 6643271911171856697}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: -6.4230003, y: 0, z: 0}
 --- !u!1 &6905285494397694019
 GameObject:
   m_ObjectHideFlags: 0
@@ -14542,6 +14572,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
+  - {fileID: 8344506400425809666}
   - {fileID: 6278779228977084512}
   - {fileID: 6466556209683072280}
   - {fileID: 3683142424519575443}
@@ -14596,6 +14627,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 73eae931515968c4891c945d432bfd0a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  toolCols: []
   usesIndex: 1
   usesThumb: 0
   isHat: 0
@@ -14607,7 +14639,7 @@ MonoBehaviour:
     type: 3}
   fireSpeed: 15
   gunBarrel: {fileID: 6278779228977084512}
-  muzzleFlash: {fileID: 0}
+  muzzleFlash: {fileID: 159337430203104444}
 --- !u!65 &41105589334980748
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -14620,7 +14652,7 @@ BoxCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 0.042027768, y: 0.14840508, z: 0.22031306}
-  m_Center: {x: 0, y: 0.0030664206, z: 0.043870457}
+  m_Center: {x: 0, y: -0.01, z: 0.043870457}
 --- !u!82 &3104014136377871025
 AudioSource:
   m_ObjectHideFlags: 0
@@ -14761,7 +14793,7 @@ Transform:
   - {fileID: 7283402769965354646}
   - {fileID: 1709418769151973262}
   m_Father: {fileID: 6643271911171856697}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0.96300006, y: 0, z: 0}
 --- !u!95 &3978878993843955810
 Animator:
@@ -14811,7 +14843,7 @@ Transform:
   m_Children:
   - {fileID: 2895418970926274987}
   m_Father: {fileID: 6643271911171856697}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0.96300006, y: 0, z: 0}
 --- !u!1 &9091885214792822388
 GameObject:
@@ -14842,7 +14874,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 6643271911171856697}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0.96300006, y: 0, z: 0}
 --- !u!108 &5113387150516738465
 Light:

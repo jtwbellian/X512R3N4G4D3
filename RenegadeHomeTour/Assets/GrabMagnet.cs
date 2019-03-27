@@ -52,8 +52,9 @@ public class GrabMagnet : MonoBehaviour
             return;
         }
 
-        if (item == null || 
-        item.isHeld() || 
+        if (item == null ||
+        item.isHeld() ||
+        !item.isTool ||
         (item.isHat && !holdsHat) ||
         (!item.isHat && !holdsTool))
             return;
@@ -91,11 +92,23 @@ public class GrabMagnet : MonoBehaviour
                 Debug.Log("Hat changed");
                 SkinnedMeshRenderer armor = Camera.main.transform.root.GetComponentInChildren<SkinnedMeshRenderer>();
                 MeshRenderer helmet = Camera.main.transform.root.GetComponentInChildren<MeshRenderer>();
-                MeshRenderer mr = transform.GetComponentInChildren<MeshRenderer>();
-                armor.material = mr.materials[1];
-                helmet.materials[1] = mr.materials[1];
-                mr.enabled = false;
+                MeshRenderer mr = item.GetComponentInChildren<MeshRenderer>();
+
+                if (helmet.materials.Length > 1)
+                { 
+                    armor.material = mr.materials[1];
+                    helmet.materials[1] = mr.materials[1];
+                    mr.enabled = false;
+                }
             }
+
+            // Ignore collisions
+            foreach (Collider c in item.grabInfo.allColliders)
+                foreach (Collider bodyCol in GameManager.GetInstance().playerCols)
+                {
+                    Physics.IgnoreCollision(c, bodyCol);
+                }
+
         }
     }
 }

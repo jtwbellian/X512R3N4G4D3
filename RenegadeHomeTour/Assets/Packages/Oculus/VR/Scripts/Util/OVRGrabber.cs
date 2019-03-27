@@ -59,7 +59,7 @@ public class OVRGrabber : MonoBehaviour
     [SerializeField]
     public OVRInput.Controller m_controller;
     [SerializeField]
-    public Collider bodyCol;
+    public Collider [] bodyCols;
     [SerializeField]
     protected Transform m_parentTransform;
 
@@ -190,7 +190,6 @@ public class OVRGrabber : MonoBehaviour
 
         CheckForGrabOrRelease(prevFlex);
 
-
         // Force grab weapons
         if (m_grabbedObj == null)
         {
@@ -204,10 +203,7 @@ public class OVRGrabber : MonoBehaviour
                 nearTool.LinesOn();
                 lastTool = nearTool;
             }
-            
         }
-
-
     }
 
     void OnDestroy()
@@ -446,7 +442,15 @@ public class OVRGrabber : MonoBehaviour
                     m_grabbedObj.transform.parent = transform;
                 }
 
-                Physics.IgnoreCollision(m_grabbedObj.GetComponent<Collider>(), bodyCol);
+
+                foreach (Collider col in m_grabbedObj.allColliders)
+                    foreach (Collider bodyCol in bodyCols)
+                    {
+                        Physics.IgnoreCollision(col, bodyCol);
+                    }
+
+
+
 
             }
         }
@@ -485,7 +489,10 @@ public class OVRGrabber : MonoBehaviour
         }
         
         rb.AddForce((m_lastPos - transform.position) / Time.deltaTime, ForceMode.VelocityChange);
-        Physics.IgnoreCollision(m_grabbedObj.GetComponent<Collider>(), bodyCol.GetComponent<Collider>());
+
+            foreach (Collider col in m_grabbedObj.allColliders)
+                foreach (Collider bodyCol in bodyCols)
+                    Physics.IgnoreCollision(col, bodyCol);
     }
 
 
@@ -506,7 +513,10 @@ public class OVRGrabber : MonoBehaviour
                 special.OnRelease();
             }
 
-            Physics.IgnoreCollision(m_grabbedObj.GetComponent<Collider>(), bodyCol.GetComponent<Collider>(), false);
+            foreach (Collider col in m_grabbedObj.allColliders)
+                foreach (Collider bodyCol in bodyCols)
+                    Physics.IgnoreCollision(col, bodyCol, false);
+
             OVRPose localPose = new OVRPose { position = OVRInput.GetLocalControllerPosition(m_controller), orientation = OVRInput.GetLocalControllerRotation(m_controller) };
             OVRPose offsetPose = new OVRPose { position = m_anchorOffsetPosition, orientation = m_anchorOffsetRotation };
             localPose = localPose * offsetPose;

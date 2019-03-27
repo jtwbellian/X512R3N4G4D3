@@ -9,7 +9,7 @@ public class GameManager : MonoBehaviour
     public Vector3 playerStart;
     public GameObject popupPrefab;
     public Hud hud;
-    public Collider playerBody;
+    public Collider [] playerCols;
     public SoundManager sm;
     public Director direc;
     public Material defaultPlayerMat;
@@ -20,7 +20,6 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
-
         if (instance == null)
         {
             instance = this;
@@ -42,13 +41,6 @@ public class GameManager : MonoBehaviour
     {
         crabsKilled++;
         hud.Refresh();
-    }
-
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     void Init()
@@ -73,6 +65,11 @@ public class GameManager : MonoBehaviour
     public void CanShowPopups()
     {
         popupShown = false;
+    }
+
+    public void RestartLevel()
+    {
+        Application.LoadLevel(Application.loadedLevel);
     }
 
     public static GameManager GetInstance()

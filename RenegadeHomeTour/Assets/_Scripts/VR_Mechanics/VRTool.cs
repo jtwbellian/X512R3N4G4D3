@@ -7,20 +7,25 @@ using UnityEngine;
 public abstract class VRTool : MonoBehaviour, iSpecial_Grabbable
 {
     private Rigidbody rb;
-    private Collider[] toolCols;
-    protected OVRGrabbable grabInfo;
+
+    public OVRGrabbable grabInfo;
     private Renderer [] renderers;
 
+    private float indexValue = 0f;
     private bool indexDown = false;
     private bool thumbDown = false;
     private float minRadius = 0.25f;
     private float maxRadius = 0.35f;
 
+    [HideInInspector]
+    public Collider[] toolCols;
+
     public bool usesIndex = true;
     public bool usesThumb = false;
 
     public bool isHat = false;
-    private float indexValue = 0f;
+    public bool isTool = true;
+
     public GrabMagnet home;
     public OVRHapticsManager haptics;
 
@@ -261,12 +266,14 @@ public abstract class VRTool : MonoBehaviour, iSpecial_Grabbable
                 SphereCollider sc = (SphereCollider)c;
                 sc.radius = minRadius;
             }
-            else if (!c.isTrigger)
+            /*else if (!c.isTrigger)
             {
                 //c.isTrigger = true;
-                var playerBody = GameManager.GetInstance().playerBody;
-                Physics.IgnoreCollision(c, playerBody);
-            }
+                Collider [] playerCols = GameManager.GetInstance().playerCols;
+                
+                foreach (Collider playerCol in playerCols)
+                Physics.IgnoreCollision(c, playerCol);
+            }*/
 
 
         }
@@ -289,12 +296,12 @@ public abstract class VRTool : MonoBehaviour, iSpecial_Grabbable
                 SphereCollider sc = (SphereCollider)c;
                 sc.radius = maxRadius;
             }
-            else if (c.GetType() != typeof(SphereCollider))
+            /*else if (c.GetType() != typeof(SphereCollider))
             {
                 var playerBody = GameManager.GetInstance().playerBody;
                 Physics.IgnoreCollision(c, playerBody, false);
                 //c.isTrigger = false;
-            }
+            }*/
         }
 
         if (rb != null)

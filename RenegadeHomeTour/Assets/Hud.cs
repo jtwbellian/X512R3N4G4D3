@@ -18,6 +18,8 @@ public class Hud : MonoBehaviour
     private Rigidbody playerBody;
     private Vector3 lastPos = Vector3.zero;
     private Vector3 lastHudAnchorPos = Vector3.zero;
+
+    public GameObject menu;
     public Text[] messageField;
 
     public string message;
@@ -54,6 +56,18 @@ public class Hud : MonoBehaviour
         lastPos = transform.position;
         lastHudAnchorPos = hudAnchor.transform.position;
         transform.LookAt(Camera.main.transform.position);
+    }
+
+    public void ToggleMenu()
+    {
+        if (menu.active)
+        {
+            menu.SetActive(false);
+        }
+        else
+        {
+            menu.SetActive(true);
+        }
     }
 
     Vector3 SmoothApproach(Vector3 pastPosition, Vector3 pastTargetPosition, Vector3 targetPosition, float speed)

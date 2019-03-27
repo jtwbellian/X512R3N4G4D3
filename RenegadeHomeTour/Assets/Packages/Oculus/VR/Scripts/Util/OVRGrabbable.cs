@@ -42,6 +42,8 @@ public class OVRGrabbable : MonoBehaviour
     protected Collider m_grabbedCollider = null;
     protected OVRGrabber m_grabbedBy = null;
 
+    public Collider[] allColliders;
+
 	/// <summary>
 	/// If true, the object can currently be grabbed.
 	/// </summary>
@@ -189,6 +191,8 @@ public class OVRGrabbable : MonoBehaviour
             // Create a default grab point
             m_grabPoints = new Collider[1] { collider };
         }
+
+        allColliders = this.GetComponentsInChildren<Collider>();
     }
 
     protected virtual void Start()
