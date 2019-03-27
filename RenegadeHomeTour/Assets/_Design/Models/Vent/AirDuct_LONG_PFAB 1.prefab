@@ -40,8 +40,6 @@ GameObject:
   m_Component:
   - component: {fileID: 7952013412654395638}
   - component: {fileID: 622790420096509025}
-  - component: {fileID: 6190940083362803167}
-  - component: {fileID: 1323284736257687373}
   - component: {fileID: 4190423518065163016}
   - component: {fileID: 2002562388113121895}
   m_Layer: 0
@@ -100,32 +98,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!65 &6190940083362803167
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1177081009479927987}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1.3720585, y: 2.3315125, z: 2.6957397}
-  m_Center: {x: -0.18602926, y: 1.1736298, z: 0.027294755}
---- !u!65 &1323284736257687373
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1177081009479927987}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1.3720585, y: 2.2469788, z: 2.6957397}
-  m_Center: {x: -0.18602926, y: -11.612991, z: 0.027294755}
 --- !u!65 &4190423518065163016
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -137,8 +109,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.3720585, y: 31.880371, z: 2.0305176}
-  m_Center: {x: -0.18602926, y: -5.122711, z: 0.0013853312}
+  m_Size: {x: 1.2321049, y: 31.880371, z: 2.0305176}
+  m_Center: {x: -0.11605245, y: -5.122711, z: 0.0013853312}
 --- !u!54 &2002562388113121895
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -299,6 +271,8 @@ MonoBehaviour:
   m_grabPoints:
   - {fileID: 2976245658157824285}
   - {fileID: 1709101601807187462}
+  isHeld: 0
+  renderers: []
 --- !u!54 &8621476964272703458
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -397,6 +371,8 @@ MonoBehaviour:
   m_grabPoints:
   - {fileID: 8067800384881290768}
   - {fileID: 2054134172748198198}
+  isHeld: 0
+  renderers: []
 --- !u!54 &8860889962228090385
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -527,6 +503,8 @@ MonoBehaviour:
   m_grabPoints:
   - {fileID: 5851169767205099261}
   - {fileID: 6462631496248425906}
+  isHeld: 0
+  renderers: []
 --- !u!54 &796871103369849909
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -758,6 +736,8 @@ MonoBehaviour:
   m_grabPoints:
   - {fileID: 1039213000685054183}
   - {fileID: 5197112616229570351}
+  isHeld: 0
+  renderers: []
 --- !u!54 &3871319745772020225
 Rigidbody:
   m_ObjectHideFlags: 0
