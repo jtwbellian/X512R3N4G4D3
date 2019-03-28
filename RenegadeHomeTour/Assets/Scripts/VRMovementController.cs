@@ -9,7 +9,7 @@ public class VRMovementController : MonoBehaviour
     private const float TOL = 0.05f;
     private const float MAX_VIGNETTE = 0.85f;
     private const float MIN_VIGNETTE = 0.3f;
-    private const float MAX_SPEED =8f;
+    private const float MAX_SPEED = 25f;
     private float boostbar_width = 0.0f;
     public Rigidbody rigidBody;
     private Transform head;
@@ -17,6 +17,7 @@ public class VRMovementController : MonoBehaviour
     private bool ReadyToSnapTurn = false;
     private Vignette vignette;
     private float boostRate = 0.5f;
+    private AudioSource jetAudio;
 
     private OVRGrabber[] grabbers;
 
@@ -51,7 +52,7 @@ public class VRMovementController : MonoBehaviour
         //rb = body.GetComponent<Rigidbody>();
         rigidBody.freezeRotation = true;
         head = Camera.main.transform; //GetComponentInChildren<Camera>().transform;
-
+        jetAudio = GetComponent<AudioSource>();
     }
 
     public void ViewRatchet(float amt)
@@ -83,16 +84,28 @@ public class VRMovementController : MonoBehaviour
                 }
 
                 rigidBody.AddForce(head.forward * (speed * stickY * (boost + 0.1f)), ForceMode.Force);
+
+                if (!jetAudio.isPlaying)
+                {
+                    jetAudio.Play();
+                }
+
+                jetAudio.volume = 1f;
+                jetAudio.pitch = boost;
+
                 boost -= Time.deltaTime * Mathf.Abs(stickY) * 0.25f;
             }
             else if (boost < 1f)
             {
                 boost += Time.deltaTime * rechargeRate;
+                jetAudio.volume = 0f;
+                jetAudio.Stop();
             }
 
             boostBar.localScale = new Vector3(boostbar_width * boost, boostBar.localScale.y, boostBar.localScale.z);
 
         }
+        
 
         // Turn View Left
         if (OVRInput.Get(OVRInput.Button.SecondaryThumbstickLeft))

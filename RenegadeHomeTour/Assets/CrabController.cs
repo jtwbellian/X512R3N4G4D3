@@ -22,7 +22,7 @@ public class CrabController : MonoBehaviour
     [SerializeField]
     private float jumpForce = 100f;
 
-    private float numAttacks = 3;
+    private float numAttacks = 2;
     private float attack = 0;
     private float health = 1000f;
 
@@ -100,7 +100,7 @@ public class CrabController : MonoBehaviour
 
                 alive = false;
                 rb.isKinematic = false;
-                rb.AddTorque(other.transform.position - transform.position);
+                rb.AddTorque((other.transform.position - transform.position) * dmg);
                 animator.SetBool("dead", true);
                 psDissolve.Play();
                 GameManager gm = GameManager.GetInstance();
@@ -122,11 +122,17 @@ public class CrabController : MonoBehaviour
             {
                     animator.speed = 1.5f;
 
-                    var tFuture = transform;
-                    tFuture.LookAt(target);
-                    var toQuat = tFuture.rotation;
+                    Vector3 toTarget = target.position - transform.position;
 
-                    Quaternion.RotateTowards(transform.rotation, toQuat, Time.deltaTime);
+                    // This constructs a rotation looking in the direction of our target,
+                    Quaternion targetRotation = Quaternion.LookRotation(toTarget);
+
+                    // This blends the target rotation in gradually.
+                    // Keep sharpness between 0 and 1 - lower values are slower/softer.
+                    float sharpness = 0.1f;
+                    transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, sharpness);
+
+
                     rb.AddForce(transform.forward * speed ,  ForceMode.Force);
 
                     if (!target.CompareTag("jumpPoint") && Vector3.Distance(transform.position, target.position) < jumpDist)
@@ -158,7 +164,17 @@ public class CrabController : MonoBehaviour
                     }
                     else // back up slowly
                     {
-                        transform.LookAt(target);
+
+                        Vector3 toTarget = target.position - transform.position;
+
+                        // This constructs a rotation looking in the direction of our target,
+                        Quaternion targetRotation = Quaternion.LookRotation(toTarget);
+
+                        // This blends the target rotation in gradually.
+                        // Keep sharpness between 0 and 1 - lower values are slower/softer.
+                        float sharpness = 0.01f;
+                        transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, sharpness);
+
                         animator.speed = 1f;
                         rb.AddForce(transform.forward * -0.1f, ForceMode.Force);
                     }

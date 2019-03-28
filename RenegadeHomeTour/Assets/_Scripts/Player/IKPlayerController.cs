@@ -22,8 +22,7 @@ public class IKPlayerController : MonoBehaviour
 
     private Transform handR;
     private Transform handL;
-    private SphereCollider fistR;
-    private SphereCollider fistL;
+
     private CapsuleCollider capsule;
 
 
@@ -53,9 +52,7 @@ public class IKPlayerController : MonoBehaviour
         handL = GameObject.FindWithTag("LeftHand").transform;
         handR = GameObject.FindWithTag("RightHand").transform;
 
-        fistL = handL.GetComponent<SphereCollider>();
-        fistR = handR.GetComponent<SphereCollider>();
-        capsule = GetComponent<CapsuleCollider>();
+        capsule = GetComponentInChildren<CapsuleCollider>();
 
         //Physics.IgnoreCollision(capsule, head.transform.GetComponent<Collider>());
 
@@ -69,8 +66,7 @@ public class IKPlayerController : MonoBehaviour
             foreach (Collider c in colliders)
             {
                 Physics.IgnoreCollision(capsule, c);
-                Physics.IgnoreCollision(fistR, c);
-                Physics.IgnoreCollision(fistL, c);
+
             }
         }
 
@@ -82,7 +78,7 @@ public class IKPlayerController : MonoBehaviour
         height = head.localPosition.y;
         float newScale = height / DEFAULT_HEIGHT;
         transform.localScale = new Vector3(newScale, newScale, newScale);
-        GetComponent<CapsuleCollider>().height = newScale;
+        GetComponentInChildren<CapsuleCollider>().height = newScale;
 
         GameManager gm = GameManager.GetInstance();
         gm.hud.ShowImage(Icon.calibrate, 2f);
@@ -111,57 +107,17 @@ public class IKPlayerController : MonoBehaviour
     }
 
 
-    // Check Pointing
-    void CheckPointing()
-    {
-        /*
-        int layerMask = LayerMask.GetMask("Interactable");
-        RaycastHit hit;
-
-        // RayCast for interactables from Left Hand
-        if (lThumb == 0f && lFinger == 0f)
-        {
-
-            if (Physics.Raycast(handL.position,handL.forward, out hit, MAX_RAYDIST, layerMask))
-            {
-                VRTool item = hit.transform.GetComponent<VRTool>();
-
-                if (item != null)
-                {
-                    item.LinesOn();
-
-                    if (lGrab > 0.5f)
-                        item.transform.position = handL.position;
-                }
-            }
-        }
-
-        // RayCast for interactables from Right Hand
-        if (rGrab > 0.5f && rThumb == 0f && rFinger == 0f)
-        {
-
-            if (Physics.Raycast(handR.position, handR.forward, out hit, MAX_RAYDIST, layerMask))
-            {
-                VRTool item = hit.transform.GetComponent<VRTool>();
-
-                if (item != null)
-                {
-                    item.LinesOn();
-
-                    if (lGrab > 0.5f)
-                        item.transform.position = handR.position;
-                }
-            }
-        }
-        */
-    }
-
     // Update is called once per frame
     void Update()
     {
 
         // make collider match your current height
-        capsule.height = Mathf.Abs(head.localPosition.y) * 0.5f + 0.2f;
+
+        var scaleFactor = 5f;
+        var minHeight = 0.25f;
+        var percentHeight = 0.5f;
+
+        capsule.height = (Mathf.Abs(head.localPosition.y) * percentHeight + minHeight) * scaleFactor;
 
         // position the players body
         if (transform.position !=  head.position)
@@ -169,31 +125,6 @@ public class IKPlayerController : MonoBehaviour
             transform.position = new Vector3(head.position.x, head.position.y - height, head.position.z) + head.transform.forward * offset;
         }
 
-        /*
-        // Turn on Left fist
-        if (lGrab > 0.5f && fistL.isTrigger && handL.GetComponent<OVRGrabber>().grabbedObject == null)
-        {
-            fistL.isTrigger = false;
-            fistL.radius = minHandRadius;
-        }
-        else if (!fistL.isTrigger)
-        {
-            fistL.isTrigger = true;
-            fistL.radius = maxHandRadius;
-        }
-
-        // Turn on Right fist
-        if (rGrab > 0.5f && fistR.isTrigger && handR.GetComponent<OVRGrabber>().grabbedObject == null)
-        {
-            fistR.isTrigger = false;
-            fistR.radius = minHandRadius;
-        }
-        else if (!fistR.isTrigger)
-        {
-            fistR.isTrigger = true;
-            fistR.radius = maxHandRadius;
-        }
-        */
         UpdateGestures();
 
         //CheckPointing();
@@ -203,6 +134,12 @@ public class IKPlayerController : MonoBehaviour
         {
             GameManager.GetInstance().direc.Ping(PING.calibrated);
             UpdatePlayerHeight();
+        }
+
+        // Press A + X for menu
+        if (OVRInput.Get(OVRInput.Button.One) && OVRInput.Get(OVRInput.Button.Three))
+        {
+            GameManager.GetInstance().hud.ToggleMenu();
         }
 
         var lerp = (head.localPosition.y - 0.75f) * 2f / height;
