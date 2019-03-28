@@ -133,7 +133,7 @@ public class VRMovementController : MonoBehaviour
 
         // Show dammage "heat"
         if (shields < 1)
-            shields += Time.deltaTime * rechargeRate;
+            shields += Time.deltaTime * rechargeRate/2;
 
         if (shields > 0 && shields < 1f)
             vignette.color.value = Color.Lerp(c_warm, c_cool, Mathf.Clamp(shields,0,1));
@@ -158,8 +158,8 @@ public class VRMovementController : MonoBehaviour
         canBoost = true;
     }
         
-    public void Hurt(float dmg)
+    public void Hurt(float amt)
     {
-        shields -= dmg;
+        shields -= amt;
     }
 }

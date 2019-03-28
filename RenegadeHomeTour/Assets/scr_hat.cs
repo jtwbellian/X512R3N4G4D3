@@ -6,12 +6,12 @@ public class scr_hat : VRTool
 {
     public bool isOutfit = false;
     public bool hidden = false;
-    MeshRenderer mr;
+    MeshRenderer myMesh;
 
     public override void Init()
     {
         isHat = true;
-        mr = GetComponentInChildren<MeshRenderer>();
+        myMesh = GetComponentInChildren<MeshRenderer>();
     }
 
     public override void IndexRelease()
@@ -69,8 +69,10 @@ public class scr_hat : VRTool
     {
         Debug.Log("Hat On");
         SkinnedMeshRenderer smr = home.transform.root.GetComponentInChildren<SkinnedMeshRenderer>();
-        MeshRenderer mr = GetComponentInChildren<MeshRenderer>();
-        smr.material = mr.materials[1];
+        MeshRenderer mr = Camera.main.GetComponentInChildren<MeshRenderer>();
+        smr.material = myMesh.materials[1];
+
+        mr.materials[1] = myMesh.materials[1];
         mr.enabled = false;
         hidden = true;
     }
@@ -81,9 +83,12 @@ public class scr_hat : VRTool
 
         Debug.Log("Hat Off");
         SkinnedMeshRenderer smr = home.transform.root.GetComponentInChildren<SkinnedMeshRenderer>();
-        MeshRenderer mr = GetComponentInChildren<MeshRenderer>();
+        MeshRenderer mr = Camera.main.GetComponentInChildren<MeshRenderer>();
+
         smr.material = gm.defaultPlayerMat;
-        mr.enabled = true;
+        mr.materials[1] = gm.defaultPlayerMat;
+
+        myMesh.enabled = true;
         hidden = false;
     }
 

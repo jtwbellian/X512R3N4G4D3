@@ -527,7 +527,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.4
+  m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &2668774825150198807
 MonoBehaviour:
@@ -611,7 +611,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.4
+  m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &2668774825655541462
 MonoBehaviour:
@@ -741,7 +741,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4508943639744335812}
   m_LocalRotation: {x: 0.9521642, y: 0.05175301, z: -0.1970766, w: 0.22774088}
-  m_LocalPosition: {x: 0.672, y: 1.1, z: 0.786}
+  m_LocalPosition: {x: 0.74, y: 1.11, z: 1.18}
   m_LocalScale: {x: 0.40000007, y: 0.4000005, z: 0.40000054}
   m_Children:
   - {fileID: 2118268856925337912}
@@ -776,7 +776,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.4
+  m_Radius: 0.6
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &4085825577917587227
 MonoBehaviour:
@@ -6041,6 +6041,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rigidBody: {fileID: 6003178557650888648}
+  c_warm: {r: 0.7735849, g: 0, b: 0, a: 0}
+  c_cool: {r: 0.30673727, g: 0.4571277, b: 0.5754717, a: 0}
   canBoost: 1
   speed: 550
   boost: 1
@@ -8796,7 +8798,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7750008747227317425}
   m_LocalRotation: {x: 0.9521641, y: 0.05175301, z: -0.1970766, w: 0.22774082}
-  m_LocalPosition: {x: -0.712, y: 1.044, z: 0.788}
+  m_LocalPosition: {x: -0.64, y: 1.05, z: 1.18}
   m_LocalScale: {x: 0.40000042, y: 0.40000087, z: 0.40000108}
   m_Children:
   - {fileID: 2668774824946070439}
@@ -8831,7 +8833,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.4
+  m_Radius: 0.6
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &1298300318607560807
 MonoBehaviour:

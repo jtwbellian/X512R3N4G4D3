@@ -65,11 +65,10 @@ public class CrabController : MonoBehaviour
 
     void OnColliderEnter(Collider other)
     {
-        if (other.transform.root == target)
+        if ((current_state == state.Attack || current_state == state.Jump) && other.transform.root == target)
         {
             VRMovementController player = other.transform.root.GetComponent<VRMovementController>();
-            var dmg = rb.velocity.magnitude * Time.deltaTime * 10f;
-            player.Hurt(dmg);
+            player.Hurt(0.25f);
             return;
         }
 

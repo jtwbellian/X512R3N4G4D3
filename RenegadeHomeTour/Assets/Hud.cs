@@ -42,7 +42,7 @@ public class Hud : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        if (Time.time - lastRefresh > fadeOutTime && canvasGroup.alpha > 0)
+        if (!menu.activeSelf && Time.time - lastRefresh > fadeOutTime && canvasGroup.alpha > 0)
         {
             canvasGroup.alpha -= Time.deltaTime * 1.2f;
         }
