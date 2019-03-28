@@ -9,9 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7357959732413337224}
-  - component: {fileID: 3325506299037925738}
-  - component: {fileID: 2558572797874507431}
   - component: {fileID: 9205766291226008227}
+  - component: {fileID: 4382979483411795609}
   m_Layer: 0
   m_Name: GrabPoint
   m_TagString: Untagged
@@ -33,36 +32,6 @@ Transform:
   m_Father: {fileID: 6906786443669473966}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
---- !u!136 &3325506299037925738
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6173362887889942088}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 0.061747152
-  m_Height: 2.7993832
-  m_Direction: 1
-  m_Center: {x: -0.006883405, y: 0.008090082, z: 0.08664583}
---- !u!54 &2558572797874507431
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6173362887889942088}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 0
-  m_IsKinematic: 1
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
 --- !u!114 &9205766291226008227
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -81,9 +50,22 @@ MonoBehaviour:
   m_snapOrientation: 0
   m_snapOffset: {fileID: 0}
   m_grabPoints:
-  - {fileID: 3325506299037925738}
+  - {fileID: 4382979483411795609}
   isHeld: 0
   renderers: []
+--- !u!65 &4382979483411795609
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6173362887889942088}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.1365718, y: 2.7736268, z: 0.084377214}
+  m_Center: {x: -0.024834694, y: -0.0034917488, z: 0.09004404}
 --- !u!1 &7602793558012197053
 GameObject:
   m_ObjectHideFlags: 0
@@ -96,7 +78,7 @@ GameObject:
   - component: {fileID: 2486782019945115800}
   - component: {fileID: 8196087848007617633}
   m_Layer: 0
-  m_Name: DoorHandle_thin_lo
+  m_Name: HorizontalRedHandle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
