@@ -54,7 +54,7 @@ public class GrabMagnet : MonoBehaviour
 
         if (item == null ||
         item.isHeld() ||
-        !item.isTool ||
+        (!item.isTool && holdsTool) ||
         (item.isHat && !holdsHat) ||
         (!item.isHat && !holdsTool))
             return;
@@ -85,8 +85,16 @@ public class GrabMagnet : MonoBehaviour
                 orb.enabled = false;
             }
 
+            var hat = item.GetComponent<scr_hat>();
+            if (hat != null && transform.root.CompareTag("Player"))
+            {
+                if (hat.isOutfit)
+                    hat.OutfitOn();
+            }
+
             GameManager.GetInstance().direc.Ping(PING.weaponHolstered);
 
+            /*
             if (holdsHat && transform.root.CompareTag("Player"))
             {
                 Debug.Log("Hat changed");
@@ -100,15 +108,8 @@ public class GrabMagnet : MonoBehaviour
                     helmet.materials[1] = mr.materials[1];
                     mr.enabled = false;
                 }
-            }
-
-            // Ignore collisions
-            foreach (Collider c in item.grabInfo.allColliders)
-                foreach (Collider bodyCol in GameManager.GetInstance().playerCols)
-                {
-                    Physics.IgnoreCollision(c, bodyCol);
-                }
-
+            }    */
+            
         }
     }
 }

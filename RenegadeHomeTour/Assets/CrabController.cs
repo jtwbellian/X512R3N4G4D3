@@ -63,7 +63,18 @@ public class CrabController : MonoBehaviour
             }
     }
 
-    void OnColliderEnter(Collider other) => OnTriggerEnter(other);
+    void OnColliderEnter(Collider other)
+    {
+        if (other.transform.root == target)
+        {
+            VRMovementController player = other.transform.root.GetComponent<VRMovementController>();
+            var dmg = rb.velocity.magnitude * Time.deltaTime * 10f;
+            player.Hurt(dmg);
+            return;
+        }
+
+        OnTriggerEnter(other);
+    }
 
     void OnTriggerEnter(Collider other)
     {
@@ -79,7 +90,6 @@ public class CrabController : MonoBehaviour
 
         if (dd != null)
         {
-
             var dmg = dd.GetDmg();
             //Debug.Log("Hit for " + dmg + " dammage");
 

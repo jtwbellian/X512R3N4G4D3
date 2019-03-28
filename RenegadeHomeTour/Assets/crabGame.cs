@@ -33,6 +33,22 @@ public class crabGame : MonoBehaviour
 
     }
 
+    public void SwitchesOn()
+    {
+        foreach (VRButton vrb in switches)
+        {
+            vrb.On();
+        }
+    }
+
+    public void SwitchesOff()
+    {
+        foreach (VRButton vrb in switches)
+        {
+            vrb.Off();
+        }
+    }
+
     // Update is called once per frame
     void Update()
     {

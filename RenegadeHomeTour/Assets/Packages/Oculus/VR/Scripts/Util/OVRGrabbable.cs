@@ -192,7 +192,8 @@ public class OVRGrabbable : MonoBehaviour
             m_grabPoints = new Collider[1] { collider };
         }
 
-        allColliders = this.GetComponentsInChildren<Collider>();
+        //allColliders = GetComponents<Collider>();
+       // Debug.Log(this.ToString() + " num colliders: " + allColliders.Length);
     }
 
     protected virtual void Start()

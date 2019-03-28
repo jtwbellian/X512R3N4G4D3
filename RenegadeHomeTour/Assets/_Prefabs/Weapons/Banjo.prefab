@@ -138,13 +138,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 937824202}
-  - component: {fileID: 937824211}
   - component: {fileID: 937824210}
   - component: {fileID: 937824204}
   - component: {fileID: 937824209}
-  - component: {fileID: 937824208}
-  - component: {fileID: 937824207}
-  - component: {fileID: 937824206}
   - component: {fileID: 937824205}
   - component: {fileID: 937824203}
   m_Layer: 0
@@ -169,19 +165,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &937824211
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 937824201}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.2, y: 0.1, z: 0.05}
-  m_Center: {x: -0.03, y: 0.02, z: 0}
 --- !u!114 &937824210
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -201,10 +184,7 @@ MonoBehaviour:
   m_snapOffset: {fileID: 0}
   m_grabPoints:
   - {fileID: 937824209}
-  - {fileID: 937824208}
-  - {fileID: 937824207}
-  - {fileID: 937824206}
-  - {fileID: 937824206}
+  - {fileID: 1104524648}
   allColliders: []
 --- !u!54 &937824204
 Rigidbody:
@@ -233,47 +213,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.13, y: 0.055, z: 0.035}
-  m_Center: {x: 0.14, y: 0.025, z: 0.02}
---- !u!65 &937824208
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 937824201}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.13, y: 0.055, z: 0.035}
-  m_Center: {x: 0.27, y: 0.025, z: 0.02}
---- !u!65 &937824207
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 937824201}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.13, y: 0.055, z: 0.035}
-  m_Center: {x: 0.4, y: 0.025, z: 0.02}
---- !u!65 &937824206
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 937824201}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.31, y: 0.055, z: 0.035}
-  m_Center: {x: 0.62, y: 0.025, z: 0.02}
+  m_Size: {x: 0.8405211, y: 0.055, z: 0.035}
+  m_Center: {x: 0.30248678, y: 0.024999999, z: 0.020000523}
 --- !u!114 &937824205
 MonoBehaviour:
   m_ObjectHideFlags: 0

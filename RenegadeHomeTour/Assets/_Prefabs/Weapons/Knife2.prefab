@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 4867787666372531691}
   - component: {fileID: 3035104625144906973}
   - component: {fileID: 2883799976723721334}
-  - component: {fileID: 2547217976452889634}
   m_Layer: 0
   m_Name: Grip_Low
   m_TagString: Untagged
@@ -78,20 +77,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!136 &2547217976452889634
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 101735876190777449}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 0.005
-  m_Height: 0.038
-  m_Direction: 2
-  m_Center: {x: -0.000000029802322, y: -6.9849193e-10, z: -0.000000059604645}
 --- !u!1 &823619431944799234
 GameObject:
   m_ObjectHideFlags: 0
@@ -304,6 +289,7 @@ MonoBehaviour:
   m_snapOffset: {fileID: 0}
   m_grabPoints:
   - {fileID: 3791484952827674181}
+  allColliders: []
 --- !u!135 &3791484952827674181
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -315,7 +301,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.3
+  m_Radius: 0.15
   m_Center: {x: 0, y: -0.09, z: -0.03}
 --- !u!114 &1547314099046150264
 MonoBehaviour:
@@ -330,10 +316,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 626003dcfe0495640b40e31f6ddd6697, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  grabInfo: {fileID: 0}
+  toolCols: []
   usesIndex: 1
   usesThumb: 0
   isHat: 0
-  indexValue: 0
+  isTool: 1
   home: {fileID: 0}
   haptics: {fileID: 0}
   hand: 0
@@ -380,6 +368,7 @@ GameObject:
   - component: {fileID: 4871835564817097451}
   - component: {fileID: 4508880312052791786}
   - component: {fileID: 8957061574779574790}
+  - component: {fileID: 5623961017675943440}
   m_Layer: 0
   m_Name: Blade_Low
   m_TagString: Untagged
@@ -457,8 +446,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.004464034, y: 0.014773291, z: 0.08421062}
-  m_Center: {x: -0.000031546133, y: -0.0021936332, z: 0.011803822}
+  m_Size: {x: 0.004464034, y: 0.010504152, z: 0.09994283}
+  m_Center: {x: -0.000031546133, y: -0.000059074806, z: -0.020190649}
 --- !u!114 &8957061574779574790
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -477,3 +466,16 @@ MonoBehaviour:
   power: 50
   rb: {fileID: 3330397157994004883}
   impactSnd: {fileID: 8300000, guid: 0bf332d9c2d76ee4099167a704f465a0, type: 3}
+--- !u!65 &5623961017675943440
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9057158712658062554}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.0018416273, y: 0.022151522, z: 0.087935716}
+  m_Center: {x: 0, y: -0.0058827316, z: 0.013666312}

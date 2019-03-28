@@ -38,14 +38,14 @@ public class scr_hat : VRTool
     public void OnGrab()
     {
         //if ()
-        //{
+        /*{
             SkinnedMeshRenderer smr = Camera.main.transform.root.GetComponentInChildren<SkinnedMeshRenderer>();
             MeshRenderer mr = GetComponent<MeshRenderer>();
             smr.material = GameManager.GetInstance().defaultPlayerMat;
             mr.enabled = true;
             hidden = false;
             Debug.Log("attempting to revert player material");
-        //}
+        }*/
 
         base.OnGrab();
     }
@@ -58,16 +58,34 @@ public class scr_hat : VRTool
     public void OnRelease()
     {
         base.OnRelease();
+
+        if (hidden)
+        {
+            OutfitOff();
+        }
     }
 
     public void OutfitOn()
     {
-        Debug.Log("Hat changed");
-        SkinnedMeshRenderer smr = home.transform.root.GetComponent<SkinnedMeshRenderer>();
-        MeshRenderer mr = GetComponent<MeshRenderer>();
+        Debug.Log("Hat On");
+        SkinnedMeshRenderer smr = home.transform.root.GetComponentInChildren<SkinnedMeshRenderer>();
+        MeshRenderer mr = GetComponentInChildren<MeshRenderer>();
         smr.material = mr.materials[1];
         mr.enabled = false;
         hidden = true;
     }
+
+    public void OutfitOff()
+    {
+        GameManager gm = GameManager.GetInstance();
+
+        Debug.Log("Hat Off");
+        SkinnedMeshRenderer smr = home.transform.root.GetComponentInChildren<SkinnedMeshRenderer>();
+        MeshRenderer mr = GetComponentInChildren<MeshRenderer>();
+        smr.material = gm.defaultPlayerMat;
+        mr.enabled = true;
+        hidden = false;
+    }
+
 
 }

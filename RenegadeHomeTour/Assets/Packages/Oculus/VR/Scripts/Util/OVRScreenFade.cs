@@ -133,6 +133,13 @@ public class OVRScreenFade : MonoBehaviour
         }
     }
 
+    void BlackFlash()
+    {
+        fadeColor = Color.black;
+        StartCoroutine(Fade(0, 0.5f));
+    }
+
+
 	void OnEnable()
 	{
 		if (!fadeOnStart)

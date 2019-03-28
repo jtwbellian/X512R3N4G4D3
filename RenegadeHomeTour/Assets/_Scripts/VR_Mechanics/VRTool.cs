@@ -36,8 +36,8 @@ public abstract class VRTool : MonoBehaviour, iSpecial_Grabbable
     // Start is called before the first frame update
     void Start()
     {
-        toolCols = GetComponentsInChildren<Collider>();
         grabInfo = GetComponent<OVRGrabbable>();
+        toolCols = grabInfo.allColliders;
         rb = GetComponentInChildren<Rigidbody>();
         renderers = GetComponentsInChildren<Renderer>();
 
@@ -153,7 +153,6 @@ public abstract class VRTool : MonoBehaviour, iSpecial_Grabbable
         {
             LinesOn();
             //haptics.Play(VibrationForce.Light, GetGrabber().grabbedBy.m_controller, 1f);
-
         }
     }
 
@@ -266,18 +265,15 @@ public abstract class VRTool : MonoBehaviour, iSpecial_Grabbable
                 SphereCollider sc = (SphereCollider)c;
                 sc.radius = minRadius;
             }
-            /*else if (!c.isTrigger)
+            else if (!c.isTrigger)
             {
                 //c.isTrigger = true;
                 Collider [] playerCols = GameManager.GetInstance().playerCols;
                 
                 foreach (Collider playerCol in playerCols)
-                Physics.IgnoreCollision(c, playerCol);
-            }*/
-
-
+                    Physics.IgnoreCollision(c, playerCol);
+            }
         }
-
         rb.isKinematic = true;
     }
 

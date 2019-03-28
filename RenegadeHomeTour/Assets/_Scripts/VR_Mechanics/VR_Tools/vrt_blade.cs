@@ -48,23 +48,11 @@ public class vrt_blade : VRTool
     public void OnGrab()
     {
         base.OnGrab();
-
-        // if grab was called by holster..
-        if (grabInfo.grabbedBy != null)
-        {
-            Debug.Log("Grabbed by holster");
-            dd.Enable();
-        }
-        else
-            dd.Disable();
-
-
-        //Debug.Log("Knife Grabbed");
+        dd.Enable();
     }
 
     public void OnRelease()
     {
-        dd.Enable();
 
         if (orientation == 0)
         {
@@ -78,7 +66,6 @@ public class vrt_blade : VRTool
             else Debug.Log("Could not find knife rigid body :(");
         }
         base.OnRelease();
-
     }
 
 

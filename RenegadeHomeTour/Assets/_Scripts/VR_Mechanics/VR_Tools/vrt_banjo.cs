@@ -18,7 +18,6 @@ public class vrt_banjo : VRTool
         hm = OVRHapticsManager.instance;
         dd = GetComponentInChildren<DoesDammage>();
         strings = GetComponentInChildren<VRKey>();
-        Debug.Log("Tool Colliders: " + toolCols.Length);
     }
 
     public override void IndexRelease()
@@ -46,7 +45,6 @@ public class vrt_banjo : VRTool
         base.OnRelease();
         dd.Disable();
     }
-
 
     public override void ThumbRelease()
     {

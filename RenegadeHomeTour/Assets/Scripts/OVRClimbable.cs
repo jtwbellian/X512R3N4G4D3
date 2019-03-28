@@ -32,6 +32,8 @@ public class OVRClimbable : OVRGrabbable
             // Create a default grab point
             m_grabPoints = new Collider[1] { collider };
         }
+
+        Physics.IgnoreLayerCollision(12, 12);
     }
 
     new void Start()

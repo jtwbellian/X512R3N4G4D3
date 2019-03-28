@@ -24,7 +24,10 @@ public class VRButton : MonoBehaviour
         audioSource = GetComponent<AudioSource>();
     }
 
-    void OnColliderEnter(Collider other) => OnTriggerEnter(other);
+    void OnColliderEnter(Collider other)
+    {
+        OnTriggerEnter(other);
+    }
 
     void OnTriggerEnter(Collider other)
     {

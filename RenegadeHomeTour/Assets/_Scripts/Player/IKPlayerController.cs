@@ -7,8 +7,8 @@ public class IKPlayerController : MonoBehaviour
     private const float MAX_FOOT_HEIGHT = -3f;
     private const float DEFAULT_HEIGHT = 1.6f;
     private const float MAX_RAYDIST = 25f;
-    private float minHandRadius = 0.01f;
-    private float maxHandRadius = 0.05f;
+    //private float minHandRadius = 0.01f;
+    //private float maxHandRadius = 0.05f;
 
 
     private float lGrab = 0f;

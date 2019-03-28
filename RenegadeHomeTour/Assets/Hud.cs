@@ -51,7 +51,7 @@ public class Hud : MonoBehaviour
 
         transform.position = SmoothApproach(lastPos, lastHudAnchorPos, hudAnchor.position, speed);
 
-        speed = 6f + playerBody.velocity.magnitude;
+        speed = 20f + playerBody.velocity.magnitude;
 
         lastPos = transform.position;
         lastHudAnchorPos = hudAnchor.transform.position;
@@ -60,14 +60,15 @@ public class Hud : MonoBehaviour
 
     public void ToggleMenu()
     {
-        if (menu.active)
-        {
-            menu.SetActive(false);
-        }
-        else
-        {
+        //if (menu.active)
+        //{
+        //    menu.SetActive(false);
+        //}
+        //else
+        //{
+        if (!menu.active)
             menu.SetActive(true);
-        }
+        //}
     }
 
     Vector3 SmoothApproach(Vector3 pastPosition, Vector3 pastTargetPosition, Vector3 targetPosition, float speed)

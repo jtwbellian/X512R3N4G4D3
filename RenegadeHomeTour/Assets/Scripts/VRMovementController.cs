@@ -17,9 +17,13 @@ public class VRMovementController : MonoBehaviour
     private bool ReadyToSnapTurn = false;
     private Vignette vignette;
     private float boostRate = 0.5f;
+    private float shields = 1f;
     private AudioSource jetAudio;
 
     private OVRGrabber[] grabbers;
+
+    public Color c_warm;
+    public Color c_cool; 
 
     public bool canBoost = false;
     public float speed = 2f;
@@ -69,7 +73,6 @@ public class VRMovementController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
         if (canBoost)
         {
             // Use Boost Jets
@@ -128,6 +131,13 @@ public class VRMovementController : MonoBehaviour
         }
 
 
+        // Show dammage "heat"
+        if (shields < 1)
+            shields += Time.deltaTime * rechargeRate;
+
+        if (shields > 0 && shields < 1f)
+            vignette.color.value = Color.Lerp(c_warm, c_cool, Mathf.Clamp(shields,0,1));
+        
         var canVig = true;
 
         if (grabbers[0].grabbedObject is OVRClimbable || grabbers[1].grabbedObject is OVRClimbable)
@@ -148,5 +158,8 @@ public class VRMovementController : MonoBehaviour
         canBoost = true;
     }
         
-
+    public void Hurt(float dmg)
+    {
+        shields -= dmg;
+    }
 }

@@ -442,15 +442,20 @@ public class OVRGrabber : MonoBehaviour
                     m_grabbedObj.transform.parent = transform;
                 }
 
-
+                
                 foreach (Collider col in m_grabbedObj.allColliders)
-                    foreach (Collider bodyCol in bodyCols)
-                    {
-                        Physics.IgnoreCollision(col, bodyCol);
+                {
+                    if (col.isTrigger)
+                        continue;
+
+                    if (bodyCols.Length > 2)
+                    { 
+                        Physics.IgnoreCollision(col, bodyCols[0]);
+                        Physics.IgnoreCollision(col, bodyCols[1]);
+                        Physics.IgnoreCollision(col, bodyCols[2]);
                     }
-
-
-
+                }
+                
 
             }
         }
@@ -490,9 +495,9 @@ public class OVRGrabber : MonoBehaviour
         
         rb.AddForce((m_lastPos - transform.position) / Time.deltaTime, ForceMode.VelocityChange);
 
-            foreach (Collider col in m_grabbedObj.allColliders)
+            /*foreach (Collider col in m_grabbedObj.allColliders)
                 foreach (Collider bodyCol in bodyCols)
-                    Physics.IgnoreCollision(col, bodyCol);
+                    Physics.IgnoreCollision(col, bodyCol);*/
     }
 
 
@@ -514,8 +519,17 @@ public class OVRGrabber : MonoBehaviour
             }
 
             foreach (Collider col in m_grabbedObj.allColliders)
-                foreach (Collider bodyCol in bodyCols)
-                    Physics.IgnoreCollision(col, bodyCol, false);
+            {
+                if (col.isTrigger)
+                    continue;
+
+                if (bodyCols.Length > 2)
+                {
+                    Physics.IgnoreCollision(col, bodyCols[0], false);
+                    Physics.IgnoreCollision(col, bodyCols[1], false);
+                    Physics.IgnoreCollision(col, bodyCols[2], false);
+                }
+            }
 
             OVRPose localPose = new OVRPose { position = OVRInput.GetLocalControllerPosition(m_controller), orientation = OVRInput.GetLocalControllerRotation(m_controller) };
             OVRPose offsetPose = new OVRPose { position = m_anchorOffsetPosition, orientation = m_anchorOffsetRotation };
