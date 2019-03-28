@@ -12,8 +12,15 @@ public class VRKey : MonoBehaviour
     {
     }
 
-    void OnTriggerEnter()
+    void OnTriggerEnter(Collider col)
     {
+        OVRGrabber hand = col.GetComponent<OVRGrabber>();
+
+        if (hand!= null)
+        {
+            hm.Play(VibrationForce.Medium, hand.m_controller, 0.20f);
+        }
+
         if (clip != null)
             source.PlayOneShot(clip);
     }
