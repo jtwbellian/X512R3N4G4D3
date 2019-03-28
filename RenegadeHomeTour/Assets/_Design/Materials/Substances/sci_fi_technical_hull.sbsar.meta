@@ -17,7 +17,11 @@ ScriptedImporter:
     generateMipMaps: 1
     preset: " <sbspreset pkgurl=\"pkg://sci_fi_technical_hull\" label=\"\" >\n  <presetinput
       identifier=\"$outputsize\" uid=\"4041127233\" type=\"8\" value=\"10,10\" />\n
-      </sbspreset>\n"
+      \ <presetinput identifier=\"$randomseed\" uid=\"2813109011\" type=\"4\" value=\"3904\"
+      />\n  <presetinput identifier=\"color_a\" uid=\"2224651664\" type=\"2\" value=\"0.59434,0.59434,0.59434\"
+      />\n  <presetinput identifier=\"color_c\" uid=\"2224651742\" type=\"2\" value=\"0.726415,0.726415,0.726415\"
+      />\n  <presetinput identifier=\"age\" uid=\"2230193457\" type=\"0\" value=\"0.653\"
+      />\n </sbspreset>\n"
     shaderName: Lightweight Render Pipeline/Lit
     outputNames: diffuse,normal,specular,metallic,ambientOcclusion
     texturePackingList:
