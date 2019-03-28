@@ -37,15 +37,10 @@ public class scr_hat : VRTool
 
     public void OnGrab()
     {
-        //if ()
-        /*{
-            SkinnedMeshRenderer smr = Camera.main.transform.root.GetComponentInChildren<SkinnedMeshRenderer>();
-            MeshRenderer mr = GetComponent<MeshRenderer>();
-            smr.material = GameManager.GetInstance().defaultPlayerMat;
-            mr.enabled = true;
-            hidden = false;
-            Debug.Log("attempting to revert player material");
-        }*/
+        if (hidden)
+        {
+            OutfitOff();
+        }
 
         base.OnGrab();
     }
@@ -58,11 +53,6 @@ public class scr_hat : VRTool
     public void OnRelease()
     {
         base.OnRelease();
-
-        if (hidden)
-        {
-            OutfitOff();
-        }
     }
 
     public void OutfitOn()
@@ -71,7 +61,7 @@ public class scr_hat : VRTool
         SkinnedMeshRenderer smr = home.transform.root.GetComponentInChildren<SkinnedMeshRenderer>();
         MeshRenderer mr = Camera.main.GetComponentInChildren<MeshRenderer>();
         smr.material = myMesh.materials[1];
-
+        Debug.Log("helmet: " + mr.ToString() + ", armor: " + smr.ToString());
         mr.materials[1] = myMesh.materials[1];
         mr.enabled = false;
         hidden = true;

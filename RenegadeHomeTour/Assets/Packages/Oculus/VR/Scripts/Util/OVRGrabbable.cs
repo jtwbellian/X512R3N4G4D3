@@ -123,7 +123,9 @@ public class OVRGrabbable : MonoBehaviour
     {
 
         Rigidbody rb = gameObject.GetComponent<Rigidbody>();
-        rb.isKinematic = true;
+
+        if (rb != null)
+            rb.isKinematic = true;
         
         m_grabbedBy = hand;
         m_grabbedCollider = grabPoint;
@@ -157,9 +159,13 @@ public class OVRGrabbable : MonoBehaviour
 	virtual public void GrabEnd(Vector3 linearVelocity, Vector3 angularVelocity)
     {
         Rigidbody rb = gameObject.GetComponent<Rigidbody>();
-        rb.isKinematic = m_grabbedKinematic;
-        rb.velocity = linearVelocity;
-        rb.angularVelocity = angularVelocity;
+
+        if (rb != null)
+        {
+            rb.isKinematic = m_grabbedKinematic;
+            rb.velocity = linearVelocity;
+            rb.angularVelocity = angularVelocity;
+        }
         m_grabbedBy = null;
         m_grabbedCollider = null;
 
