@@ -46,7 +46,10 @@ public class Hud : MonoBehaviour
         {
             canvasGroup.alpha -= Time.deltaTime * 1.2f;
         }
-
+        if (menu.activeSelf)
+        {
+            canvasGroup.alpha = 1f;
+        }
         //velocity = playerBody.velocity;
 
         transform.position = SmoothApproach(lastPos, lastHudAnchorPos, hudAnchor.position, speed);

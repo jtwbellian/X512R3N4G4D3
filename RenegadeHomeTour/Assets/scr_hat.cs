@@ -24,7 +24,6 @@ public class scr_hat : VRTool
 
     }
 
-
     public override void ThumbRelease()
     {
         //throw new System.NotImplementedException();
@@ -41,7 +40,7 @@ public class scr_hat : VRTool
         {
             OutfitOff();
         }
-
+        print("hat grabbed");
         base.OnGrab();
     }
 
@@ -58,12 +57,8 @@ public class scr_hat : VRTool
     public void OutfitOn()
     {
         Debug.Log("Hat On");
-        SkinnedMeshRenderer smr = home.transform.root.GetComponentInChildren<SkinnedMeshRenderer>();
-        MeshRenderer mr = Camera.main.GetComponentInChildren<MeshRenderer>();
-        smr.material = myMesh.materials[1];
-        Debug.Log("helmet: " + mr.ToString() + ", armor: " + smr.ToString());
-        mr.materials[1] = myMesh.materials[1];
-        mr.enabled = false;
+        GameManager.GetInstance().ChangeSkin(myMesh.materials[1]);
+        myMesh.enabled = false;
         hidden = true;
     }
 
@@ -72,12 +67,10 @@ public class scr_hat : VRTool
         GameManager gm = GameManager.GetInstance();
 
         Debug.Log("Hat Off");
-        SkinnedMeshRenderer smr = home.transform.root.GetComponentInChildren<SkinnedMeshRenderer>();
-        MeshRenderer mr = Camera.main.GetComponentInChildren<MeshRenderer>();
+        //SkinnedMeshRenderer smr = home.transform.root.GetComponentInChildren<SkinnedMeshRenderer>();
+       // MeshRenderer mr = Camera.main.GetComponentInChildren<MeshRenderer>();
 
-        smr.material = gm.defaultPlayerMat;
-        mr.materials[1] = gm.defaultPlayerMat;
-
+        GameManager.GetInstance().ChangeSkin(gm.defaultPlayerMat);
         myMesh.enabled = true;
         hidden = false;
     }
