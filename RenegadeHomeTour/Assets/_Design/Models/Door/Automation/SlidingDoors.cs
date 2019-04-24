@@ -1,47 +1,81 @@
 ﻿using UnityEngine;
+using System.Collections;
 
+public enum DoorState { Opened, Closed };
+public enum DoorAnimationState { None, Opening, Closing };
 public class SlidingDoors : MonoBehaviour
 {
-	
-	public GameObject ShortDoor;
-	public GameObject LongDoor;
+    public bool reverse = false;
 
-	private Animator ShortAnim;
-	private Animator LongAnim;
+    Animator anim;
+    bool playerstillhere = false;
 
+    DoorState doorState = DoorState.Closed;
+    DoorAnimationState doorAnimationState = DoorAnimationState.None;
 
-    // Start is called before the first frame update
+    bool animating = false;
+
     void Start()
     {
-       	ShortAnim = ShortDoor.GetComponent <Animator> ();
-	    LongAnim = LongDoor.GetComponent <Animator> ();
+        anim = transform.parent.gameObject.GetComponent<Animator>();
+        doorState = DoorState.Closed;
+        doorAnimationState = DoorAnimationState.None;
     }
 
-	void OnTriggerEnter(Collider coll){
+    IEnumerator MyFunction()
+    {
+        yield return new WaitForSeconds(10f);
+        playerstillhere = false;
+        anim.SetBool("PlayerIsThere", playerstillhere);
+        // enter your code here
+    }
 
-        if (coll.gameObject.CompareTag("Player"))
+    void Update()
+    {
+        if ((anim.GetCurrentAnimatorStateInfo(0).IsName("Layer_Door.CloseDoor")) || (anim.GetCurrentAnimatorStateInfo(0).IsName("Layer_Door.OpenDoor")))
         {
-            var State = true;
-            SlideDoors(State);
-            LongAnim.Play("Long_Open", 1, 0.5f);
-            ShortAnim.Play("Short_Open", 1, 0.5f);
+            animating = true;
+        }
+        else
+        {
+            animating = false;
+            doorAnimationState = DoorAnimationState.None;
         }
     }
 
-	void OnTriggerExit(Collider coll){
-
-		if (coll.gameObject.CompareTag("Player"))
+    void OnTriggerEnter(Collider other)
+    {
+        if ((other.tag == "Player") && (doorState == DoorState.Closed) && (doorAnimationState == DoorAnimationState.None))
         {
-            var State = false;
-            SlideDoors(State);
-	    }
-	}
+            doorAnimationState = DoorAnimationState.Opening;
+            doorState = DoorState.Opened;
+            animating = true;
+            if (reverse)
+            {
+                anim.SetTrigger("Open Door Reverse");
+            }
+            else
+            {
+                anim.SetTrigger("Open Door");
+            }
+        }
+    }
 
-	void SlideDoors(bool State){
-
-        Debug.Log("ShortAnim = " + ShortAnim.ToString());
-
-		ShortAnim.SetBool("Slide", State);
-	    LongAnim.SetBool("Slide", State);
-	}
+    void OnTriggerExit(Collider other)
+    {
+        if ((other.tag == "Player") && (doorState == DoorState.Opened) && (doorAnimationState == DoorAnimationState.None))
+        {
+            doorAnimationState = DoorAnimationState.Closing;
+            doorState = DoorState.Closed;
+            animating = true;
+            if (reverse)
+            {
+                anim.SetTrigger("Close Door Reverse");
+            }
+            else
+            {
+                anim.SetTrigger("Close Door");
+            }
+        }
+    }
 }
