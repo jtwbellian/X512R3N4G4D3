@@ -13,6 +13,9 @@ public class GameManager : MonoBehaviour
     public SoundManager sm;
     public Director direc;
     public Material defaultPlayerMat;
+    public MeshRenderer playerHelmet;
+    public SkinnedMeshRenderer playerArmor;
+
     private bool popupShown = false;
 
     public static int crabsKilled = 0;
@@ -48,6 +51,11 @@ public class GameManager : MonoBehaviour
         //Camera.main.transform.root.GetComponentInChildren<Rigidbody>().MovePosition(playerStart);
     }
 
+    public void ChangeSkin(Material mat)
+    {
+        playerHelmet.materials[1] = mat;
+        playerArmor.material = mat;
+    }
 
     public void CreatePopup(Vector3 pos, string message, float time)
     {
