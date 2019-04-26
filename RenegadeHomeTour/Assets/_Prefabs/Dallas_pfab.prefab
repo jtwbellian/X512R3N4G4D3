@@ -871,7 +871,6 @@ GameObject:
   - component: {fileID: 4531878914899153902}
   - component: {fileID: 4314392465371857238}
   - component: {fileID: 3304333839563392680}
-  - component: {fileID: 8325002921595527962}
   m_Layer: 0
   m_Name: Handle2
   m_TagString: Untagged
@@ -922,25 +921,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &8325002921595527962
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3532983965240906664}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_GeneratorAsset: {fileID: 0}
-  m_Script: {fileID: 11500000, guid: 02d61468f8b77ae4b92c344bc9a600fb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_allowOffhandGrab: 1
-  m_snapPosition: 0
-  m_snapOrientation: 0
-  m_snapOffset: {fileID: 0}
-  m_grabPoints:
-  - {fileID: 4314392465371857238}
 --- !u!1 &3545812851781067332
 GameObject:
   m_ObjectHideFlags: 0
@@ -1105,7 +1085,6 @@ GameObject:
   - component: {fileID: 1413310278143868091}
   - component: {fileID: 1026983321139535297}
   - component: {fileID: 959526623449549308}
-  - component: {fileID: 7201414795655926476}
   m_Layer: 0
   m_Name: Handle1
   m_TagString: Untagged
@@ -1156,25 +1135,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &7201414795655926476
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4311623771021119683}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_GeneratorAsset: {fileID: 0}
-  m_Script: {fileID: 11500000, guid: 02d61468f8b77ae4b92c344bc9a600fb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_allowOffhandGrab: 1
-  m_snapPosition: 0
-  m_snapOrientation: 0
-  m_snapOffset: {fileID: 0}
-  m_grabPoints:
-  - {fileID: 1026983321139535297}
 --- !u!1 &4398558435559099131
 GameObject:
   m_ObjectHideFlags: 0
@@ -1673,6 +1633,7 @@ GameObject:
   - component: {fileID: 8628821301391141532}
   - component: {fileID: 6651467184363413378}
   - component: {fileID: 9017890079111057308}
+  - component: {fileID: 6322717150520942557}
   m_Layer: 0
   m_Name: Dallas_pfab
   m_TagString: Untagged
@@ -1750,6 +1711,33 @@ CapsuleCollider:
   m_Height: 0.33477753
   m_Direction: 1
   m_Center: {x: 0.0023228528, y: 0.0003771484, z: 0.00252825}
+--- !u!114 &6322717150520942557
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6011731494575798864}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_GeneratorAsset: {fileID: 0}
+  m_Script: {fileID: 11500000, guid: 6cea582f6c664644cbdc65de446ed159, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_allowOffhandGrab: 1
+  m_snapPosition: 0
+  m_snapOrientation: 0
+  m_snapOffset: {fileID: 0}
+  m_grabPoints:
+  - {fileID: 9017890079111057308}
+  - {fileID: 1026983321139535297}
+  - {fileID: 4314392465371857238}
+  allColliders:
+  - {fileID: 9017890079111057308}
+  - {fileID: 1026983321139535297}
+  - {fileID: 4314392465371857238}
+  isHeld: 0
+  renderers: []
 --- !u!1 &6173547332259592007
 GameObject:
   m_ObjectHideFlags: 0

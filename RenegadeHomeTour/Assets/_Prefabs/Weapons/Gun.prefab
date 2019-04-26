@@ -14614,6 +14614,8 @@ MonoBehaviour:
   m_snapOffset: {fileID: 0}
   m_grabPoints:
   - {fileID: 6637728404217401730}
+  allColliders:
+  - {fileID: 41105589334980748}
 --- !u!114 &1822568435186962914
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14627,10 +14629,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 73eae931515968c4891c945d432bfd0a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  grabInfo: {fileID: 0}
   toolCols: []
   usesIndex: 1
   usesThumb: 0
   isHat: 0
+  isTool: 1
   home: {fileID: 0}
   haptics: {fileID: 0}
   hand: 0
@@ -14760,7 +14764,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.35
+  m_Radius: 0.2
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &8063285308803217163
 GameObject:

@@ -5,19 +5,18 @@ using UnityEngine;
 public class vrt_grapple : VRTool
 {
     [SerializeField]
-    private bool tutorialGun = false;
     private bool canFire = true;
     private AudioSource audioSource;
     private Animator anim;
-   
-   // private Light light;
+    private scr_grappleHook hook;
+
+    // private Light light;
     private OVRHapticsManager hm;
 
     public Rigidbody bulletType;
     public float fireSpeed = 10f;
     public Transform gunBarrel;
     //public ParticleSystem muzzleFlash;
-
 
     public override void Init()
     {
@@ -33,8 +32,17 @@ public class vrt_grapple : VRTool
     public override void IndexRelease()
     {
         //if (light != null)
-            //light.intensity = 0f;
+        //light.intensity = 0f;
         canFire = true;
+    }
+
+    public void Retract()
+    {
+        if (grabInfo.isGrabbed)
+        {
+            var mc = transform.root.GetComponent<VRMovementController>();
+            mc.rigidBody.AddForce( (hook.transform.position - transform.position) * 100f, ForceMode.Impulse);
+        }
     }
 
     public override void IndexTouch()
@@ -48,6 +56,9 @@ public class vrt_grapple : VRTool
         //}
 
         shot = Instantiate(bulletType);
+
+        hook = shot.GetComponent<scr_grappleHook>();
+        hook.gun = this;
 
         if (audioSource != null)
             audioSource.Play();
