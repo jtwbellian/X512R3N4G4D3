@@ -70,9 +70,9 @@ public class scr_hat : VRTool
         //SkinnedMeshRenderer smr = home.transform.root.GetComponentInChildren<SkinnedMeshRenderer>();
        // MeshRenderer mr = Camera.main.GetComponentInChildren<MeshRenderer>();
 
-        GameManager.GetInstance().ChangeSkin(gm.defaultPlayerMat);
         myMesh.enabled = true;
         hidden = false;
+        GameManager.GetInstance().ChangeSkin(gm.defaultPlayerMat);
     }
 
 

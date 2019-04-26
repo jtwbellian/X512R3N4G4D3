@@ -246,7 +246,7 @@ public abstract class VRTool : MonoBehaviour, iSpecial_Grabbable
     public void OnGrab()
     {
         //Debug.Log(this.ToString() + " Grabbed");
-        if (GameManager.GetInstance().direc.current_line < 10)
+        if (GameManager.GetInstance().direc.currentLine < 10)
             GameManager.GetInstance().direc.Ping(PING.ItemGrabbed);
 
         if (home != null)
