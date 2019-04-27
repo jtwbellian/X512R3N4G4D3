@@ -15,14 +15,16 @@ public class SlidingDoors : MonoBehaviour
     {
        	ShortAnim = ShortDoor.GetComponent <Animator> ();
 	    LongAnim = LongDoor.GetComponent <Animator> ();
+        ShortAnim.speed = 2;
+        LongAnim.speed = 2;
+
     }
 
 	void OnTriggerEnter(Collider coll){
 
-        if (coll.gameObject.CompareTag("Player"))
+        if (coll.transform.root.gameObject.CompareTag("Player"))
         {
-            var State = true;
-            SlideDoors(State);
+            SlideDoors(true);
             LongAnim.Play("Long_Open", 1, 0.5f);
             ShortAnim.Play("Short_Open", 1, 0.5f);
         }
@@ -32,8 +34,7 @@ public class SlidingDoors : MonoBehaviour
 
 		if (coll.gameObject.CompareTag("Player"))
         {
-            var State = false;
-            SlideDoors(State);
+            SlideDoors(false);
 	    }
 	}
 
