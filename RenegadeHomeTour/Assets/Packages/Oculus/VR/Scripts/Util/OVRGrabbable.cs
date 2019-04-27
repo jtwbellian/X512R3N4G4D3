@@ -29,6 +29,10 @@ public class OVRGrabbable : MonoBehaviour
 {
     [SerializeField]
     protected bool m_allowOffhandGrab = true;
+    public bool twoHanded = false;
+
+    [HideInInspector]
+    public bool m_twoHandedGrab = false;
     [SerializeField]
     protected bool m_snapPosition = false;
     [SerializeField]
@@ -121,6 +125,11 @@ public class OVRGrabbable : MonoBehaviour
 	/// </summary>
 	virtual public void GrabBegin(OVRGrabber hand, Collider grabPoint)
     {
+        if (hand.m_secondaryGrabber)
+        {
+            m_twoHandedGrab = true;
+            return;
+        }
 
         Rigidbody rb = gameObject.GetComponent<Rigidbody>();
 
@@ -166,6 +175,15 @@ public class OVRGrabbable : MonoBehaviour
             rb.velocity = linearVelocity;
             rb.angularVelocity = angularVelocity;
         }
+
+        if (m_grabbedBy != null && m_grabbedBy.m_secondaryGrabber)
+        {
+            m_grabbedBy.m_secondaryGrabber = false;
+            m_grabbedBy.GrabEnd();
+            GrabBegin(m_grabbedBy, m_grabbedCollider);
+            return;
+        }
+
         m_grabbedBy = null;
         m_grabbedCollider = null;
 

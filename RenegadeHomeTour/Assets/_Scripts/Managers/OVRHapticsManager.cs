@@ -15,6 +15,8 @@ public class OVRHapticsManager : MonoBehaviour
     [SerializeField]
     OVRInput.Controller controllerMask;
     public static OVRHapticsManager instance = null;
+    public OVRGrabber handR;
+    public OVRGrabber handL;
 
 
     private OVRHapticsClip clipLight;

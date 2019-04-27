@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class vrt_toy : VRTool
+public class vrt_2handed : VRTool
 {
     public override void IndexRelease()
     {
@@ -16,7 +16,7 @@ public class vrt_toy : VRTool
 
     public override void Init()
     {
-        throw new System.NotImplementedException();
+
     }
 
     public override void ThumbRelease()
@@ -30,10 +30,9 @@ public class vrt_toy : VRTool
     }
 
 
-
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 }

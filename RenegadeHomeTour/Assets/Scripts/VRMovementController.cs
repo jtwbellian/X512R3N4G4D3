@@ -93,7 +93,7 @@ public class VRMovementController : MonoBehaviour
                     jetAudio.Play();
                 }
 
-                jetAudio.volume = 1f;
+                jetAudio.volume = Mathf.Abs(stickY);
                 jetAudio.pitch = boost;
 
                 boost -= Time.deltaTime * Mathf.Abs(stickY) * 0.25f;

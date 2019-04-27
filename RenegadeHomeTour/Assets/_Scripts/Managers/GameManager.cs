@@ -53,7 +53,9 @@ public class GameManager : MonoBehaviour
 
     public void ChangeSkin(Material mat)
     {
-        playerHelmet.materials[1] = mat;
+        Debug.Log("Helmet mat was " + playerHelmet.materials[1]);
+        playerHelmet.materials.SetValue(mat, 1);
+        Debug.Log("Helmet is now " + playerHelmet.materials[1]);
         playerArmor.material = mat;
     }
 
