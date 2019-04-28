@@ -9,6 +9,7 @@ public abstract class VRTool : MonoBehaviour, iSpecial_Grabbable
     private Rigidbody rb;
 
     public OVRGrabbable grabInfo;
+
     private Renderer [] renderers;
 
     private float indexValue = 0f;
@@ -242,8 +243,7 @@ public abstract class VRTool : MonoBehaviour, iSpecial_Grabbable
 
 
     // Implement iSpecial Grabbable
-
-    public void OnGrab()
+    public  virtual void OnGrab()
     {
         //Debug.Log(this.ToString() + " Grabbed");
         if (GameManager.GetInstance().direc.currentLine < 10)

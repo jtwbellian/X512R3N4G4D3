@@ -34,13 +34,12 @@ public class scr_hat : VRTool
         //throw new System.NotImplementedException();
     }
 
-    public void OnGrab()
+    public override void OnGrab()
     {
         if (hidden)
         {
             OutfitOff();
         }
-        print("hat grabbed");
         base.OnGrab();
     }
 

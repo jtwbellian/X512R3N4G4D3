@@ -20,11 +20,10 @@ public class IKPlayerController : MonoBehaviour
     private Transform []  feet;
     private int numFeet = 0;
 
-    private Transform handR;
-    private Transform handL;
+    public Transform handR;
+    public Transform handL;
 
-    private CapsuleCollider capsule;
-
+    public CapsuleCollider capsule;
 
     public Transform head;
     public float height = 1.7f;
@@ -48,11 +47,6 @@ public class IKPlayerController : MonoBehaviour
             animator.SetLayerWeight(i, 1);
 
         animator.speed = 1f;
-
-        handL = GameObject.FindWithTag("LeftHand").transform;
-        handR = GameObject.FindWithTag("RightHand").transform;
-
-        capsule = GetComponentInChildren<CapsuleCollider>();
 
         //Physics.IgnoreCollision(capsule, head.transform.GetComponent<Collider>());
 
@@ -113,8 +107,8 @@ public class IKPlayerController : MonoBehaviour
 
         // make collider match your current height
 
-        var scaleFactor = 5f;
-        var minHeight = 0.25f;
+        var scaleFactor = 6.5f;
+        var minHeight = 0.2f;
         var percentHeight = 0.5f;
 
         capsule.height = (Mathf.Abs(head.localPosition.y) * percentHeight + minHeight) * scaleFactor;

@@ -17,7 +17,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-** Modified by James Bellian to support OVRClimbable and raygrab
+** Modified by James Bellian to support OVRClimbable and 2 handed grab
 
 ************************************************************************************/
 
@@ -35,9 +35,15 @@ public class OVRGrabber : MonoBehaviour
     private GameObject currentPOI = null;
     private GameObject previousPOI = null;
 
+    private Vector3 climbPos;
+
+    [HideInInspector]
+    public bool isLocked = false;
+
     // Grip trigger thresholds for picking up objects, with some hysteresis.
     public float grabBegin = 0.55f;
     public float grabEnd = 0.35f;
+    public bool m_secondaryGrabber = false;
 
     // Demonstrates parenting the held object to the hand's transform when grabbed.
     // When false, the grabbed object is moved every FixedUpdate using MovePosition. 
@@ -171,9 +177,20 @@ public class OVRGrabber : MonoBehaviour
         GetComponent<Rigidbody>().MovePosition(destPos);
         GetComponent<Rigidbody>().MoveRotation(destRot);
 
+        if (isLocked && Vector3.Distance(climbPos, transform.position) > 0.1f)
+        {
+            GrabEnd();
+            Unlock();
+        }
+
         if (m_grabbedObj is OVRClimbable)
         {
             ClimbGrabbedObject(handPos);
+        }
+        else
+        if (m_secondaryGrabber)
+        {
+            OrientGrabbedObject(destPos);
         }
         else
         if (!m_parentHeldObject)
@@ -191,6 +208,7 @@ public class OVRGrabber : MonoBehaviour
         CheckForGrabOrRelease(prevFlex);
 
         // Force grab weapons
+        /*
         if (m_grabbedObj == null)
         {
             VRTool nearTool = GrabRay();
@@ -204,6 +222,7 @@ public class OVRGrabber : MonoBehaviour
                 lastTool = nearTool;
             }
         }
+        */
     }
 
     void OnDestroy()
@@ -218,6 +237,7 @@ public class OVRGrabber : MonoBehaviour
     {
         OnTriggerEnter(otherCollider);
     }
+
 
     void OnTriggerEnter(Collider otherCollider)
     {
@@ -258,22 +278,141 @@ public class OVRGrabber : MonoBehaviour
         {
             m_grabCandidates.Remove(grabbable);
         }
+
     }
 
     protected void CheckForGrabOrRelease(float prevFlex)
     {
         if ((m_prevFlex >= grabBegin) && (prevFlex < grabBegin))
         {
-
             //Check for nearby grabbables
             GrabBegin();
         }
         else if ((m_prevFlex <= grabEnd) && (prevFlex > grabEnd))
         {
+            if (isLocked)
+                Unlock();
+                                                
+            if (m_secondaryGrabber)
+                m_secondaryGrabber = false;
+
             GrabEnd();
         }
     }
 
+    public void Lock()
+    {
+        if (m_controller == OVRInput.Controller.LTouch)
+        {
+            var lhand = transform.root.GetComponentInChildren<IKPlayerController>().handL;
+            #region errorHandling
+            if (!lhand)
+            {
+                Debug.Log("Error: could not find left hand");
+                return;
+            }
+
+            Debug.Log("lhand: " + lhand);
+            #endregion
+            var ikPos = lhand.GetComponent<BioIK.Position>();
+            var ikRot = lhand.GetComponent<BioIK.Orientation>();
+            #region errorHandling
+            if (!ikPos || !ikRot)
+            {
+                Debug.Log("Error: Bio IK segments missing");
+                return;
+            }
+            #endregion
+
+            ikPos.SetTargetTransform(null);//m_grabbedObj.transform);
+            ikRot.SetTargetTransform(null);
+            //ikPos.SetTargetPosition();
+        }
+        else
+        if (m_controller == OVRInput.Controller.RTouch)
+        {
+            var rhand = transform.root.GetComponentInChildren<IKPlayerController>().handR;
+
+            Debug.Log("rhand: " + rhand);
+            #region errorHandling
+            if (!rhand)
+            {
+                Debug.Log("Error: could not find right hand");
+                return;
+            }
+            #endregion
+            var ikPos = rhand.GetComponent<BioIK.Position>();
+            var ikRot = rhand.GetComponent<BioIK.Orientation>();
+            #region errorHandling
+            if (!ikPos || !ikRot)
+            {
+                Debug.Log("Error: Bio IK segments missing");
+                return;
+            }
+            #endregion
+
+            ikPos.SetTargetTransform(null);
+            ikRot.SetTargetTransform(null);
+        }
+        isLocked = true; 
+    }
+
+    public void Unlock()
+    {
+        if (m_controller == OVRInput.Controller.LTouch)
+        {
+            var lhand = transform.root.GetComponentInChildren<IKPlayerController>().handL;
+            #region errorHandling
+            if (!lhand)
+            {
+                Debug.Log("Error: could not find left hand");
+                return;
+            }
+            #endregion
+            var ikPos = lhand.GetComponent<BioIK.Position>();
+            var ikRot = lhand.GetComponent<BioIK.Orientation>();
+            #region errorHandling
+            if (!ikPos || !ikRot)
+            {
+                Debug.Log("Error: Bio IK segments missing");
+                return;
+            }
+            #endregion
+            var offset = transform.Find("LOffset").transform;
+
+            ikPos.SetTargetTransform(offset);
+            ikRot.SetTargetTransform(offset);
+        }
+        else
+        if (m_controller == OVRInput.Controller.RTouch)
+        {
+            var rhand = transform.root.GetComponentInChildren<IKPlayerController>().handR;
+            #region errorHandling
+            if (!rhand)
+            {
+                Debug.Log("Error: could not find right hand");
+                return;
+            }
+            #endregion
+            var ikPos = rhand.GetComponent<BioIK.Position>();
+            var ikRot = rhand.GetComponent<BioIK.Orientation>();
+            #region errorHandling
+            if (!ikPos || !ikRot)
+            {
+                Debug.Log("Error: Bio IK segments missing");
+                return;
+            }
+            #endregion
+
+            var offset = transform.Find("ROffset").transform;
+
+            ikPos.SetTargetTransform(offset);
+            ikRot.SetTargetTransform(offset);
+        }
+        isLocked = false;
+    }
+
+    // Grab an object from afar, still WIP
     protected virtual VRTool GrabRay()
     {
 
@@ -335,6 +474,7 @@ public class OVRGrabber : MonoBehaviour
         foreach (OVRGrabbable grabbable in m_grabCandidates.Keys)
         {
             bool canGrab = !(grabbable.isGrabbed && !grabbable.allowOffhandGrab);
+
             if (!canGrab)
             {
                 continue;
@@ -362,10 +502,22 @@ public class OVRGrabber : MonoBehaviour
         {
             if (closestGrabbable.isGrabbed)
             {
+                // If two handed, do not change the objects grabbedBy or parent. 
+                if (closestGrabbable.twoHanded)
+                {
+                    Debug.Log("second hand begin interaction");
+                    m_grabbedObj = closestGrabbable;
+                    m_lastPos = transform.position;
+                    m_lastRot = transform.rotation;
+                    m_secondaryGrabber = true;
+                    return;
+                }
+
                 closestGrabbable.grabbedBy.OffhandGrabbed(closestGrabbable);
             }
 
             m_grabbedObj = closestGrabbable;
+
             m_grabbedObj.GrabBegin(this, closestGrabbableCollider);
 
             m_lastPos = transform.position;
@@ -409,7 +561,7 @@ public class OVRGrabber : MonoBehaviour
 
             if (m_grabbedObj != null)
             {
-                iSpecial_Grabbable special = m_grabbedObj.GetComponent<iSpecial_Grabbable>();
+                iSpecial_Grabbable special = m_grabbedObj.GetComponent<VRTool>();
 
                 if (special != null)
                 {
@@ -432,6 +584,23 @@ public class OVRGrabber : MonoBehaviour
                     }
 
                     rb.velocity = Vector3.zero;
+
+                    // set colliders to go through this object 
+                    foreach (Collider col in m_grabbedObj.allColliders)
+                    {
+                        if (col.isTrigger)
+                            continue;
+
+                        if (bodyCols.Length > 2)
+                        {
+                            Physics.IgnoreCollision(col, bodyCols[0]);
+                            Physics.IgnoreCollision(col, bodyCols[1]);
+                            Physics.IgnoreCollision(col, bodyCols[2]);
+                        }
+                    }
+
+                    climbPos = transform.position;
+
                     return;
                 }
 
@@ -442,7 +611,7 @@ public class OVRGrabber : MonoBehaviour
                     m_grabbedObj.transform.parent = transform;
                 }
 
-                
+                // Ignore collisions with players body (to prevent objects you interact with from pushing and disorienting player)
                 foreach (Collider col in m_grabbedObj.allColliders)
                 {
                     if (col.isTrigger)
@@ -455,14 +624,14 @@ public class OVRGrabber : MonoBehaviour
                         Physics.IgnoreCollision(col, bodyCols[2]);
                     }
                 }
-                
-
             }
         }
     }
 
     protected virtual void MoveGrabbedObject(Vector3 pos, Quaternion rot, bool forceTeleport = false)
     {
+        if (m_grabbedObj.twoHanded)
+            return;
 
         if (m_grabbedObj == null)
         {
@@ -488,18 +657,36 @@ public class OVRGrabber : MonoBehaviour
     // Added by James Bellian to allow for climbing
     protected virtual void ClimbGrabbedObject(Vector3 pos)
     {
+        if (!isLocked)
+            Lock();
+
         if (m_grabbedObj == null)
         {
             return;
         }
         
         rb.AddForce((m_lastPos - transform.position) / Time.deltaTime, ForceMode.VelocityChange);
-
-            /*foreach (Collider col in m_grabbedObj.allColliders)
-                foreach (Collider bodyCol in bodyCols)
-                    Physics.IgnoreCollision(col, bodyCol);*/
     }
 
+    protected virtual void OrientGrabbedObject(Vector3 pos)
+    {
+        if (m_grabbedObj == null || m_grabbedObj.grabbedBy == null)
+        { Debug.Log("error");
+        return; }
+
+        //m_grabbedObj.grabbedBy.Lock();
+        //Lock();
+
+        var pivot = m_grabbedObj.grabbedBy.transform.position;
+        var point = transform.position;
+
+        //var newRot = Quaternion.Euler(angleX, angleY, angleZ);
+        var newRot = Quaternion.LookRotation(point - pivot);
+
+        m_grabbedObj.transform.Rotate(pivot, Vector3.Angle(pivot, point));
+        m_grabbedObj.transform.rotation = newRot;
+        m_grabbedObj.transform.position = (pivot + point)/2f ;
+    }
 
     // calculate hand velocity based on the last position it was recorded in
     public Vector3 GetHandVelocity()
@@ -544,7 +731,6 @@ public class OVRGrabber : MonoBehaviour
 
         // Re-enable grab volumes to allow overlap events
         GrabVolumeEnable(true);
-
     }
 
     protected void GrabbableRelease(Vector3 linearVelocity, Vector3 angularVelocity)
@@ -562,6 +748,7 @@ public class OVRGrabber : MonoBehaviour
         }
 
         m_grabVolumeEnabled = enabled;
+
         for (int i = 0; i < m_grabVolumes.Length; ++i)
         {
             Collider grabVolume = m_grabVolumes[i];
@@ -576,6 +763,7 @@ public class OVRGrabber : MonoBehaviour
 
 	protected virtual void OffhandGrabbed(OVRGrabbable grabbable)
     {
+        // If the object grabbable is held in this hand
         if (m_grabbedObj == grabbable)
         {
             GrabbableRelease(Vector3.zero, Vector3.zero);
