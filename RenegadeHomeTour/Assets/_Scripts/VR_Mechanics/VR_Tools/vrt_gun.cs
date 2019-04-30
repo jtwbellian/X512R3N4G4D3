@@ -12,7 +12,12 @@ public class vrt_gun : VRTool
     private Light light;
     private OVRHapticsManager hm;
 
+    List<Rigidbody> bulletPool;
+    public int poolAmt = 20;
+
     public Rigidbody bulletType;
+    public bool fullAuto = false;
+    public float cooldown = 1f;
     public float fireSpeed = 10f;
     public Transform gunBarrel;
     public ParticleSystem muzzleFlash;
@@ -25,29 +30,57 @@ public class vrt_gun : VRTool
         anim = GetComponentInChildren<Animator>();
         hm = OVRHapticsManager.instance;
         muzzleFlash = GetComponentInChildren<ParticleSystem>();
+
+        bulletPool = new List<Rigidbody>();
+
+        for(int i = 0; i < poolAmt; i++)
+        {
+            Rigidbody obj = Instantiate(bulletType);
+            obj.gameObject.SetActive(false);
+            bulletPool.Add(obj);
+        }
     }
 
     public override void IndexRelease()
     {
         if (light != null)
             light.intensity = 0f;
+
+        if (fullAuto)
+            StopCoroutine(FireAuto());
+
         canFire = true;
     }
 
-    public override void IndexTouch()
+    IEnumerator FireAuto()
     {
-        Rigidbody shot;
-
-        if (light != null)
+        while (!canFire)
         {
-            light.intensity = .5f;
-            Invoke("LightOff", 0.2f);
+            Fire();
+            yield return new WaitForSeconds(cooldown);
+        }
+    }
+
+    private void Fire()
+    {
+        //Rigidbody shot;
+        //shot = Instantiate(bulletType);
+
+        for (int i = 0; i < poolAmt; i ++)
+        {
+            if (!bulletPool[i].gameObject.activeInHierarchy)
+            {
+                bulletPool[i].transform.position = gunBarrel.position;
+                bulletPool[i].transform.rotation = gunBarrel.rotation;
+                bulletPool[i].gameObject.SetActive(true);
+                bulletPool[i].velocity = transform.forward * fireSpeed;
+                bulletPool[i].angularVelocity = Vector3.zero;
+                break;
+            }
         }
 
-        shot = Instantiate(bulletType);
-
         if (audioSource != null)
-            audioSource.Play();
+            audioSource.PlayOneShot(audioSource.clip);
 
         if (anim != null)
             anim.Play("Fire", 0, 0.0f);
@@ -56,14 +89,10 @@ public class vrt_gun : VRTool
         if (hm != null)
             hm.Play(VibrationForce.Hard, GetGrabber().grabbedBy.m_controller, 0.15f);
 
-
-        shot.transform.position = gunBarrel.position;
-        shot.transform.rotation = gunBarrel.rotation;
-
-        shot.velocity = transform.forward * fireSpeed;
-
-        Destroy(shot.gameObject, 4f);
-        canFire = false;
+        if (light != null)
+        {
+            light.intensity = .5f;
+        }
 
         if (tutorialGun)
         {
@@ -74,6 +103,21 @@ public class vrt_gun : VRTool
         {
             muzzleFlash.Clear();
             muzzleFlash.Play();
+        }
+    }
+
+
+    public override void IndexTouch()
+    {
+        canFire = false;
+
+        if (fullAuto)
+        {
+            StartCoroutine(FireAuto());
+        }
+        else
+        {
+            Fire();
         }
         
     }

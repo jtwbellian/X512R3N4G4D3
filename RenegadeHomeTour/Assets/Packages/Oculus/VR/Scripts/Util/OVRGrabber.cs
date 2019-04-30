@@ -671,7 +671,7 @@ public class OVRGrabber : MonoBehaviour
     protected virtual void OrientGrabbedObject(Vector3 pos)
     {
         if (m_grabbedObj == null || m_grabbedObj.grabbedBy == null)
-        { Debug.Log("error");
+        {// Debug.Log("error");
         return; }
 
         //m_grabbedObj.grabbedBy.Lock();
@@ -681,11 +681,19 @@ public class OVRGrabber : MonoBehaviour
         var point = transform.position;
 
         //var newRot = Quaternion.Euler(angleX, angleY, angleZ);
-        var newRot = Quaternion.LookRotation(point - pivot);
-
+        var newRot = Quaternion.LookRotation(point - pivot) * Quaternion.Euler(0f, 0f, m_grabbedObj.grabbedBy.transform.rotation.eulerAngles.z);
+    
         m_grabbedObj.transform.Rotate(pivot, Vector3.Angle(pivot, point));
         m_grabbedObj.transform.rotation = newRot;
-        m_grabbedObj.transform.position = (pivot + point)/2f ;
+
+        if (m_grabbedObj.snapPosition)
+        {
+            m_grabbedObj.transform.position = pivot;
+        }
+        else
+        {
+            m_grabbedObj.transform.position = (pivot + point) / 2f;
+        }
     }
 
     // calculate hand velocity based on the last position it was recorded in

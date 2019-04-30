@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 4120938060966028114}
   - component: {fileID: 2543391708314013952}
   - component: {fileID: 1650913595722723436}
-  - component: {fileID: 7063345123328604759}
   - component: {fileID: 6003284548021760074}
+  - component: {fileID: 3537570275085944349}
   m_Layer: 0
   m_Name: Lser
   m_TagString: laser
@@ -28,8 +28,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1051235288331705225}
   m_LocalRotation: {x: -0.4999998, y: -0.5, z: 0.5000001, w: 0.5000001}
-  m_LocalPosition: {x: 0, y: 0, z: 0.0532}
-  m_LocalScale: {x: 0.02348328, y: 0.105879895, z: 0.013302995}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.04263052, y: 0.21698214, z: 0.024149675}
   m_Children: []
   m_Father: {fileID: 5425066507552543783}
   m_RootOrder: 0
@@ -59,7 +59,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a7b45b4f6811eda45b9dc01bddeab4a9, type: 2}
+  - {fileID: 2100000, guid: fd2303ea7a72db14b97bcffb4d7aa813, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -79,20 +79,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!136 &7063345123328604759
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1051235288331705225}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 0.92276967
-  m_Height: 2.0324576
-  m_Direction: 1
-  m_Center: {x: 0.043452114, y: -0.009195484, z: 2.8617127e-15}
 --- !u!114 &6003284548021760074
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -108,9 +94,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tool: {fileID: 0}
   velocityBased: 1
-  power: 1
+  power: 2
   rb: {fileID: 310914464749162283}
-  impactSnd: {fileID: 8300000, guid: 768e637190acc7d4bbcada07a15d2793, type: 3}
+  impactSnd: {fileID: 8300000, guid: b5f3db25ac6c9894793f4d734855fec9, type: 3}
+--- !u!136 &3537570275085944349
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1051235288331705225}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.5000003
+  m_Height: 0.86
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &9002566493376900348
 GameObject:
   m_ObjectHideFlags: 0
@@ -121,9 +121,9 @@ GameObject:
   m_Component:
   - component: {fileID: 5425066507552543783}
   - component: {fileID: 310914464749162283}
-  - component: {fileID: 3283740313653375479}
+  - component: {fileID: 4991777982617723329}
   m_Layer: 0
-  m_Name: Lser
+  m_Name: Bolt
   m_TagString: laser
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -137,7 +137,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9002566493376900348}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -954.99054, y: 1.1918073, z: -3162.5269}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4120938060966028114}
@@ -160,7 +160,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &3283740313653375479
+--- !u!114 &4991777982617723329
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

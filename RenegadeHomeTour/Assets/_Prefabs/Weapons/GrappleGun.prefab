@@ -530,7 +530,7 @@ GameObject:
   - component: {fileID: 1878769265570798198}
   - component: {fileID: 1878769264949371313}
   m_Layer: 0
-  m_Name: GrappleGun_pFab
+  m_Name: GrappleGun
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -574,8 +574,8 @@ MonoBehaviour:
   home: {fileID: 0}
   haptics: {fileID: 0}
   hand: 0
-  tutorialGun: 0
-  bulletType: {fileID: 0}
+  canFire: 1
+  bulletType: {fileID: 1826572447, guid: b9b0c9ca84486ee4cbcbdcc14536e2e3, type: 3}
   fireSpeed: 10
   gunBarrel: {fileID: 0}
 --- !u!114 &1878769265570798198
@@ -592,8 +592,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_allowOffhandGrab: 1
-  m_snapPosition: 0
-  m_snapOrientation: 0
+  twoHanded: 0
+  m_twoHandedGrab: 0
+  m_snapPosition: 1
+  m_snapOrientation: 1
   m_snapOffset: {fileID: 0}
   m_grabPoints:
   - {fileID: 4724769498638173437}

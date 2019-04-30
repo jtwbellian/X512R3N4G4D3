@@ -31,6 +31,12 @@ public class VRButtonSimple : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
+        if (other.CompareTag("RightHand") || other.CompareTag("LeftHand"))
+            if (OVRInput.Get(OVRInput.Button.One) || OVRInput.Get(OVRInput.Button.Three))
+            {
+                trigger.Invoke();
+            }
+
         mat.SetColor("_tint", highlightColor);
     }
 
@@ -39,13 +45,13 @@ public class VRButtonSimple : MonoBehaviour
         mat.SetColor("_tint", color);
     }
 
-    void OnTriggerStay(Collider col)
+   /* void OnTriggerStay(Collider col)
     {
-        if(col == finger1 || col == finger2)
+        if(col.CompareTag("RightHand") || col.CompareTag("LeftHand"))
         if (OVRInput.Get(OVRInput.Button.One) || OVRInput.Get(OVRInput.Button.Three))
         {
             trigger.Invoke();
         }
-    }
+    }*/
 
 }

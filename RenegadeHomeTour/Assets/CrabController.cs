@@ -22,8 +22,6 @@ public class CrabController : MonoBehaviour
     [SerializeField]
     private float jumpForce = 100f;
 
-    private float numAttacks = 2;
-    private float attack = 0;
     private float health = 1000f;
 
     public state current_state;
@@ -118,12 +116,10 @@ public class CrabController : MonoBehaviour
 
             rb.AddForce((other.transform.position - transform.position) * (dmg / 100f));
         }
-
     }
 
-
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         switch (current_state)
         {
@@ -139,9 +135,8 @@ public class CrabController : MonoBehaviour
                     // This blends the target rotation in gradually.
                     // Keep sharpness between 0 and 1 - lower values are slower/softer.
                     float sharpness = 0.1f;
-                    transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, sharpness);
 
-
+                    rb.MoveRotation(Quaternion.Lerp(transform.rotation, targetRotation, sharpness));
                     rb.AddForce(transform.forward * speed ,  ForceMode.Force);
 
                     if (!target.CompareTag("jumpPoint") && Vector3.Distance(transform.position, target.position) < jumpDist)
@@ -160,20 +155,14 @@ public class CrabController : MonoBehaviour
                         animator.speed = Random.Range(0.8f,3.0f);
                         animator.SetBool("jump", true);
                         lastJumpTime = Time.time;
+
                         rb.AddForce(transform.forward * jumpForce, ForceMode.Impulse);
 
-                        if (attack > numAttacks)
-                        {
-                            audioSource.PlayOneShot(chirp2);
-                            attack = 0;
-                            current_state = state.Walk;
-                        }
-                        else
-                            attack++;
+                        audioSource.PlayOneShot(chirp2);
+                        current_state = state.Walk;
                     }
                     else // back up slowly
                     {
-
                         Vector3 toTarget = target.position - transform.position;
 
                         // This constructs a rotation looking in the direction of our target,
@@ -182,10 +171,11 @@ public class CrabController : MonoBehaviour
                         // This blends the target rotation in gradually.
                         // Keep sharpness between 0 and 1 - lower values are slower/softer.
                         float sharpness = 0.01f;
-                        transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, sharpness);
+
+                        rb.MoveRotation(Quaternion.Lerp(transform.rotation, targetRotation, sharpness));
+                        rb.AddForce(transform.forward * -0.1f, ForceMode.Force);
 
                         animator.speed = 1f;
-                        rb.AddForce(transform.forward * -0.1f, ForceMode.Force);
                     }
 
                 break;
@@ -196,8 +186,8 @@ public class CrabController : MonoBehaviour
 
                     target = Camera.main.transform;
                     audioSource.PlayOneShot(chirp4);
-                    transform.rotation = myJumpPoint.rotation;
-                    rb.AddForce(transform.up * jumpForce, ForceMode.Impulse);
+                    rb.MoveRotation(myJumpPoint.rotation);
+                    //rb.AddForce(transform.up * jumpForce, ForceMode.Impulse);
                     rb.AddForce(transform.forward * jumpForce, ForceMode.Impulse);
                     current_state = state.Walk;
                      
