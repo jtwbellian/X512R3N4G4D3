@@ -10,7 +10,7 @@ public class scr_bullet : MonoBehaviour
         Invoke("Destroy", 2f);
     }
 
-    void OnCollisionEnter(Collider col)
+    void OnCollisionEnter(Collision col)
     {
         Destroy();
     }

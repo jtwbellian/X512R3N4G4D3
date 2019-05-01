@@ -292,12 +292,15 @@ public class OVRGrabber : MonoBehaviour
         {
             if (isLocked)
                 Unlock();
-                                                
-            if (m_secondaryGrabber)
-                m_secondaryGrabber = false;
 
-            GrabEnd();
-        }
+            if (m_secondaryGrabber)
+            {
+                m_secondaryGrabber = false;
+                m_grabbedObj = null;
+            }
+            else
+                GrabEnd();
+            }
     }
 
     public void Lock()
