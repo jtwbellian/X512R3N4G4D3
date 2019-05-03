@@ -51,7 +51,7 @@ public class OVRGrabber : MonoBehaviour
     // easily observe broken physics simulation by, for example, moving the bottom cube of a stacked
     // tower and noting a complete loss of friction.
     [SerializeField]
-    protected bool m_parentHeldObject = false;
+    public bool m_parentHeldObject = false;
 
     // Child/attached transforms of the grabber, indicating where to snap held objects to (if you snap them).
     // Also used for ranking grab targets in case of multiple candidates.
@@ -296,6 +296,7 @@ public class OVRGrabber : MonoBehaviour
             if (m_secondaryGrabber)
             {
                 m_secondaryGrabber = false;
+                m_grabbedObj.transform.localRotation = Quaternion.identity;
                 m_grabbedObj = null;
             }
             else
@@ -303,7 +304,7 @@ public class OVRGrabber : MonoBehaviour
             }
     }
 
-    public void Lock()
+    public void Lock(Transform target = null)
     {
         if (m_controller == OVRInput.Controller.LTouch)
         {
@@ -327,8 +328,8 @@ public class OVRGrabber : MonoBehaviour
             }
             #endregion
 
-            ikPos.SetTargetTransform(null);//m_grabbedObj.transform);
-            ikRot.SetTargetTransform(null);
+            ikPos.SetTargetTransform(target);//m_grabbedObj.transform);
+            ikRot.SetTargetTransform(target);
             //ikPos.SetTargetPosition();
         }
         else
@@ -508,7 +509,6 @@ public class OVRGrabber : MonoBehaviour
                 // If two handed, do not change the objects grabbedBy or parent. 
                 if (closestGrabbable.twoHanded)
                 {
-                    Debug.Log("second hand begin interaction");
                     m_grabbedObj = closestGrabbable;
                     m_lastPos = transform.position;
                     m_lastRot = transform.rotation;
@@ -633,7 +633,7 @@ public class OVRGrabber : MonoBehaviour
 
     protected virtual void MoveGrabbedObject(Vector3 pos, Quaternion rot, bool forceTeleport = false)
     {
-        if (m_grabbedObj.twoHanded)
+        if (m_secondaryGrabber)
             return;
 
         if (m_grabbedObj == null)
@@ -644,6 +644,14 @@ public class OVRGrabber : MonoBehaviour
         Rigidbody grabbedRigidbody = m_grabbedObj.grabbedRigidbody;
         Vector3 grabbablePosition = pos + rot * m_grabbedObjectPosOff;
         Quaternion grabbableRotation = rot * m_grabbedObjectRotOff;
+
+        scr_lock grabLock = grabbedRigidbody.GetComponent<scr_lock>();
+
+        if (grabLock)
+        {
+            grabLock.MoveTo(grabbablePosition, grabbableRotation.eulerAngles);
+            return;
+        }
 
         if (forceTeleport)
         {
@@ -676,9 +684,6 @@ public class OVRGrabber : MonoBehaviour
         if (m_grabbedObj == null || m_grabbedObj.grabbedBy == null)
         {// Debug.Log("error");
         return; }
-
-        //m_grabbedObj.grabbedBy.Lock();
-        //Lock();
 
         var pivot = m_grabbedObj.grabbedBy.transform.position;
         var point = transform.position;
