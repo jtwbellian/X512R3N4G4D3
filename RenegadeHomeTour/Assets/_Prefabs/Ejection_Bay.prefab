@@ -1,5 +1,19 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!64 &8876685592860054915
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8885120921359572217}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Convex: 1
+  m_CookingOptions: 14
+  m_Mesh: {fileID: 8861180440997155986, guid: ae439c91a88efb747b10787916391d4a, type: 3}
 --- !u!1 &4766552755439704418
 GameObject:
   m_ObjectHideFlags: 0
@@ -10,6 +24,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7555579534672082446}
   - component: {fileID: 9152393353450756887}
+  - component: {fileID: 6876776397846729477}
   m_Layer: 0
   m_Name: Ejection_Bay
   m_TagString: Untagged
@@ -53,6 +68,19 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 14
   m_Mesh: {fileID: 639593303268734642, guid: 263d02cafbbdb974faa484af6dd5c384, type: 3}
+--- !u!65 &6876776397846729477
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4766552755439704418}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 5.224184, y: 2.516977, z: 0.27514032}
+  m_Center: {x: -0.070014, y: 1.61035, z: 6.807524}
 --- !u!1 &6360069384644316924
 GameObject:
   m_ObjectHideFlags: 0
@@ -226,6 +254,12 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 7ec7ee7128f5eef41a810b26105e3bf4, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ae439c91a88efb747b10787916391d4a, type: 3}
+--- !u!1 &8885120921359572217 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -927199367670048503, guid: ae439c91a88efb747b10787916391d4a,
+    type: 3}
+  m_PrefabInstance: {fileID: 607888580605904368}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &5554367430778793706 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -4216859302048453862, guid: ae439c91a88efb747b10787916391d4a,
