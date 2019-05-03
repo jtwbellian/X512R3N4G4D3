@@ -195,6 +195,7 @@ public class OVRGrabber : MonoBehaviour
         else
         if (!m_parentHeldObject)
         {
+            Debug.Log("Attempting non-parent move");
             MoveGrabbedObject(destPos, destRot);
         }
 
@@ -564,7 +565,7 @@ public class OVRGrabber : MonoBehaviour
 
             if (m_grabbedObj != null)
             {
-                iSpecial_Grabbable special = m_grabbedObj.GetComponent<VRTool>();
+                iSpecial_Grabbable special = m_grabbedObj.GetComponent<iSpecial_Grabbable>();
 
                 if (special != null)
                 {
@@ -644,14 +645,6 @@ public class OVRGrabber : MonoBehaviour
         Rigidbody grabbedRigidbody = m_grabbedObj.grabbedRigidbody;
         Vector3 grabbablePosition = pos + rot * m_grabbedObjectPosOff;
         Quaternion grabbableRotation = rot * m_grabbedObjectRotOff;
-
-        scr_lock grabLock = grabbedRigidbody.GetComponent<scr_lock>();
-
-        if (grabLock)
-        {
-            grabLock.MoveTo(grabbablePosition, grabbableRotation.eulerAngles);
-            return;
-        }
 
         if (forceTeleport)
         {

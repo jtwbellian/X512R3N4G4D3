@@ -2,9 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class scr_lock : MonoBehaviour
+public class scr_lock : MonoBehaviour, iSpecial_Grabbable
 {
     private OVRGrabber lastGrabber = null;
+    private float breakPoint = .5f;
+    private bool held = false;
+    private Vector3 lastPos;
+    private Vector3 lastRot;
+
     private Rigidbody rb;
     private Vector3 oldPos,
                     newPos,
@@ -32,65 +37,58 @@ public class scr_lock : MonoBehaviour
 
         oldPos = transform.position;
         oldRot = transform.rotation.eulerAngles;
-
     }
 
-    public void MoveTo(Vector3 pos, Vector3 rot)
+    void FixedUpdate()
     {
-        currentx = transform.position.x;
-        currenty = transform.position.y;
-        currentz = transform.position.z;
-
-        currentxr = transform.rotation.eulerAngles.x;
-        currentyr = transform.rotation.eulerAngles.y;
-        currentzr = transform.rotation.eulerAngles.z;
-
-        newPos.Set(Mathf.Clamp(currentx, x[0], x[1]), Mathf.Clamp(currenty, y[0], y[1]), Mathf.Clamp(currentz, z[0], z[1]));
-        //newRot.Set();
-
-        rb.MovePosition(newPos);
-        rb.MoveRotation(Quaternion.Euler(newRot));
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        /*
-        if (grabbable.isGrabbed)
+        if (grabbable.grabbedBy != null)
         {
-            transform.parent = null;
+            lastPos = transform.position;
+            lastRot = transform.rotation.eulerAngles;
 
-            lastGrabber = grabbable.grabbedBy;
-            if (lastGrabber.m_parentHeldObject)
-                lastGrabber.m_parentHeldObject = false;
+            currentx = grabbable.grabbedBy.transform.position.x;
+            currenty = grabbable.grabbedBy.transform.position.y;
+            currentz = grabbable.grabbedBy.transform.position.z;
 
-            currentx = transform.position.x;
-            currenty = transform.position.y;
-            currentz = transform.position.z;
-
-            currentxr = transform.rotation.eulerAngles.x;
-            currentyr = transform.rotation.eulerAngles.y;
-            currentzr = transform.rotation.eulerAngles.z;
-
-            transform.position.Set(x ? oldPos.x : currentx, y ? oldPos.y : currenty, z ? oldPos.z : currentz);
-            newRot.Set(xr ? oldRot.x : currentxr, yr ? oldRot.y : currentyr, zr ? oldRot.z : currentzr);
-             
-            //grabbable.grabbedBy.Lock(lockTarget);
-
-            if (rb)
+            if(Vector3.Distance(lastPos, grabbable.grabbedBy.transform.position) > breakPoint)
             {
-                rb.MovePosition(newPos);
-                rb.MoveRotation(Quaternion.Euler(newRot));
+                grabbable.grabbedBy.GrabEnd();
+                return;
             }
-            
-            //transform.localPosition = newPos - transform.position;
-            //transform.localRotation = Quaternion.Euler(newRot - transform.rotation.eulerAngles);
-            
+
+            currentxr = grabbable.grabbedBy.transform.rotation.eulerAngles.x;
+            currentyr = grabbable.grabbedBy.transform.rotation.eulerAngles.y;
+            currentzr = grabbable.grabbedBy.transform.rotation.eulerAngles.z;
+
+            newPos.Set(Mathf.Clamp(currentx, oldPos.x + x[0], oldPos.x + x[1]), Mathf.Clamp(currenty, oldPos.y + y[0], oldPos.y + y[1]), Mathf.Clamp(currentz, oldPos.z + z[0], oldPos.z + z[1]));
+            newRot.Set(Mathf.Clamp(currentx, xr[0], xr[1]), Mathf.Clamp(currenty, yr[0], yr[1]), Mathf.Clamp(currentz, zr[0], zr[1]));
+
+            //rb.velocity = Vector3.zero;
+            rb.MovePosition(newPos);
+            rb.MoveRotation(Quaternion.Euler(newRot));
+
+            lastPos = newPos;
+            lastRot = newRot;
         }
-        else if (lastGrabber != null)
+        /*if (grabbable.isGrabbed)
         {
-            lastGrabber.m_parentHeldObject = true;
-            lastGrabber = null;
+            grabbable.grabbedBy.Lock(transform);
         }*/
+    }
+
+
+    public void OnGrab()
+    {
+        Debug.Log("Grabbed Lock");
+        grabbable.grabbedBy.m_parentHeldObject = false;
+        transform.parent = null;
+        held = true;
+    }
+
+    public void OnRelease()
+    {
+        Debug.Log("Released Lock");
+        grabbable.grabbedBy.m_parentHeldObject = true;
+        held = false;
     }
 }

@@ -4,6 +4,11 @@ using UnityEngine;
 using UnityEngine.Events;
 public class Spawner : MonoBehaviour
 {
+
+    private float invocationDelay = 0.8f;
+    private bool hasBeenInvoked = false;
+    private GameManager gm;
+
     public static int totalSpawns = 0;
     public GameObject obj;
     public float delay = 5f;
@@ -11,13 +16,12 @@ public class Spawner : MonoBehaviour
     public Vector3 initialForce;
     [SerializeField]
     public UnityEvent onSpawn;
-    private float invocationDelay = 0.8f;
-    private bool hasBeenInvoked = false;
 
   // Start is called before the first frame update
   void Start()
     {
         //StartSpawning();
+        gm = GameManager.GetInstance();
     }
 
     void OnDrawGizmos()

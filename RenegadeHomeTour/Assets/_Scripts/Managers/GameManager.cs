@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-
+    [HideInInspector]
+    public static int num_crabs = 0;
     public static GameManager instance;
     public Vector3 playerStart;
     public GameObject popupPrefab;
