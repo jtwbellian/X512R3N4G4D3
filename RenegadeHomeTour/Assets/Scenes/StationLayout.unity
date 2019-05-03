@@ -99,7 +99,7 @@ LightmapSettings:
     m_ExportTrainingData: 0
   m_LightingDataAsset: {fileID: 112000000, guid: 3e859035434b0b843a6aa62f89096b28,
     type: 2}
-  m_UseShadowmask: 0
+  m_UseShadowmask: 1
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -365,6 +365,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 7354363503905360539, guid: 462ef6423b70a1644b94b3861ab79b8b,
+        type: 3}
+      propertyPath: m_Name
+      value: ATRIUM_PFAB
+      objectReference: {fileID: 0}
     - target: {fileID: 6643800580058793771, guid: 462ef6423b70a1644b94b3861ab79b8b,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -420,11 +425,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7354363503905360539, guid: 462ef6423b70a1644b94b3861ab79b8b,
-        type: 3}
-      propertyPath: m_Name
-      value: ATRIUM_PFAB
-      objectReference: {fileID: 0}
     - target: {fileID: 1240288962105473756, guid: 462ef6423b70a1644b94b3861ab79b8b,
         type: 3}
       propertyPath: m_grabPoints.Array.data[0]
@@ -450,6 +450,36 @@ PrefabInstance:
       propertyPath: m_grabPoints.Array.data[0]
       value: 
       objectReference: {fileID: 1318848018}
+    - target: {fileID: 4866838287056576319, guid: 462ef6423b70a1644b94b3861ab79b8b,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4866838287056576319, guid: 462ef6423b70a1644b94b3861ab79b8b,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4866838287056576319, guid: 462ef6423b70a1644b94b3861ab79b8b,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4866838287056576319, guid: 462ef6423b70a1644b94b3861ab79b8b,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.8245
+      objectReference: {fileID: 0}
+    - target: {fileID: 4866838287056576319, guid: 462ef6423b70a1644b94b3861ab79b8b,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.0739
+      objectReference: {fileID: 0}
+    - target: {fileID: 4866838287056576319, guid: 462ef6423b70a1644b94b3861ab79b8b,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.0065
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 462ef6423b70a1644b94b3861ab79b8b, type: 3}
 --- !u!65 &1318848014 stripped
