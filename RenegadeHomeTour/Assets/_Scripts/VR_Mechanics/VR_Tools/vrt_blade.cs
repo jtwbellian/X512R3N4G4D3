@@ -53,6 +53,7 @@ public class vrt_blade : VRTool
 
     public void OnRelease()
     {
+        dd.Disable();
 
         if (orientation == 0)
         {

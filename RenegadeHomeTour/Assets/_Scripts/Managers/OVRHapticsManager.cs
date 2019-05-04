@@ -18,7 +18,6 @@ public class OVRHapticsManager : MonoBehaviour
     public OVRGrabber handR;
     public OVRGrabber handL;
 
-
     private OVRHapticsClip clipLight;
     private OVRHapticsClip clipMedium;
     private OVRHapticsClip clipHard;
@@ -38,6 +37,11 @@ public class OVRHapticsManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
         InitializeOVRHaptics();
 
+    }
+
+    public static OVRHapticsManager GetInstance()
+    {
+        return instance;
     }
 
     private void InitializeOVRHaptics()
@@ -62,6 +66,16 @@ public class OVRHapticsManager : MonoBehaviour
     public void Play(VibrationForce force, OVRInput.Controller hand, float time)
     {
         StartCoroutine(VibrateTime(force,hand,time));
+    }
+
+    public void BuzzRight(VibrationForce force, float time)
+    {
+        Play(force, handR.m_controller, time);
+    }
+
+    public void BuzzLeft(VibrationForce force, float time)
+    {
+        Play(force, handL.m_controller, time);
     }
 
     public IEnumerator VibrateTime(VibrationForce force, OVRInput.Controller hand, float time)

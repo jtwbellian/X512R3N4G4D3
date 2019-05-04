@@ -96,6 +96,11 @@ public class OVRGrabber : MonoBehaviour
 
     }
 
+    public Rigidbody GetPlayerRB()
+    {
+        return rb;
+    }
+
     public void ForceRelease(OVRGrabbable grabbable)
     {
         bool canRelease = (
@@ -195,7 +200,7 @@ public class OVRGrabber : MonoBehaviour
         else
         if (!m_parentHeldObject)
         {
-            Debug.Log("Attempting non-parent move");
+            //Debug.Log("Attempting non-parent move");
             MoveGrabbedObject(destPos, destRot);
         }
 

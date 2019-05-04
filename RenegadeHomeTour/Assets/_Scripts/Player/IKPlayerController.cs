@@ -104,7 +104,6 @@ public class IKPlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
         // make collider match your current height
 
         var scaleFactor = 6.5f;
