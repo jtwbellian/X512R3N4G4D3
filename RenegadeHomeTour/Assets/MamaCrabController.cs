@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CrabController : MonoBehaviour
+public class MamaCrabController : MonoBehaviour
 {
-    public enum state { Walk, Jump, Attack };
+    public enum state { Seek, Walk, Jump, Attack, None };
 
     private const float TOL = 0.1f;
     private Animator animator;
@@ -16,13 +16,13 @@ public class CrabController : MonoBehaviour
     public ParticleSystem psDissolve, psChunk;
     public Collider[] myCols;
 
-    private float lastJumpTime = 0f;
+    private float lastBeamTime = 0f;
     [SerializeField]
-    private float jumpDelay = 10f;
+    private float beamDelay = 25f;
     [SerializeField]
     private float jumpForce = 100f;
 
-    private float health = 50f;
+    private float health = 500000f;
 
     public state current_state;
     public float speed = 2f;
@@ -39,16 +39,17 @@ public class CrabController : MonoBehaviour
         mats = renderer.materials;
         rb = GetComponent<Rigidbody>();
 
-        current_state = state.Walk;
+        current_state = state.Jump;
 
         animator = GetComponent<Animator>();
         animator.speed = 1f;
         animator.Play("RUN");
+        animator.SetBool("jump", true);
 
         float offset = Random.Range(0f, 2f); // adds variation to the animations
         animator.SetFloat("offset", offset);
 
-        jumpDelay = Random.Range(2f, 15f); // add some variation to aggression
+        beamDelay = Random.Range(2f, 15f); // add some variation to aggression
 
         audioSource = GetComponent<AudioSource>();
 
@@ -63,16 +64,10 @@ public class CrabController : MonoBehaviour
 
     void OnColliderEnter(Collider other)
     {
-        if (/*(current_state == state.Attack || current_state == state.Jump) && */other.transform.root == target)
+        if ((current_state == state.Attack || current_state == state.Jump) && other.transform.root == target)
         {
             VRMovementController player = other.transform.root.GetComponent<VRMovementController>();
-
-            if (player != null)
-            { 
-                player.Hurt(rb.velocity.magnitude * 10);
-                Debug.Log("hit for " + rb.velocity.magnitude * 10 + "pts");
-            }
-
+            player.Hurt(0.25f);
             return;
         }
 
@@ -89,6 +84,13 @@ public class CrabController : MonoBehaviour
             return;
         }
 
+        if (other.transform.root == target && target != Camera.main.transform.root)
+        {
+            target = Camera.main.transform.root;
+            current_state = state.Seek;
+        }
+
+
         DoesDammage dd = other.transform.GetComponent<DoesDammage>();
 
         if (dd != null)
@@ -104,6 +106,9 @@ public class CrabController : MonoBehaviour
             audioSource.PlayOneShot(dd.impactSnd);
 
             health -= dmg;
+
+            psChunk.transform.position = other.transform.position;
+            psChunk.Play();
 
             if (alive && health <= 0)
             {
@@ -129,8 +134,9 @@ public class CrabController : MonoBehaviour
     {
         switch (current_state)
         {
+
             case state.Walk:
-            {
+                {
                     animator.speed = 1.5f;
 
                     Vector3 toTarget = target.position - transform.position;
@@ -141,6 +147,24 @@ public class CrabController : MonoBehaviour
                     // This blends the target rotation in gradually.
                     // Keep sharpness between 0 and 1 - lower values are slower/softer.
                     float sharpness = 0.1f;
+
+                    rb.MoveRotation(Quaternion.Lerp(transform.rotation, targetRotation, sharpness));
+                    rb.AddForce(transform.forward * speed, ForceMode.Force);
+                    break;
+                }
+
+            case state.Seek:
+            {
+                    animator.speed = 0.5f;
+
+                    Vector3 toTarget = target.position - transform.position;
+
+                    // This constructs a rotation looking in the direction of our target,
+                    Quaternion targetRotation = Quaternion.LookRotation(toTarget);
+
+                    // This blends the target rotation in gradually.
+                    // Keep sharpness between 0 and 1 - lower values are slower/softer.
+                    float sharpness = 0.001f;
 
                     rb.MoveRotation(Quaternion.Lerp(transform.rotation, targetRotation, sharpness));
                     rb.AddForce(transform.forward * speed ,  ForceMode.Force);
@@ -155,17 +179,17 @@ public class CrabController : MonoBehaviour
 
             case state.Attack:
             {
-                    if (Time.time - lastJumpTime > jumpDelay)
+                    if (Time.time - lastBeamTime > beamDelay)
                     {
                         //audioSource.PlayOneShot(chirp1);
                         animator.speed = Random.Range(0.8f,3.0f);
                         animator.SetBool("jump", true);
-                        lastJumpTime = Time.time;
+                        lastBeamTime = Time.time;
 
                         rb.AddForce(transform.forward * jumpForce, ForceMode.Impulse);
 
                         audioSource.PlayOneShot(chirp2);
-                        current_state = state.Walk;
+                        current_state = state.Seek;
                     }
                     else // back up slowly
                     {
@@ -176,10 +200,10 @@ public class CrabController : MonoBehaviour
 
                         // This blends the target rotation in gradually.
                         // Keep sharpness between 0 and 1 - lower values are slower/softer.
-                        float sharpness = 0.01f;
+                        float sharpness = 0.002f;
 
                         rb.MoveRotation(Quaternion.Lerp(transform.rotation, targetRotation, sharpness));
-                        rb.AddForce(transform.forward * -0.1f, ForceMode.Force);
+                        //rb.AddForce(transform.forward * -0.1f, ForceMode.Force);
 
                         animator.speed = 1f;
                     }
@@ -190,13 +214,12 @@ public class CrabController : MonoBehaviour
             case state.Jump:
                 {
 
-                    target = Camera.main.transform;
+                    //target = Camera.main.transform;
                     audioSource.PlayOneShot(chirp4);
-                    rb.MoveRotation(myJumpPoint.rotation);
+                    rb.MoveRotation(target.rotation);
                     //rb.AddForce(transform.up * jumpForce, ForceMode.Impulse);
                     rb.AddForce(transform.forward * jumpForce, ForceMode.Impulse);
                     current_state = state.Walk;
-                     
                     break;
                 }
         }

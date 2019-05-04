@@ -72,7 +72,7 @@ public class IKPlayerController : MonoBehaviour
         height = head.localPosition.y;
         float newScale = height / DEFAULT_HEIGHT;
         transform.localScale = new Vector3(newScale, newScale, newScale);
-        GetComponentInChildren<CapsuleCollider>().height = newScale;
+        //capsule.height = newScale;
 
         GameManager gm = GameManager.GetInstance();
         gm.hud.ShowImage(Icon.calibrate, 2f);

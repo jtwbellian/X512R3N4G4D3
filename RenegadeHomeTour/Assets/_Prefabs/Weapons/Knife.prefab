@@ -155,9 +155,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tool: {fileID: 8944295312853187838}
   velocityBased: 1
-  power: 25
+  power: 10
   rb: {fileID: 5147155168233737493}
-  impactSnd: {fileID: 8300000, guid: ce078ab3503464247a2d9c6681b01e26, type: 3}
+  impactSnd: {fileID: 8300000, guid: 0bf332d9c2d76ee4099167a704f465a0, type: 3}
 --- !u!1 &1766359334558862333
 GameObject:
   m_ObjectHideFlags: 0
@@ -223,6 +223,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_allowOffhandGrab: 1
+  twoHanded: 0
+  m_twoHandedGrab: 0
   m_snapPosition: 1
   m_snapOrientation: 1
   m_snapOffset: {fileID: 0}

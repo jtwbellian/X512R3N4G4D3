@@ -16,8 +16,9 @@ public class VRMovementController : MonoBehaviour
     private float rechargeRate = 0.5f;
     private bool ReadyToSnapTurn = false;
     private Vignette vignette;
+    private ColorGrading colorGrading;
     private float boostRate = 0.5f;
-    private float shields = 1f;
+    private float shields = 100f;
     private AudioSource jetAudio;
 
     private OVRGrabber[] grabbers;
@@ -51,10 +52,11 @@ public class VRMovementController : MonoBehaviour
         grabbers = transform.root.GetComponentsInChildren<OVRGrabber>();
         
         ppVolume.profile.TryGetSettings(out vignette);
-
+        ppVolume.profile.TryGetSettings(out colorGrading);
         //body = GetComponentInChildren<IKPlayerController>().transform;
         //rb = body.GetComponent<Rigidbody>();
         rigidBody.freezeRotation = true;
+        rigidBody.maxDepenetrationVelocity = MAX_SPEED;
         head = Camera.main.transform; //GetComponentInChildren<Camera>().transform;
         jetAudio = GetComponent<AudioSource>();
     }
@@ -108,7 +110,7 @@ public class VRMovementController : MonoBehaviour
             boostBar.localScale = new Vector3(boostbar_width * boost, boostBar.localScale.y, boostBar.localScale.z);
 
         }
-        
+
 
         // Turn View Left
         if (OVRInput.Get(OVRInput.Button.SecondaryThumbstickLeft))
@@ -132,12 +134,13 @@ public class VRMovementController : MonoBehaviour
 
 
         // Show dammage "heat"
-        if (shields < 1)
-            shields += Time.deltaTime * rechargeRate/2;
+        if (shields < 100f)
+        { 
+            shields += Time.deltaTime * rechargeRate / 2;
+            colorGrading.temperature.value = 100f - shields;
+        }
 
-        if (shields > 0 && shields < 1f)
-            vignette.color.value = Color.Lerp(c_warm, c_cool, Mathf.Clamp(shields,0,1));
-        
+
         var canVig = true;
 
         if (grabbers[0].grabbedObject is OVRClimbable || grabbers[1].grabbedObject is OVRClimbable)
