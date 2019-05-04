@@ -63,6 +63,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_allowOffhandGrab: 1
+  twoHanded: 0
+  m_twoHandedGrab: 0
   m_snapPosition: 0
   m_snapOrientation: 0
   m_snapOffset: {fileID: 0}
@@ -384,17 +386,17 @@ PrefabInstance:
     - target: {fileID: -4216859302048453862, guid: 6b296ec066c9f2e44996d320cc3b81cc,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0
+      value: -0.0069
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 6b296ec066c9f2e44996d320cc3b81cc,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.028
+      value: 0.0155
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 6b296ec066c9f2e44996d320cc3b81cc,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0
+      value: 0.70710284
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 6b296ec066c9f2e44996d320cc3b81cc,
         type: 3}
@@ -409,7 +411,7 @@ PrefabInstance:
     - target: {fileID: -4216859302048453862, guid: 6b296ec066c9f2e44996d320cc3b81cc,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 1
+      value: 0.7071107
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 6b296ec066c9f2e44996d320cc3b81cc,
         type: 3}
@@ -419,7 +421,7 @@ PrefabInstance:
     - target: {fileID: -4216859302048453862, guid: 6b296ec066c9f2e44996d320cc3b81cc,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
+      value: 89.98
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 6b296ec066c9f2e44996d320cc3b81cc,
         type: 3}
@@ -451,6 +453,16 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 258c6b4cd8e873a4580fbb241f0e0d9e, type: 2}
+    - target: {fileID: 5551014577142218206, guid: 6b296ec066c9f2e44996d320cc3b81cc,
+        type: 3}
+      propertyPath: m_LODs.Array.data[1].screenRelativeHeight
+      value: 0.0005999999
+      objectReference: {fileID: 0}
+    - target: {fileID: -676351030616211865, guid: 6b296ec066c9f2e44996d320cc3b81cc,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 3d2f44fe1ed28994b8cf6c625170ce76, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6b296ec066c9f2e44996d320cc3b81cc, type: 3}
 --- !u!1 &3061575946611855271 stripped
