@@ -10,18 +10,21 @@ public class scr_button : MonoBehaviour
     private Vector3 startPos;
     private AudioSource audio;
 
+    public string textOn = "On";
+    public string textOff = "Off";
     public bool screwsIn = false;
     public bool screwsOut = false;
     public bool on = false;
     public UnityEvent turnOn;
     public UnityEvent turnOff;
     public OVRHapticsManager haptics;
+    public GameObject lightMesh;
+    public int lightMatIndex;
 
     public float offset;
 
     public AudioClip onSnd;
     public AudioClip offSnd;
-
 
     // Start is called before the first frame update
     void Start()
@@ -36,6 +39,7 @@ public class scr_button : MonoBehaviour
         if (transform.localPosition.x <= 0f && !on)
         {
             on = true;
+            turnOff.Invoke();
 
             audio.PlayOneShot(onSnd);
 
@@ -47,10 +51,16 @@ public class scr_button : MonoBehaviour
             {
                 haptics.BuzzLeft(VibrationForce.Light, 0.05f);
             }
+
+            if (lightMesh != null)
+            {
+                lightMesh.
+            }
         }
         else if (transform.localPosition.x >= offset && on)
         {
             on = false;
+            turnOn.Invoke();
 
             audio.PlayOneShot(offSnd);
 

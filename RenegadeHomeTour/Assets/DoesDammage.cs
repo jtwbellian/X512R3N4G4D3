@@ -23,11 +23,11 @@ public class DoesDammage : MonoBehaviour
         active = false;
     }
 
-    void OnTriggerEnter(Collider col)
+    void OnCollisionEnter(Collision col)
     {
         var gm = GameManager.GetInstance();
 
-        if (col.CompareTag("target"))
+        if (col.transform.CompareTag("target"))
         {
             col.gameObject.tag = "Untagged";
 
