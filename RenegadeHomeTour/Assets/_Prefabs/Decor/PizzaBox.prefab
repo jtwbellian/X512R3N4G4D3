@@ -35,20 +35,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!64 &4829312861918947293
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3061575946611855271}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Convex: 1
-  m_CookingOptions: 14
-  m_Mesh: {fileID: 8314571269056883277, guid: 6b296ec066c9f2e44996d320cc3b81cc, type: 3}
 --- !u!114 &3755914085656230145
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -69,8 +55,24 @@ MonoBehaviour:
   m_snapOrientation: 0
   m_snapOffset: {fileID: 0}
   m_grabPoints:
-  - {fileID: 4829312861918947293}
-  allColliders: []
+  - {fileID: 0}
+  - {fileID: 2856227997559104760}
+  allColliders:
+  - {fileID: 0}
+  - {fileID: 2856227997559104760}
+--- !u!65 &2856227997559104760
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3061575946611855271}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.37405396, y: 0.040191654, z: 0.37310794}
+  m_Center: {x: 0.0009613037, y: 0.014459977, z: -0.0005259813}
 --- !u!1 &3235905491819694579
 GameObject:
   m_ObjectHideFlags: 0
@@ -448,21 +450,26 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: -1504981713932161579, guid: 6b296ec066c9f2e44996d320cc3b81cc,
-        type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 258c6b4cd8e873a4580fbb241f0e0d9e, type: 2}
     - target: {fileID: 5551014577142218206, guid: 6b296ec066c9f2e44996d320cc3b81cc,
         type: 3}
       propertyPath: m_LODs.Array.data[1].screenRelativeHeight
-      value: 0.0005999999
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5551014577142218206, guid: 6b296ec066c9f2e44996d320cc3b81cc,
+        type: 3}
+      propertyPath: m_LODs.Array.data[0].screenRelativeHeight
+      value: 0.02583356
       objectReference: {fileID: 0}
     - target: {fileID: -676351030616211865, guid: 6b296ec066c9f2e44996d320cc3b81cc,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 3d2f44fe1ed28994b8cf6c625170ce76, type: 2}
+    - target: {fileID: -1504981713932161579, guid: 6b296ec066c9f2e44996d320cc3b81cc,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 258c6b4cd8e873a4580fbb241f0e0d9e, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6b296ec066c9f2e44996d320cc3b81cc, type: 3}
 --- !u!1 &3061575946611855271 stripped
