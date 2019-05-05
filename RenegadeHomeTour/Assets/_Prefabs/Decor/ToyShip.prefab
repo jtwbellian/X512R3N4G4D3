@@ -236,7 +236,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2243363914358579976}
   serializedVersion: 2
-  m_Mass: 1
+  m_Mass: 2
   m_Drag: 0.5
   m_AngularDrag: 0.5
   m_UseGravity: 0
@@ -266,7 +266,9 @@ MonoBehaviour:
   m_grabPoints:
   - {fileID: 2843043049869973197}
   - {fileID: 832082807558597323}
-  allColliders: []
+  allColliders:
+  - {fileID: 2843043049869973197}
+  - {fileID: 832082807558597323}
 --- !u!65 &2843043049869973197
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -402,7 +404,7 @@ LODGroup:
   m_AnimateCrossFading: 0
   m_LastLODIsBillboard: 0
   m_LODs:
-  - screenRelativeHeight: 0.27537552
+  - screenRelativeHeight: 0.029044444
     fadeTransitionWidth: 0
     renderers:
     - renderer: {fileID: 41973395914782895}
