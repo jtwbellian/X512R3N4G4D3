@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.UI;
 
 public class scr_button : MonoBehaviour
 {
@@ -9,6 +10,8 @@ public class scr_button : MonoBehaviour
     private float spring = 0.2f;
     private Vector3 startPos;
     private AudioSource audio;
+    private Color onColor = Color.green;
+    private Color offColor = Color.red;
 
     public string textOn = "On";
     public string textOff = "Off";
@@ -18,7 +21,8 @@ public class scr_button : MonoBehaviour
     public UnityEvent turnOn;
     public UnityEvent turnOff;
     public OVRHapticsManager haptics;
-    public GameObject lightMesh;
+    public Text textField;
+    public MeshRenderer lightMesh;
     public int lightMatIndex;
 
     public float offset;
@@ -32,51 +36,61 @@ public class scr_button : MonoBehaviour
         startPos = transform.localPosition;
         haptics = OVRHapticsManager.GetInstance();
         audio = GetComponent<AudioSource>();
+
+        onColor = new Color(0f, 142f, 7f);
+        offColor = new Color(255f, 13f, 0f);
     }
     
     void OnTriggerEnter(Collider col)
     {
         if (transform.localPosition.x <= 0f && !on)
         {
-            on = true;
-            turnOff.Invoke();
-
-            audio.PlayOneShot(onSnd);
-
             if (col.transform.CompareTag("RightHand"))
             {
                 haptics.BuzzRight(VibrationForce.Light, 0.05f);
             }
-            if (col.transform.CompareTag("LeftHand"))
+            else if (col.transform.CompareTag("LeftHand"))
             {
                 haptics.BuzzLeft(VibrationForce.Light, 0.05f);
             }
 
-            if (lightMesh != null)
-            {
-                lightMesh.
-            }
+            Turn(true);
         }
         else if (transform.localPosition.x >= offset && on)
         {
-            on = false;
-            turnOn.Invoke();
-
-            audio.PlayOneShot(offSnd);
-
             if (col.transform.CompareTag("RightHand"))
             {
                 haptics.BuzzRight(VibrationForce.Light, 0.05f);
             }
-            if (col.transform.CompareTag("LeftHand"))
+            else if (col.transform.CompareTag("LeftHand"))
             {
                 haptics.BuzzLeft(VibrationForce.Light, 0.05f);
             }
+
+            Turn(false);
         }
-
-
     }
 
+    private void Turn(bool isOn)
+    {
+        on = isOn;
+
+        if (isOn)
+            turnOff.Invoke();
+        else
+            turnOn.Invoke();
+
+        audio.PlayOneShot(isOn?onSnd:offSnd);
+
+        if (lightMesh != null)
+        {
+            lightMesh.materials[lightMatIndex].SetColor("_EmissionColor", isOn?onColor:offColor);
+        }
+        if (textField != null)
+        {
+            textField.color = isOn?onColor:offColor;
+        }
+    }
 
     void Update()
     {
