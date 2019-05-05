@@ -12,6 +12,8 @@ public class CrabController : MonoBehaviour
     private Rigidbody rb;
     private Transform myJumpPoint;
     private AudioSource audioSource;
+
+    private float power = 3f;
     public AudioClip stabSnd, shotSnd, deathSnd, chirp1, chirp2, chirp3, chirp4;
     public ParticleSystem psDissolve, psChunk;
     public Collider[] myCols;
@@ -61,22 +63,22 @@ public class CrabController : MonoBehaviour
             }
     }
 
-    void OnColliderEnter(Collider other)
+    void OnCollisionEnter(Collision col)
     {
-        if (/*(current_state == state.Attack || current_state == state.Jump) && */other.transform.root == target)
+        if (health > 0 && col.transform.root.CompareTag("Player") && rb.velocity.magnitude > 3f)
         {
-            VRMovementController player = other.transform.root.GetComponent<VRMovementController>();
+            VRMovementController player = col.transform.root.GetComponent<VRMovementController>();
 
             if (player != null)
             { 
-                player.Hurt(rb.velocity.magnitude * 10);
-                Debug.Log("hit for " + rb.velocity.magnitude * 10 + "pts");
+                player.Hurt(power + rb.velocity.magnitude/2f);
+                Debug.Log("hit for " + (power + rb.velocity.magnitude/2f) + "pts");
             }
 
             return;
         }
 
-        OnTriggerEnter(other);
+        //OnTriggerEnter(other);
     }
 
     void OnTriggerEnter(Collider other)

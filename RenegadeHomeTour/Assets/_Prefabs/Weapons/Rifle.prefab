@@ -14284,7 +14284,7 @@ GameObject:
   - component: {fileID: 2270631288561323822}
   - component: {fileID: 7122972360765535512}
   - component: {fileID: 3595395275521329633}
-  - component: {fileID: 3803295023786033062}
+  - component: {fileID: 4383905008882958079}
   m_Layer: 0
   m_Name: ShipGun_low
   m_TagString: Untagged
@@ -14351,8 +14351,8 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!64 &3803295023786033062
-MeshCollider:
+--- !u!65 &4383905008882958079
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -14361,10 +14361,9 @@ MeshCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 3
-  m_Convex: 1
-  m_CookingOptions: 14
-  m_Mesh: {fileID: 4579454407841743219, guid: fa122d0524c43914a9ebb0e7f78cda58, type: 3}
+  serializedVersion: 2
+  m_Size: {x: 3.7739167, y: 0.53258914, z: 0.68354285}
+  m_Center: {x: 1.1171482, y: -0.0015747591, z: -0.038142044}
 --- !u!1 &5940870739369537395
 GameObject:
   m_ObjectHideFlags: 0
@@ -14572,9 +14571,10 @@ MonoBehaviour:
   m_snapOffset: {fileID: 0}
   m_grabPoints:
   - {fileID: 5499439396970526866}
-  - {fileID: 3803295023786033062}
+  - {fileID: 4383905008882958079}
   allColliders:
-  - {fileID: 3803295023786033062}
+  - {fileID: 4383905008882958079}
+  - {fileID: 5499439396970526866}
 --- !u!114 &650502396131801330
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14713,5 +14713,5 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.1
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Radius: 0.08
+  m_Center: {x: 0, y: -0.03, z: -0.08}

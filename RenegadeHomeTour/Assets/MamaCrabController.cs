@@ -12,8 +12,10 @@ public class MamaCrabController : MonoBehaviour
     private Rigidbody rb;
     private Transform myJumpPoint;
     private AudioSource audioSource;
+
     public AudioClip stabSnd, shotSnd, deathSnd, chirp1, chirp2, chirp3, chirp4;
     public ParticleSystem psDissolve, psChunk;
+    public GameObject beam;
     public Collider[] myCols;
 
     private float lastBeamTime = 0f;
@@ -38,7 +40,7 @@ public class MamaCrabController : MonoBehaviour
         var renderer = GetComponentInChildren<Renderer>();
         mats = renderer.materials;
         rb = GetComponent<Rigidbody>();
-
+        rb.freezeRotation = true;
         current_state = state.Jump;
 
         animator = GetComponent<Animator>();
@@ -84,7 +86,7 @@ public class MamaCrabController : MonoBehaviour
             return;
         }
 
-        if (other.transform.root == target && target != Camera.main.transform.root)
+        if (other.transform == target && current_state == state.Walk)
         {
             target = Camera.main.transform.root;
             current_state = state.Seek;
@@ -96,12 +98,9 @@ public class MamaCrabController : MonoBehaviour
         if (dd != null)
         {
             var dmg = dd.GetDmg();
-            //Debug.Log("Hit for " + dmg + " dammage");
 
             if (dmg < TOL)
                 return;
-
-            //psChunk.Play();
 
             audioSource.PlayOneShot(dd.impactSnd);
 
@@ -134,7 +133,6 @@ public class MamaCrabController : MonoBehaviour
     {
         switch (current_state)
         {
-
             case state.Walk:
                 {
                     animator.speed = 1.5f;
@@ -155,79 +153,53 @@ public class MamaCrabController : MonoBehaviour
 
             case state.Seek:
             {
-                    animator.speed = 0.5f;
+                rb.velocity = Vector3.zero;
+                rb.angularVelocity = Vector3.zero;
 
-                    Vector3 toTarget = target.position - transform.position;
+                animator.speed = 0.2f;
 
-                    // This constructs a rotation looking in the direction of our target,
-                    Quaternion targetRotation = Quaternion.LookRotation(toTarget);
+                Vector3 toTarget = target.position - transform.position;
 
-                    // This blends the target rotation in gradually.
-                    // Keep sharpness between 0 and 1 - lower values are slower/softer.
-                    float sharpness = 0.001f;
+                // This constructs a rotation looking in the direction of our target,
+                Quaternion targetRotation = Quaternion.LookRotation(toTarget);
 
-                    rb.MoveRotation(Quaternion.Lerp(transform.rotation, targetRotation, sharpness));
-                    rb.AddForce(transform.forward * speed ,  ForceMode.Force);
+                // This blends the target rotation in gradually.
+                // Keep sharpness between 0 and 1 - lower values are slower/softer.
+                float sharpness = 0.025f;
 
-                    if (!target.CompareTag("jumpPoint") && Vector3.Distance(transform.position, target.position) < jumpDist)
-                    {
-                        current_state = state.Attack;
-                    }
+                rb.MoveRotation(Quaternion.Lerp(transform.rotation, targetRotation, sharpness));
+
+                if (Time.time - lastBeamTime > beamDelay)
+                {
+                    lastBeamTime = Time.time;
+                    current_state = state.Attack;
+                }
 
                     break;
             }
 
             case state.Attack:
             {
-                    if (Time.time - lastBeamTime > beamDelay)
-                    {
-                        //audioSource.PlayOneShot(chirp1);
-                        animator.speed = Random.Range(0.8f,3.0f);
-                        animator.SetBool("jump", true);
-                        lastBeamTime = Time.time;
-
-                        rb.AddForce(transform.forward * jumpForce, ForceMode.Impulse);
-
-                        audioSource.PlayOneShot(chirp2);
-                        current_state = state.Seek;
-                    }
-                    else // back up slowly
-                    {
-                        Vector3 toTarget = target.position - transform.position;
-
-                        // This constructs a rotation looking in the direction of our target,
-                        Quaternion targetRotation = Quaternion.LookRotation(toTarget);
-
-                        // This blends the target rotation in gradually.
-                        // Keep sharpness between 0 and 1 - lower values are slower/softer.
-                        float sharpness = 0.002f;
-
-                        rb.MoveRotation(Quaternion.Lerp(transform.rotation, targetRotation, sharpness));
-                        //rb.AddForce(transform.forward * -0.1f, ForceMode.Force);
-
-                        animator.speed = 1f;
-                    }
-
+                animator.speed = 0.5f;
+                animator.SetBool("jump", true);
+                beam.SetActive(true);
                 break;
             }
 
             case state.Jump:
-                {
-
-                    //target = Camera.main.transform;
-                    audioSource.PlayOneShot(chirp4);
-                    rb.MoveRotation(target.rotation);
-                    //rb.AddForce(transform.up * jumpForce, ForceMode.Impulse);
-                    rb.AddForce(transform.forward * jumpForce, ForceMode.Impulse);
-                    current_state = state.Walk;
-                    break;
-                }
+            {
+                audioSource.PlayOneShot(chirp4);
+                rb.MoveRotation(Quaternion.Euler(transform.position - target.position).normalized);
+                rb.AddForce(transform.forward * jumpForce, ForceMode.Impulse);
+                current_state = state.Walk;
+                break;
+            }
         }
     }
 
     IEnumerator Dissolve()
     {
-        for (float i = 0f; i < 1f; i += 0.01f)
+        for (float i = 0f; i < 1f; i += 0.002f)
         {
             for(int m = 0; m <= mats.Length - 1; m ++)
             {

@@ -13,13 +13,14 @@ public class VRMovementController : MonoBehaviour
     private float boostbar_width = 0.0f;
     public Rigidbody rigidBody;
     private Transform head;
-    private float rechargeRate = 0.5f;
+    private float rechargeRate = 0.25f;
     private bool ReadyToSnapTurn = false;
     private Vignette vignette;
     private ColorGrading colorGrading;
-    private float boostRate = 0.5f;
+    private float boostRate = 0.7f;
+    [SerializeField]
     private float shields = 100f;
-    private AudioSource jetAudio;
+    private AudioSource audio;
 
     private OVRGrabber[] grabbers;
 
@@ -29,6 +30,9 @@ public class VRMovementController : MonoBehaviour
     public bool canBoost = false;
     public float speed = 2f;
     public float boost = 1f;
+
+    public AudioClip [] hurtClips;
+
     //public float rotationRatchet = 45f;
 
     public Text velocityLabel;
@@ -58,7 +62,7 @@ public class VRMovementController : MonoBehaviour
         rigidBody.freezeRotation = true;
         rigidBody.maxDepenetrationVelocity = MAX_SPEED/4;
         head = Camera.main.transform; //GetComponentInChildren<Camera>().transform;
-        jetAudio = GetComponent<AudioSource>();
+        audio = GetComponent<AudioSource>();
     }
 
     public void ViewRatchet(float amt)
@@ -90,25 +94,24 @@ public class VRMovementController : MonoBehaviour
 
                 rigidBody.AddForce(head.forward * (speed * stickY * (boost + 0.1f)), ForceMode.Force);
 
-                if (!jetAudio.isPlaying)
+                if (!audio.isPlaying)
                 {
-                    jetAudio.Play();
+                    audio.Play();
                 }
 
-                jetAudio.volume = Mathf.Abs(stickY);
-                jetAudio.pitch = boost;
+                audio.volume = Mathf.Abs(stickY);
+                audio.pitch = boost;
 
                 boost -= Time.deltaTime * Mathf.Abs(stickY) * 0.25f;
             }
             else if (boost < 1f)
             {
-                boost += Time.deltaTime * rechargeRate;
-                jetAudio.volume = 0f;
-                jetAudio.Stop();
+                boost += Time.deltaTime * boostRate;
+                audio.volume = 0f;
+                audio.Stop();
             }
 
             boostBar.localScale = new Vector3(boostbar_width * boost, boostBar.localScale.y, boostBar.localScale.z);
-
         }
 
 
@@ -136,10 +139,11 @@ public class VRMovementController : MonoBehaviour
         // Show dammage "heat"
         if (shields < 100f)
         { 
-            shields += Time.deltaTime * rechargeRate / 2;
-            colorGrading.temperature.value = 100f - shields;
-        }
+            if (shields > 0f)
+                shields += Time.deltaTime * rechargeRate;
 
+            colorGrading.saturation.value = Mathf.Lerp( -100f, 25, shields/100f);
+        }
 
         var canVig = true;
 
@@ -153,7 +157,6 @@ public class VRMovementController : MonoBehaviour
             else
                 vignette.intensity.value = MAX_VIGNETTE / 2f;
         }
- 
     }
 
     public void AllowBoost()
@@ -163,6 +166,11 @@ public class VRMovementController : MonoBehaviour
         
     public void Hurt(float amt)
     {
-        shields -= amt;
+        int ranSound = Random.Range(0, hurtClips.Length - 1);
+
+        audio.PlayOneShot(hurtClips[ranSound]);
+
+        if (shields > 0)
+            shields -= amt;
     }
 }

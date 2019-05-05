@@ -5,23 +5,19 @@ using UnityEngine;
 public class scr_gravField : MonoBehaviour
 {
     public bool useGravity = false;
-    public Vector3 force = new Vector3(0,0,0);
+    public bool isAttractor = false;
+    public Vector3 force = new Vector3(0, 0, 0);
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
     void OnTriggerStay(Collider col)
     {
-        var rb = col.transform.root.GetComponentInChildren<Rigidbody>();
-
-        if (rb != null)
+        if (col.attachedRigidbody)
         {
-            rb.AddForce(force, ForceMode.Acceleration);
+            if (isAttractor)
+                force = (col.transform.position - transform.position).normalized * force.magnitude;
+
+             col.attachedRigidbody.AddForce(force, ForceMode.Acceleration);
         }
-            
     }
 
     /*
