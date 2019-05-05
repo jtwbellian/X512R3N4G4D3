@@ -357,6 +357,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6050080afab00349bcd12aa88a2af4d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  textOn: '[ LOCKED ]'
+  textOff: -OPEN-
   screwsIn: 0
   screwsOut: 1
   on: 0
@@ -415,6 +417,9 @@ MonoBehaviour:
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
   haptics: {fileID: 0}
+  textField: {fileID: 6388070617697600}
+  lightMesh: {fileID: 817155013}
+  lightMatIndex: 1
   offset: 0.0473
   onSnd: {fileID: 8300000, guid: 871345b137b136f44a494f095cbf55a6, type: 3}
   offSnd: {fileID: 8300000, guid: 0661904b20fc8f446ab586ec6757f0c5, type: 3}
