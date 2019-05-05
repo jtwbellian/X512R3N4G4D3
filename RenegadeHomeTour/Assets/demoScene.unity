@@ -21061,42 +21061,6 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 258c6b4cd8e873a4580fbb241f0e0d9e, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6b296ec066c9f2e44996d320cc3b81cc, type: 3}
---- !u!1 &874169700662431302 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 874169700662431302, guid: 797f9e7cc867b284da0e58657467c4c0,
-    type: 3}
-  m_PrefabInstance: {fileID: 2374424250713224616}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &874169700662431303
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 874169700662431302}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_GeneratorAsset: {fileID: 0}
-  m_Script: {fileID: 11500000, guid: 1e056dc326646e34c8e3a2096a54229e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  stabSnd: {fileID: 8300000, guid: 0bf332d9c2d76ee4099167a704f465a0, type: 3}
-  shotSnd: {fileID: 8300000, guid: 768e637190acc7d4bbcada07a15d2793, type: 3}
-  deathSnd: {fileID: 8300000, guid: 713106c3d4bcccd4d820adfb58d55766, type: 3}
-  chirp1: {fileID: 8300000, guid: 65a7ff8627bd39c4095b9112dd2a5983, type: 3}
-  chirp2: {fileID: 8300000, guid: 07c3b4289d4693c4d83e654ad7f5c1a7, type: 3}
-  chirp3: {fileID: 8300000, guid: f360ab2290969964b8c9fc44e9761c6e, type: 3}
-  chirp4: {fileID: 8300000, guid: ea577046039c65d4982dd3fbfe6c0f3e, type: 3}
-  psDissolve: {fileID: 2698026308770172689}
-  psChunk: {fileID: 4228270120497408940}
-  beam: {fileID: 0}
-  myCols: []
-  beamDelay: 25
-  jumpForce: 9000
-  current_state: 1
-  speed: 5000
-  jumpDist: 4
-  target: {fileID: 1054571598}
 --- !u!82 &1114045294915911701 stripped
 AudioSource:
   m_CorrespondingSourceObject: {fileID: 1114045294915911701, guid: 7e3ccea778da0284da0a521f68b0c29d,
@@ -21418,11 +21382,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: mamaCrab
       objectReference: {fileID: 0}
-    - target: {fileID: 874169700662431302, guid: 797f9e7cc867b284da0e58657467c4c0,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 4073593466577474299, guid: 797f9e7cc867b284da0e58657467c4c0,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -21478,33 +21437,12 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7671565212601071724, guid: 797f9e7cc867b284da0e58657467c4c0,
+    - target: {fileID: 874169700662431303, guid: 797f9e7cc867b284da0e58657467c4c0,
         type: 3}
-      propertyPath: m_IsKinematic
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7671565212601071724, guid: 797f9e7cc867b284da0e58657467c4c0,
-        type: 3}
-      propertyPath: m_Mass
-      value: 500
-      objectReference: {fileID: 0}
-    - target: {fileID: 7671565212601071724, guid: 797f9e7cc867b284da0e58657467c4c0,
-        type: 3}
-      propertyPath: m_UseGravity
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7671565212601071724, guid: 797f9e7cc867b284da0e58657467c4c0,
-        type: 3}
-      propertyPath: m_Drag
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 6882048148945492768, guid: 797f9e7cc867b284da0e58657467c4c0,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 1.18
-      objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 4370413277024127474, guid: 797f9e7cc867b284da0e58657467c4c0, type: 3}
+      propertyPath: target
+      value: 
+      objectReference: {fileID: 1054571598}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 797f9e7cc867b284da0e58657467c4c0, type: 3}
 --- !u!1001 &2670504644710043324
 PrefabInstance:
@@ -21575,12 +21513,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a13695c1e98b4ac4897375f576bc335c, type: 3}
---- !u!198 &2698026308770172689 stripped
-ParticleSystem:
-  m_CorrespondingSourceObject: {fileID: 2698026308770172689, guid: 797f9e7cc867b284da0e58657467c4c0,
-    type: 3}
-  m_PrefabInstance: {fileID: 2374424250713224616}
-  m_PrefabAsset: {fileID: 0}
 --- !u!108 &2809849982184197335 stripped
 Light:
   m_CorrespondingSourceObject: {fileID: 593367813, guid: 4b392ae2bcd783d4eb205a5cdd454293,
@@ -21662,12 +21594,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 39c771f6b607c5c4292a404aa8ecada5, type: 3}
---- !u!198 &4228270120497408940 stripped
-ParticleSystem:
-  m_CorrespondingSourceObject: {fileID: 4228270120497408940, guid: 797f9e7cc867b284da0e58657467c4c0,
-    type: 3}
-  m_PrefabInstance: {fileID: 2374424250713224616}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &4784128073697145358
 PrefabInstance:
   m_ObjectHideFlags: 0

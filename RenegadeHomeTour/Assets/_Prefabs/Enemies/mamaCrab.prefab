@@ -242,10 +242,10 @@ GameObject:
   - component: {fileID: 4073593466577474299}
   - component: {fileID: 5617491940676912385}
   - component: {fileID: 7671565212601071724}
-  - component: {fileID: 4370413277024127474}
   - component: {fileID: 2459271470915788972}
   - component: {fileID: 4988213176218816816}
   - component: {fileID: 5711490818170917815}
+  - component: {fileID: 874169700662431303}
   m_Layer: 0
   m_Name: mamaCrab
   m_TagString: Untagged
@@ -298,44 +298,14 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 874169700662431302}
   serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 3
+  m_Mass: 500
+  m_Drag: 2
   m_AngularDrag: 3
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &4370413277024127474
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 874169700662431302}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_GeneratorAsset: {fileID: 0}
-  m_Script: {fileID: 11500000, guid: 197828d907e58384884641e5c941654e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  stabSnd: {fileID: 8300000, guid: ce078ab3503464247a2d9c6681b01e26, type: 3}
-  shotSnd: {fileID: 8300000, guid: 768e637190acc7d4bbcada07a15d2793, type: 3}
-  deathSnd: {fileID: 8300000, guid: 713106c3d4bcccd4d820adfb58d55766, type: 3}
-  chirp1: {fileID: 8300000, guid: f360ab2290969964b8c9fc44e9761c6e, type: 3}
-  chirp2: {fileID: 8300000, guid: 65a7ff8627bd39c4095b9112dd2a5983, type: 3}
-  chirp3: {fileID: 8300000, guid: 07c3b4289d4693c4d83e654ad7f5c1a7, type: 3}
-  chirp4: {fileID: 8300000, guid: ea577046039c65d4982dd3fbfe6c0f3e, type: 3}
-  psDissolve: {fileID: 2698026308770172689}
-  psChunk: {fileID: 4228270120497408940}
-  myCols:
-  - {fileID: 0}
-  jumpDelay: 10
-  jumpForce: 8
-  current_state: 0
-  speed: 15
-  jumpDist: 1.5
-  target: {fileID: 0}
 --- !u!82 &2459271470915788972
 AudioSource:
   m_ObjectHideFlags: 0
@@ -458,6 +428,36 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.8
   m_Center: {x: 0, y: 1.1, z: 0}
+--- !u!114 &874169700662431303
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 874169700662431302}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_GeneratorAsset: {fileID: 0}
+  m_Script: {fileID: 11500000, guid: 1e056dc326646e34c8e3a2096a54229e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stabSnd: {fileID: 8300000, guid: 0bf332d9c2d76ee4099167a704f465a0, type: 3}
+  shotSnd: {fileID: 8300000, guid: 768e637190acc7d4bbcada07a15d2793, type: 3}
+  deathSnd: {fileID: 8300000, guid: 713106c3d4bcccd4d820adfb58d55766, type: 3}
+  chirp1: {fileID: 8300000, guid: 65a7ff8627bd39c4095b9112dd2a5983, type: 3}
+  chirp2: {fileID: 8300000, guid: 07c3b4289d4693c4d83e654ad7f5c1a7, type: 3}
+  chirp3: {fileID: 8300000, guid: f360ab2290969964b8c9fc44e9761c6e, type: 3}
+  chirp4: {fileID: 8300000, guid: ea577046039c65d4982dd3fbfe6c0f3e, type: 3}
+  psDissolve: {fileID: 2698026308770172689}
+  psChunk: {fileID: 4228270120497408940}
+  beam: {fileID: 3756838418887658450}
+  myCols: []
+  beamDelay: 25
+  jumpForce: 9000
+  current_state: 1
+  speed: 5000
+  jumpDist: 4
+  target: {fileID: 0}
 --- !u!1 &1055907156208646466
 GameObject:
   m_ObjectHideFlags: 0
@@ -2075,7 +2075,7 @@ PrefabInstance:
     - target: {fileID: 5066915441391392205, guid: c39c3c6a5feae0e4d90b9ddcc33dbac2,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 1.18
       objectReference: {fileID: 0}
     - target: {fileID: 5066915441391392205, guid: c39c3c6a5feae0e4d90b9ddcc33dbac2,
         type: 3}
@@ -2149,8 +2149,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2557318558764885313, guid: c39c3c6a5feae0e4d90b9ddcc33dbac2,
         type: 3}
+      propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2557318558764885313, guid: c39c3c6a5feae0e4d90b9ddcc33dbac2,
+        type: 3}
       propertyPath: InitialModule.startSpeed.scalar
       value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2557318558764885313, guid: c39c3c6a5feae0e4d90b9ddcc33dbac2,
+        type: 3}
+      propertyPath: InitialModule.startSize.minScalar
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 2557318558764885313, guid: c39c3c6a5feae0e4d90b9ddcc33dbac2,
         type: 3}
@@ -2324,21 +2334,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2557318558764885313, guid: c39c3c6a5feae0e4d90b9ddcc33dbac2,
         type: 3}
-      propertyPath: ClampVelocityModule.enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2557318558764885313, guid: c39c3c6a5feae0e4d90b9ddcc33dbac2,
-        type: 3}
-      propertyPath: VelocityModule.enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2557318558764885313, guid: c39c3c6a5feae0e4d90b9ddcc33dbac2,
-        type: 3}
-      propertyPath: ColorModule.gradient.maxGradient.key1.r
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2557318558764885313, guid: c39c3c6a5feae0e4d90b9ddcc33dbac2,
-        type: 3}
       propertyPath: ColorModule.gradient.maxGradient.key1.g
       value: 0.33490568
       objectReference: {fileID: 0}
@@ -2349,18 +2344,8 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2557318558764885313, guid: c39c3c6a5feae0e4d90b9ddcc33dbac2,
         type: 3}
-      propertyPath: ColorModule.enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2557318558764885313, guid: c39c3c6a5feae0e4d90b9ddcc33dbac2,
-        type: 3}
-      propertyPath: playOnAwake
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2557318558764885313, guid: c39c3c6a5feae0e4d90b9ddcc33dbac2,
-        type: 3}
-      propertyPath: ColorBySpeedModule.enabled
-      value: 0
+      propertyPath: ColorModule.gradient.maxGradient.atime1
+      value: 39321
       objectReference: {fileID: 0}
     - target: {fileID: 2557318558764885313, guid: c39c3c6a5feae0e4d90b9ddcc33dbac2,
         type: 3}
@@ -2369,13 +2354,8 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2557318558764885313, guid: c39c3c6a5feae0e4d90b9ddcc33dbac2,
         type: 3}
-      propertyPath: ColorModule.gradient.maxGradient.atime1
-      value: 39321
-      objectReference: {fileID: 0}
-    - target: {fileID: 2557318558764885313, guid: c39c3c6a5feae0e4d90b9ddcc33dbac2,
-        type: 3}
-      propertyPath: InitialModule.startSize.minScalar
-      value: 0.5
+      propertyPath: ClampVelocityModule.enabled
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c39c3c6a5feae0e4d90b9ddcc33dbac2, type: 3}

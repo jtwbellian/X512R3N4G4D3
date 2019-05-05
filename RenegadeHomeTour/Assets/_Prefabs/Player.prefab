@@ -1279,7 +1279,7 @@ MonoBehaviour:
       colorBlindnessStrength: 1
   m_Resources: {fileID: 11400000, guid: d82512f9c8e5d4a4d938b575d47f88d4, type: 2}
   m_ShowToolkit: 0
-  m_ShowCustomSorter: 0
+  m_ShowCustomSorter: 1
   breakBeforeColorGrading: 0
   m_BeforeTransparentBundles: []
   m_BeforeStackBundles: []
@@ -5793,11 +5793,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rigidBody: {fileID: 6003178557650888648}
+  shields: 100
   c_warm: {r: 0.7735849, g: 0, b: 0, a: 0}
   c_cool: {r: 0.30673727, g: 0.4571277, b: 0.5754717, a: 0}
   canBoost: 1
   speed: 800
   boost: 1
+  hurtClips: []
   velocityLabel: {fileID: 0}
   boostBar: {fileID: 6003178557894670298}
   ppVolume: {fileID: 0}
