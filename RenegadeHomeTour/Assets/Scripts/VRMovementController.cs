@@ -56,7 +56,7 @@ public class VRMovementController : MonoBehaviour
         //body = GetComponentInChildren<IKPlayerController>().transform;
         //rb = body.GetComponent<Rigidbody>();
         rigidBody.freezeRotation = true;
-        rigidBody.maxDepenetrationVelocity = MAX_SPEED;
+        rigidBody.maxDepenetrationVelocity = MAX_SPEED/4;
         head = Camera.main.transform; //GetComponentInChildren<Camera>().transform;
         jetAudio = GetComponent<AudioSource>();
     }
