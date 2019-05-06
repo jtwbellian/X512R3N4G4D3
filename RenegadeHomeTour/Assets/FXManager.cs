@@ -28,13 +28,14 @@ public class FXManager : MonoBehaviour
         return instance;
     }
 
-    public void Emit(int type, Vector3 pos, Vector3 rot, int amt)
+    public void Burst(int type, Vector3 pos, Vector3 rot, int amt)
     {
         Debug.Log("Parts emit");
         var emitter = new ParticleSystem.EmitParams(); //part_systems[type];
         emitter.position = pos;
         emitter.rotation3D = rot;
         part_systems[type].Emit(emitter, amt);
+        part_systems[type].Play();
     }
 
     // Update is called once per frame

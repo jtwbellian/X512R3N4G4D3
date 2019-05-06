@@ -13,7 +13,7 @@ public class VRMovementController : MonoBehaviour
     private float boostbar_width = 0.0f;
     public Rigidbody rigidBody;
     private Transform head;
-    private float rechargeRate = 0.25f;
+    private float rechargeRate = 1.5f;
     private bool ReadyToSnapTurn = false;
     private Vignette vignette;
     private ColorGrading colorGrading;
