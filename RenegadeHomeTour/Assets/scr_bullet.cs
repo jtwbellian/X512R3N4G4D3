@@ -12,6 +12,9 @@ public class scr_bullet : MonoBehaviour
 
     void OnCollisionEnter(Collision col)
     {
+        var fxm = FXManager.GetInstance();
+        fxm.Emit(0, transform.position, transform.rotation.eulerAngles, 4);
+        fxm.Emit(1, transform.position, transform.rotation.eulerAngles, 4);
         Destroy();
     }
 
