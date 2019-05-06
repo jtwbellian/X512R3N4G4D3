@@ -23,7 +23,7 @@ public class Spawner : MonoBehaviour
         //StartSpawning();
         gm = GameManager.GetInstance();
     }
-
+    
     void OnDrawGizmos()
     {
         var skinnedRenderer = obj.GetComponentInChildren<SkinnedMeshRenderer>();
@@ -81,9 +81,4 @@ public class Spawner : MonoBehaviour
         StartCoroutine("Spawn");
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

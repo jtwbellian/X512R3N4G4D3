@@ -51,11 +51,21 @@ public class OVRHapticsManager : MonoBehaviour
         clipLight = new OVRHapticsClip(cnt);
         clipMedium = new OVRHapticsClip(cnt);
         clipHard = new OVRHapticsClip(cnt);
-        for (int i = 0; i < cnt; i++)
+
+        var cl = clipLight.Samples;
+        System.Array.Resize<byte>(ref cl, cnt);
+
+        var cm = clipLight.Samples;
+        System.Array.Resize<byte>(ref cm, cnt);
+
+        var ch = clipLight.Samples;
+        System.Array.Resize<byte>(ref ch, cnt);
+
+        for (int i = 0; i < clipLight.Samples.Length; i++)
         {
-            clipLight.Samples[i] = i % 2 == 0 ? (byte)0 : (byte)45;
-            clipMedium.Samples[i] = i % 2 == 0 ? (byte)0 : (byte)100;
-            clipHard.Samples[i] = i % 2 == 0 ? (byte)0 : (byte)180;
+            clipLight.Samples.SetValue(i % 2 == 0 ? (byte)0 : (byte)45, i);
+            clipMedium.Samples.SetValue(i % 2 == 0 ? (byte)0 : (byte)100, i);
+            clipHard.Samples.SetValue(i % 2 == 0 ? (byte)0 : (byte)180, i);
         }
 
         clipLight = new OVRHapticsClip(clipLight.Samples, clipLight.Samples.Length);

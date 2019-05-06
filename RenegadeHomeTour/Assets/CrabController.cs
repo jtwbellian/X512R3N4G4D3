@@ -12,8 +12,9 @@ public class CrabController : MonoBehaviour
     private Rigidbody rb;
     private Transform myJumpPoint;
     private AudioSource audioSource;
+    private FXManager fxManager; 
 
-    private float power = 3f;
+    public float power = 3f;
     public AudioClip stabSnd, shotSnd, deathSnd, chirp1, chirp2, chirp3, chirp4;
     public ParticleSystem psDissolve, psChunk;
     public Collider[] myCols;
@@ -61,13 +62,15 @@ public class CrabController : MonoBehaviour
             {
                 Physics.IgnoreCollision(playerCol, c);
             }
+
+        fxManager = FXManager.GetInstance();
     }
 
     void OnCollisionEnter(Collision col)
     {
-        if (health > 0 && col.transform.root.CompareTag("Player") && rb.velocity.magnitude > 3f)
+        if (health > 0 && col.transform.root.CompareTag("Player") && rb.velocity.magnitude > 1f)
         {
-            VRMovementController player = col.transform.root.GetComponent<VRMovementController>();
+            VRMovementController player = col.transform.root.GetComponentInChildren<VRMovementController>();
 
             if (player != null)
             { 
@@ -117,9 +120,16 @@ public class CrabController : MonoBehaviour
                 rb.isKinematic = false;
                 rb.AddTorque((other.transform.position - transform.position) * dmg);
                 animator.SetBool("dead", true);
-                psDissolve.Play();
+
+                //psDissolve.Play();
+                fxManager.Burst(2, transform.position, transform.rotation.eulerAngles, 10);
+
                 GameManager gm = GameManager.GetInstance();
                 gm.IncrementKillCount();
+            }
+            else
+            {
+                fxManager.Burst(2, transform.position, transform.rotation.eulerAngles, 2);
             }
 
             rb.AddForce((other.transform.position - transform.position) * (dmg / 100f));
@@ -129,12 +139,15 @@ public class CrabController : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
+
+        if (target == null)
+            return;
+
         switch (current_state)
         {
             case state.Walk:
             {
                     animator.speed = 1.5f;
-
                     Vector3 toTarget = target.position - transform.position;
 
                     // This constructs a rotation looking in the direction of our target,
@@ -150,6 +163,7 @@ public class CrabController : MonoBehaviour
                     if (!target.CompareTag("jumpPoint") && Vector3.Distance(transform.position, target.position) < jumpDist)
                     {
                         current_state = state.Attack;
+                        animator.SetBool("jump", true);
                     }
 
                     break;
@@ -161,7 +175,7 @@ public class CrabController : MonoBehaviour
                     {
                         //audioSource.PlayOneShot(chirp1);
                         animator.speed = Random.Range(0.8f,3.0f);
-                        animator.SetBool("jump", true);
+                        animator.SetBool("jump", false);
                         lastJumpTime = Time.time;
 
                         rb.AddForce(transform.forward * jumpForce, ForceMode.Impulse);
@@ -198,7 +212,7 @@ public class CrabController : MonoBehaviour
                     //rb.AddForce(transform.up * jumpForce, ForceMode.Impulse);
                     rb.AddForce(transform.forward * jumpForce, ForceMode.Impulse);
                     current_state = state.Walk;
-                     
+                    animator.SetBool("jump", false);
                     break;
                 }
         }

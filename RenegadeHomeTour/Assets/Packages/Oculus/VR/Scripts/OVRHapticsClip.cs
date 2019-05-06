@@ -24,7 +24,7 @@ public class OVRHapticsClip
 	public OVRHapticsClip()
 	{
 		Capacity = OVRHaptics.Config.MaximumBufferSamplesCount;
-		Samples = new byte[Capacity * OVRHaptics.Config.SampleSizeInBytes];
+		Samples = new byte[Capacity * Mathf.Max(1, OVRHaptics.Config.SampleSizeInBytes)];
 	}
 
 	/// <summary>
@@ -42,7 +42,7 @@ public class OVRHapticsClip
 	public OVRHapticsClip(byte[] samples, int samplesCount)
 	{
 		Samples = samples;
-		Capacity = Samples.Length / OVRHaptics.Config.SampleSizeInBytes;
+		Capacity = Samples.Length / Mathf.Max(1, OVRHaptics.Config.SampleSizeInBytes);
 		Count = (samplesCount >= 0) ? samplesCount : 0;
 	}
 
