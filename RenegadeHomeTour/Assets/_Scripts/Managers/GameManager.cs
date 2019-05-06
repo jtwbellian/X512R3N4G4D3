@@ -5,6 +5,7 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     [HideInInspector]
+    public bool playerIsDead = false;
     public static int num_crabs = 0;
     public static GameManager instance;
     public Vector3 playerStart;
@@ -81,6 +82,11 @@ public class GameManager : MonoBehaviour
     public void RestartLevel()
     {
         Application.LoadLevel(Application.loadedLevel);
+    }
+
+    public void PlayerDie()
+    {
+        var fxMan = FXManager.GetInstance();
     }
 
     public static GameManager GetInstance()
