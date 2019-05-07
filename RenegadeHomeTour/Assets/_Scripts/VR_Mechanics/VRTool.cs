@@ -243,7 +243,7 @@ public abstract class VRTool : MonoBehaviour, iSpecial_Grabbable
 
 
     // Implement iSpecial Grabbable
-    public  virtual void OnGrab()
+    public virtual void OnGrab()
     {
         //Debug.Log(this.ToString() + " Grabbed");
         if (GameManager.GetInstance().direc.currentLine < 10)
@@ -261,12 +261,15 @@ public abstract class VRTool : MonoBehaviour, iSpecial_Grabbable
         foreach (Collider c in toolCols)
         {
             // Shrink sphere collider on grab
+            /*
             if (c.isTrigger && c.GetType() == typeof(SphereCollider))
             {
                 SphereCollider sc = (SphereCollider)c;
                 sc.radius = minRadius;
             }
-            else if (!c.isTrigger)
+            else */
+
+            if (!c.isTrigger)
             {
                 //c.isTrigger = true;
                 Collider [] playerCols = GameManager.GetInstance().playerCols;
@@ -278,13 +281,14 @@ public abstract class VRTool : MonoBehaviour, iSpecial_Grabbable
         rb.isKinematic = true;
     }
 
-    public void OnRelease()
+    public virtual void OnRelease()
     {
         //Debug.Log(this.ToString() + " Released");
         GameManager.GetInstance().direc.Ping(PING.ItemDropped);
 
         toolCols = GetComponentsInChildren<Collider>();
 
+        /*
         foreach (Collider c in toolCols)
         {
             // Grow sphere collider on release
@@ -299,7 +303,7 @@ public abstract class VRTool : MonoBehaviour, iSpecial_Grabbable
                 Physics.IgnoreCollision(c, playerBody, false);
                 //c.isTrigger = false;
             }*/
-        }
+        //}
 
         if (rb != null)
             rb.isKinematic = false;

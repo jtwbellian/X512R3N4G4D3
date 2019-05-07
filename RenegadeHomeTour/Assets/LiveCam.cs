@@ -20,6 +20,7 @@ public class LiveCam : MonoBehaviour
     {
         LiveCam.SetActive(this);
     }
+
     private void OnTriggerExit(Collider col)
     {
         LiveCam.Clear();
@@ -40,7 +41,7 @@ public class LiveCam : MonoBehaviour
     {
         if (LiveCam.activeCam == null)
         {
-            Debug.Log("LiveCam cleared, but no LiveCams on");
+            //Debug.Log("LiveCam cleared, but no LiveCams on");
             return;
         }
 

@@ -12,6 +12,7 @@ public class MamaCrabController : MonoBehaviour
     private Rigidbody rb;
     private Transform myJumpPoint;
     private AudioSource audioSource;
+    private FXManager fxManager;
 
     public AudioClip stabSnd, shotSnd, deathSnd, chirp1, chirp2, chirp3, chirp4;
     public ParticleSystem psDissolve, psChunk;
@@ -19,8 +20,10 @@ public class MamaCrabController : MonoBehaviour
     public Collider[] myCols;
 
     private float lastBeamTime = 0f;
+    private float chargeDelay = 20f;
     [SerializeField]
-    private float beamDelay = 25f;
+    private float beamDelay = 220f;
+    private Material beamMat; 
     [SerializeField]
     private float jumpForce = 100f;
 
@@ -62,6 +65,11 @@ public class MamaCrabController : MonoBehaviour
             {
                 Physics.IgnoreCollision(playerCol, c);
             }
+
+        var beamRenderer = beam.GetComponentInChildren<MeshRenderer>();
+        beamMat = beamRenderer.material;
+
+        fxManager = FXManager.GetInstance();
     }
 
     void OnColliderEnter(Collider other)
@@ -78,20 +86,11 @@ public class MamaCrabController : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        if (other.transform.CompareTag("jumpPoint"))
-        {
-            myJumpPoint = other.transform;
-            current_state = state.Jump;
-            audioSource.PlayOneShot(chirp3);
-            return;
-        }
-
         if (other.transform == target && current_state == state.Walk)
         {
-            target = Camera.main.transform.root;
+            target = Camera.main.transform;
             current_state = state.Seek;
         }
-
 
         DoesDammage dd = other.transform.GetComponent<DoesDammage>();
 
@@ -104,10 +103,10 @@ public class MamaCrabController : MonoBehaviour
 
             audioSource.PlayOneShot(dd.impactSnd);
 
-            health -= dmg;
+            fxManager = FXManager.GetInstance();
+            fxManager.Burst(FXManager.FX.Chunk, transform.position, 3);
 
-            psChunk.transform.position = other.transform.position;
-            psChunk.Play();
+            health -= dmg;
 
             if (alive && health <= 0)
             {
@@ -123,8 +122,6 @@ public class MamaCrabController : MonoBehaviour
                 GameManager gm = GameManager.GetInstance();
                 gm.IncrementKillCount();
             }
-
-            rb.AddForce((other.transform.position - transform.position) * (dmg / 100f));
         }
     }
 
@@ -173,16 +170,44 @@ public class MamaCrabController : MonoBehaviour
                 {
                     lastBeamTime = Time.time;
                     current_state = state.Attack;
-                }
+                    beam.SetActive(true);
+                    animator.speed = 0.1f;
+                    animator.SetBool("jump", true);
+                 }
 
-                    break;
+                 break;
             }
 
             case state.Attack:
             {
-                animator.speed = 0.5f;
-                animator.SetBool("jump", true);
-                beam.SetActive(true);
+                    if (Time.time - lastBeamTime < chargeDelay)
+                    {
+                        //Debug.Log("Time: " + Time.time + ", last beam: " + lastBeamTime);
+                        var amt = Mathf.Lerp(2f, 0.1f, Mathf.Abs(0.5f - (Time.time - lastBeamTime) / chargeDelay)*2f);
+
+                        if (amt < 1f)
+                        { 
+                            Vector3 toTarget = target.position - transform.position;
+
+                            // This constructs a rotation looking in the direction of our target,
+                            Quaternion targetRotation = Quaternion.LookRotation(toTarget);
+
+                            // This blends the target rotation in gradually.
+                            // Keep sharpness between 0 and 1 - lower values are slower/softer.
+                            float sharpness = 1 - amt;
+
+                            rb.MoveRotation(Quaternion.Lerp(transform.rotation, targetRotation, sharpness));
+                        }
+
+                        beamMat.SetFloat("_strength", Mathf.Lerp(0.1f, 1f, amt));
+                    }
+                    else
+                    {
+                        beam.SetActive(false);
+                        lastBeamTime = Time.time;
+                        beamMat.SetFloat("_strength", 0.1f);
+                        current_state = state.Seek;
+                    }
                 break;
             }
 

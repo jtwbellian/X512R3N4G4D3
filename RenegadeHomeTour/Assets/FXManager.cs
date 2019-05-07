@@ -4,8 +4,17 @@ using UnityEngine;
 
 public class FXManager : MonoBehaviour
 {
+
+    public enum FX
+    {
+        Dissolve, RadialBurst, Chunk
+
+    }
+
     static FXManager instance = null;
     public ParticleSystem[] part_systems;
+
+    public int index = 2;
 
     // Start is called before the first frame update
     void Start()
@@ -21,6 +30,12 @@ public class FXManager : MonoBehaviour
         {
             part_systems = GetComponentsInChildren<ParticleSystem>();
         }
+
+        foreach (ParticleSystem ps in part_systems)
+        {
+            var main = ps.main;
+            main.simulationSpace = ParticleSystemSimulationSpace.World;
+        }
     }
 
     public static FXManager GetInstance()
@@ -28,19 +43,28 @@ public class FXManager : MonoBehaviour
         return instance;
     }
 
-    public void Burst(int type, Vector3 pos, Vector3 rot, int amt)
+    // burst from position (directionless)
+    public void Burst(FX type, Vector3 pos, int amt)
     {
-        Debug.Log("Parts emit");
-        var emitter = new ParticleSystem.EmitParams(); //part_systems[type];
+        var emitter = new ParticleSystem.EmitParams(); 
+
         emitter.position = pos;
-        emitter.rotation3D = rot;
-        part_systems[type].Emit(emitter, amt);
-        part_systems[type].Play();
+        emitter.applyShapeToPosition = true;
+        part_systems[(int)type].Emit(emitter, amt);
     }
 
-    // Update is called once per frame
-    void Update()
+    // burst from position (directionless)
+    public void Burst(FX type, Vector3 pos, Vector3 rotation, int amt)
     {
-        
+        var emitter = new ParticleSystem.EmitParams();
+
+        emitter.position = pos;
+    
+        var shape = part_systems[(int)type].shape;
+        shape.rotation = rotation;
+
+        emitter.applyShapeToPosition = true;
+
+        part_systems[(int)type].Emit(emitter, amt);
     }
 }

@@ -52,7 +52,7 @@ public class AirVent : MonoBehaviour
     {
         if (rattle)
         {
-            float shake = Mathf.Sin(Time.time * 500f) * 0.01f;
+            float shake = Mathf.Sin(Time.time * 500f) * 0.005f;
 
             transform.position = startPos + new Vector3(shake, -shake, shake );
         }

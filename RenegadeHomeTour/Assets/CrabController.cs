@@ -62,8 +62,6 @@ public class CrabController : MonoBehaviour
             {
                 Physics.IgnoreCollision(playerCol, c);
             }
-
-        fxManager = FXManager.GetInstance();
     }
 
     void OnCollisionEnter(Collision col)
@@ -75,7 +73,7 @@ public class CrabController : MonoBehaviour
             if (player != null)
             { 
                 player.Hurt(power + rb.velocity.magnitude/2f);
-                Debug.Log("hit for " + (power + rb.velocity.magnitude/2f) + "pts");
+                //Debug.Log("hit for " + (power + rb.velocity.magnitude/2f) + "pts");
             }
 
             return;
@@ -104,7 +102,8 @@ public class CrabController : MonoBehaviour
             if (dmg < TOL)
                 return;
 
-            //psChunk.Play();
+            fxManager = FXManager.GetInstance();
+            fxManager.Burst(FXManager.FX.Dissolve, transform.position, Vector3.zero, 5);
 
             audioSource.PlayOneShot(dd.impactSnd);
 
@@ -122,14 +121,16 @@ public class CrabController : MonoBehaviour
                 animator.SetBool("dead", true);
 
                 //psDissolve.Play();
-                fxManager.Burst(2, transform.position, transform.rotation.eulerAngles, 10);
+                fxManager = FXManager.GetInstance();
+                fxManager.Burst(FXManager.FX.Dissolve, transform.position, 30);
 
                 GameManager gm = GameManager.GetInstance();
                 gm.IncrementKillCount();
             }
             else
             {
-                fxManager.Burst(2, transform.position, transform.rotation.eulerAngles, 2);
+                fxManager = FXManager.GetInstance();
+                fxManager.Burst(FXManager.FX.Dissolve, transform.position, 2);
             }
 
             rb.AddForce((other.transform.position - transform.position) * (dmg / 100f));
@@ -139,7 +140,6 @@ public class CrabController : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-
         if (target == null)
             return;
 
