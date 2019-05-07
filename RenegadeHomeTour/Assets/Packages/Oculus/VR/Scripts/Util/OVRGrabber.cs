@@ -214,7 +214,7 @@ public class OVRGrabber : MonoBehaviour
         CheckForGrabOrRelease(prevFlex);
 
         // Force grab weapons
-        /*
+        
         if (m_grabbedObj == null)
         {
             VRTool nearTool = GrabRay();
@@ -228,7 +228,7 @@ public class OVRGrabber : MonoBehaviour
                 lastTool = nearTool;
             }
         }
-        */
+        
     }
 
     void OnDestroy()

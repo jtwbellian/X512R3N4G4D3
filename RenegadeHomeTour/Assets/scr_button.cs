@@ -10,8 +10,8 @@ public class scr_button : MonoBehaviour
     private float spring = 0.2f;
     private Vector3 startPos;
     private AudioSource audio;
-    private Color onColor = Color.green;
-    private Color offColor = Color.red;
+    private Color onColor = Color.red;
+    private Color offColor = Color.green;
 
     public string textOn = "On";
     public string textOff = "Off";
@@ -37,8 +37,8 @@ public class scr_button : MonoBehaviour
         haptics = OVRHapticsManager.GetInstance();
         audio = GetComponent<AudioSource>();
 
-        onColor = new Color(0f, 142f, 7f);
-        offColor = new Color(255f, 13f, 0f);
+        //onColor = new Color(0f, 142f, 7f);
+        //offColor = new Color(255f, 13f, 0f);
     }
     
     void OnTriggerEnter(Collider col)
@@ -80,15 +80,16 @@ public class scr_button : MonoBehaviour
         else
             turnOn.Invoke();
 
-        audio.PlayOneShot(isOn?onSnd:offSnd);
+        audio.PlayOneShot(isOn ? onSnd : offSnd);
 
         if (lightMesh != null)
         {
-            lightMesh.materials[lightMatIndex].SetColor("_EmissionColor", isOn?onColor:offColor);
+            lightMesh.materials[lightMatIndex].SetColor("_EmissionColor", isOn ? onColor : offColor);
         }
         if (textField != null)
         {
-            textField.color = isOn?onColor:offColor;
+            textField.color = isOn ? onColor : offColor;
+            textField.text = isOn ? textOn : textOff;
         }
     }
 

@@ -146,13 +146,13 @@ public class vrt_gun : VRTool
         //throw new System.NotImplementedException();
     }
 
-    public void OnGrab()
+    public override void OnGrab()
     {
         base.OnGrab();
         light.gameObject.SetActive(true);
     }
 
-    public void OnRelease()
+    public override void OnRelease()
     {
         base.OnRelease();
         light.gameObject.SetActive(false);

@@ -13,7 +13,7 @@ public class VRMovementController : MonoBehaviour
     private float boostbar_width = 0.0f;
     public Rigidbody rigidBody;
     private Transform head;
-    private float rechargeRate = 1.5f;
+    private float rechargeRate = 2f;
     private bool ReadyToSnapTurn = false;
     private Vignette vignette;
     private ColorGrading colorGrading;
@@ -79,6 +79,14 @@ public class VRMovementController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //Die
+        if (shields <= 0 && !gm.playerIsDead)
+        {
+            canBoost = false;
+            gm.PlayerDie();
+            return;
+        }
+
         if (canBoost)
         {
             // Use Boost Jets
@@ -141,7 +149,6 @@ public class VRMovementController : MonoBehaviour
         { 
             if (shields > 0f)
                 shields += Time.deltaTime * rechargeRate;
-
             colorGrading.saturation.value = Mathf.Lerp( -100f, 25, shields/100f);
         }
 
@@ -168,7 +175,7 @@ public class VRMovementController : MonoBehaviour
     {
         int ranSound = Random.Range(0, hurtClips.Length - 1);
 
-        audio.PlayOneShot(hurtClips[ranSound]);
+        gm.sm.player.PlayOneShot(hurtClips[ranSound]);
 
         if (shields > 0)
             shields -= amt;

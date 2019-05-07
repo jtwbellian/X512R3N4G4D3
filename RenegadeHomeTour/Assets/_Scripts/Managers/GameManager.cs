@@ -87,6 +87,7 @@ public class GameManager : MonoBehaviour
     public void PlayerDie()
     {
         var fxMan = FXManager.GetInstance();
+        //fxMan.Burst()
     }
 
     public static GameManager GetInstance()

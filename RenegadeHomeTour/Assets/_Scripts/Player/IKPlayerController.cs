@@ -20,6 +20,9 @@ public class IKPlayerController : MonoBehaviour
     private Transform []  feet;
     private int numFeet = 0;
 
+    public GameObject [] parts_ik;
+    public GameObject[] parts_nonIk;
+
     public Transform handR;
     public Transform handL;
 
@@ -106,11 +109,13 @@ public class IKPlayerController : MonoBehaviour
     {
         // make collider match your current height
 
-        var scaleFactor = 6.5f;
+        var scaleFactor = 6f;
         var minHeight = 0.2f;
         var percentHeight = 0.5f;
-
+ 
         capsule.height = (Mathf.Abs(head.localPosition.y) * percentHeight + minHeight) * scaleFactor;
+
+        capsule.transform.localPosition = new Vector3(head.localPosition.x, head.localPosition.y - height/2, head.localPosition.z);
 
         // position the players body
         if (transform.position !=  head.position)
