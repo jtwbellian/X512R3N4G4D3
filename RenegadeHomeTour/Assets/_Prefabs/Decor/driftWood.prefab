@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 2047107991483176917}
   - component: {fileID: 4702589896755657583}
   - component: {fileID: 6488064798821241188}
+  - component: {fileID: 8627388073755460303}
   m_Layer: 0
   m_Name: driftwood_LOD0(Clone)
   m_TagString: Untagged
@@ -27,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 666594027376102013}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 100.000015, y: 100.000015, z: 100.00002}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 8401894158041581300}
   m_RootOrder: 0
@@ -77,6 +78,20 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!64 &8627388073755460303
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 666594027376102013}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Convex: 1
+  m_CookingOptions: 14
+  m_Mesh: {fileID: 3507631951146466008, guid: 96e54aad1824cf245a3ebf4741bce6aa, type: 3}
 --- !u!1 &4810653506592142567
 GameObject:
   m_ObjectHideFlags: 0
@@ -90,7 +105,6 @@ GameObject:
   - component: {fileID: 3594772960412432040}
   - component: {fileID: 1665669258911340279}
   - component: {fileID: 442937998055106371}
-  - component: {fileID: 2585921586148424151}
   m_Layer: 0
   m_Name: driftWood
   m_TagString: Untagged
@@ -150,9 +164,9 @@ MonoBehaviour:
   m_snapOrientation: 0
   m_snapOffset: {fileID: 0}
   m_grabPoints:
-  - {fileID: 2585921586148424151}
+  - {fileID: 8627388073755460303}
   allColliders:
-  - {fileID: 2585921586148424151}
+  - {fileID: 8627388073755460303}
 --- !u!114 &1665669258911340279
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -194,19 +208,6 @@ LODGroup:
     renderers:
     - renderer: {fileID: 3979723118378998818}
   m_Enabled: 1
---- !u!135 &2585921586148424151
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4810653506592142567}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.08877242
-  m_Center: {x: 0.015905006, y: 0.018186418, z: -1.7697416e-10}
 --- !u!1 &8882231403641108258
 GameObject:
   m_ObjectHideFlags: 0
@@ -234,7 +235,7 @@ Transform:
   m_GameObject: {fileID: 8882231403641108258}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 100.000015, y: 100.000015, z: 100.00002}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 8401894158041581300}
   m_RootOrder: 1
