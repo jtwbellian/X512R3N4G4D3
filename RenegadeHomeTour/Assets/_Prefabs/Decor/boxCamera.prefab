@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 521564892}
   - component: {fileID: 521564886}
   - component: {fileID: 521564887}
+  - component: {fileID: 6882195603711307644}
   m_Layer: 0
   m_Name: boxCamera
   m_TagString: Untagged
@@ -123,6 +124,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_allowOffhandGrab: 1
+  twoHanded: 0
+  m_twoHandedGrab: 0
   m_snapPosition: 0
   m_snapOrientation: 0
   m_snapOffset: {fileID: 0}
@@ -130,3 +133,17 @@ MonoBehaviour:
   - {fileID: 521564886}
   allColliders:
   - {fileID: 521564886}
+--- !u!114 &6882195603711307644
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 521564885}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_GeneratorAsset: {fileID: 0}
+  m_Script: {fileID: 11500000, guid: df882b45997c9a74cabf52481b6094ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  clip: {fileID: 8300000, guid: 700798b30efe0f34e8e9decc21f0cbcf, type: 3}

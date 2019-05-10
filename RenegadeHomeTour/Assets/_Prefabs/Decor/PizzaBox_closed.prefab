@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 8313045873680007369}
   - component: {fileID: 4556067283853325262}
   - component: {fileID: 2029777114520649304}
+  - component: {fileID: 7588151026893226455}
   m_Layer: 0
   m_Name: PizzaBox_closed
   m_TagString: Untagged
@@ -110,6 +111,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_allowOffhandGrab: 1
+  twoHanded: 0
+  m_twoHandedGrab: 0
   m_snapPosition: 0
   m_snapOrientation: 0
   m_snapOffset: {fileID: 0}
@@ -130,3 +133,17 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.4332021, y: 0.43204784, z: 0.047342982}
   m_Center: {x: 0.0011991635, y: 0.000000029802319, z: 0.01833864}
+--- !u!114 &7588151026893226455
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7448976333142369850}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_GeneratorAsset: {fileID: 0}
+  m_Script: {fileID: 11500000, guid: df882b45997c9a74cabf52481b6094ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  clip: {fileID: 8300000, guid: ce805155baf0c8945982ace2110717dd, type: 3}

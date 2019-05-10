@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 364030261552592108}
   - component: {fileID: 464829602161767535}
   - component: {fileID: 1895699617736742323}
+  - component: {fileID: 5936809054329451622}
   m_Layer: 0
   m_Name: cowboyHat
   m_TagString: Untagged
@@ -125,11 +126,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_allowOffhandGrab: 1
+  twoHanded: 0
+  m_twoHandedGrab: 0
   m_snapPosition: 0
   m_snapOrientation: 0
   m_snapOffset: {fileID: 0}
   m_grabPoints:
   - {fileID: 364030261552592108}
+  allColliders: []
 --- !u!114 &1895699617736742323
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -143,11 +147,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b21d75577ed1b6649a954c04ed79770e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  grabInfo: {fileID: 0}
+  toolCols: []
   usesIndex: 0
   usesThumb: 0
   isHat: 1
-  indexValue: 0
+  isTool: 1
   home: {fileID: 0}
   haptics: {fileID: 0}
   hand: 0
-  armorSet: 0
+  isOutfit: 0
+  hidden: 0
+--- !u!114 &5936809054329451622
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 360346026}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_GeneratorAsset: {fileID: 0}
+  m_Script: {fileID: 11500000, guid: df882b45997c9a74cabf52481b6094ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  clip: {fileID: 8300000, guid: ce805155baf0c8945982ace2110717dd, type: 3}
