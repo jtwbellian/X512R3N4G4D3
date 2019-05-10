@@ -32,7 +32,7 @@ public class vrt_banjo : VRTool
             strings.clip = chords[1];
     }
 
-    public void OnGrab()
+    public override void OnGrab()
     {
         base.OnGrab();
 
@@ -40,7 +40,7 @@ public class vrt_banjo : VRTool
             dd.Enable();
     }
 
-    public void OnRelease()
+    public override void OnRelease()
     {
         base.OnRelease();
         dd.Disable();

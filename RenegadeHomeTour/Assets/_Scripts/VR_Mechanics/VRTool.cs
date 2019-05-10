@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public abstract class VRTool : MonoBehaviour, iSpecial_Grabbable
+public abstract class VRTool : iSpecial_Grabbable
 {
     private Rigidbody rb;
 
@@ -33,7 +33,6 @@ public abstract class VRTool : MonoBehaviour, iSpecial_Grabbable
     [HideInInspector]
     public int hand; // 0 = primary 1 = secondary
 
-
     // Start is called before the first frame update
     void Start()
     {
@@ -41,6 +40,11 @@ public abstract class VRTool : MonoBehaviour, iSpecial_Grabbable
         toolCols = grabInfo.allColliders;
         rb = GetComponentInChildren<Rigidbody>();
         renderers = GetComponentsInChildren<Renderer>();
+
+        Grab += OnGrab;
+        Release += OnRelease;
+        Debug.Log(name + "Grab: " + Grab.GetInvocationList());
+        Debug.Log(name + "Release: " + Release.GetInvocationList());
 
         Init();
     }
@@ -196,7 +200,7 @@ public abstract class VRTool : MonoBehaviour, iSpecial_Grabbable
 
     public void LinesOn()
     {
-        renderers = GetComponentsInChildren<Renderer>();
+        var renderers = GetComponentsInChildren<Renderer>();
         // Set interactable lines on or off
         foreach (Renderer r in renderers)
         {
@@ -241,14 +245,9 @@ public abstract class VRTool : MonoBehaviour, iSpecial_Grabbable
 
     }
 
-
     // Implement iSpecial Grabbable
     public virtual void OnGrab()
     {
-        //Debug.Log(this.ToString() + " Grabbed");
-        if (GameManager.GetInstance().direc.currentLine < 10)
-            GameManager.GetInstance().direc.Ping(PING.ItemGrabbed);
-
         if (home != null)
         {
             //Debug.Log("Home: " + home.ToString() + "\n Attempting to free..." );
@@ -283,9 +282,6 @@ public abstract class VRTool : MonoBehaviour, iSpecial_Grabbable
 
     public virtual void OnRelease()
     {
-        //Debug.Log(this.ToString() + " Released");
-        GameManager.GetInstance().direc.Ping(PING.ItemDropped);
-
         toolCols = GetComponentsInChildren<Collider>();
 
         /*
@@ -313,7 +309,7 @@ public abstract class VRTool : MonoBehaviour, iSpecial_Grabbable
 
         if (home != null)
         {
-            Invoke("GoHome", 10f);
+            Invoke("GoHome", 15f);
         }
     }
 }

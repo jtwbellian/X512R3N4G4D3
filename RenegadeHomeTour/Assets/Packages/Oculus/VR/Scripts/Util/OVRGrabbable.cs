@@ -140,13 +140,15 @@ public class OVRGrabbable : MonoBehaviour
         m_grabbedCollider = grabPoint;
 
         // iSpecialGrabbable onGrab
-        if (this is iSpecial_Grabbable)
+        var special = GetComponent<iSpecial_Grabbable>();
+        if (special != null)
         {
-            var iSpecial = (iSpecial_Grabbable)this;
-            iSpecial.OnGrab();
+            if (special.Grab != null)
+                special.Grab.Invoke();
         }
 
-        VRTool tool = GetComponent<VRTool>();
+
+        VRTool tool = special as VRTool;
 
         if (tool == null)
             return;
@@ -167,6 +169,13 @@ public class OVRGrabbable : MonoBehaviour
 	/// </summary>
 	virtual public void GrabEnd(Vector3 linearVelocity, Vector3 angularVelocity)
     {
+        var special = GetComponent<iSpecial_Grabbable>();
+        if (special != null)
+        {
+            if (special.Release != null)
+                special.Release.Invoke();
+        }
+
         Rigidbody rb = gameObject.GetComponent<Rigidbody>();
 
         if (rb != null)
@@ -186,13 +195,6 @@ public class OVRGrabbable : MonoBehaviour
 
         m_grabbedBy = null;
         m_grabbedCollider = null;
-
-        // iSpecialGrabbable OnRelease
-        if (this is iSpecial_Grabbable)
-        {
-            var iSpecial = (iSpecial_Grabbable)this;
-            iSpecial.OnRelease();
-        }
     }
 
     public void CancelGrab()

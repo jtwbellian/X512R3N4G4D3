@@ -1,0 +1,107 @@
+fileFormatVersion: 2
+guid: 275671441b81fba40a449933fd8d595f
+ScriptedImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 2
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: 232528478, guid: 43a8bbf65be290d44ba52b94476242b9, type: 3}
+  version: 17
+  mGraphInstanceData:
+  - graphLabel: Metal Hallway Hexagon
+    prototypeName: Metal Hallway Hexagon
+    graphDescIndex: 0
+    generateAllOutputs: 0
+    generateMipMaps: 1
+    preset: " <sbspreset pkgurl=\"pkg://metal_floor_hallway_hexagon\" label=\"\" >\n
+      </sbspreset>\n"
+    shaderName: Standard
+    outputNames: baseColor,normal,metallic,ambientOcclusion,height
+    texturePackingList:
+    - outputName: diffuse
+      alphaSource: diffuse
+    - outputName: baseColor
+      alphaSource: baseColor
+    - outputName: normal
+      alphaSource: normal
+    - outputName: specular
+      alphaSource: specular
+    - outputName: glossiness
+      alphaSource: glossiness
+    - outputName: roughness
+      alphaSource: roughness
+    - outputName: metallic
+      alphaSource: smoothness
+    - outputName: ambientOcclusion
+      alphaSource: ambientOcclusion
+    - outputName: height
+      alphaSource: height
+    textureParameters:
+    - textureName: Metal Hallway Hexagon - glossiness
+      wrapMode: 0
+      filterMode: 1
+      aniso: 1
+    - textureName: Metal Hallway Hexagon - diffuse
+      wrapMode: 0
+      filterMode: 1
+      aniso: 1
+    - textureName: Metal Hallway Hexagon - baseColor
+      wrapMode: 0
+      filterMode: 1
+      aniso: 1
+    - textureName: Metal Hallway Hexagon - normal
+      wrapMode: 0
+      filterMode: 1
+      aniso: 1
+    - textureName: Metal Hallway Hexagon - specular
+      wrapMode: 0
+      filterMode: 1
+      aniso: 1
+    - textureName: Metal Hallway Hexagon - roughness
+      wrapMode: 0
+      filterMode: 1
+      aniso: 1
+    - textureName: Metal Hallway Hexagon - metallic
+      wrapMode: 0
+      filterMode: 1
+      aniso: 1
+    - textureName: Metal Hallway Hexagon - ambientOcclusion
+      wrapMode: 0
+      filterMode: 1
+      aniso: 1
+    - textureName: Metal Hallway Hexagon - height
+      wrapMode: 0
+      filterMode: 1
+      aniso: 1
+    colorSpaceList:
+    - outputName: diffuse
+      bLinear: 0
+    - outputName: baseColor
+      bLinear: 0
+    - outputName: normal
+      bLinear: 1
+    - outputName: specular
+      bLinear: 0
+    - outputName: glossiness
+      bLinear: 1
+    - outputName: roughness
+      bLinear: 1
+    - outputName: metallic
+      bLinear: 1
+    - outputName: ambientOcclusion
+      bLinear: 1
+    - outputName: height
+      bLinear: 1
+    inputTextureMap: []
+    targetSettingList:
+    - label: 
+      bLockRatio: 1
+      textureWidth: 256
+      textureHeight: 256
+      textureFormat: 0
+      bGenerateOnLoad: 1
+    material: {fileID: -8835801227940790658, guid: 275671441b81fba40a449933fd8d595f,
+      type: 3}
+    generatedTextures: []

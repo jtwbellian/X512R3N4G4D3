@@ -1,5 +1,8 @@
-﻿interface iSpecial_Grabbable 
+﻿using System;
+using UnityEngine;
+
+public abstract class iSpecial_Grabbable : MonoBehaviour
 {
-    void OnGrab();
-    void OnRelease();
+    public Action Grab;
+    public Action Release;
 }
