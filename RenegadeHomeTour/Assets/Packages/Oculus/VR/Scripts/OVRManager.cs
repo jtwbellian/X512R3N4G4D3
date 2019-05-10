@@ -896,7 +896,7 @@ public class OVRManager : MonoBehaviour
 
 #region Unity Messages
 
-	private void Awake()
+	private void OnEnable()
 	{
 		// Only allow one instance at runtime.
 		if (instance != null)

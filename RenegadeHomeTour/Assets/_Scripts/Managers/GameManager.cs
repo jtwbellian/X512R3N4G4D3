@@ -5,7 +5,10 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     [HideInInspector]
+
+
     public bool playerIsDead = false;
+    public static int MAX_CRABS = 50;
     public static int num_crabs = 0;
     public static GameManager instance;
     public Vector3 playerStart;
@@ -44,6 +47,7 @@ public class GameManager : MonoBehaviour
 
     public void IncrementKillCount()
     {
+        num_crabs--;
         crabsKilled++;
         hud.Refresh();
     }

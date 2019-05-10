@@ -45,6 +45,12 @@ public class SoundManager : MonoBehaviour
 
     void Init()
     {
+        EventManager.GetInstance().AudioEventBegin += OnAudioEvent;
+    }
+
+    // Handle audio events
+    public void OnAudioEvent(EventInfo info)
+    {
 
     }
 

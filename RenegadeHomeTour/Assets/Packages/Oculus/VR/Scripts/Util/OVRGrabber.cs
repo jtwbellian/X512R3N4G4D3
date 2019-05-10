@@ -228,7 +228,6 @@ public class OVRGrabber : MonoBehaviour
                 lastTool = nearTool;
             }
         }
-        
     }
 
     void OnDestroy()
@@ -570,12 +569,13 @@ public class OVRGrabber : MonoBehaviour
 
             if (m_grabbedObj != null)
             {
+                /*
                 iSpecial_Grabbable special = m_grabbedObj.GetComponent<iSpecial_Grabbable>();
 
                 if (special != null)
                 {
-                    special.OnGrab();
-                }
+                    special.Grab.Invoke();
+                }*/
 
                 // Stop player and release other hand if climb begins
                 if (m_grabbedObj is OVRClimbable)
@@ -712,12 +712,14 @@ public class OVRGrabber : MonoBehaviour
     {
         if (m_grabbedObj != null)
         {
+            /*
             iSpecial_Grabbable special = m_grabbedObj.GetComponent<iSpecial_Grabbable>();
 
             if (special != null)
             {
-                special.OnRelease();
+                special.Release.Invoke();
             }
+            */
 
             foreach (Collider col in m_grabbedObj.allColliders)
             {

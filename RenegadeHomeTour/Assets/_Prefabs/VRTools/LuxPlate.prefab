@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 7318019374340961302}
   - component: {fileID: 7700209826432206585}
   - component: {fileID: 4320579550431231769}
-  - component: {fileID: 305102177334442219}
   m_Layer: 0
   m_Name: Camera
   m_TagString: Untagged
@@ -90,19 +89,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cam: {fileID: 0}
---- !u!135 &305102177334442219
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1835233527341641663}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 15
-  m_Center: {x: 0, y: 0, z: 0}
+  surface: {fileID: 8957493786715470503}
+  matSLot: 0
+  idleScreen: {fileID: 2800000, guid: 6e904151347354e499c7704ebfea96ea, type: 3}
+  renderScreen: {fileID: 8400000, guid: c11042e1510869645ae7030cf2de0f23, type: 2}
 --- !u!1 &3027713155692138869
 GameObject:
   m_ObjectHideFlags: 0
@@ -191,7 +181,7 @@ MonoBehaviour:
   leftGrip: {fileID: 4408020626472965923}
   rightGrip: {fileID: 7341654047867242792}
   offsetTarget: {fileID: 5920235661812923496}
-  rb: {fileID: 2495186021874155155}
+  selfiCam: {fileID: 4320579550431231769}
 --- !u!54 &2495186021874155155
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -344,14 +334,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7238339236165029499}
-  m_LocalRotation: {x: -0.44913596, y: -0, z: -0, w: 0.89346343}
+  m_LocalRotation: {x: -0.50986844, y: -0, z: -0, w: 0.86025244}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 100, y: 99.99997, z: 99.99997}
   m_Children:
   - {fileID: 7037386740820870486}
   m_Father: {fileID: 5983263069185267803}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: -53.377003, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -61.31, y: 0, z: 0}
 --- !u!33 &3419323144869660254
 MeshFilter:
   m_ObjectHideFlags: 0

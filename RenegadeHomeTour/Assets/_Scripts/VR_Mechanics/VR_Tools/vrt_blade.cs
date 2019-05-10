@@ -45,13 +45,13 @@ public class vrt_blade : VRTool
         StartCoroutine("Flip");
     }
 
-    public void OnGrab()
+    public override void OnGrab()
     {
         base.OnGrab();
         dd.Enable();
     }
 
-    public void OnRelease()
+    public override void OnRelease()
     {
         dd.Disable();
 
