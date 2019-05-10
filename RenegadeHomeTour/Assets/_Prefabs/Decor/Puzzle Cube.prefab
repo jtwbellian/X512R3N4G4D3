@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 4939478852636923696}
   - component: {fileID: 4746661986427472689}
   - component: {fileID: 6258359987966190889}
+  - component: {fileID: 7161326847736258329}
   m_Layer: 0
   m_Name: Puzzle Cube
   m_TagString: Untagged
@@ -107,6 +108,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_allowOffhandGrab: 1
+  twoHanded: 0
+  m_twoHandedGrab: 0
   m_snapPosition: 0
   m_snapOrientation: 0
   m_snapOffset: {fileID: 0}
@@ -130,3 +133,17 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &7161326847736258329
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6507961269375619108}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_GeneratorAsset: {fileID: 0}
+  m_Script: {fileID: 11500000, guid: df882b45997c9a74cabf52481b6094ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  clip: {fileID: 8300000, guid: 58dd58980760fb24dac445b99ead37a7, type: 3}

@@ -1157,6 +1157,7 @@ GameObject:
   - component: {fileID: 4711335143987703058}
   - component: {fileID: 1085024672327954987}
   - component: {fileID: 515079912641415288}
+  - component: {fileID: 1081275975243753093}
   m_Layer: 0
   m_Name: Wilson_pfab
   m_TagString: Untagged
@@ -1248,12 +1249,28 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_allowOffhandGrab: 1
+  twoHanded: 0
+  m_twoHandedGrab: 0
   m_snapPosition: 0
   m_snapOrientation: 0
   m_snapOffset: {fileID: 0}
   m_grabPoints:
   - {fileID: 4711335143987703058}
   allColliders: []
+--- !u!114 &1081275975243753093
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4935122438196777587}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_GeneratorAsset: {fileID: 0}
+  m_Script: {fileID: 11500000, guid: df882b45997c9a74cabf52481b6094ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  clip: {fileID: 8300000, guid: 700798b30efe0f34e8e9decc21f0cbcf, type: 3}
 --- !u!1 &5438189637854217280
 GameObject:
   m_ObjectHideFlags: 0

@@ -42,7 +42,7 @@ public class SoundManager : MonoBehaviour
         music.clip = song_music;
         music.Play();
     }
-
+ 
     void Init()
     {
 
@@ -52,5 +52,10 @@ public class SoundManager : MonoBehaviour
     void Update()
     {
         
+    }
+
+    public void PlayImpactSFX(AudioClip clip, GameObject obj)
+    {
+        AudioSource.PlayClipAtPoint(clip, obj.transform.position);
     }
 }

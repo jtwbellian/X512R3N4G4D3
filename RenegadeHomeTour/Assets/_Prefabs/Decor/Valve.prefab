@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 1641877602}
   - component: {fileID: 1641877603}
   - component: {fileID: 688099121810123952}
+  - component: {fileID: 8741487724122128862}
   m_Layer: 0
   m_Name: Valve
   m_TagString: Untagged
@@ -142,6 +143,20 @@ MonoBehaviour:
   power: 1
   rb: {fileID: 1641877604}
   impactSnd: {fileID: 8300000, guid: 768e637190acc7d4bbcada07a15d2793, type: 3}
+--- !u!114 &8741487724122128862
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1641877599}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_GeneratorAsset: {fileID: 0}
+  m_Script: {fileID: 11500000, guid: df882b45997c9a74cabf52481b6094ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  clip: {fileID: 8300000, guid: 6d0d48825f8390e429e6e4db5a3e8b13, type: 3}
 --- !u!1001 &5592182751217609017
 PrefabInstance:
   m_ObjectHideFlags: 0

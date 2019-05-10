@@ -14,8 +14,9 @@ GameObject:
   - component: {fileID: 174636076881164248}
   - component: {fileID: 3942864198418467967}
   - component: {fileID: 3770917278329586987}
+  - component: {fileID: 4900750091537666658}
   m_Layer: 0
-  m_Name: foodBox (17)
+  m_Name: foodBox
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -123,6 +124,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_allowOffhandGrab: 1
+  twoHanded: 0
+  m_twoHandedGrab: 0
   m_snapPosition: 0
   m_snapOrientation: 0
   m_snapOffset: {fileID: 0}
@@ -130,3 +133,17 @@ MonoBehaviour:
   - {fileID: 174636076881164248}
   allColliders:
   - {fileID: 174636076881164248}
+--- !u!114 &4900750091537666658
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8556978281576323203}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_GeneratorAsset: {fileID: 0}
+  m_Script: {fileID: 11500000, guid: df882b45997c9a74cabf52481b6094ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  clip: {fileID: 8300000, guid: ce805155baf0c8945982ace2110717dd, type: 3}
