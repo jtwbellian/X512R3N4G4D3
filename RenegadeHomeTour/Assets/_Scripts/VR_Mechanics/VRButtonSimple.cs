@@ -33,7 +33,7 @@ public class VRButtonSimple : MonoBehaviour
 
     void OnEnable()
     {
-        Invoke("AllowPush", 0.5f);
+        Invoke("AllowPush", 1.5f);
     }
 
     public void AllowPush()
@@ -63,7 +63,7 @@ public class VRButtonSimple : MonoBehaviour
 
     void OnTriggerExit(Collider other)
     {
-        if (!canPush)
+        if (!canPush && (other.CompareTag("RightHand") || other.CompareTag("LeftHand")))
         {
             if (mat)
                 mat.color = color;

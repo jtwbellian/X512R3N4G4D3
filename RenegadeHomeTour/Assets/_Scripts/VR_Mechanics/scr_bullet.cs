@@ -18,14 +18,20 @@ public class scr_bullet : MonoBehaviour
     void OnCollisionEnter(Collision col)
     {
 
-        if (num_bounces < bounces)
+        /*if (num_bounces < bounces)
         {
             num_bounces++;
             return;
-        }
+        }*/
 
         var fxm = FXManager.GetInstance();
-        fxm.Burst(FXManager.FX.RadialBurst, transform.position + transform.forward * -0.2f, transform.rotation.eulerAngles, 4);
+
+        Vector3 pos = transform.position;
+
+        if (col.contactCount > 0)
+            pos = col.GetContact(0).point;
+
+        fxm.Burst(FXManager.FX.RadialBurst, pos, transform.rotation.eulerAngles, 4);
         Destroy();
     }
 
