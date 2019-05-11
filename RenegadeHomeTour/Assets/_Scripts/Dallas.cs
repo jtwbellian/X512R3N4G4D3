@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Dallas : MonoBehaviour
+public class Dallas : EVActor
 {
     private enum state { Look, Move}
     [SerializeField]
