@@ -48,6 +48,11 @@ public class scr_lock : iSpecial_Grabbable
         if (!rb)
             rb = lockTarget.GetComponentInChildren<Rigidbody>();
 
+        // set rigidbody to no rotation for performance
+        if (xr[0] + xr[1] + yr[0] + yr[1] + zr[0] + zr[1] == 0)
+            rb.freezeRotation = true;
+
+
         oldPos = transform.position;
         oldRot = transform.rotation.eulerAngles;
 

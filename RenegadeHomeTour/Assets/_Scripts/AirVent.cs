@@ -8,7 +8,7 @@ public class AirVent : MonoBehaviour
     AudioSource audio;
     public AudioClip flapSnd;
     public AudioClip rattleStartSnd;
-
+    public Transform shakeTarget;
     private bool rattle = false;
     Vector3 startPos;
 
@@ -39,7 +39,7 @@ public class AirVent : MonoBehaviour
     public void StopShaking()
     {
         rattle = false;
-        transform.position = startPos;
+        shakeTarget.position = startPos;
     }
 
     public void Reset()
@@ -54,14 +54,16 @@ public class AirVent : MonoBehaviour
         {
             float shake = Mathf.Sin(Time.time * 500f) * 0.005f;
 
-            transform.position = startPos + new Vector3(shake, -shake, shake );
+            shakeTarget.position = startPos + new Vector3(shake, -shake, shake );
         }
     }
 
     public void Flap()
     {
         if (audio != null)
-            audio.Play();
+        {
+            audio.PlayOneShot(flapSnd);
+        }
 
         if (anim == null)
             anim = GetComponent<Animator>();

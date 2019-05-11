@@ -33,13 +33,14 @@ public class IKPlayerController : EVActor
     public Transform head;
     public float height = 1.7f;
     public bool leftyMode = false;
+    public bool chairMode = false;
     public float offset = 0.0f;
 
     private Animator BodyAnimator;
     private Animator LHandAnimator;
     private Animator RHandAnimator;
 
-
+#region toggles
     public void IKOn()
     {
         ikOn = true;
@@ -51,6 +52,18 @@ public class IKPlayerController : EVActor
         ikOn = false;
         RefreshIKMode();
     }
+
+    public void ChairModeOn()
+    {
+        chairMode = true;
+        UpdatePlayerHeight();
+    }
+    public void ChairModeOff()
+    {
+        chairMode = false;
+        UpdatePlayerHeight();
+    }
+    #endregion
 
     private void RefreshIKMode()
     { 
@@ -64,6 +77,8 @@ public class IKPlayerController : EVActor
             obj.SetActive(!ikOn);
         }
     }
+
+
     // Start is called before the first frame update
     void Start()
     {

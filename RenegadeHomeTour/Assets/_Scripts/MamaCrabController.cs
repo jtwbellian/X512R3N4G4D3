@@ -81,7 +81,7 @@ public class MamaCrabController : MonoBehaviour
         fxManager = FXManager.GetInstance();
     }
 
-    void OnColliderEnter(Collider other)
+    void OnCollisionEnter(Collision other)
     {
         DoesDammage dd = other.transform.GetComponent<DoesDammage>();
 
@@ -95,7 +95,8 @@ public class MamaCrabController : MonoBehaviour
             audioSource.PlayOneShot(dd.impactSnd);
 
             fxManager = FXManager.GetInstance();
-            fxManager.Burst(FXManager.FX.Chunk, other.transform.position, 3);
+            fxManager.Burst(FXManager.FX.Chunk, other.transform.position, 2);
+            fxManager.Burst(FXManager.FX.Dissolve, other.transform.position, 10);
 
             health -= dmg;
 
@@ -131,6 +132,7 @@ public class MamaCrabController : MonoBehaviour
         {
             target = Camera.main.transform;
             current_state = state.Seek;
+            audioSource.PlayOneShot(chirp2);
         }
 
     }
@@ -233,6 +235,7 @@ public class MamaCrabController : MonoBehaviour
                         lastBeamTime = Time.time;
                         beamMat.SetFloat("_strength", 0.1f);
                         current_state = state.Seek;
+                        audioSource.PlayOneShot(chirp4);
                     }
                 break;
             }

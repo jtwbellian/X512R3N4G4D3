@@ -62,10 +62,12 @@ public class VRMovementController : MonoBehaviour
         //body = GetComponentInChildren<IKPlayerController>().transform;
         //rb = body.GetComponent<Rigidbody>();
         rigidBody.freezeRotation = true;
-        rigidBody.maxDepenetrationVelocity = MAX_SPEED/4;
+        rigidBody.maxDepenetrationVelocity = 0.5f;
         head = Camera.main.transform; //GetComponentInChildren<Camera>().transform;
         audio = GetComponent<AudioSource>();
         ikController = GetComponentInChildren<IKPlayerController>();
+
+
     }
 
     public void ViewRatchet(float amt)

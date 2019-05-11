@@ -5,7 +5,6 @@ using UnityEngine;
 public class vrt_gun : VRTool
 {
     [SerializeField]
-    private bool tutorialGun = false;
     private bool canFire = true;
     private AudioSource audioSource;
     private Animator anim;
@@ -94,11 +93,6 @@ public class vrt_gun : VRTool
             light.intensity = .5f;
         }
 
-        if (tutorialGun)
-        {
-            GameManager.GetInstance().direc.Ping(PING.gunFired);
-        }
-
         if (muzzleFlash != null)
         {
             muzzleFlash.Clear();
@@ -121,7 +115,7 @@ public class vrt_gun : VRTool
         }
         
     }
-
+    /*
     public void Authenicate()
     {
         tutorialGun = false;
@@ -130,7 +124,7 @@ public class vrt_gun : VRTool
     {
         tutorialGun = true;
     }
-
+    */
     public void LightOff()
     {
         light.intensity = 0f;

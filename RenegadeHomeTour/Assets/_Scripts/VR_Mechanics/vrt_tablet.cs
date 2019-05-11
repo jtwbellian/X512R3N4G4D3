@@ -7,6 +7,7 @@ public class vrt_tablet : VRTool
     private float distFromHead = 0.5f;
     public Transform leftGrip, rightGrip, offsetTarget;
     public LiveCam selfiCam;
+    public GameObject[] pages;
 
     public override void IndexRelease()
     {
@@ -19,6 +20,10 @@ public class vrt_tablet : VRTool
     public override void Init()
     {
         Invoke("GetInFace", 1f);
+        foreach (GameObject obj in pages)
+        {
+            obj.SetActive(false);
+        }
     }
 
     public void GetInFace()
@@ -53,10 +58,17 @@ public class vrt_tablet : VRTool
 
         LiveCam.SetActive(selfiCam);
 
+        if (pages != null)
+            pages[0].SetActive(true);
     }
 
     public override void OnRelease()
     {
+        foreach (GameObject obj in pages)
+        {
+            obj.SetActive(false);
+        }
+
         offsetTarget.SetParent(transform);
         //transform.localPosition = Vector3.zero;
         base.OnRelease();
