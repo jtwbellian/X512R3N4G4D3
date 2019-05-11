@@ -4,16 +4,28 @@ using UnityEngine;
 
 public class scr_bullet : MonoBehaviour
 {
+
+    public int bounces = 0;
+    private int num_bounces;
+
     // Start is called before the first frame update
     void OnEnable()
     {
+        num_bounces = 0;
         Invoke("Destroy", 2f);
     }
 
     void OnCollisionEnter(Collision col)
     {
+
+        if (num_bounces < bounces)
+        {
+            num_bounces++;
+            return;
+        }
+
         var fxm = FXManager.GetInstance();
-        fxm.Burst(FXManager.FX.RadialBurst, transform.position, transform.rotation.eulerAngles, 4);
+        fxm.Burst(FXManager.FX.RadialBurst, transform.position + transform.forward * -0.2f, transform.rotation.eulerAngles, 4);
         Destroy();
     }
 

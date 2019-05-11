@@ -17,8 +17,6 @@ public class IKPlayerController : EVActor
     private float rGrab = 0f;
     private float rFinger = 0f;
     private float rThumb = 0f;
-    private Transform []  feet;
-    private int numFeet = 0;
     [Header("IK Options")]
     public bool ikOn = false;
 
@@ -37,7 +35,6 @@ public class IKPlayerController : EVActor
     public bool leftyMode = false;
     public float offset = 0.0f;
 
-    private float turningRate = 1f;
     private Animator BodyAnimator;
     private Animator LHandAnimator;
     private Animator RHandAnimator;

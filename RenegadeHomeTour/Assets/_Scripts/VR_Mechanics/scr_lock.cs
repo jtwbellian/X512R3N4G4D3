@@ -6,9 +6,7 @@ using UnityEngine;
 public class scr_lock : iSpecial_Grabbable
 {
     private Transform trueParent = null;
-    private OVRGrabber lastGrabber = null;
-    private float breakPoint = 1f;//.5f;
-    private bool held = false;
+    private float breakPoint = 2f;
     private Vector3 lastPos;
     private Vector3 lastRot;
     private Collider myCol;
@@ -79,7 +77,7 @@ public class scr_lock : iSpecial_Grabbable
             {
                 
                 //grabbable.grabbedBy.GetPlayerRB().AddForce((lastPos - transform.position) / Time.deltaTime, ForceMode.VelocityChange);
-                grabbable.grabbedBy.GrabEnd();
+                //grabbable.grabbedBy.GrabEnd();
                 return;
             }
 
@@ -130,7 +128,7 @@ public class scr_lock : iSpecial_Grabbable
       
         transform.SetParent( trueParent);
         Debug.Log("parent set to  " + transform.parent);
-        held = true;
+        //held = true;
         offset = transform.position - grabbable.grabbedBy.transform.position;
     }
 
@@ -139,7 +137,7 @@ public class scr_lock : iSpecial_Grabbable
         LinesOn();
         Debug.Log("Released Lock");
         grabbable.grabbedBy.m_parentHeldObject = true;
-        held = false;
+        //held = false;
     }
 
     public void LinesOn()

@@ -197,17 +197,6 @@ MonoBehaviour:
   trigger:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_MethodName: 
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
       - m_Target: {fileID: 1757487909717136265}
         m_MethodName: SetActive
         m_Mode: 6
@@ -232,8 +221,8 @@ MonoBehaviour:
         m_CallState: 2
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
-  color: {r: 1, g: 1, b: 1, a: 0}
-  highlightColor: {r: 1, g: 0.9949784, b: 0.7028302, a: 0}
+  color: {r: 1, g: 1, b: 1, a: 1}
+  highlightColor: {r: 0.35599858, g: 0.5604971, b: 0.6037736, a: 1}
 --- !u!222 &5365155814645621899
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -489,7 +478,6 @@ GameObject:
   - component: {fileID: 7318019374340961302}
   - component: {fileID: 7700209826432206585}
   - component: {fileID: 4320579550431231769}
-  - component: {fileID: 305102177334442219}
   m_Layer: 0
   m_Name: Camera
   m_TagString: Untagged
@@ -506,7 +494,7 @@ Transform:
   m_GameObject: {fileID: 1835233527341641663}
   m_LocalRotation: {x: 0.0000000604375, y: -1, z: -0, w: -0.000000011390439}
   m_LocalPosition: {x: 0.014, y: 0, z: 0.228}
-  m_LocalScale: {x: -0.24104911, y: 0.24104911, z: 0.24104911}
+  m_LocalScale: {x: 0.2410491, y: 0.24104911, z: 0.24104911}
   m_Children: []
   m_Father: {fileID: 7037386740820870486}
   m_RootOrder: 0
@@ -568,19 +556,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cam: {fileID: 0}
---- !u!135 &305102177334442219
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1835233527341641663}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 15
-  m_Center: {x: 0, y: 0, z: 0}
+  surface: {fileID: 1081305636922635196}
+  matSLot: 0
+  idleScreen: {fileID: 2800000, guid: 6e904151347354e499c7704ebfea96ea, type: 3}
+  renderScreen: {fileID: 8400000, guid: c11042e1510869645ae7030cf2de0f23, type: 2}
 --- !u!1 &1858832437120513817
 GameObject:
   m_ObjectHideFlags: 0
@@ -839,17 +818,6 @@ MonoBehaviour:
   trigger:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_MethodName: 
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
       - m_Target: {fileID: 7042794546491633800}
         m_MethodName: SetActive
         m_Mode: 6
@@ -874,8 +842,8 @@ MonoBehaviour:
         m_CallState: 2
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
-  color: {r: 1, g: 1, b: 1, a: 0}
-  highlightColor: {r: 1, g: 0.9949784, b: 0.7028302, a: 0}
+  color: {r: 1, g: 1, b: 1, a: 1}
+  highlightColor: {r: 0.36124957, g: 0.4979991, b: 0.6226415, a: 1}
 --- !u!222 &4429692185520454415
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1112,7 +1080,7 @@ MonoBehaviour:
   leftGrip: {fileID: 4408020626472965923}
   rightGrip: {fileID: 7341654047867242792}
   offsetTarget: {fileID: 5920235661812923496}
-  rb: {fileID: 2495186021874155155}
+  selfiCam: {fileID: 4320579550431231769}
 --- !u!54 &2495186021874155155
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1325,8 +1293,8 @@ MonoBehaviour:
         m_CallState: 2
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
-  color: {r: 1, g: 1, b: 1, a: 0}
-  highlightColor: {r: 1, g: 0.9949784, b: 0.7028302, a: 0}
+  color: {r: 1, g: 1, b: 1, a: 1}
+  highlightColor: {r: 0.36538804, g: 0.54824907, b: 0.6509434, a: 1}
 --- !u!222 &1916221131599574472
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1644,17 +1612,6 @@ MonoBehaviour:
   trigger:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_MethodName: 
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
       - m_Target: {fileID: 1757487909717136265}
         m_MethodName: SetActive
         m_Mode: 6
@@ -1679,8 +1636,8 @@ MonoBehaviour:
         m_CallState: 2
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
-  color: {r: 1, g: 1, b: 1, a: 0}
-  highlightColor: {r: 1, g: 0.9949784, b: 0.7028302, a: 0}
+  color: {r: 1, g: 1, b: 1, a: 1}
+  highlightColor: {r: 0.35599858, g: 0.5604971, b: 0.6037736, a: 1}
 --- !u!222 &9003919043481076167
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2258,8 +2215,8 @@ MonoBehaviour:
         m_CallState: 2
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
-  color: {r: 1, g: 1, b: 1, a: 0}
-  highlightColor: {r: 1, g: 0.9949784, b: 0.7028302, a: 0}
+  color: {r: 1, g: 1, b: 1, a: 1}
+  highlightColor: {r: 0.36538804, g: 0.54824907, b: 0.6509434, a: 1}
 --- !u!222 &6623107823413250217
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3267,8 +3224,8 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
-  color: {r: 1, g: 1, b: 1, a: 0}
-  highlightColor: {r: 1, g: 0.9949784, b: 0.7028302, a: 0}
+  color: {r: 1, g: 1, b: 1, a: 1}
+  highlightColor: {r: 0.3190192, g: 0.5242609, b: 0.6320754, a: 1}
 --- !u!222 &8298648611847955264
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3394,10 +3351,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2929348071771372598}
   - component: {fileID: 4344339497518448901}
-  - component: {fileID: 7236077799908896540}
-  - component: {fileID: 4828148186788869949}
   - component: {fileID: 4980451462378670471}
-  - component: {fileID: 7481723342107934373}
   m_Layer: 0
   m_Name: image_height
   m_TagString: Untagged
@@ -3472,39 +3426,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!65 &7236077799908896540
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8037609774640119152}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.07188785, y: 0.12620544, z: 0.024885178}
-  m_Center: {x: 0.0016694069, y: -0.0009698868, z: -0.008444786}
---- !u!114 &4828148186788869949
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8037609774640119152}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_GeneratorAsset: {fileID: 0}
-  m_Script: {fileID: 11500000, guid: 71cee0e18a5bbf442b801cac22be6309, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  trigger:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
-  color: {r: 1, g: 1, b: 1, a: 0}
-  highlightColor: {r: 1, g: 0.9949784, b: 0.7028302, a: 0}
 --- !u!222 &4980451462378670471
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3513,41 +3434,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8037609774640119152}
   m_CullTransparentMesh: 0
---- !u!114 &7481723342107934373
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8037609774640119152}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_GeneratorAsset: {fileID: 0}
-  m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 0.89673644, g: 1, b: 0.36320752, a: 1}
-  m_RaycastTarget: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
-      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_FontData:
-    m_Font: {fileID: 12800000, guid: 3ce60ff1ad92a2b4c8a11c5bbd595ea5, type: 3}
-    m_FontSize: 17
-    m_FontStyle: 0
-    m_BestFit: 0
-    m_MinSize: 4
-    m_MaxSize: 40
-    m_Alignment: 4
-    m_AlignByGeometry: 0
-    m_RichText: 1
-    m_HorizontalOverflow: 0
-    m_VerticalOverflow: 0
-    m_LineSpacing: 1
-  m_Text: SIT
 --- !u!1 &8074749965199847770
 GameObject:
   m_ObjectHideFlags: 0
@@ -3616,17 +3502,6 @@ MonoBehaviour:
   trigger:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_MethodName: 
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
       - m_Target: {fileID: 3808153699941663781}
         m_MethodName: SetActive
         m_Mode: 6
@@ -3651,8 +3526,8 @@ MonoBehaviour:
         m_CallState: 2
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
-  color: {r: 1, g: 1, b: 1, a: 0}
-  highlightColor: {r: 1, g: 0.9949784, b: 0.7028302, a: 0}
+  color: {r: 1, g: 1, b: 1, a: 1}
+  highlightColor: {r: 0.35599858, g: 0.5604971, b: 0.6037736, a: 1}
 --- !u!222 &5091191623718308771
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3778,17 +3653,6 @@ MonoBehaviour:
   trigger:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_MethodName: 
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
       - m_Target: {fileID: 7042794546491633800}
         m_MethodName: SetActive
         m_Mode: 6
@@ -3813,8 +3677,8 @@ MonoBehaviour:
         m_CallState: 2
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
-  color: {r: 1, g: 1, b: 1, a: 0}
-  highlightColor: {r: 1, g: 0.9949784, b: 0.7028302, a: 0}
+  color: {r: 1, g: 1, b: 1, a: 1}
+  highlightColor: {r: 0.36124957, g: 0.4979991, b: 0.6226415, a: 1}
 --- !u!222 &7625591310167811526
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -4114,8 +3978,8 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
-  color: {r: 1, g: 1, b: 1, a: 0}
-  highlightColor: {r: 1, g: 0.9949784, b: 0.7028302, a: 0}
+  color: {r: 1, g: 1, b: 1, a: 1}
+  highlightColor: {r: 0.3190192, g: 0.5242609, b: 0.6320754, a: 1}
 --- !u!222 &1556257477755152142
 CanvasRenderer:
   m_ObjectHideFlags: 0

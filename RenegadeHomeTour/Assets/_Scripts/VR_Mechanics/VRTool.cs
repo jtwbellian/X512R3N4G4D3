@@ -15,8 +15,6 @@ public abstract class VRTool : iSpecial_Grabbable
     private float indexValue = 0f;
     private bool indexDown = false;
     private bool thumbDown = false;
-    private float minRadius = 0.25f;
-    private float maxRadius = 0.35f;
 
     [HideInInspector]
     public Collider[] toolCols;
@@ -200,7 +198,7 @@ public abstract class VRTool : iSpecial_Grabbable
 
     public void LinesOn()
     {
-        var renderers = GetComponentsInChildren<Renderer>();
+        renderers = GetComponentsInChildren<Renderer>();
         // Set interactable lines on or off
         foreach (Renderer r in renderers)
         {
@@ -210,7 +208,7 @@ public abstract class VRTool : iSpecial_Grabbable
 
     public void LinesOff()
     {
-        var renderers = GetComponentsInChildren<Renderer>();
+        renderers = GetComponentsInChildren<Renderer>();
         // Set interactable lines on or off
         foreach (Renderer r in renderers)
         {

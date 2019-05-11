@@ -7,7 +7,7 @@ public class FXManager : MonoBehaviour
 
     public enum FX
     {
-        Dissolve, RadialBurst, Chunk
+        Dissolve, RadialBurst, Chunk, Beam, Shock
 
     }
 
