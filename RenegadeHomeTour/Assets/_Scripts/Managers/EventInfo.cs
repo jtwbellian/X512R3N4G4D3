@@ -18,11 +18,12 @@ public enum EV
     audioStart,
     audioWait,
     EntersTrigger,
-    ExitsTrigger
+    ExitsTrigger,
+    GoHome
 }
 
 [System.Serializable, CreateAssetMenu(fileName = "Data", menuName = "ScriptableObjects/EventInfo")]
-public class EventInfo
+public class EventInfo : ScriptableObject
 {
     public string myName = "NEW EVENT";
     public EV type = EV.NONE;

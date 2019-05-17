@@ -33,7 +33,7 @@ public class VRButtonSimple : MonoBehaviour
 
     void OnEnable()
     {
-        Invoke("AllowPush", 1.5f);
+        Invoke("AllowPush", 1f);
     }
 
     public void AllowPush()
@@ -46,12 +46,12 @@ public class VRButtonSimple : MonoBehaviour
         if (!canPush)
             return;
 
-        if (other.CompareTag("RightHand"))
+        if (other.gameObject.name.Contains("index_03") &&other.gameObject.CompareTag("RightHand"))
         {
             OVRHapticsManager.GetInstance().BuzzRight(VibrationForce.Medium, 0.05f);
             canPush = false;
         }
-        else if (other.CompareTag("LeftHand"))
+        else if (other.gameObject.name.Contains("index_03") && other.gameObject.CompareTag("LeftHand"))
         {
             canPush = false;
             OVRHapticsManager.GetInstance().BuzzLeft(VibrationForce.Medium, 0.05f);
@@ -63,23 +63,23 @@ public class VRButtonSimple : MonoBehaviour
 
     void OnTriggerExit(Collider other)
     {
-        if (!canPush && (other.CompareTag("RightHand") || other.CompareTag("LeftHand")))
+        if (!canPush && (other.gameObject.name.Contains("index_03")))
         {
-            if (mat)
-                mat.color = color;
-
             canPush = true;
             trigger.Invoke();
         }
+
+        if (mat)
+            mat.color = color;
     }
 
-   /* void OnTriggerStay(Collider col)
-    {
-        if(col.CompareTag("RightHand") || col.CompareTag("LeftHand"))
-        if (OVRInput.Get(OVRInput.Button.One) || OVRInput.Get(OVRInput.Button.Three))
-        {
-            trigger.Invoke();
-        }
-    }*/
+    /* void OnTriggerStay(Collider col)
+     {
+         if(col.CompareTag("RightHand") || col.CompareTag("LeftHand"))
+         if (OVRInput.Get(OVRInput.Button.One) || OVRInput.Get(OVRInput.Button.Three))
+         {
+             trigger.Invoke();
+         }
+     }*/
 
 }

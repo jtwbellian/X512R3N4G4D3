@@ -23,7 +23,6 @@ public class EventManager : MonoBehaviour
 
         void Awake()
         {
-        Debug.Log("EventManager Awake");
             if (_instance != null)
                 Destroy(this);
             else
@@ -37,7 +36,6 @@ public class EventManager : MonoBehaviour
     public event EventBeginHandler ToolEventBegin;
     public event EventBeginHandler EnvironmentEventBegin;
     public event EventBeginHandler GlobalEventBegin;
-
 
     #region eventDesignerTools
 
@@ -74,7 +72,7 @@ public class EventManager : MonoBehaviour
         {
             EventManager.GetInstance().currentEvent++;
             EventManager.GetInstance().StartEvent();
-            Debug.Log("Event [" + actor.myEvent + "] completed by " + actor.myName);
+            //Debug.Log("Event [" + actor.myEvent + "] completed by " + actor.myName);
         }
     }
 

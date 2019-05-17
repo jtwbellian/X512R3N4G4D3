@@ -14640,13 +14640,13 @@ MonoBehaviour:
   home: {fileID: 0}
   haptics: {fileID: 0}
   hand: 0
-  tutorialGun: 0
-  poolAmt: 20
+  canFire: 1
+  poolAmt: 10
   bulletType: {fileID: 310914464749162283, guid: cdd7d9bcecbc9cb47b747f71d056147e,
     type: 3}
   fullAuto: 0
   cooldown: 1
-  fireSpeed: 15
+  fireSpeed: 20
   gunBarrel: {fileID: 6278779228977084512}
   muzzleFlash: {fileID: 159337430203104444}
 --- !u!65 &41105589334980748
@@ -14769,7 +14769,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.2
+  m_Radius: 0.12
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &8063285308803217163
 GameObject:

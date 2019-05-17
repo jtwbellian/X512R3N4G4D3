@@ -21,7 +21,7 @@ public class Dallas : EVActor
     // Start is called before the first frame update
     void Start()
     {
-
+        subscribesTo = AppliesTo.ENV;
         transform.parent = null;
         ps = GetComponentInChildren<ParticleSystem>();
         target = Camera.main.transform;
@@ -32,6 +32,20 @@ public class Dallas : EVActor
     void OnEnable()
     {
         //ps.Play();
+    }
+
+    public override void BeginEvent()
+    {
+        switch (myEvent.type)
+        {
+            case EV.GoHome:
+                GoHome();
+                EventManager.CompleteTask(this);
+                break;
+
+            default:
+                break;
+        }
     }
 
     public void OnTriggerEnter(Collider col)

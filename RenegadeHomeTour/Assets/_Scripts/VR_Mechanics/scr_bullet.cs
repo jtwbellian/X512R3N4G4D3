@@ -5,13 +5,13 @@ using UnityEngine;
 public class scr_bullet : MonoBehaviour
 {
 
-    public int bounces = 0;
-    private int num_bounces;
+    //public int bounces = 0;
+    //private int num_bounces;
 
     // Start is called before the first frame update
     void OnEnable()
     {
-        num_bounces = 0;
+        //num_bounces = 0;
         Invoke("Destroy", 2f);
     }
 
