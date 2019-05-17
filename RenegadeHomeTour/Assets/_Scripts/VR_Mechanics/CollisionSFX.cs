@@ -13,10 +13,11 @@ public class CollisionSFX : MonoBehaviour
     }
     void OnCollisionEnter(Collision col)
     {
-        var sm = SoundManager.GetInstance();
+        if (!col.gameObject.isStatic)
+            return;
 
-            Debug.Log("sound is played!");
-            sm.PlayImpactSFX(clip, gameObject);
+        var sm = SoundManager.GetInstance();
+        sm.PlayImpactSFX(clip, gameObject);
        // }
     }
 }

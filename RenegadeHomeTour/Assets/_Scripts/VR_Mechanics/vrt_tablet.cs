@@ -24,8 +24,8 @@ public class vrt_tablet : VRTool
     public void GetInFace()
     {
         transform.position = Camera.main.transform.position + Camera.main.transform.forward * distFromHead;
-        transform.LookAt(Camera.main.transform, Vector3.up);
-        transform.Rotate(new Vector3(1.0f, 0, 0), 90);
+        transform.LookAt(Camera.main.transform, Vector3.up );
+        transform.Rotate(new Vector3(0,1.0f, 0), 180f);
         offsetTarget.localRotation = Quaternion.Euler(-45,0,0);
     }
 
@@ -39,7 +39,6 @@ public class vrt_tablet : VRTool
 
     public override void OnGrab()
     {
-        Debug.Log("Lux plate pickup");
         if (grabInfo.grabbedBy.CompareTag("RightHand"))
         {
             offsetTarget.SetParent(rightGrip);

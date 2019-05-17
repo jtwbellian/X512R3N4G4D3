@@ -7,17 +7,19 @@ using UnityEngine.UI;
 public class VRButtonSimple : MonoBehaviour
 {
     private Collider finger1, finger2;
-    private Material mat;
+    private SpriteRenderer mat;
+
     public UnityEvent trigger;
     public Color color;
     public Color highlightColor;
+    bool canPush = false;
 
     // Start is called before the first frame update
     void Start()
     {
-        mat = GetComponentInChildren<Image>().material;
-
-        foreach (SphereCollider c in GameManager.GetInstance().playerCols)
+        mat = GetComponent<SpriteRenderer>();
+        /*
+        foreach (Vs c in GameManager.GetInstance().playerCols)
         {
             if (finger1 == null)
                 finger1 = c;
@@ -26,23 +28,49 @@ public class VRButtonSimple : MonoBehaviour
                 finger2 = c;
                 break;
             }
-        }
+        }*/
+    }
+
+    void OnEnable()
+    {
+        Invoke("AllowPush", 0.5f);
+    }
+
+    public void AllowPush()
+    {
+        canPush = true;
     }
 
     void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("RightHand") || other.CompareTag("LeftHand"))
-            if (OVRInput.Get(OVRInput.Button.One) || OVRInput.Get(OVRInput.Button.Three))
-            {
-                trigger.Invoke();
-            }
+        if (!canPush)
+            return;
 
-        mat.SetColor("_tint", highlightColor);
+        if (other.CompareTag("RightHand"))
+        {
+            OVRHapticsManager.GetInstance().BuzzRight(VibrationForce.Medium, 0.05f);
+            canPush = false;
+        }
+        else if (other.CompareTag("LeftHand"))
+        {
+            canPush = false;
+            OVRHapticsManager.GetInstance().BuzzLeft(VibrationForce.Medium, 0.05f);
+        }
+
+        if (mat)
+            mat.color = highlightColor;
     }
 
     void OnTriggerExit(Collider other)
     {
-        mat.SetColor("_tint", color);
+        if (!canPush)
+        {
+            if (mat)
+                mat.color = color;
+
+            canPush = true;
+            trigger.Invoke();
+        }
     }
 
    /* void OnTriggerStay(Collider col)

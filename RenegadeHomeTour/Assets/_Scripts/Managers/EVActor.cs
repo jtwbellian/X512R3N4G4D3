@@ -14,61 +14,76 @@ public abstract class EVActor : MonoBehaviour
     [ContextMenu("Subscribe")]
     public void Subscribe()
     {
-        Debug.Log( myName + " Subscribed to " + subscribesTo);
+        var eventMan = EventManager.GetInstance();
+
+        if (eventMan == null)
+        {
+            Debug.Log("Event Manager not found, could not unsubscribe");
+            return;
+        }
+
         switch (subscribesTo)
         {
             case AppliesTo.ALL:
-                EventManager.GetInstance().GlobalEventBegin += OnEventBegin;
-                EventManager.GetInstance().PlayerEventBegin += OnEventBegin;
-                EventManager.GetInstance().AudioEventBegin += OnEventBegin;
-                EventManager.GetInstance().ToolEventBegin += OnEventBegin;
-                EventManager.GetInstance().EnvironmentEventBegin += OnEventBegin;
+                eventMan.GlobalEventBegin += OnEventBegin;
+                eventMan.PlayerEventBegin += OnEventBegin;
+                eventMan.AudioEventBegin += OnEventBegin;
+                eventMan.ToolEventBegin += OnEventBegin;
+                eventMan.EnvironmentEventBegin += OnEventBegin;
                 break;
 
             case AppliesTo.PLAYER:
-                EventManager.GetInstance().PlayerEventBegin += OnEventBegin;
+                eventMan.PlayerEventBegin += OnEventBegin;
                 break;
 
             case AppliesTo.AUDIO:
-                EventManager.GetInstance().AudioEventBegin += OnEventBegin;
+                eventMan.AudioEventBegin += OnEventBegin;
                 break;
 
             case AppliesTo.TOOLS:
-                EventManager.GetInstance().ToolEventBegin += OnEventBegin;
+                eventMan.ToolEventBegin += OnEventBegin;
                 break;
 
             case AppliesTo.ENV:
-                EventManager.GetInstance().EnvironmentEventBegin += OnEventBegin;
+                eventMan.EnvironmentEventBegin += OnEventBegin;
                 break;
         }
     }
 
     public void Unsubscribe()
     {
+        var eventMan = EventManager.GetInstance();
+
+        if (eventMan == null)
+        {
+            Debug.Log("Event Manager not found, could not unsubscribe");
+            return;
+        }
+
         switch (subscribesTo)
         {
             case AppliesTo.ALL:
-                EventManager.GetInstance().GlobalEventBegin -= OnEventBegin;
-                EventManager.GetInstance().PlayerEventBegin -= OnEventBegin;
-                EventManager.GetInstance().AudioEventBegin -= OnEventBegin;
-                EventManager.GetInstance().ToolEventBegin -= OnEventBegin;
-                EventManager.GetInstance().EnvironmentEventBegin -= OnEventBegin;
+                eventMan.GlobalEventBegin -= OnEventBegin;
+                eventMan.PlayerEventBegin -= OnEventBegin;
+                eventMan.AudioEventBegin -= OnEventBegin;
+                eventMan.ToolEventBegin -= OnEventBegin;
+                eventMan.EnvironmentEventBegin -= OnEventBegin;
                 break;
 
             case AppliesTo.PLAYER:
-                EventManager.GetInstance().PlayerEventBegin -= OnEventBegin;
+                eventMan.PlayerEventBegin -= OnEventBegin;
                 break;
 
             case AppliesTo.AUDIO:
-                EventManager.GetInstance().AudioEventBegin -= OnEventBegin;
+                eventMan.AudioEventBegin -= OnEventBegin;
                 break;
 
             case AppliesTo.TOOLS:
-                EventManager.GetInstance().ToolEventBegin -= OnEventBegin;
+                eventMan.ToolEventBegin -= OnEventBegin;
                 break;
 
             case AppliesTo.ENV:
-                EventManager.GetInstance().EnvironmentEventBegin -= OnEventBegin;
+                eventMan.EnvironmentEventBegin -= OnEventBegin;
                 break;
         }
     }

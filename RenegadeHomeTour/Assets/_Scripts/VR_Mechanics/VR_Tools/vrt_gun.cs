@@ -73,7 +73,7 @@ public class vrt_gun : VRTool
                 bulletPool[i].transform.position = gunBarrel.position;
                 bulletPool[i].transform.rotation = gunBarrel.rotation;
                 bulletPool[i].gameObject.SetActive(true);
-                bulletPool[i].velocity = transform.forward * fireSpeed;
+                bulletPool[i].velocity = transform.forward * fireSpeed + grabInfo.grabbedBy.GetPlayerRB().velocity;
                 bulletPool[i].angularVelocity = Vector3.zero;
                 break;
             }

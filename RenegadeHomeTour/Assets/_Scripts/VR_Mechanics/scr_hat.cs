@@ -56,7 +56,8 @@ public class scr_hat : VRTool
     public void OutfitOn()
     {
         Debug.Log("Hat On");
-        GameManager.GetInstance().ChangeSkin(myMesh.materials[1]);
+        var myMat = myMesh.materials[1];
+        GameManager.GetInstance().ChangeSkin(myMat);
         myMesh.enabled = false;
         hidden = true;
     }

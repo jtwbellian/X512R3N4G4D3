@@ -19,6 +19,8 @@ public class MamaCrabController : MonoBehaviour
     public GameObject beam;
     public Collider[] myCols;
 
+    public Collider[] ignoreColliders;
+
     private float lastBeamTime = 0f;
     private float chargeDelay = 20f;
     [SerializeField]
@@ -32,6 +34,7 @@ public class MamaCrabController : MonoBehaviour
     public state current_state;
     public float speed = 2f;
     public float jumpDist = 4f;
+    private float beamStrength = 0f;
 
     public Transform target;
 
@@ -40,6 +43,7 @@ public class MamaCrabController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+
         var renderer = GetComponentInChildren<Renderer>();
         mats = renderer.materials;
         rb = GetComponent<Rigidbody>();
@@ -64,6 +68,11 @@ public class MamaCrabController : MonoBehaviour
             foreach (Collider c in myCols)
             {
                 Physics.IgnoreCollision(playerCol, c);
+
+                foreach (Collider ic in ignoreColliders)
+                {
+                    Physics.IgnoreCollision(c, ic);
+                }
             }
 
         var beamRenderer = beam.GetComponentInChildren<MeshRenderer>();
@@ -74,24 +83,6 @@ public class MamaCrabController : MonoBehaviour
 
     void OnColliderEnter(Collider other)
     {
-        if ((current_state == state.Attack || current_state == state.Jump) && other.transform.root == target)
-        {
-            VRMovementController player = other.transform.root.GetComponent<VRMovementController>();
-            player.Hurt(0.25f);
-            return;
-        }
-
-        OnTriggerEnter(other);
-    }
-
-    void OnTriggerEnter(Collider other)
-    {
-        if (other.transform == target && current_state == state.Walk)
-        {
-            target = Camera.main.transform;
-            current_state = state.Seek;
-        }
-
         DoesDammage dd = other.transform.GetComponent<DoesDammage>();
 
         if (dd != null)
@@ -104,7 +95,7 @@ public class MamaCrabController : MonoBehaviour
             audioSource.PlayOneShot(dd.impactSnd);
 
             fxManager = FXManager.GetInstance();
-            fxManager.Burst(FXManager.FX.Chunk, transform.position, 3);
+            fxManager.Burst(FXManager.FX.Chunk, other.transform.position, 3);
 
             health -= dmg;
 
@@ -123,6 +114,25 @@ public class MamaCrabController : MonoBehaviour
                 gm.IncrementKillCount();
             }
         }
+    }
+
+    void OnTriggerEnter(Collider other)
+    {
+
+        if (current_state == state.Attack && other.transform.root.CompareTag("Player"))
+        {
+            VRMovementController player = other.transform.root.GetComponent<VRMovementController>();
+            player.Hurt(beamStrength);
+            return;
+        }
+
+
+        if (other.transform == target && current_state == state.Walk)
+        {
+            target = Camera.main.transform;
+            current_state = state.Seek;
+        }
+
     }
 
     // Update is called once per frame
@@ -199,10 +209,26 @@ public class MamaCrabController : MonoBehaviour
                             rb.MoveRotation(Quaternion.Lerp(transform.rotation, targetRotation, sharpness));
                         }
 
-                        beamMat.SetFloat("_strength", Mathf.Lerp(0.1f, 1f, amt));
+                        int layerMask = 1 << 2;
+                        layerMask = ~layerMask;
+
+                        RaycastHit hit;
+                        // Does the ray intersect any objects excluding the player layer
+                        if (Physics.Raycast(beam.transform.position, beam.transform.TransformDirection(Vector3.forward), out hit, 10f, layerMask))
+                        {
+                            FXManager.GetInstance().Burst(FXManager.FX.Beam, hit.point, 3);
+                            var beamObj = beam.GetComponentInChildren<MeshRenderer>().transform;
+                            beamObj.localScale.Set(beamObj.localScale.x, Vector3.Distance(hit.point, beamObj.position), beamObj.localScale.z);
+                            Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.forward) * hit.distance, Color.yellow);
+                        }
+
+                        beamStrength = Mathf.Lerp(0.1f, 1f, amt);
+                        beamMat.SetFloat("_strength", beamStrength);
+
                     }
                     else
                     {
+                        beamStrength = 0f;
                         beam.SetActive(false);
                         lastBeamTime = Time.time;
                         beamMat.SetFloat("_strength", 0.1f);
