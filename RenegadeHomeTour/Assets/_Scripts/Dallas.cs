@@ -4,16 +4,21 @@ using UnityEngine;
 
 public class Dallas : EVActor
 {
-    private enum state { Look, Move}
+    private const float MIN_DIST = 0.5f;
+    private enum state { Look, Move, Follow}
     [SerializeField]
     private Transform target;
     private ParticleSystem ps;
     private Rigidbody rb;
+    private Quaternion targetRotation;
+    private float str;
+    private GameManager gm;
     [SerializeField]
     private float speed = 10f;
     [SerializeField]
     private Transform home;
     private Transform camView;
+    private bool isHome = false;
 
     [SerializeField]
     state currentState = state.Look;
@@ -27,6 +32,7 @@ public class Dallas : EVActor
         target = Camera.main.transform;
         rb = GetComponent<Rigidbody>();
         camView = GameManager.GetInstance().hud.hudAnchor.transform;
+        gm = GameManager.GetInstance();
     }
 
     void OnEnable()
@@ -63,7 +69,6 @@ public class Dallas : EVActor
             }
             else
                 target = dest.nextDestination;
-
         }
     }
 
@@ -101,13 +106,30 @@ public class Dallas : EVActor
         switch(currentState)
         {
             case state.Move:
+                if (Vector3.Distance(target.position, transform.position) < MIN_DIST)
+                {
+                    if (!isHome && target == home)
+                    {
+                        isHome = true;
+                    }
+                    return;
+                }
+
                 rb.AddForce((target.position - transform.position) * speed, ForceMode.Force);
                 goto case state.Look;
- 
+
+            case state.Follow:
+                targetRotation = Quaternion.LookRotation(Camera.main.transform.position - transform.position);
+                str = Mathf.Min(Time.deltaTime, 1);
+                transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, str);
+
+                rb.AddForce(((gm.hud.hudAnchor.position + gm.hud.hudAnchor.right * 2f) - transform.position) * speed, ForceMode.Force);
+                break;
+
             case state.Look:
 
-                var targetRotation = Quaternion.LookRotation(target.position - transform.position);
-                var str = Mathf.Min(Time.deltaTime, 1);
+                targetRotation = Quaternion.LookRotation(target.position - transform.position);
+                str = Mathf.Min(Time.deltaTime, 1);
                 transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, str);
                 break;
         }

@@ -342,7 +342,7 @@ public class OVRGrabber : MonoBehaviour
         {
             var rhand = transform.root.GetComponentInChildren<IKPlayerController>().handR;
 
-            Debug.Log("rhand: " + rhand);
+            //Debug.Log("rhand: " + rhand);
             #region errorHandling
             if (!rhand)
             {

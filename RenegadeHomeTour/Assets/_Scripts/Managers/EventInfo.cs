@@ -13,13 +13,15 @@ public enum EV
     ItemDropped,
     targetHit,
     analogFwd,
-    gameWon,
     weaponHolstered,
     audioStart,
     audioWait,
     EntersTrigger,
     ExitsTrigger,
-    GoHome
+    GoHome,
+    GameStart,
+    GameEnd,
+    FollowPlayer
 }
 
 [System.Serializable, CreateAssetMenu(fileName = "Data", menuName = "ScriptableObjects/EventInfo")]

@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
+public enum GameMode { crabs, sandbox};
+
 public class GameManager : MonoBehaviour
 {
+    public CrabGame gameMode;
     [HideInInspector]
-
-
     public bool playerIsDead = false;
     public static int MAX_CRABS = 50;
     public static int num_crabs = 0;

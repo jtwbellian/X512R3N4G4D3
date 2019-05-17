@@ -153,9 +153,7 @@ public class IKPlayerController : EVActor
 
         if (chairMode)
         {
-            Debug.Log("Chair height set. was " + height);
             height *= CHAIR_SCALE_FACTOR;
-            Debug.Log("is now " + height); 
         }
 
         float newScale = height / DEFAULT_HEIGHT;
@@ -243,11 +241,12 @@ public class IKPlayerController : EVActor
         //CheckPointing();
 
         // Click both sticks in to reset height and scale
+        /*
         if (OVRInput.Get(OVRInput.Button.SecondaryThumbstick) && OVRInput.Get(OVRInput.Button.PrimaryThumbstick))
         {
             //GameManager.GetInstance().direc.Ping(PING.calibrated);
             UpdatePlayerHeight();
-        }
+        }*/
 
         // Press A + X for menu
         if (OVRInput.Get(OVRInput.Button.One) && OVRInput.Get(OVRInput.Button.Three))

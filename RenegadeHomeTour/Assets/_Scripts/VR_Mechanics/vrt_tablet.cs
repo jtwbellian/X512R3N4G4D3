@@ -53,6 +53,10 @@ public class vrt_tablet : VRTool
 
     void Update()
     {
+        // Both thumbsticks down, call tablet
+        if (OVRInput.Get(OVRInput.Button.SecondaryThumbstick) && OVRInput.Get(OVRInput.Button.PrimaryThumbstick))
+            GetInFace();
+
         if (pages[1].activeSelf)
         {
             heightText.text = playerData.ikController.GetHeightStr();

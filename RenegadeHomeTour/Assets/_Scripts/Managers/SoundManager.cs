@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SoundManager : MonoBehaviour
+public class SoundManager : EVActor
 {
     public static SoundManager instance;
     public AudioSource music, player, dialogue, environment;
@@ -21,6 +21,7 @@ public class SoundManager : MonoBehaviour
         }
 
         Init();
+        
     }
 
     public static SoundManager GetInstance()

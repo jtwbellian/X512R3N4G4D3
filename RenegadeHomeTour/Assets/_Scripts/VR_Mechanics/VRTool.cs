@@ -41,8 +41,6 @@ public abstract class VRTool : iSpecial_Grabbable
 
         Grab += OnGrab;
         Release += OnRelease;
-        Debug.Log(name + "Grab: " + Grab.GetInvocationList());
-        Debug.Log(name + "Release: " + Release.GetInvocationList());
 
         Init();
     }

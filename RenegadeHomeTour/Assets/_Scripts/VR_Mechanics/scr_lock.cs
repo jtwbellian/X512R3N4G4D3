@@ -127,12 +127,12 @@ public class scr_lock : iSpecial_Grabbable
 
     public void OnGrab()
     {
-        Debug.Log("Grabbed Lock");
+        //Debug.Log("Grabbed Lock");
         grabbable.grabbedBy.m_parentHeldObject = false;
         LinesOff();
       
         transform.SetParent( trueParent);
-        Debug.Log("parent set to  " + transform.parent);
+        //Debug.Log("parent set to  " + transform.parent);
         //held = true;
         offset = transform.position - grabbable.grabbedBy.transform.position;
     }
@@ -140,7 +140,7 @@ public class scr_lock : iSpecial_Grabbable
     public void OnRelease()
     {
         LinesOn();
-        Debug.Log("Released Lock");
+        //Debug.Log("Released Lock");
         grabbable.grabbedBy.m_parentHeldObject = true;
         //held = false;
     }

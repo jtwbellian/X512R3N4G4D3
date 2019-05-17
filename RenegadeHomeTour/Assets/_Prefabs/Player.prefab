@@ -4253,11 +4253,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   myName: IK
-  myEvent:
-    myName: NEW EVENT
-    type: -1
-    target: 0
-    tag: NONE
+  myEvent: {fileID: 0}
   ikOn: 0
   parts_ik:
   - {fileID: 6003178558084839286}
@@ -9291,7 +9287,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &3670406630382310899
 Transform:
   m_ObjectHideFlags: 0
@@ -9415,7 +9411,7 @@ SphereCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.22
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Center: {x: 0, y: 0, z: 0.09}
 --- !u!114 &2703954543542358316
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9725,6 +9721,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: RHolster
+      objectReference: {fileID: 0}
+    - target: {fileID: 5427088821728291897, guid: 767cb7dbd8fda3742931958577e01750,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 860758916276518411, guid: 767cb7dbd8fda3742931958577e01750,
         type: 3}

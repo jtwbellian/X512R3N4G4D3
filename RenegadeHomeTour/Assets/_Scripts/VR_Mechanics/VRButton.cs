@@ -5,15 +5,17 @@ using UnityEngine.Events;
 
 public class VRButton : MonoBehaviour
 {
-    public bool on = false;
     private Material mat;
+    private AudioSource audioSource;
+
+    public bool on = false;
     public UnityEvent turnOn;
     public UnityEvent turnOff;
     public Light lightSignal;
     public bool canPush = true;
     public AudioClip onSound;
     public AudioClip offSound;
-    private AudioSource audioSource;
+    [HideInInspector]
 
     // Start is called before the first frame update
     void Start()

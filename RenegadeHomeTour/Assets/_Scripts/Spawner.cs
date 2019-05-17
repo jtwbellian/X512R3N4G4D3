@@ -79,6 +79,13 @@ public class Spawner : MonoBehaviour
     public void StartSpawning()
     {
         StartCoroutine("Spawn");
+        gm.gameMode.switchesOn++;
+    }
+
+    public void StopSpawning()
+    {
+        StopCoroutine("Spawn");
+        gm.gameMode.switchesOn--;
     }
 
 }

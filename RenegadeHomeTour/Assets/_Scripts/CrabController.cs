@@ -38,6 +38,9 @@ public class CrabController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+
+        var scale = Random.Range(0.3f, 0.8f);
+        transform.localScale = new Vector3(scale, scale, scale);
         var renderer = GetComponentInChildren<Renderer>();
         mats = renderer.materials;
         rb = GetComponent<Rigidbody>();

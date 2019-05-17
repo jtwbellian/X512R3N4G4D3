@@ -48,7 +48,6 @@ public class OVRClimbable : OVRGrabbable
     {
         //Debug.Log("Climbable Grabbed");
         isHeld = true;
-        LinesOff();
         base.GrabBegin(hand, grabPoint);
     }
 
