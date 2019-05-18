@@ -9,7 +9,7 @@ public enum Icon
     analogFwd, analogClick, grab, holster, calibrate, use, NONE = -1
 }
 
-public class Hud : MonoBehaviour
+public class Hud : EVActor
 {
     private CanvasGroup canvasGroup;
     private GameManager gm;
@@ -34,6 +34,7 @@ public class Hud : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        subscribesTo = AppliesTo.PLAYER;
         gm = GameManager.GetInstance();
         canvasGroup = GetComponentInChildren<CanvasGroup>();
         playerBody = hudAnchor.transform.root.GetComponentInChildren<VRMovementController>().rigidBody;
@@ -92,10 +93,8 @@ public class Hud : MonoBehaviour
             canvasGroup.alpha = 1;
     }
 
-    public void ShowImage()
-    {
-        var icon = GameManager.GetInstance().direc.GetIcon();
-
+    public void ShowImage(Icon icon)
+    { 
         switch (icon)
         {
             case Icon.analogClick: message = "Recalibrating..."; break;
@@ -162,5 +161,24 @@ public class Hud : MonoBehaviour
             canvasGroup.alpha = 1;
 
         lastRefresh = Time.time;
+    }
+
+    public override void BeginEvent()
+    {
+        //Icon iconType = (Icon)System.Enum.Parse(typeof(Icon), myEvent.myName);
+        Icon iconType = Icon.NONE;
+
+        if (System.Enum.TryParse<Icon>(myEvent.myName, out iconType))
+        {
+            ShowImage(iconType);
+            CompleteEvent();
+        }
+        else
+        if (iconType == Icon.NONE)
+        {
+            HideImage();
+            CompleteEvent();
+        }
+
     }
 }

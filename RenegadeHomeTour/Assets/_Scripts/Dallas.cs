@@ -4,9 +4,11 @@ using UnityEngine;
 
 public class Dallas : EVActor
 {
-    private const float MIN_DIST = 0.5f;
+    private const float MIN_DIST = 0.05f;
+    private const float MAX_DIST = 0.15f;
     private enum state { Look, Move, Follow}
     [SerializeField]
+    private Animator anim;
     private Transform target;
     private ParticleSystem ps;
     private Rigidbody rb;
@@ -18,6 +20,8 @@ public class Dallas : EVActor
     [SerializeField]
     private Transform home;
     private Transform camView;
+    private Vector3 lastPos;
+    private bool waitForMe = false;
     private bool isHome = false;
 
     [SerializeField]
@@ -26,12 +30,14 @@ public class Dallas : EVActor
     // Start is called before the first frame update
     void Start()
     {
+        lastPos = transform.position;
         subscribesTo = AppliesTo.ENV;
         transform.parent = null;
         ps = GetComponentInChildren<ParticleSystem>();
         target = Camera.main.transform;
         rb = GetComponent<Rigidbody>();
         camView = GameManager.GetInstance().hud.hudAnchor.transform;
+        anim = GetComponentInChildren<Animator>();
         gm = GameManager.GetInstance();
     }
 
@@ -47,6 +53,10 @@ public class Dallas : EVActor
             case EV.GoHome:
                 GoHome();
                 EventManager.CompleteTask(this);
+                break;
+
+            case EV.targetHit:
+                waitForMe = true;
                 break;
 
             default:
@@ -72,18 +82,27 @@ public class Dallas : EVActor
         }
     }
 
+    [ContextMenu("FollowPlayer")]
     public void FollowPlayer()
     {
         target = camView;
         currentState = state.Move;
     }
 
+    [ContextMenu("Seek")]
+    public void Watch()
+    {
+        currentState = state.Look;
+    }
+
+    [ContextMenu("GoHome")]
     public void GoHome()
     {
         target = home;
         currentState = state.Move;
     }
 
+    [ContextMenu("Stop")]
     public void Stop()
     {
         currentState = state.Look;
@@ -101,8 +120,10 @@ public class Dallas : EVActor
     void Update()
     {
         if (target == null)
+        {
             return;
-
+        }
+            
         switch(currentState)
         {
             case state.Move:
@@ -111,12 +132,39 @@ public class Dallas : EVActor
                     if (!isHome && target == home)
                     {
                         isHome = true;
+
+                        if (waitForMe && myEvent.type == EV.targetHit)
+                            CompleteEvent();
                     }
-                    return;
+
+                    lastPos = target.position;
+
+                    var dest = target.GetComponent<Destination>();
+
+                    if (dest == null)
+                    {
+                        target = camView;
+                    }
+                    else
+                    {
+                        if (dest.nextDestination == null)
+                        {
+                            Stop();
+                            home = target;
+                            currentState = state.Look;
+                            anim.Play("DallasBones|OpeningState");
+                        }
+                        else
+                            target = dest.nextDestination;
+                    }
                 }
 
+                targetRotation = Quaternion.LookRotation(target.position - transform.position);
+                str = Mathf.Min(Time.deltaTime, 2);
+                transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, str);
+
                 rb.AddForce((target.position - transform.position) * speed, ForceMode.Force);
-                goto case state.Look;
+                break;
 
             case state.Follow:
                 targetRotation = Quaternion.LookRotation(Camera.main.transform.position - transform.position);
@@ -131,6 +179,12 @@ public class Dallas : EVActor
                 targetRotation = Quaternion.LookRotation(target.position - transform.position);
                 str = Mathf.Min(Time.deltaTime, 1);
                 transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, str);
+
+                if (Vector3.Distance(lastPos, transform.position) > MAX_DIST)
+                {
+                    rb.AddForce((lastPos - transform.position) * speed/2, ForceMode.Force);
+                }
+
                 break;
         }
 

@@ -120,7 +120,7 @@ public abstract class EVActor : MonoBehaviour
     }
 
 
-    public virtual void BeginEvent() {}
+    public abstract void BeginEvent();// {}
 
     public void CompleteEvent()
     {

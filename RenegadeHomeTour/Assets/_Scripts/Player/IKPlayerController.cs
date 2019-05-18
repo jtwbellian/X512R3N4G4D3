@@ -70,7 +70,10 @@ public class IKPlayerController : EVActor
     }
     #endregion
 
-    private void RefreshIKMode()
+    public override void BeginEvent()
+    { }
+
+        private void RefreshIKMode()
     { 
         foreach (GameObject obj in parts_ik)
         {

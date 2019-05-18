@@ -10,7 +10,6 @@ public class SoundManager : EVActor
 
     void Awake()
     {
-
         if (instance == null)
         {
             instance = this;
@@ -27,6 +26,15 @@ public class SoundManager : EVActor
     public static SoundManager GetInstance()
     {
         return instance;
+    }
+
+    public override void BeginEvent()
+    {
+        if (myEvent.myName == "fortuna")
+        {
+            PlayFortune();
+            CompleteEvent();
+        }
     }
 
     public void PlayFortune()
@@ -47,6 +55,7 @@ public class SoundManager : EVActor
     void Init()
     {
         EventManager.GetInstance().AudioEventBegin += OnAudioEvent;
+        subscribesTo = AppliesTo.AUDIO;
     }
 
     // Handle audio events
