@@ -15,6 +15,8 @@ public class VRButtonSimple : MonoBehaviour
     public Color highlightColor;
     bool canPush = false;
 
+    bool touch = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -34,41 +36,49 @@ public class VRButtonSimple : MonoBehaviour
 
     void OnEnable()
     {
-        Invoke("AllowPush", 2f);
-    }
-
-    public void AllowPush()
-    {
-        canPush = true;
-    }
-
-    void OnTriggerEnter(Collider other)
-    {
-        lastCol = other;
-
-        if (!canPush)
-            return;
-
-        if (other.gameObject.name.Contains("index_03") &&other.gameObject.CompareTag("RightHand"))
-        {
-            OVRHapticsManager.GetInstance().BuzzRight(VibrationForce.Medium, 0.05f);
-            canPush = false;
-        }
-        else if (other.gameObject.name.Contains("index_03") && other.gameObject.CompareTag("LeftHand"))
-        {
-            canPush = false;
-            OVRHapticsManager.GetInstance().BuzzLeft(VibrationForce.Medium, 0.05f);
-        }
+        Invoke("AllowPush", .5f);
 
         if (mat)
             mat.color = highlightColor;
     }
 
+    void OnDisable()
+    {
+        canPush = false;
+        touch = false;
+    }
+
+    public void AllowPush()
+    {
+        canPush = true;
+        mat.color = color;
+    }
+
+    void OnTriggerEnter(Collider other)
+    {
+        if (!canPush || touch)
+            return;
+
+        if (other.gameObject.name.Contains("index_03") &&other.gameObject.CompareTag("RightHand"))
+        {
+            OVRHapticsManager.GetInstance().BuzzRight(VibrationForce.Medium, 0.05f);
+        }
+        else if (other.gameObject.name.Contains("index_03") && other.gameObject.CompareTag("LeftHand"))
+        {
+            OVRHapticsManager.GetInstance().BuzzLeft(VibrationForce.Medium, 0.05f);
+        }
+
+        if (mat)
+            mat.color = highlightColor;
+
+        touch = true;
+    }
+
     void OnTriggerExit(Collider other)
     {
-        if (!canPush && lastCol == other && other.gameObject.name.Contains("index_03"))
+        if (touch && other.gameObject.name.Contains("index_03"))
         {
-            canPush = true;
+            touch = false;
             trigger.Invoke();
         }
 
