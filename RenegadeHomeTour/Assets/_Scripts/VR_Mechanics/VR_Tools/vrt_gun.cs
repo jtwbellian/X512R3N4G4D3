@@ -8,42 +8,40 @@ public class vrt_gun : VRTool
     private bool canFire = true;
     private AudioSource audioSource;
     private Animator anim;
+    private Rigidbody currentShot;
+
+    [SerializeField]
     private Light light;
+    private float deIntensity;
+    private Color deColor;
+    [SerializeField]
+    private float myIntensity = 2;
+    [SerializeField]
+    private Color myColor = Color.red;
+    public GameObject x;
     private OVRHapticsManager hm;
 
-    List<Rigidbody> bulletPool;
-    public int poolAmt = 20;
-
-    public Rigidbody bulletType;
+    public int bulletType;
     public bool fullAuto = false;
     public float cooldown = 1f;
     public float fireSpeed = 10f;
     public Transform gunBarrel;
     public ParticleSystem muzzleFlash;
-
-
+    
     public override void Init()
     {
-        light = GetComponentInChildren<Light>();
+        deColor = light.color;
+        deIntensity = light.intensity;
+
         audioSource = GetComponent<AudioSource>();
         anim = GetComponentInChildren<Animator>();
         hm = OVRHapticsManager.instance;
         muzzleFlash = GetComponentInChildren<ParticleSystem>();
-
-        bulletPool = new List<Rigidbody>();
-
-        for(int i = 0; i < poolAmt; i++)
-        {
-            Rigidbody obj = Instantiate(bulletType);
-            obj.gameObject.SetActive(false);
-            bulletPool.Add(obj);
-        }
     }
 
     public override void IndexRelease()
     {
-        if (light != null)
-            light.intensity = 0f;
+        LightOff();
 
         if (fullAuto)
             StopCoroutine(FireAuto());
@@ -63,19 +61,20 @@ public class vrt_gun : VRTool
     private void Fire()
     {
         //Rigidbody shot;
-        //shot = Instantiate(bulletType);
+        //GameObject GO = Instantiate(x);
 
-        for (int i = 0; i < poolAmt; i ++)
+        GameObject GO = ObjectPooler.SharedInstance.GetPooledObject((int)bulletType);
+
+        if (GO)
         {
-            if (!bulletPool[i].gameObject.activeInHierarchy)
-            {
-                bulletPool[i].transform.position = gunBarrel.position;
-                bulletPool[i].transform.rotation = gunBarrel.rotation;
-                bulletPool[i].gameObject.SetActive(true);
-                bulletPool[i].velocity = transform.forward * fireSpeed + grabInfo.grabbedBy.GetPlayerRB().velocity;
-                bulletPool[i].angularVelocity = Vector3.zero;
-                break;
-            }
+            currentShot = GO.GetComponent<Rigidbody>();
+            GO.transform.position = gunBarrel.position;
+            GO.transform.rotation = gunBarrel.rotation;
+
+            GO.SetActive(true);
+            currentShot.velocity = Vector3.zero;
+            currentShot.angularVelocity = Vector3.zero;
+            currentShot.AddForce(gunBarrel.forward * fireSpeed + grabInfo.grabbedBy.GetPlayerRB().velocity, ForceMode.Impulse);
         }
 
         if (audioSource != null)
@@ -84,13 +83,13 @@ public class vrt_gun : VRTool
         if (anim != null)
             anim.Play("Fire", 0, 0.0f);
 
-
         if (hm != null)
             hm.Play(VibrationForce.Hard, GetGrabber().grabbedBy.m_controller, 0.15f);
 
         if (light != null)
         {
-            light.intensity = .5f;
+            light.intensity = myIntensity;
+            light.color = myColor;
         }
 
         if (muzzleFlash != null)
@@ -127,7 +126,11 @@ public class vrt_gun : VRTool
     */
     public void LightOff()
     {
-        light.intensity = 0f;
+        if (light)
+        {
+            light.color = deColor;
+            light.intensity = deIntensity;
+        }
     }
 
     public override void ThumbRelease()
@@ -143,12 +146,15 @@ public class vrt_gun : VRTool
     public override void OnGrab()
     {
         base.OnGrab();
-        light.gameObject.SetActive(true);
+
+        if (light)
+            light.gameObject.SetActive(true);
     }
 
     public override void OnRelease()
     {
         base.OnRelease();
-        light.gameObject.SetActive(false);
+
+        LightOff();
     }
 }

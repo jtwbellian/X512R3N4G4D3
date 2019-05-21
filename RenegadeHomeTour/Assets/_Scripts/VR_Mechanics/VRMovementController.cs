@@ -170,6 +170,7 @@ public class VRMovementController : MonoBehaviour
     public void AllowBoost()
     {
         canBoost = true;
+        boostBar.parent.gameObject.SetActive(true);
     }
         
     public void Hurt(float amt)

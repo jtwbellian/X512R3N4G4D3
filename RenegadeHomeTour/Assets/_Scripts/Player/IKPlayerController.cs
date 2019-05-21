@@ -21,13 +21,18 @@ public class IKPlayerController : EVActor
     private float scaleFactor = 6f;
     private float minHeight = 0.2f;
     private float percentHeight = 0.5f;
+    [SerializeField]
+    private float headOffset = 0.053f;
+
     [Header("IK Options")]
     public bool ikOn = false;
 
     [Tooltip("Meshes and skeleton associated with IK but NOT the IK Controller itself")]
     public GameObject [] parts_ik;
+    public Collider[] ikCols;
     [Tooltip("Must be left hand followed by right hand")]
     public GameObject[] parts_nonIk;
+    public Collider[] nonIkCols;
 
     public Transform handR;
     public Transform handL;
@@ -71,9 +76,25 @@ public class IKPlayerController : EVActor
     #endregion
 
     public override void BeginEvent()
-    { }
+    {
 
-        private void RefreshIKMode()
+    }
+
+    public void FreePlayer()
+    {
+        if (myEvent == null)
+            return;
+
+        if (myEvent.type == EV.analogFwd)
+        {
+            var mc = transform.root.GetComponent<VRMovementController>();
+            mc.AllowBoost();
+            CompleteEvent();
+        }
+    }
+
+    [ContextMenu("Refresh_IK_Mode")]
+     private void RefreshIKMode()
     { 
         foreach (GameObject obj in parts_ik)
         {
@@ -84,6 +105,14 @@ public class IKPlayerController : EVActor
         {
             obj.SetActive(!ikOn);
         }
+
+        var gm = GameManager.GetInstance();
+
+        if (ikOn)
+            gm.UpdatePlayerCols(ikCols);
+        else
+            gm.UpdatePlayerCols(nonIkCols);
+
     }
 
 
@@ -102,14 +131,21 @@ public class IKPlayerController : EVActor
             Debug.Log("Error: Animator component not found");
         }
 
-        for (int i = 0; i < 9; i++)
-        {
-            BodyAnimator.SetLayerWeight(i, 1);
-            LHandAnimator.SetLayerWeight(i, 1);
-            RHandAnimator.SetLayerWeight(i, 1);
-            NonIKBodyAnimator.SetLayerWeight(i, 1);
-        }
 
+        NonIKBodyAnimator.SetLayerWeight(0, 1);
+
+        for (int i = 0; i < 8; i++)
+        {
+            if (i < 4)
+            {
+                LHandAnimator.SetLayerWeight(i, 1);
+                RHandAnimator.SetLayerWeight(i, 1);
+            }
+            BodyAnimator.SetLayerWeight(i, 1);
+        }
+        BodyAnimator.SetLayerWeight(8, 1);
+
+        NonIKBodyAnimator.speed = 1f;
         BodyAnimator.speed = 1f;
         LHandAnimator.speed = 1f;
         RHandAnimator.speed = 1f;
@@ -128,7 +164,9 @@ public class IKPlayerController : EVActor
                 Physics.IgnoreCollision(capsule, c);
             }
         }
+
         RefreshIKMode();
+        NonIKBodyAnimator.gameObject.SetActive(false);
        }
 
     public void AdjustHeight(float amt)
@@ -174,20 +212,24 @@ public class IKPlayerController : EVActor
         }
         //capsule.height = newScale;
 
+        GameManager gm = GameManager.GetInstance();
+        gm.hud.ShowImage(Icon.calibrate, 2f);
+
+        if (myEvent == null)
+            return;
+
         if (myEvent.type == EV.Calibrated)
         {
             EventManager.CompleteTask(this);
         }
 
-        GameManager gm = GameManager.GetInstance();
-        gm.hud.ShowImage(Icon.calibrate, 2f);
+
     }
 
     public string GetHeightStr()
     {
         return height.ToString("F2") + "m";
     }
-
 
     // Updates the values for hand positions based on Oculus Input
     void UpdateGestures()
@@ -229,14 +271,24 @@ public class IKPlayerController : EVActor
         if (ikOn)
             capsule.height = (Mathf.Abs(head.localPosition.y) * percentHeight + minHeight) * scaleFactor;
         else
-            capsule.height = minHeight;
+            capsule.height = (Mathf.Abs(head.localPosition.y * CHAIR_SCALE_FACTOR) * percentHeight + minHeight) * scaleFactor;
 
         capsule.transform.localPosition = new Vector3(head.localPosition.x, head.localPosition.y - height/2, head.localPosition.z);
 
         // position the players body
-        if (transform.position !=  head.position)
+        if (ikOn)
         {
-            transform.position = new Vector3(head.position.x, head.position.y - height, head.position.z) + head.transform.forward * offset;
+            if (transform.position != head.position)
+            {
+                transform.position = new Vector3(head.position.x, head.position.y - height, head.position.z) + head.transform.forward * offset;
+            }
+        }
+        else
+        {
+            if (NonIKBodyAnimator.transform.position != head.position)
+            {
+                NonIKBodyAnimator.transform.localPosition = new Vector3(0, 0, height - headOffset);
+            }
         }
 
         UpdateGestures();
@@ -252,21 +304,16 @@ public class IKPlayerController : EVActor
         }*/
 
         // Press A + X for menu
-        if (OVRInput.Get(OVRInput.Button.One) && OVRInput.Get(OVRInput.Button.Three))
-        {
-            GameManager.GetInstance().hud.ToggleMenu();
-        }
+       // if (OVRInput.Get(OVRInput.Button.One) && OVRInput.Get(OVRInput.Button.Three))
+       // {
+       //     GameManager.GetInstance().hud.ToggleMenu();
+      //  }
+
+        legLerp = (head.localPosition.y - height / 2) / (height / 2);
 
         if (ikOn)
-            legLerp = (head.localPosition.y - 0.75f) * 2f / height;
-        else if (OVRInput.Get(OVRInput.Button.SecondaryThumbstick))
-        {
-            if (legLerp > 0.5f)
-                legLerp = 0;
-            else
-                legLerp = 1;
-        }
-
-        BodyAnimator.SetFloat("Legs", legLerp); //Mathf.Clamp(head.localPosition.y / (height * 0.75f), 0f, 1f));
+            BodyAnimator.SetFloat("Legs", legLerp);
+        else
+           NonIKBodyAnimator.SetFloat("LegsUp", legLerp);
     }
 }

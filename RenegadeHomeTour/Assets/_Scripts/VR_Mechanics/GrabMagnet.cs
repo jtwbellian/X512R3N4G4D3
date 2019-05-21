@@ -28,6 +28,9 @@ public class GrabMagnet : MonoBehaviour
 
     void OnTriggerStay(Collider col)
     {
+        if (!empty)
+            return;
+
         //may cause player to not be able to grab/drop over holster 
         if (lastCol == col)
             return;
@@ -37,6 +40,7 @@ public class GrabMagnet : MonoBehaviour
         VRTool item;
         item = col.GetComponent<VRTool>();
 
+        /*
         if (!empty)
         {
             // To fix the glitch where the holsters bug out
@@ -50,7 +54,7 @@ public class GrabMagnet : MonoBehaviour
             }
 
             return;
-        }
+        }*/
 
         if (item == null ||
         item.isHeld() ||

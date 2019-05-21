@@ -12,6 +12,7 @@ public class scr_bullet : MonoBehaviour
     void OnEnable()
     {
         //num_bounces = 0;
+       // Destroy(gameObject, 2);
         Invoke("Destroy", 2f);
     }
 
@@ -24,24 +25,18 @@ public class scr_bullet : MonoBehaviour
             return;
         }*/
 
-        var fxm = FXManager.GetInstance();
-
         Vector3 pos = transform.position;
 
-        if (col.contactCount > 0)
-            pos = col.GetContact(0).point;
+        //if (col.contactCount > 0)
+        //    pos = col.GetContact(0).point;
 
-        fxm.Burst(FXManager.FX.RadialBurst, pos, transform.rotation.eulerAngles, 4);
-        Destroy();
+        FXManager.GetInstance().Burst(FXManager.FX.RadialBurst, pos, transform.rotation.eulerAngles, 2);
+        Destroy();//gameObject);
     }
-
+    
     void Destroy()
     {
         gameObject.SetActive(false);
-    }
-
-    void OnDisable()
-    {
         CancelInvoke();
     }
 }

@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class Dallas : EVActor
 {
-    private const float MIN_DIST = 0.05f;
-    private const float MAX_DIST = 0.15f;
+    private float LastDeparture;
+    private float timeOut = 500;
+    private const float MIN_DIST = 0.1f;
+    private const float MAX_DIST = 0.25f;
     private enum state { Look, Move, Follow}
     [SerializeField]
     private Animator anim;
@@ -23,6 +25,7 @@ public class Dallas : EVActor
     private Vector3 lastPos;
     private bool waitForMe = false;
     private bool isHome = false;
+    public GameObject myItem; 
 
     [SerializeField]
     state currentState = state.Look;
@@ -32,6 +35,7 @@ public class Dallas : EVActor
     {
         lastPos = transform.position;
         subscribesTo = AppliesTo.ENV;
+        Subscribe();
         transform.parent = null;
         ps = GetComponentInChildren<ParticleSystem>();
         target = Camera.main.transform;
@@ -46,17 +50,34 @@ public class Dallas : EVActor
         //ps.Play();
     }
 
+    public void DropItem()
+    {
+        if (myItem == null)
+            return;
+
+        anim.Play("DallasBones|OpeningState");
+        myItem.SetActive(true);
+        myItem.transform.SetParent(null);
+        myItem = null;
+    }
+
     public override void BeginEvent()
     {
         switch (myEvent.type)
         {
             case EV.GoHome:
+                waitForMe = true;
                 GoHome();
-                EventManager.CompleteTask(this);
                 break;
 
             case EV.targetHit:
                 waitForMe = true;
+                break;
+
+            case EV.ItemDropped:
+                myItem.SetActive(true);
+                myItem.transform.SetParent(null);
+                CompleteEvent();
                 break;
 
             default:
@@ -87,6 +108,7 @@ public class Dallas : EVActor
     {
         target = camView;
         currentState = state.Move;
+        LastDeparture = Time.time;
     }
 
     [ContextMenu("Seek")]
@@ -98,6 +120,7 @@ public class Dallas : EVActor
     [ContextMenu("GoHome")]
     public void GoHome()
     {
+        LastDeparture = Time.time;
         target = home;
         currentState = state.Move;
     }
@@ -127,14 +150,20 @@ public class Dallas : EVActor
         switch(currentState)
         {
             case state.Move:
+
+                if (Time.time > LastDeparture + timeOut)
+                {
+                    transform.position = target.transform.position;
+                    rb.velocity = Vector3.zero;
+                }
+
                 if (Vector3.Distance(target.position, transform.position) < MIN_DIST)
                 {
                     if (!isHome && target == home)
                     {
-                        isHome = true;
-
-                        if (waitForMe && myEvent.type == EV.targetHit)
+                        if (waitForMe && myEvent.type == EV.GoHome)
                             CompleteEvent();
+                        isHome = true;
                     }
 
                     lastPos = target.position;
@@ -151,6 +180,10 @@ public class Dallas : EVActor
                         {
                             Stop();
                             home = target;
+
+                            if (waitForMe && myEvent.type == EV.targetHit)
+                                CompleteEvent();
+
                             currentState = state.Look;
                             anim.Play("DallasBones|OpeningState");
                         }
@@ -160,7 +193,7 @@ public class Dallas : EVActor
                 }
 
                 targetRotation = Quaternion.LookRotation(target.position - transform.position);
-                str = Mathf.Min(Time.deltaTime, 2);
+                str = Mathf.Min(Time.deltaTime, 3);
                 transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, str);
 
                 rb.AddForce((target.position - transform.position) * speed, ForceMode.Force);

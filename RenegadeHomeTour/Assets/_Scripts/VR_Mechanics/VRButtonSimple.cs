@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public class VRButtonSimple : MonoBehaviour
 {
+    private Collider lastCol;
     private Collider finger1, finger2;
     private SpriteRenderer mat;
 
@@ -33,7 +34,7 @@ public class VRButtonSimple : MonoBehaviour
 
     void OnEnable()
     {
-        Invoke("AllowPush", 1f);
+        Invoke("AllowPush", 2f);
     }
 
     public void AllowPush()
@@ -43,6 +44,8 @@ public class VRButtonSimple : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
+        lastCol = other;
+
         if (!canPush)
             return;
 
@@ -63,7 +66,7 @@ public class VRButtonSimple : MonoBehaviour
 
     void OnTriggerExit(Collider other)
     {
-        if (!canPush && (other.gameObject.name.Contains("index_03")))
+        if (!canPush && lastCol == other && other.gameObject.name.Contains("index_03"))
         {
             canPush = true;
             trigger.Invoke();

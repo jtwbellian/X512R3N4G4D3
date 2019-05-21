@@ -17,16 +17,31 @@ public class Prop : EVActor
         switch (myEvent.type)
         {
             case EV.ItemGrabbed:
-                grabbable.Grab += EndEvent;
+                //Debug.Log("Grab Event Registered");
+                var myGrab = grabbable.GetComponent<OVRGrabbable>();
+
+                if (myGrab!= null && myGrab.isGrabbed)
+                { 
+                    CompleteEvent();
+                    break;
+                }
+                else
+                    grabbable.Grab += EndEvent;
+
                 break;
+
             case EV.ItemDropped:
+
                 grabbable.Release += EndEvent;
+
                 break;
 
             default:
                 Debug.Log("ERROR: Unknown event " + myEvent.type);
                 return;
         }
+
+        //Debug.Log("EventBegin " + grabbable.Grab.GetInvocationList());
     }
 
     public void EndEvent()

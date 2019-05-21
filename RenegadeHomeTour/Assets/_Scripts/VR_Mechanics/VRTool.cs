@@ -244,6 +244,8 @@ public abstract class VRTool : iSpecial_Grabbable
     // Implement iSpecial Grabbable
     public virtual void OnGrab()
     {
+        CancelInvoke();
+
         if (home != null)
         {
             //Debug.Log("Home: " + home.ToString() + "\n Attempting to free..." );

@@ -22,9 +22,13 @@ public struct PlayerData
 public class vrt_tablet : VRTool
 {
     [SerializeField]
+    private bool tutorialOn = true;
+    [SerializeField]
     private Transform playerObj;
     private PlayerData playerData;
     private float distFromHead = 0.5f;
+    private GameObject lastPage = null;
+
     //private int currentPage = 0;
     public Transform leftGrip, rightGrip, offsetTarget;
     public LiveCam selfiCam;
@@ -45,6 +49,8 @@ public class vrt_tablet : VRTool
         Invoke("GetInFace", 1f);
         playerData = new PlayerData(playerObj);
 
+        lastPage = pages[0];
+
         foreach (GameObject obj in pages)
         {
             obj.SetActive(false);
@@ -61,6 +67,22 @@ public class vrt_tablet : VRTool
         {
             heightText.text = playerData.ikController.GetHeightStr();
         }
+
+        if (tutorialOn)
+        {
+            if (EventManager.GetInstance().currentEvent == 6)
+            {
+                if (Vector3.Distance(transform.position, Camera.main.transform.position) > distFromHead * 1.5f)
+                {
+                    Hud hud = GameManager.GetInstance().hud;
+                    if (!hud.IsInvoking())
+                        hud.ShowImage(Icon.analogClick, 2.5f);
+                }
+            }
+            else if (EventManager.GetInstance().currentEvent > 4)
+                tutorialOn = false;
+        }
+
     }
 
     public void HeightAdd()
@@ -74,10 +96,14 @@ public class vrt_tablet : VRTool
 
     public void GetInFace()
     {
+        if (grabInfo.isGrabbed)
+        { grabInfo.grabbedBy.GrabEnd(); }
+
         transform.position = Camera.main.transform.position + Camera.main.transform.forward * distFromHead;
         transform.LookAt(Camera.main.transform, Vector3.up );
         transform.Rotate(new Vector3(0,1.0f, 0), 180f);
         offsetTarget.localRotation = Quaternion.Euler(-45,0,0);
+        offsetTarget.localPosition = Vector3.zero;
     }
 
     public override void ThumbRelease()
@@ -104,17 +130,20 @@ public class vrt_tablet : VRTool
 
         LiveCam.SetActive(selfiCam);
 
-        if (pages != null)
-            pages[0].SetActive(true);
+        if (lastPage != null)
+            lastPage.SetActive(true);
     }
 
     public override void OnRelease()
     {
         foreach (GameObject obj in pages)
         {
-            obj.SetActive(false);
+            if (obj.activeInHierarchy)
+            {
+                obj.SetActive(false);
+                lastPage = obj;
+            }
         }
-
         offsetTarget.SetParent(transform);
         //transform.localPosition = Vector3.zero;
         base.OnRelease();

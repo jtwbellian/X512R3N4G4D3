@@ -28,7 +28,7 @@ public class Hud : EVActor
     public Animator iconAnimator;
 
     public float smoothTime = 0.1f;
-    public float speed = 6f;
+    public float speed = 5f;
     public Vector3 velocity = Vector3.zero;
 
     // Start is called before the first frame update
@@ -38,11 +38,13 @@ public class Hud : EVActor
         gm = GameManager.GetInstance();
         canvasGroup = GetComponentInChildren<CanvasGroup>();
         playerBody = hudAnchor.transform.root.GetComponentInChildren<VRMovementController>().rigidBody;
+        iconAnimator.SetInteger("index", -1);
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
+        /*
         if (!menu.activeSelf && Time.time - lastRefresh > fadeOutTime && canvasGroup.alpha > 0)
         {
             canvasGroup.alpha -= Time.deltaTime * 1.2f;
@@ -50,7 +52,7 @@ public class Hud : EVActor
         if (menu.activeSelf)
         {
             canvasGroup.alpha = 1f;
-        }
+        }*/
         //velocity = playerBody.velocity;
 
         transform.position = SmoothApproach(lastPos, lastHudAnchorPos, hudAnchor.position, speed);
@@ -85,34 +87,40 @@ public class Hud : EVActor
         
     public void ShowImage(Icon icon, float time)
     {
-        iconAnimator.transform.GetComponent<SpriteRenderer>().color = new Vector4(0.9f, 0.9f, 0.9f, 0.8f);
+        //iconAnimator.transform.GetComponent<SpriteRenderer>().color = new Vector4(0.9f, 0.9f, 0.9f, 1f);
         iconAnimator.SetInteger("index",(int) icon);
+        ShowSubtitles();
+
         Invoke("HideImage", time);
 
-        if (canvasGroup!=null)
-            canvasGroup.alpha = 1;
+        Refresh();
     }
 
     public void ShowImage(Icon icon)
-    { 
+    {
+        iconAnimator.transform.GetComponent<SpriteRenderer>().enabled = true;
+        ShowSubtitles();
+  
         switch (icon)
         {
-            case Icon.analogClick: message = "Recalibrating..."; break;
-            case Icon.analogFwd: message = "Use the left thumbstick to Jet Boost"; break;
-            case Icon.grab: message = "Squeeze and hold Grab Trigger to Grab objects"; break;
-            case Icon.holster: message = "Holster Your Weapons"; break;
-            case Icon.use: message = "Pull the Trigger"; break;
-            default: message = "RENEGADE VR - DEMO" ; break;
+            case Icon.analogClick: message = "Click Both Joysticks to return LuxPlate"; break;
+            case Icon.analogFwd: message = "Use the Left Joystick to Jet Boost"; break;
+            case Icon.grab: message = "Squeeze Grab Button to Grab objects"; break;
+            case Icon.holster: message = "Drop Weapons onto Orbs to Holster"; break;
+            case Icon.use: message = "Pull the Index Trigger to Shoot"; break;
+            default: message = "" ; break;
         }
 
-        iconAnimator.transform.GetComponent<SpriteRenderer>().color = new Vector4(0.9f, 0.9f, 0.9f, 0.8f);
+        //iconAnimator.transform.GetComponent<SpriteRenderer>().color = new Vector4(0.9f, 0.9f, 0.9f, 0.8f);
         iconAnimator.SetInteger("index", (int)icon);
         Refresh();
     }
 
     public void HideImage()
     {
-        iconAnimator.transform.GetComponent<SpriteRenderer>().color = new Vector4(0.9f, 0.9f, 0.9f, 0f);
+        HideSubtitles();
+        iconAnimator.SetInteger("index", -1);
+        //iconAnimator.transform.GetComponent<SpriteRenderer>().color = new Vector4(0.9f, 0.9f, 0.9f, 0f);
     }
 
     public void HideSubtitles()

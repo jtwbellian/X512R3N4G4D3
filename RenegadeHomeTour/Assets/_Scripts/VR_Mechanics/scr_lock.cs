@@ -6,7 +6,7 @@ using UnityEngine;
 public class scr_lock : iSpecial_Grabbable
 {
     private Transform trueParent = null;
-    private float breakPoint = 2f;
+    private float breakPoint = 1f;
     private Vector3 lastPos;
     private Vector3 lastRot;
     private Collider myCol;
@@ -82,7 +82,7 @@ public class scr_lock : iSpecial_Grabbable
             {
                 
                 //grabbable.grabbedBy.GetPlayerRB().AddForce((lastPos - transform.position) / Time.deltaTime, ForceMode.VelocityChange);
-                //grabbable.grabbedBy.GrabEnd();
+                grabbable.grabbedBy.GrabEnd();
                 return;
             }
 

@@ -246,7 +246,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8204136577375717243}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.81556964, y: 1.7192268, z: -4.6649785}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.90000015, y: 0.9000004, z: 0.90000063}
   m_Children:
   - {fileID: 9157950181657177692}
@@ -318,7 +318,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 626003dcfe0495640b40e31f6ddd6697, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  grabInfo: {fileID: 0}
+  grabInfo: {fileID: 9184185386886439514}
   toolCols: []
   usesIndex: 1
   usesThumb: 0
@@ -327,6 +327,11 @@ MonoBehaviour:
   home: {fileID: 0}
   haptics: {fileID: 0}
   hand: 0
+  rotationUp: {x: 15, y: -0.1, z: -0.04}
+  rotationDown: {x: 182.381, y: 0, z: 0}
+  positionUp: {x: 0, y: -0.1, z: -0.04}
+  positionDown: {x: 0, y: 0, z: 0}
+  simulateDrag: 0
 --- !u!1 &8478501287763317287
 GameObject:
   m_ObjectHideFlags: 0

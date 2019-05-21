@@ -12,7 +12,7 @@ public class EventManager : MonoBehaviour
     [SerializeField]
     public List<EventInfo> timeline;
     [SerializeField]
-    private int currentEvent = 0;
+    public int currentEvent = 0;
 
     #region singleton
 
@@ -30,7 +30,7 @@ public class EventManager : MonoBehaviour
         }
 
     #endregion
-
+    
     public event EventBeginHandler PlayerEventBegin;
     public event EventBeginHandler AudioEventBegin;
     public event EventBeginHandler ToolEventBegin;

@@ -90,6 +90,11 @@ public class GameManager : MonoBehaviour
         Application.LoadLevel(Application.loadedLevel);
     }
 
+    public void UpdatePlayerCols(Collider [] cols)
+    {
+        playerCols = cols;
+    }
+
     public void PlayerDie()
     {
         var fxMan = FXManager.GetInstance();

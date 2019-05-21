@@ -7,9 +7,10 @@ public class CrabController : MonoBehaviour
     public enum state { Walk, Jump, Attack };
 
     private const float TOL = 0.1f;
+    private const float MAX_HEALTH = 50f;
     private Animator animator;
     private Material [] mats;
-    private Rigidbody rb;
+
     private Transform myJumpPoint;
     private AudioSource audioSource;
     private FXManager fxManager; 
@@ -18,6 +19,7 @@ public class CrabController : MonoBehaviour
     public AudioClip stabSnd, shotSnd, deathSnd, chirp1, chirp2, chirp3, chirp4;
     public ParticleSystem psDissolve, psChunk;
     public Collider[] myCols;
+    public Rigidbody rb;
 
     private float lastJumpTime = 0f;
     [SerializeField]
@@ -38,7 +40,6 @@ public class CrabController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
         var scale = Random.Range(0.3f, 0.8f);
         transform.localScale = new Vector3(scale, scale, scale);
         var renderer = GetComponentInChildren<Renderer>();
@@ -58,12 +59,12 @@ public class CrabController : MonoBehaviour
 
         audioSource = GetComponent<AudioSource>();
 
-        Collider playerCol = Camera.main.transform.root.GetComponentInChildren<CapsuleCollider>();
+        GameManager gm = GameManager.GetInstance();
 
-        if (playerCol != null)
+        foreach (Collider pc in gm.playerCols)
             foreach (Collider c in myCols)
             {
-                Physics.IgnoreCollision(playerCol, c);
+                Physics.IgnoreCollision(pc, c);
             }
     }
 
@@ -244,10 +245,20 @@ public class CrabController : MonoBehaviour
                         tool.parent = null;
                     }
                 }
-
-                Destroy(this.gameObject);
+                gameObject.SetActive(false);
             }
             yield return new WaitForSeconds(0.01f);
+        }
+    }
+
+    void OnEnable()
+    {
+        health = MAX_HEALTH;
+
+        if (mats != null)
+        for (int m = 0; m <= mats.Length - 1; m++)
+        {
+            mats[m].SetFloat("Vector1_69FA3116", 0);
         }
     }
 }
