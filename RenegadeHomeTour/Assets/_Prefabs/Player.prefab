@@ -5581,7 +5581,7 @@ MonoBehaviour:
   Root: {fileID: 6003178558641689347}
   Solution: []
   SelectedSegment: {fileID: 6003178559061845246}
-  Scroll: {x: 0, y: 2609}
+  Scroll: {x: 0, y: 2482.4976}
 --- !u!114 &6003178558641689375
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9064,7 +9064,6 @@ MonoBehaviour:
   Transform: {fileID: 6003178559562312244}
   Parent: {fileID: 6003178557811795852}
   Childs:
-  - {fileID: 1385934640384089107}
   - {fileID: 6003178558150912888}
   Joint: {fileID: 6003178559562312241}
   Objectives: []
@@ -9548,6 +9547,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: HandRNoIK
       objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: 66c4b3985b76506488ae9f658286283a,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 66c4b3985b76506488ae9f658286283a,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -9623,16 +9627,16 @@ PrefabInstance:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: 7cd9b7cb73c53e94fbb0938cb7f21a29, type: 2}
-    - target: {fileID: 2186327078606465566, guid: 66c4b3985b76506488ae9f658286283a,
-        type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 317e33637f3931343b521e4c4c5636c7, type: 2}
     - target: {fileID: 7163113391689088897, guid: 66c4b3985b76506488ae9f658286283a,
         type: 3}
       propertyPath: m_TagString
       value: RightHand
       objectReference: {fileID: 0}
+    - target: {fileID: 2186327078606465566, guid: 66c4b3985b76506488ae9f658286283a,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 317e33637f3931343b521e4c4c5636c7, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 66c4b3985b76506488ae9f658286283a, type: 3}
 --- !u!1 &8606099763971048725 stripped
@@ -9666,7 +9670,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1264398401, guid: 5e90bbaae91e90445b5b905a410ce8f5, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1264398403, guid: 5e90bbaae91e90445b5b905a410ce8f5, type: 3}
       propertyPath: m_LocalPosition.x
@@ -9789,6 +9793,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: HandLNoIK
+      objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: 059ec6e451299114d82974766470b213,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 059ec6e451299114d82974766470b213,
         type: 3}
