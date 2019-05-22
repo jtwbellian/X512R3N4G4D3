@@ -321,7 +321,7 @@ public class OVRGrabber : MonoBehaviour
                 return;
             }
 
-            Debug.Log("lhand: " + lhand);
+            //Debug.Log("lhand: " + lhand);
             #endregion
             var ikPos = lhand.GetComponent<BioIK.Position>();
             var ikRot = lhand.GetComponent<BioIK.Orientation>();
@@ -342,7 +342,7 @@ public class OVRGrabber : MonoBehaviour
         {
             var rhand = transform.root.GetComponentInChildren<IKPlayerController>().handR;
 
-            Debug.Log("rhand: " + rhand);
+            //Debug.Log("rhand: " + rhand);
             #region errorHandling
             if (!rhand)
             {

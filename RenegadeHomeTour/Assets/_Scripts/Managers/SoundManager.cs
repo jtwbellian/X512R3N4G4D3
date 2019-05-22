@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SoundManager : MonoBehaviour
+public class SoundManager : EVActor
 {
     public static SoundManager instance;
     public AudioSource music, player, dialogue, environment;
@@ -10,7 +10,6 @@ public class SoundManager : MonoBehaviour
 
     void Awake()
     {
-
         if (instance == null)
         {
             instance = this;
@@ -21,11 +20,21 @@ public class SoundManager : MonoBehaviour
         }
 
         Init();
+        
     }
 
     public static SoundManager GetInstance()
     {
         return instance;
+    }
+
+    public override void BeginEvent()
+    {
+        if (myEvent.myName == "fortuna")
+        {
+            PlayFortune();
+            CompleteEvent();
+        }
     }
 
     public void PlayFortune()
@@ -46,6 +55,7 @@ public class SoundManager : MonoBehaviour
     void Init()
     {
         EventManager.GetInstance().AudioEventBegin += OnAudioEvent;
+        subscribesTo = AppliesTo.AUDIO;
     }
 
     // Handle audio events

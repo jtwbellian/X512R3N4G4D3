@@ -5,27 +5,35 @@ using UnityEngine;
 public class vrt_blade : VRTool
 {
     private int orientation = 0;
-
-    private Quaternion rotationDown;
-    private Quaternion rotationUp;
+    [SerializeField]
+    private Vector3 rotationUp;
+    [SerializeField]
+    private Vector3 rotationDown;
+    [SerializeField]
     private Vector3 positionUp;
+    [SerializeField]
     private Vector3 positionDown;
     private DoesDammage dd;
+    public bool simulateDrag;
 
     Transform knife;
 
     public override void Init()
     {
         knife = transform.GetChild(0);
-        rotationDown = knife.localRotation;
-        positionDown = knife.localPosition;
-        rotationUp = knife.localRotation * Quaternion.Euler( 180f, 0f, 0f);
-        positionUp = positionDown + new Vector3(0f, -0.1f, -0.0392f);
+        //rotationDown = knife.localRotation.eulerAngles;
+        //positionDown = knife.localPosition;
+        //rotationUp = knife.localRotation.eulerAngles + new Vector3( 180f, 0f, 0f);
+        //positionUp = positionDown + new Vector3(0f, -0.1f, -0.0392f);
         orientation = 0;
-        StopCoroutine("Flip");
-        knife.rotation = rotationUp;
-        StartCoroutine("Flip");
+        //StopCoroutine("Flip");
+        knife.rotation = Quaternion.Euler(rotationUp);
+        //StartCoroutine("Flip");
         dd = GetComponentInChildren<DoesDammage>();
+        if (simulateDrag && grabInfo.snapOrientation)
+        {
+            Debug.Log("Snap orientation must be off for simulate drag to work.");
+        }
 
     }
 
@@ -33,7 +41,7 @@ public class vrt_blade : VRTool
     {
         orientation = 0;
         StopCoroutine("Flip");
-        knife.rotation = rotationUp;
+        knife.rotation = Quaternion.Euler(rotationUp);
         StartCoroutine("Flip");
     }
 
@@ -41,14 +49,24 @@ public class vrt_blade : VRTool
     {
         orientation = 1;
         StopCoroutine("Flip");
-        knife.rotation = rotationDown;
+        knife.rotation = Quaternion.Euler(rotationDown);
         StartCoroutine("Flip");
     }
 
     public override void OnGrab()
     {
         base.OnGrab();
+        knife.localRotation = Quaternion.Euler(rotationUp);
+        knife.localPosition = positionUp;
         dd.Enable();
+    }
+
+    void FixedUpdate()
+    {
+        if (simulateDrag && grabInfo.isGrabbed)
+        {
+            transform.rotation = Quaternion.Lerp(transform.rotation, grabInfo.grabbedBy.transform.rotation, Mathf.Min(Time.deltaTime, grabInfo.grabbedBy.GetHandVelocity().magnitude));
+        }
     }
 
     public override void OnRelease()
@@ -87,12 +105,14 @@ public class vrt_blade : VRTool
             // Kind of weird, but this works for going either backwards or forwards
             float t = Mathf.Abs(orientation - i);
 
-            knife.localRotation = Quaternion.Lerp(rotationDown, rotationUp, t);
+            knife.localRotation = Quaternion.Lerp(Quaternion.Euler(rotationDown), Quaternion.Euler(rotationUp), t);
             knife.localPosition = Vector3.Lerp(positionDown, positionUp, t);
 
-            yield return new WaitForSeconds(0.01f);
+            yield return new WaitForSeconds(0.02f);
         }
 
+        knife.localRotation = Quaternion.Lerp(Quaternion.Euler(rotationDown), Quaternion.Euler(rotationUp), orientation);
+        knife.localPosition = Vector3.Lerp(positionDown, positionUp, orientation);
         StopCoroutine("Flip");
         yield return null;
     }

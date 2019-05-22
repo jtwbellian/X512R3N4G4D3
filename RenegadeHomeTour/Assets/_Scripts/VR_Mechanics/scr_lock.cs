@@ -6,7 +6,7 @@ using UnityEngine;
 public class scr_lock : iSpecial_Grabbable
 {
     private Transform trueParent = null;
-    private float breakPoint = 2f;
+    private float breakPoint = 1f;
     private Vector3 lastPos;
     private Vector3 lastRot;
     private Collider myCol;
@@ -48,6 +48,11 @@ public class scr_lock : iSpecial_Grabbable
         if (!rb)
             rb = lockTarget.GetComponentInChildren<Rigidbody>();
 
+        // set rigidbody to no rotation for performance
+        if (xr[0] + xr[1] + yr[0] + yr[1] + zr[0] + zr[1] == 0)
+            rb.freezeRotation = true;
+
+
         oldPos = transform.position;
         oldRot = transform.rotation.eulerAngles;
 
@@ -77,7 +82,7 @@ public class scr_lock : iSpecial_Grabbable
             {
                 
                 //grabbable.grabbedBy.GetPlayerRB().AddForce((lastPos - transform.position) / Time.deltaTime, ForceMode.VelocityChange);
-                //grabbable.grabbedBy.GrabEnd();
+                grabbable.grabbedBy.GrabEnd();
                 return;
             }
 
@@ -122,12 +127,12 @@ public class scr_lock : iSpecial_Grabbable
 
     public void OnGrab()
     {
-        Debug.Log("Grabbed Lock");
+        //Debug.Log("Grabbed Lock");
         grabbable.grabbedBy.m_parentHeldObject = false;
         LinesOff();
       
         transform.SetParent( trueParent);
-        Debug.Log("parent set to  " + transform.parent);
+        //Debug.Log("parent set to  " + transform.parent);
         //held = true;
         offset = transform.position - grabbable.grabbedBy.transform.position;
     }
@@ -135,7 +140,7 @@ public class scr_lock : iSpecial_Grabbable
     public void OnRelease()
     {
         LinesOn();
-        Debug.Log("Released Lock");
+        //Debug.Log("Released Lock");
         grabbable.grabbedBy.m_parentHeldObject = true;
         //held = false;
     }

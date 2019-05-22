@@ -2,9 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class crabGame : MonoBehaviour
+public class CrabGame : EVActor
 {
-
     public VRButton[] switches;
     Director direc;
     public int switchesOn;
@@ -12,25 +11,28 @@ public class crabGame : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        direc = GameManager.GetInstance().direc;
+        subscribesTo = AppliesTo.ENV;
+        myName = "Game";
+    }
 
-        if (switches.Length == 0)
+    public override void BeginEvent()
+    {
+        if (myEvent.type == EV.GameStart)
         {
-            switches = GetComponentsInChildren<VRButton>();
+            SwitchesOff();
         }
     }
 
     //Set up the crab game 
     public void PreGame()
     {
-        foreach(VRButton vrb in switches)
+        /*foreach(VRButton vrb in switches)
         {
             vrb.Off();
-        }
+        }*/
 
         Hud hud = GameManager.GetInstance().hud;
         hud.ShowKills();
-
     }
 
     public void SwitchesOn()
@@ -52,17 +54,13 @@ public class crabGame : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (direc.currentLine < 20)
-            return;
-
-        foreach (VRButton b in switches)
+        if (switchesOn == 0 && myEvent.type == EV.GameEnd)
         {
-            if (!b.on)
-            {
-                return;
-            }
+            CompleteEvent();
         }
-
-        GameManager.GetInstance().direc.Ping(PING.gameWon);
+        /*
+         if (direc.currentLine < 20)
+            return;
+            */
     }
 }

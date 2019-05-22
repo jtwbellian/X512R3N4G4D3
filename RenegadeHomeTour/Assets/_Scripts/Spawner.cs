@@ -2,20 +2,25 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+
 public class Spawner : MonoBehaviour
 {
-
     private float invocationDelay = 0.8f;
     private bool hasBeenInvoked = false;
     private GameManager gm;
+    private ObjectPooler OP;
+    private CrabController crab;
 
     public static int totalSpawns = 0;
-    public GameObject obj;
+    public GameObject spawnObj;
     public float delay = 5f;
     public Transform initialTarget;
     public Vector3 initialForce;
+
+
     [SerializeField]
     public UnityEvent onSpawn;
+
 
   // Start is called before the first frame update
   void Start()
@@ -26,8 +31,8 @@ public class Spawner : MonoBehaviour
     
     void OnDrawGizmos()
     {
-        var skinnedRenderer = obj.GetComponentInChildren<SkinnedMeshRenderer>();
-        var staticRenderer = obj.GetComponentInChildren<MeshFilter>();
+        var skinnedRenderer = spawnObj.GetComponentInChildren<SkinnedMeshRenderer>();
+        var staticRenderer = spawnObj.GetComponentInChildren<MeshFilter>();
 
         Gizmos.color = Color.red;
 
@@ -60,15 +65,25 @@ public class Spawner : MonoBehaviour
                 yield return new WaitForSeconds(invocationDelay);
             }
 
-            // Spawn the object and reset hasBeenInvoked
-            GameObject instance = Instantiate(obj, transform.position, transform.rotation);
-            instance.GetComponent<Rigidbody>().AddForce(initialForce);
+            CrabController crab = null;
 
-            CrabController crab;
-            crab = instance.GetComponent<CrabController>();
+            GameObject GO = OP.GetPooledObject((int)BT.crab);
+
+            if (!GO)
+                yield return new WaitForSeconds(delay);
+
+            GO.SetActive(true);
+
+            crab = GO.GetComponent<CrabController>();
 
             if (crab != null)
+            {
+                crab.rb.MovePosition(transform.position);
+                crab.rb.MoveRotation(transform.rotation);
+                crab.rb.AddForce(initialForce);
+
                 crab.target = initialTarget;
+            }
 
             hasBeenInvoked = false;
             totalSpawns++;
@@ -79,6 +94,15 @@ public class Spawner : MonoBehaviour
     public void StartSpawning()
     {
         StartCoroutine("Spawn");
+        gm = GameManager.GetInstance();
+        //gm.gameMode.switchesOn++;
+    }
+
+    public void StopSpawning()
+    {
+        StopCoroutine("Spawn");
+        gm = GameManager.GetInstance();
+        //gm.gameMode.switchesOn--;
     }
 
 }

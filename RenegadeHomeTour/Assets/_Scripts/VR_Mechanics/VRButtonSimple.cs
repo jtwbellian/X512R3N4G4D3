@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public class VRButtonSimple : MonoBehaviour
 {
+    private Collider lastCol;
     private Collider finger1, finger2;
     private SpriteRenderer mat;
 
@@ -13,6 +14,8 @@ public class VRButtonSimple : MonoBehaviour
     public Color color;
     public Color highlightColor;
     bool canPush = false;
+
+    bool touch = false;
 
     // Start is called before the first frame update
     void Start()
@@ -33,53 +36,63 @@ public class VRButtonSimple : MonoBehaviour
 
     void OnEnable()
     {
-        Invoke("AllowPush", 0.5f);
-    }
-
-    public void AllowPush()
-    {
-        canPush = true;
-    }
-
-    void OnTriggerEnter(Collider other)
-    {
-        if (!canPush)
-            return;
-
-        if (other.CompareTag("RightHand"))
-        {
-            OVRHapticsManager.GetInstance().BuzzRight(VibrationForce.Medium, 0.05f);
-            canPush = false;
-        }
-        else if (other.CompareTag("LeftHand"))
-        {
-            canPush = false;
-            OVRHapticsManager.GetInstance().BuzzLeft(VibrationForce.Medium, 0.05f);
-        }
+        Invoke("AllowPush", .5f);
 
         if (mat)
             mat.color = highlightColor;
     }
 
-    void OnTriggerExit(Collider other)
+    void OnDisable()
     {
-        if (!canPush)
-        {
-            if (mat)
-                mat.color = color;
-
-            canPush = true;
-            trigger.Invoke();
-        }
+        canPush = false;
+        touch = false;
     }
 
-   /* void OnTriggerStay(Collider col)
+    public void AllowPush()
     {
-        if(col.CompareTag("RightHand") || col.CompareTag("LeftHand"))
-        if (OVRInput.Get(OVRInput.Button.One) || OVRInput.Get(OVRInput.Button.Three))
+        canPush = true;
+        mat.color = color;
+    }
+
+    void OnTriggerEnter(Collider other)
+    {
+        if (!canPush || touch)
+            return;
+
+        if (other.gameObject.name.Contains("index_03") &&other.gameObject.CompareTag("RightHand"))
         {
+            OVRHapticsManager.GetInstance().BuzzRight(VibrationForce.Medium, 0.05f);
+        }
+        else if (other.gameObject.name.Contains("index_03") && other.gameObject.CompareTag("LeftHand"))
+        {
+            OVRHapticsManager.GetInstance().BuzzLeft(VibrationForce.Medium, 0.05f);
+        }
+
+        if (mat)
+            mat.color = highlightColor;
+
+        touch = true;
+    }
+
+    void OnTriggerExit(Collider other)
+    {
+        if (touch && other.gameObject.name.Contains("index_03"))
+        {
+            touch = false;
             trigger.Invoke();
         }
-    }*/
+
+        if (mat)
+            mat.color = color;
+    }
+
+    /* void OnTriggerStay(Collider col)
+     {
+         if(col.CompareTag("RightHand") || col.CompareTag("LeftHand"))
+         if (OVRInput.Get(OVRInput.Button.One) || OVRInput.Get(OVRInput.Button.Three))
+         {
+             trigger.Invoke();
+         }
+     }*/
 
 }

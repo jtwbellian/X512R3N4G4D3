@@ -9,6 +9,7 @@ public abstract class EVActor : MonoBehaviour
     [Header("Actor Settings")]
     public string myName = "NoName";
     public EventInfo myEvent;
+    [SerializeField]
     protected AppliesTo subscribesTo;
 
     [ContextMenu("Subscribe")]
@@ -56,7 +57,7 @@ public abstract class EVActor : MonoBehaviour
 
         if (eventMan == null)
         {
-            Debug.Log("Event Manager not found, could not unsubscribe");
+            Debug.Log("[" + myName + "]" + "Event Manager not found, could not unsubscribe");
             return;
         }
 
@@ -97,7 +98,8 @@ public abstract class EVActor : MonoBehaviour
 
     void OnDisable()
     {
-        Unsubscribe();
+        //Debug.Log(myName + " disabled. Unsubscribing from " + subscribesTo.ToString());
+        //Unsubscribe();
     }
 
     public void OnEventBegin(EventInfo info)
@@ -120,10 +122,11 @@ public abstract class EVActor : MonoBehaviour
     }
 
 
-    public virtual void BeginEvent() {}
+    public abstract void BeginEvent();// {}
 
     public void CompleteEvent()
     {
+        //myEvent = null;
         EventManager.CompleteTask(this);
     }
 

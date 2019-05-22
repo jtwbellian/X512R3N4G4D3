@@ -62,10 +62,12 @@ public class VRMovementController : MonoBehaviour
         //body = GetComponentInChildren<IKPlayerController>().transform;
         //rb = body.GetComponent<Rigidbody>();
         rigidBody.freezeRotation = true;
-        rigidBody.maxDepenetrationVelocity = MAX_SPEED/4;
+        rigidBody.maxDepenetrationVelocity = 0.5f;
         head = Camera.main.transform; //GetComponentInChildren<Camera>().transform;
         audio = GetComponent<AudioSource>();
         ikController = GetComponentInChildren<IKPlayerController>();
+
+
     }
 
     public void ViewRatchet(float amt)
@@ -94,26 +96,22 @@ public class VRMovementController : MonoBehaviour
         {
             // Use Boost Jets
             var stickY = OVRInput.Get(OVRInput.Axis2D.PrimaryThumbstick).y;
+            var stickX = OVRInput.Get(OVRInput.Axis2D.PrimaryThumbstick).x;
 
-            if (Mathf.Abs(stickY) > 0f && boost > 0f)//rigidBody.velocity.magnitude < MAX_SPEED)
+            if ((Mathf.Abs(stickY) > 0f || Mathf.Abs(stickX) > 0f) && boost > 0f)//rigidBody.velocity.magnitude < MAX_SPEED)
             {
-
-                if (gm.direc.trainingMode)
-                {
-                    GameManager.GetInstance().direc.Ping(PING.analogFwd);
-                }
-
-                rigidBody.AddForce(head.forward * (speed * stickY * (boost + 0.1f)), ForceMode.Force);
+                rigidBody.AddForce(head.forward * (speed * stickY * (boost + 0.1f)) + 
+                                    head.right * (speed * stickX * (boost + 0.1f)), ForceMode.Force);
 
                 if (!audio.isPlaying)
                 {
                     audio.Play();
                 }
 
-                audio.volume = Mathf.Abs(stickY);
+                audio.volume = Mathf.Clamp(Mathf.Abs(stickY) + Mathf.Abs(stickX), 0, 1);
                 audio.pitch = boost;
 
-                boost -= Time.deltaTime * Mathf.Abs(stickY) * 0.25f;
+                boost -= Time.deltaTime * (Mathf.Abs(stickY) + Mathf.Abs(stickX)) * 0.25f;
             }
             else if (boost < 1f)
             {
@@ -172,6 +170,7 @@ public class VRMovementController : MonoBehaviour
     public void AllowBoost()
     {
         canBoost = true;
+        boostBar.parent.gameObject.SetActive(true);
     }
         
     public void Hurt(float amt)

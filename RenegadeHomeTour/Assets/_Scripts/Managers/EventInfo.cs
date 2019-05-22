@@ -13,16 +13,19 @@ public enum EV
     ItemDropped,
     targetHit,
     analogFwd,
-    gameWon,
     weaponHolstered,
     audioStart,
     audioWait,
     EntersTrigger,
-    ExitsTrigger
+    ExitsTrigger,
+    GoHome,
+    GameStart,
+    GameEnd,
+    FollowPlayer
 }
 
 [System.Serializable, CreateAssetMenu(fileName = "Data", menuName = "ScriptableObjects/EventInfo")]
-public class EventInfo
+public class EventInfo : ScriptableObject
 {
     public string myName = "NEW EVENT";
     public EV type = EV.NONE;

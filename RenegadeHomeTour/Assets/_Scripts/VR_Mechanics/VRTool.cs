@@ -41,8 +41,6 @@ public abstract class VRTool : iSpecial_Grabbable
 
         Grab += OnGrab;
         Release += OnRelease;
-        Debug.Log(name + "Grab: " + Grab.GetInvocationList());
-        Debug.Log(name + "Release: " + Release.GetInvocationList());
 
         Init();
     }
@@ -246,6 +244,8 @@ public abstract class VRTool : iSpecial_Grabbable
     // Implement iSpecial Grabbable
     public virtual void OnGrab()
     {
+        CancelInvoke();
+
         if (home != null)
         {
             //Debug.Log("Home: " + home.ToString() + "\n Attempting to free..." );

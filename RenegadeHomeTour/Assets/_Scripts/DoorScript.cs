@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class DoorScript : MonoBehaviour
 {
+    float delay = 100f;
+    float lastOpen = 0f;
     Animator shortAnimator;
     Animator longAnimator;
     bool doorState = false;
@@ -21,27 +23,26 @@ public class DoorScript : MonoBehaviour
 
     void OnTriggerEnter(Collider col)
     {
-        if (col.transform.root.gameObject.gameObject.tag == "Player")
+        if (col.gameObject.tag == "Player" && Time.time > lastOpen + delay)
         {
             SoundSource.clip = SoundOpen;
             SoundSource.Play();
             shortAnimator.SetBool("Slide", true);
             longAnimator.SetBool("Slide", true);
+            lastOpen = Time.time;
             //If the GameObject is player, output this message in the console
-            Debug.Log("Open Sesame!");
         }
     }
 
     void OnTriggerExit(Collider col)
     {
-        if (col.transform.root.gameObject.tag == "Player")
+        if (col.gameObject.tag == "Player")
         {
             SoundSource.clip = SoundClose;
             SoundSource.Play();
             shortAnimator.SetBool("Slide", false);
             longAnimator.SetBool("Slide", false);
             //If the GameObject is player, output this message in the console
-            Debug.Log("Goodbye.");
         }
     }
 }
