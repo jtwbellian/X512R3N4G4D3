@@ -14,9 +14,12 @@ public class scr_gravField : MonoBehaviour
         if (col.attachedRigidbody)
         {
             if (isAttractor)
+            {
                 force = (col.transform.position - transform.position).normalized * force.magnitude;
-
-             col.attachedRigidbody.AddForce(force, ForceMode.Acceleration);
+                col.attachedRigidbody.AddForce(force, ForceMode.VelocityChange);
+            }
+            else
+                col.attachedRigidbody.AddForce(force, ForceMode.Acceleration);
         }
     }
 

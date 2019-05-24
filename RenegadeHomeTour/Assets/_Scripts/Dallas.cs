@@ -6,8 +6,8 @@ public class Dallas : EVActor
 {
     private float LastDeparture;
     private float timeOut = 500;
-    private const float MIN_DIST = 0.1f;
-    private const float MAX_DIST = 0.25f;
+    private const float MIN_DIST = 0.15f;
+    private const float MAX_DIST = 0.3f;
     private enum state { Look, Move, Follow}
     [SerializeField]
     private Animator anim;
@@ -21,7 +21,7 @@ public class Dallas : EVActor
     private float speed = 10f;
     [SerializeField]
     private Transform home;
-    private Transform camView;
+    private Transform camView; 
     private Vector3 lastPos;
     private bool waitForMe = false;
     private bool isHome = false;
@@ -43,11 +43,6 @@ public class Dallas : EVActor
         camView = GameManager.GetInstance().hud.hudAnchor.transform;
         anim = GetComponentInChildren<Animator>();
         gm = GameManager.GetInstance();
-    }
-
-    void OnEnable()
-    {
-        //ps.Play();
     }
 
     public void DropItem()
@@ -74,9 +69,14 @@ public class Dallas : EVActor
                 waitForMe = true;
                 break;
 
+            case EV.FollowPlayer:
+                FollowPlayer();
+                CompleteEvent();
+                break;
+
             case EV.ItemDropped:
                 myItem.SetActive(true);
-                myItem.transform.SetParent(null);
+                //myItem.transform.SetParent(null);
                 CompleteEvent();
                 break;
 
@@ -132,7 +132,6 @@ public class Dallas : EVActor
         rb.velocity = Vector3.zero;
         target = camView;
     }
-   
 
     public void SetHome(Transform obj)
     {
@@ -146,7 +145,7 @@ public class Dallas : EVActor
         {
             return;
         }
-            
+
         switch(currentState)
         {
             case state.Move:

@@ -23,17 +23,34 @@ public class VoiceActor : EVActor
 
         if (myEvent.type == EV.audioStart)
         {
-            source.PlayOneShot(lines[currentLine]);
+            source.clip = lines[currentLine];
+            source.Play();
             currentLine++;
             CompleteEvent();
         }
         else if (myEvent.type == EV.audioWait)
         {
-            source.PlayOneShot(lines[currentLine]);
+            source.clip = lines[currentLine];
+            source.Play();
             Invoke("CompleteEvent", lines[currentLine].length);
             currentLine++;
         }
     }
+
+    #region eventDesignerTools
+
+    [ContextMenu("InsertAtCurrentLine")]
+    private void InsertEvent()
+    {
+        lines.Insert(currentLine, lines[currentLine]);
+    }
+
+    [ContextMenu("RemoveAtCurrentLine")]
+    private void RemoveEvent()
+    {
+        lines.RemoveAt(currentLine);
+    }
+#endregion
 
     // Update is called once per frame
     void Update()

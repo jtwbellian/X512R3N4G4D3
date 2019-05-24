@@ -147,7 +147,7 @@ public abstract class VRTool : iSpecial_Grabbable
 
     void OnTriggerEnter(Collider col)
     {
-        if (isHeld())
+        if (isHeld() || grabInfo.isGrabbed == true)
             return; 
 
         if ((col.CompareTag("LeftHand") || col.CompareTag("RightHand")))

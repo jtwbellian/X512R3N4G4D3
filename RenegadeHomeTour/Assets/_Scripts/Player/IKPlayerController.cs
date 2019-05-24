@@ -77,7 +77,6 @@ public class IKPlayerController : EVActor
 
     public override void BeginEvent()
     {
-
     }
 
     public void FreePlayer()
@@ -131,6 +130,12 @@ public class IKPlayerController : EVActor
             Debug.Log("Error: Animator component not found");
         }
 
+        /*
+        NonIKBodyAnimator.speed = 1f;
+        BodyAnimator.speed = 1f;
+        LHandAnimator.speed = 1f;
+        RHandAnimator.speed = 1f;
+
 
         NonIKBodyAnimator.SetLayerWeight(0, 1);
 
@@ -144,11 +149,7 @@ public class IKPlayerController : EVActor
             BodyAnimator.SetLayerWeight(i, 1);
         }
         BodyAnimator.SetLayerWeight(8, 1);
-
-        NonIKBodyAnimator.speed = 1f;
-        BodyAnimator.speed = 1f;
-        LHandAnimator.speed = 1f;
-        RHandAnimator.speed = 1f;
+        */
 
         //Physics.IgnoreCollision(capsule, head.transform.GetComponent<Collider>());
 
@@ -267,6 +268,9 @@ public class IKPlayerController : EVActor
     // Update is called once per frame
     void Update()
     {
+        if (GameManager.isPaused)
+            return;
+
         // make collider match your current height
         if (ikOn)
             capsule.height = (Mathf.Abs(head.localPosition.y) * percentHeight + minHeight) * scaleFactor;

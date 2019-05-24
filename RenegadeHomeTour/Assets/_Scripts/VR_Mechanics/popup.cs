@@ -33,7 +33,7 @@ public class popup : MonoBehaviour
         }
 
         transform.LookAt(Camera.main.transform);
-        audioSource.Play();
+        //audioSource.Play();
 
         Destroy(gameObject, 1f);
     }

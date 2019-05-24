@@ -48,6 +48,7 @@ public class OVRClimbable : OVRGrabbable
     {
         //Debug.Log("Climbable Grabbed");
         isHeld = true;
+        LinesOff();
         base.GrabBegin(hand, grabPoint);
     }
 
@@ -61,7 +62,7 @@ public class OVRClimbable : OVRGrabbable
 
     void OnTriggerStay(Collider col)
     {
-        if (isHeld)
+        if (isGrabbed)
             return;
 
         if ((col.CompareTag("LeftHand") || col.CompareTag("RightHand")))
@@ -75,10 +76,8 @@ public class OVRClimbable : OVRGrabbable
         if (isHeld)
             return;
 
-        if ((col.CompareTag("LeftHand") || col.CompareTag("RightHand")))
-        {
+        if (!isGrabbed)
             LinesOff();
-        }
     }
 
     public void LinesOn()

@@ -50,8 +50,9 @@ public class scr_lock : iSpecial_Grabbable
 
         // set rigidbody to no rotation for performance
         if (xr[0] + xr[1] + yr[0] + yr[1] + zr[0] + zr[1] == 0)
+        {
             rb.freezeRotation = true;
-
+        }
 
         oldPos = transform.position;
         oldRot = transform.rotation.eulerAngles;
@@ -66,7 +67,7 @@ public class scr_lock : iSpecial_Grabbable
         }
     }
 
-    void FixedUpdate()
+    void Update()
     {
         if (grabbable != null && grabbable.grabbedBy != null)
         {
@@ -94,7 +95,6 @@ public class scr_lock : iSpecial_Grabbable
 
             currentzr = -Mathf.Atan2(lastPos.x - handPos.x, handPos.y - lastPos.y) * (180 / Mathf.PI);
             //currentzr = Mathf.Clamp(currentzr, oldRot.z + zr[0], oldRot.z + zr[1]);
-
         }
         else
         {
@@ -111,8 +111,10 @@ public class scr_lock : iSpecial_Grabbable
         newRot.Set(Mathf.Clamp(currentxr, oldRot.x + xr[0], oldRot.x + xr[1]), Mathf.Clamp(currentyr, oldRot.y + yr[0], oldRot.y + yr[1]), Mathf.Clamp(currentzr, oldRot.z + zr[0], oldRot.z + zr[1]));
 
         //rb.velocity = Vector3.zero;
-        rb.MovePosition(newPos);
-        rb.MoveRotation(Quaternion.Euler(newRot));
+
+        transform.SetPositionAndRotation(newPos, Quaternion.Euler(newRot));
+        //rb.MovePosition(newPos);
+        //rb.MoveRotation(Quaternion.Euler(newRot));
 
         lastPos = newPos;
         lastRot = newRot;
@@ -131,7 +133,7 @@ public class scr_lock : iSpecial_Grabbable
         grabbable.grabbedBy.m_parentHeldObject = false;
         LinesOff();
       
-        transform.SetParent( trueParent);
+        transform.SetParent(trueParent);
         //Debug.Log("parent set to  " + transform.parent);
         //held = true;
         offset = transform.position - grabbable.grabbedBy.transform.position;

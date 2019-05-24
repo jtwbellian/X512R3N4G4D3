@@ -24,7 +24,7 @@ public class MamaCrabController : MonoBehaviour
     private float lastBeamTime = 0f;
     private float chargeDelay = 20f;
     [SerializeField]
-    private float beamDelay = 220f;
+    private float beamDelay = 800f;
     private Material beamMat; 
     [SerializeField]
     private float jumpForce = 100f;
@@ -34,7 +34,7 @@ public class MamaCrabController : MonoBehaviour
     public state current_state;
     public float speed = 2f;
     public float jumpDist = 4f;
-    private float beamStrength = 0f;
+    private float beamStrength = 2f;
 
     public Transform target;
 
@@ -81,8 +81,16 @@ public class MamaCrabController : MonoBehaviour
         fxManager = FXManager.GetInstance();
     }
 
-    void OnCollisionEnter(Collision other)
+    void OnTriggerEnter(Collider other)
     {
+
+        if (other.transform == target && current_state == state.Walk)
+        {
+            target = Camera.main.transform;
+            current_state = state.Seek;
+            audioSource.PlayOneShot(chirp2);
+        }
+
         DoesDammage dd = other.transform.GetComponent<DoesDammage>();
 
         if (dd != null)
@@ -117,24 +125,14 @@ public class MamaCrabController : MonoBehaviour
         }
     }
 
-    void OnTriggerEnter(Collider other)
+    void OnTriggerStay(Collider other)
     {
-
         if (current_state == state.Attack && other.transform.root.CompareTag("Player"))
         {
             VRMovementController player = other.transform.root.GetComponent<VRMovementController>();
             player.Hurt(beamStrength);
-            return;
+            FXManager.GetInstance().Burst(FXManager.FX.Beam, other.transform.position, 15);
         }
-
-
-        if (other.transform == target && current_state == state.Walk)
-        {
-            target = Camera.main.transform;
-            current_state = state.Seek;
-            audioSource.PlayOneShot(chirp2);
-        }
-
     }
 
     // Update is called once per frame
@@ -182,6 +180,7 @@ public class MamaCrabController : MonoBehaviour
                 {
                     lastBeamTime = Time.time;
                     current_state = state.Attack;
+                    audioSource.PlayOneShot(chirp4);
                     beam.SetActive(true);
                     animator.speed = 0.1f;
                     animator.SetBool("jump", true);
@@ -235,14 +234,14 @@ public class MamaCrabController : MonoBehaviour
                         lastBeamTime = Time.time;
                         beamMat.SetFloat("_strength", 0.1f);
                         current_state = state.Seek;
-                        audioSource.PlayOneShot(chirp4);
+                        audioSource.PlayOneShot(chirp2);
                     }
                 break;
             }
 
             case state.Jump:
             {
-                audioSource.PlayOneShot(chirp4);
+                audioSource.PlayOneShot(chirp1);
                 rb.MoveRotation(Quaternion.Euler(transform.position - target.position).normalized);
                 rb.AddForce(transform.forward * jumpForce, ForceMode.Impulse);
                 current_state = state.Walk;

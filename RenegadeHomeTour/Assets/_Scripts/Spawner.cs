@@ -67,7 +67,8 @@ public class Spawner : MonoBehaviour
 
             CrabController crab = null;
 
-            GameObject GO = OP.GetPooledObject((int)BT.crab);
+            GameObject GO = ObjectPooler.SharedInstance.GetPooledObject((int)BT.crab);
+            crab = GO.GetComponent<CrabController>();
 
             if (!GO)
                 yield return new WaitForSeconds(delay);
@@ -78,10 +79,7 @@ public class Spawner : MonoBehaviour
 
             if (crab != null)
             {
-                crab.rb.MovePosition(transform.position);
-                crab.rb.MoveRotation(transform.rotation);
-                crab.rb.AddForce(initialForce);
-
+                crab.transform.SetPositionAndRotation(transform.position, transform.rotation);
                 crab.target = initialTarget;
             }
 
