@@ -89,7 +89,6 @@ public class GrabMagnet : MonoBehaviour
                 orb.enabled = false;
             }
 
-
             var hat = item.GetComponent<scr_hat>();
             if (hat != null && transform.root.CompareTag("Player"))
             {
@@ -97,9 +96,7 @@ public class GrabMagnet : MonoBehaviour
                     hat.OutfitOn();
             }
 
-
-
-            GameManager.GetInstance().direc.Ping(PING.weaponHolstered);
+            //GameManager.GetInstance().direc.Ping(PING.weaponHolstered);
 
             /*
             if (holdsHat && transform.root.CompareTag("Player"))

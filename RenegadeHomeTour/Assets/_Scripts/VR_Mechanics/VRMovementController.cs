@@ -13,7 +13,7 @@ public class VRMovementController : MonoBehaviour
     private float boostbar_width = 0.0f;
     public Rigidbody rigidBody;
     private Transform head;
-    private float rechargeRate = 2f;
+    private float rechargeRate = 100f;
     private bool ReadyToSnapTurn = false;
     private Vignette vignette;
     private ColorGrading colorGrading;
@@ -49,7 +49,9 @@ public class VRMovementController : MonoBehaviour
     void Start()
     {
         gm = GameManager.GetInstance();
-        
+        gm.PlayerRespawn += Respawn;
+
+
         if (boostBar == null)
             Debug.Log("ERROR: Boost bar is null, dummy!");
         else
@@ -66,8 +68,13 @@ public class VRMovementController : MonoBehaviour
         head = Camera.main.transform; //GetComponentInChildren<Camera>().transform;
         audio = GetComponent<AudioSource>();
         ikController = GetComponentInChildren<IKPlayerController>();
+    }
 
-
+    public void Respawn()
+    {
+        canBoost = true;
+        shields = 100;
+        colorGrading.saturation.value = 25f;
     }
 
     public void ViewRatchet(float amt)
@@ -84,6 +91,9 @@ public class VRMovementController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (GameManager.isPaused)
+            return;
+
         //Die
         if (shields <= 0 && !gm.playerIsDead)
         {

@@ -7,7 +7,7 @@ public class CrabController : MonoBehaviour
     public enum state { Walk, Jump, Attack };
 
     private const float TOL = 0.1f;
-    private const float MAX_HEALTH = 50f;
+    private float MAX_HEALTH = 50f;
     private Animator animator;
     private Material [] mats;
 
@@ -40,11 +40,13 @@ public class CrabController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        var scale = Random.Range(0.3f, 0.8f);
+        var scale = Random.Range(0.4f, 0.7f);
+        health = MAX_HEALTH = scale * 100;
+
         transform.localScale = new Vector3(scale, scale, scale);
         var renderer = GetComponentInChildren<Renderer>();
         mats = renderer.materials;
-        rb = GetComponent<Rigidbody>();
+        rb = GetComponentInChildren<Rigidbody>();
 
         current_state = state.Walk;
 
@@ -108,34 +110,14 @@ public class CrabController : MonoBehaviour
 
             fxManager = FXManager.GetInstance();
             fxManager.Burst(FXManager.FX.Dissolve, transform.position, Vector3.zero, 5);
-
+            rb.AddTorque((other.transform.position - transform.position) * dmg);
             audioSource.PlayOneShot(dd.impactSnd);
 
             health -= dmg;
 
-            if (alive && health <= 0)
-            {
-                StartCoroutine("Dissolve");
 
-                audioSource.PlayOneShot(deathSnd);
-
-                alive = false;
-                rb.isKinematic = false;
-                rb.AddTorque((other.transform.position - transform.position) * dmg);
-                animator.SetBool("dead", true);
-
-                //psDissolve.Play();
-                fxManager = FXManager.GetInstance();
-                fxManager.Burst(FXManager.FX.Dissolve, transform.position, 30);
-
-                GameManager gm = GameManager.GetInstance();
-                gm.IncrementKillCount();
-            }
-            else
-            {
-                fxManager = FXManager.GetInstance();
-                fxManager.Burst(FXManager.FX.Dissolve, transform.position, 2);
-            }
+            fxManager = FXManager.GetInstance();
+            fxManager.Burst(FXManager.FX.Dissolve, transform.position, 2);
 
             rb.AddForce((other.transform.position - transform.position) * (dmg / 100f));
         }
@@ -144,6 +126,22 @@ public class CrabController : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
+        if (alive && health <= 0)
+        {
+            StartCoroutine("Dissolve");
+            audioSource.PlayOneShot(deathSnd);
+            alive = false;
+            rb.isKinematic = false;
+
+            animator.SetBool("dead", true);
+
+            fxManager = FXManager.GetInstance();
+            fxManager.Burst(FXManager.FX.Dissolve, transform.position, 30);
+
+            GameManager gm = GameManager.GetInstance();
+            gm.IncrementKillCount();
+        }
+
         if (target == null)
             return;
 
@@ -254,6 +252,7 @@ public class CrabController : MonoBehaviour
     void OnEnable()
     {
         health = MAX_HEALTH;
+        alive = true;
 
         if (mats != null)
         for (int m = 0; m <= mats.Length - 1; m++)

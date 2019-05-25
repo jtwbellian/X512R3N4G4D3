@@ -111,8 +111,8 @@ public class vrt_blade : VRTool
             yield return new WaitForSeconds(0.02f);
         }
 
-        knife.localRotation = Quaternion.Lerp(Quaternion.Euler(rotationDown), Quaternion.Euler(rotationUp), orientation);
-        knife.localPosition = Vector3.Lerp(positionDown, positionUp, orientation);
+        knife.localRotation = Quaternion.Lerp(Quaternion.Euler(rotationDown), Quaternion.Euler(rotationUp), 1 - orientation);
+        knife.localPosition = Vector3.Lerp(positionDown, positionUp, 1 - orientation);
         StopCoroutine("Flip");
         yield return null;
     }

@@ -3002,7 +3002,6 @@ GameObject:
   - component: {fileID: 6011731494575798867}
   - component: {fileID: 6011731494575798865}
   - component: {fileID: 6011731494575798866}
-  - component: {fileID: 5723902860119992310}
   m_Layer: 0
   m_Name: Dallas
   m_TagString: Untagged
@@ -3043,14 +3042,15 @@ MonoBehaviour:
   subscribesTo: 2
   source: {fileID: 6011731494575798867}
   lines:
+  - {fileID: 8300000, guid: 8897b1b959979c0419f1492bf8fc2003, type: 3}
   - {fileID: 8300000, guid: d1e4328618f43754babb44dc62da425c, type: 3}
-  - {fileID: 8300000, guid: cf710482d426df04383dbd45c5a22489, type: 3}
   - {fileID: 8300000, guid: e059f184bd65688479090d848f39d1cf, type: 3}
   - {fileID: 8300000, guid: 8a722456a16a3a147bfad77976773a69, type: 3}
   - {fileID: 8300000, guid: 5d4eb62893ef0dd47b61f72be04ba2ea, type: 3}
   - {fileID: 8300000, guid: 11f51958cb812894b8336f961f1197a0, type: 3}
   - {fileID: 8300000, guid: 4db61e758f343cd4ea5963537c9d1c36, type: 3}
   - {fileID: 8300000, guid: ce1572de84b3ad846bd8d5b8c8ea241b, type: 3}
+  - {fileID: 8300000, guid: d0ffb16d336f360478a68e2484e3bccf, type: 3}
   - {fileID: 8300000, guid: 7a998609bf01ace47ac684a56e205682, type: 3}
   - {fileID: 8300000, guid: 2f107afa2572313479dbdbcd957dce40, type: 3}
   - {fileID: 8300000, guid: 30545b00c178d634496523d2207402e5, type: 3}
@@ -3067,16 +3067,16 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
   Mute: 0
   Spatialize: 1
   SpatializePostEffects: 0
-  Priority: 128
+  Priority: 27
   DopplerLevel: 1
-  MinDistance: 1
+  MinDistance: 2
   MaxDistance: 16.6
   Pan2D: 0
   rolloffMode: 0
@@ -3189,30 +3189,6 @@ MonoBehaviour:
   home: {fileID: 0}
   myItem: {fileID: 5717308429520181145}
   currentState: 0
---- !u!114 &5723902860119992310
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6011731494575798864}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_GeneratorAsset: {fileID: 0}
-  m_Script: {fileID: 11500000, guid: 02d61468f8b77ae4b92c344bc9a600fb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_allowOffhandGrab: 1
-  twoHanded: 0
-  m_twoHandedGrab: 0
-  m_snapPosition: 0
-  m_snapOrientation: 0
-  m_snapOffset: {fileID: 0}
-  m_grabPoints:
-  - {fileID: 23087197}
-  - {fileID: 543784407}
-  allColliders:
-  - {fileID: 4825667290356285190}
 --- !u!1001 &2683310824844033203
 PrefabInstance:
   m_ObjectHideFlags: 0

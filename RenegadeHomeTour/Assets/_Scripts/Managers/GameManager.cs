@@ -5,8 +5,11 @@ using UnityEngine;
 
 public enum GameMode { crabs, sandbox};
 
-public class GameManager : MonoBehaviour
+public delegate void RespawnPlayerHandler();
+
+public class GameManager : EVActor
 {
+    public static bool isPaused = false;
     public CrabGame gameMode;
     [HideInInspector]
     public bool playerIsDead = false;
@@ -22,6 +25,20 @@ public class GameManager : MonoBehaviour
     public Material defaultPlayerMat;
     public MeshRenderer playerHelmet;
     public SkinnedMeshRenderer playerArmor;
+    public SkinnedMeshRenderer playerNArmor;
+
+    [Header("Crabtastrophe Game")]
+    public int numLocked = 0; 
+    public scr_button[] airLockButtons;
+    public AirVent [] airVents;
+    public Light redLight;
+    public GameObject [] fan;
+    public GameObject destroyedFan;
+    public GameObject mamaCrab;
+    public AudioClip bossSpawnSound;
+
+    public event RespawnPlayerHandler PlayerRespawn;
+
 
     private bool popupShown = false;
 
@@ -57,14 +74,16 @@ public class GameManager : MonoBehaviour
     void Init()
     {
         //Camera.main.transform.root.GetComponentInChildren<Rigidbody>().MovePosition(playerStart);
+        subscribesTo = AppliesTo.PLAYER;
+        myName = "GM";
     }
 
     public void ChangeSkin(Material mat)
     {
-        Debug.Log("Helmet mat was " + playerHelmet.materials[1]);
         playerHelmet.materials.SetValue(mat, 1);
-        Debug.Log("Helmet is now " + playerHelmet.materials[1]);
+        playerHelmet.materials[1] = mat;
         playerArmor.material = mat;
+        playerNArmor.material = mat;
     }
 
     public void CreatePopup(Vector3 pos, string message, float time)
@@ -98,11 +117,116 @@ public class GameManager : MonoBehaviour
     public void PlayerDie()
     {
         var fxMan = FXManager.GetInstance();
-        //fxMan.Burst()
+        playerIsDead = true;
+        FXManager.GetInstance().Burst(FXManager.FX.Shock, Camera.main.transform.position, 25);
+        sm.PlayDeathSnd();
+        Invoke("Respawn", 0.5f);
+    }
+
+    public void Respawn()
+    {
+        playerIsDead = false;
+        PlayerRespawn.Invoke();
+    }
+
+    [ContextMenu("Spawn Boss")]
+    public void SpawnBoss()
+    {
+        sm.environment.PlayOneShot(bossSpawnSound);
+
+        foreach (GameObject f in fan)
+            f.SetActive(false);
+
+        destroyedFan.SetActive(true);
+        mamaCrab.gameObject.SetActive(true);
+    }
+
+    [ContextMenu("Spawn Enemies")]
+    public void ActivateButtons()
+    {
+        StartCoroutine(G_ActivateButtons(1));
     }
 
     public static GameManager GetInstance()
     {
         return instance;
+    }
+
+    void Update()
+    {
+        if (!isPaused && !OVRManager.hasInputFocus)
+        {
+            Pause();
+        }
+        else if (isPaused && OVRManager.hasInputFocus)
+        {
+            UnPause();
+        }
+
+        if (myEvent != null)
+            if (numLocked >= 8 && myEvent.type == EV.GameEnd)
+            {
+                CompleteEvent();
+            }
+    }
+
+    public void Pause()
+    {
+        GameManager.isPaused = true;
+        AudioListener.pause = true;
+        Time.timeScale = 0.000001f;
+    }
+
+    public void UnPause()
+    {
+        GameManager.isPaused = false;
+        AudioListener.pause = false;
+        Time.timeScale = 1f;
+    }
+
+    public override void BeginEvent()
+    {
+        switch(myEvent.type)
+        {
+            // Pregame 
+            case EV.audioStart:
+                redLight.color = Color.red;
+                StartCoroutine(G_ShakeVents(1));
+                CompleteEvent();
+                break;
+
+            case EV.GameStart:
+                sm.PlayFortune();
+                StartCoroutine(G_ActivateButtons(1));
+                CompleteEvent();
+                break;
+
+            case EV.EntersTrigger:
+                SpawnBoss();
+                CompleteEvent();
+                break;
+        }
+    }
+
+    IEnumerator G_ShakeVents(float delay)
+    {
+        foreach (AirVent a in airVents)
+        {
+            a.StartShaking();
+            yield return new WaitForSeconds(delay);
+        }
+        yield return null;
+    }
+
+
+    IEnumerator G_ActivateButtons(float delay)
+    {
+        foreach (scr_button a in airLockButtons)
+        {
+            Debug.Log("invoked ");
+            a.Turn(true);
+            yield return new WaitForSeconds(delay);
+        }
+        yield return null;
     }
 }

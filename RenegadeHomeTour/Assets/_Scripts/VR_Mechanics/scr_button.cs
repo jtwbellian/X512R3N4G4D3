@@ -71,7 +71,7 @@ public class scr_button : MonoBehaviour
         }
     }
 
-    private void Turn(bool isOn)
+    public void Turn(bool isOn)
     {
         on = isOn;
 
@@ -91,6 +91,12 @@ public class scr_button : MonoBehaviour
             textField.color = isOn ? onColor : offColor;
             textField.text = isOn ? textOn : textOff;
         }
+
+        if (!isOn)
+            GameManager.GetInstance().numLocked++;
+        else
+            GameManager.GetInstance().numLocked--;
+
     }
 
     void Update()

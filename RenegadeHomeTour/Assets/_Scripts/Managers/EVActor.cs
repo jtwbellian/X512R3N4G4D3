@@ -19,7 +19,7 @@ public abstract class EVActor : MonoBehaviour
 
         if (eventMan == null)
         {
-            Debug.Log("Event Manager not found, could not unsubscribe");
+            Debug.Log(myName + ": Event Manager not found, could not subscribe");
             return;
         }
 

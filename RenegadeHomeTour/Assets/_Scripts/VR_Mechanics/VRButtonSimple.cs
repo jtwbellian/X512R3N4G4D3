@@ -51,7 +51,9 @@ public class VRButtonSimple : MonoBehaviour
     public void AllowPush()
     {
         canPush = true;
-        mat.color = color;
+
+        if (mat)
+            mat.color = color;
     }
 
     void OnTriggerEnter(Collider other)
@@ -76,7 +78,7 @@ public class VRButtonSimple : MonoBehaviour
 
     void OnTriggerExit(Collider other)
     {
-        if (touch && other.gameObject.name.Contains("index_03"))
+        if (touch)//&& other.gameObject.name.Contains("index_03"))
         {
             touch = false;
             trigger.Invoke();

@@ -454,7 +454,10 @@ public class OVRGrabber : MonoBehaviour
             newTool = currentPOI.GetComponent<VRTool>();
 
             if (newTool != null)
+            {
                 newTool.LinesOn();
+                newTool.GetRB().AddForce((newTool.transform.position - transform.position).normalized * 1);
+            }
 
             if (previousPOI != null)
             {

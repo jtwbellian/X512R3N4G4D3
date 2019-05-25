@@ -6,7 +6,7 @@ public class SoundManager : EVActor
 {
     public static SoundManager instance;
     public AudioSource music, player, dialogue, environment;
-    public AudioClip song_fortuna, song_music;
+    public AudioClip song_fortuna, song_music, deathClip;
 
     void Awake()
     {
@@ -44,6 +44,12 @@ public class SoundManager : EVActor
         music.Play();
         Invoke("PlayMusic", 21f);
     }
+
+    public void PlayDeathSnd()
+    {
+        player.PlayOneShot(deathClip);
+    }
+
 
     public void PlayMusic()
     {

@@ -74,7 +74,7 @@ public class vrt_gun : VRTool
             GO.SetActive(true);
             currentShot.velocity = Vector3.zero;
             currentShot.angularVelocity = Vector3.zero;
-            currentShot.AddForce(gunBarrel.forward * fireSpeed + grabInfo.grabbedBy.GetPlayerRB().velocity, ForceMode.Impulse);
+            currentShot.AddForce(gunBarrel.forward * fireSpeed + grabInfo.grabbedBy.GetPlayerRB().velocity, ForceMode.VelocityChange);
         }
 
         if (audioSource != null)
@@ -111,6 +111,7 @@ public class vrt_gun : VRTool
         else
         {
             Fire();
+            Invoke("LightOff", 0.1f);
         }
         
     }

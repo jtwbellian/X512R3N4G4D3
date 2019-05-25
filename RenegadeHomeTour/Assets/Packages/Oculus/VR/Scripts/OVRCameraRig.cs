@@ -112,6 +112,9 @@ public class OVRCameraRig : MonoBehaviour
 
 	protected virtual void Update()
 	{
+        if (GameManager.isPaused)
+            return;
+
 		_skipUpdate = false;
 
 		if (!useFixedUpdateForTracking)
