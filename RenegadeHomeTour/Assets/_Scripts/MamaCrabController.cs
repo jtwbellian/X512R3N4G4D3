@@ -63,11 +63,13 @@ public class MamaCrabController : MonoBehaviour
         audioSource = GetComponent<AudioSource>();
 
         Collider playerCol = Camera.main.transform.root.GetComponentInChildren<CapsuleCollider>();
+        myCols = GetComponentsInChildren<Collider>();
+
 
         if (playerCol != null)
             foreach (Collider c in myCols)
             {
-                Physics.IgnoreCollision(playerCol, c);
+                //Physics.IgnoreCollision(playerCol, c);
 
                 foreach (Collider ic in ignoreColliders)
                 {
