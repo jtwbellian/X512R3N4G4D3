@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1364854534401395193}
   - component: {fileID: 5353349319187754087}
-  - component: {fileID: 2321965874548408637}
   - component: {fileID: 3602672834379646429}
   m_Layer: 0
   m_Name: AutomatedDoor
@@ -48,22 +47,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 2.9698162, y: 8.9392805, z: 2.8526495}
   m_Center: {x: 0.028216183, y: 0.3341961, z: 0.008345127}
---- !u!114 &2321965874548408637
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 900522727686505203}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_GeneratorAsset: {fileID: 0}
-  m_Script: {fileID: 11500000, guid: a28c0412a7c07754ba884205c20e1d2c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  SoundOpen: {fileID: 8300000, guid: 21ca13427e529cf41992eec8fc3e223b, type: 3}
-  SoundClose: {fileID: 8300000, guid: 7673649e1e68df74eb5dd965d5d8353f, type: 3}
-  SoundSource: {fileID: 3602672834379646429}
 --- !u!82 &3602672834379646429
 AudioSource:
   m_ObjectHideFlags: 0
@@ -368,25 +351,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 2.9727921, y: 3.325154, z: 0.61043423}
   m_Center: {x: -0.1797951, y: 0.00000023718745, z: -0.0068847826}
---- !u!95 &7131044458206713107
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6066313302375380359}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: 35bb0e5639a5d69489c5206614b09d68, type: 3}
-  m_Controller: {fileID: 9100000, guid: ac1945eabb5a81241b0272399de23aa3, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!65 &3177499062605193659
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -400,25 +364,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.7483927, y: 3.325154, z: 0.5874962}
   m_Center: {x: -2.1271744, y: -0.000000006048593, z: -0.0338262}
---- !u!95 &2412500371964399691
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7615327052050145592}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: 35bb0e5639a5d69489c5206614b09d68, type: 3}
-  m_Controller: {fileID: 9100000, guid: 59b8e3b646a9641459c4712d33b5e04f, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!65 &4785056180249004173
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -478,21 +423,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1364854534401395193}
     m_Modifications:
-    - target: {fileID: -927199367670048503, guid: 1a0c5a90dde67514e85c2ec199b8a686,
-        type: 3}
-      propertyPath: m_Name
-      value: ShortDoor
-      objectReference: {fileID: 0}
-    - target: {fileID: 993971429675950867, guid: 1a0c5a90dde67514e85c2ec199b8a686,
-        type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7188498489474488782, guid: 1a0c5a90dde67514e85c2ec199b8a686,
-        type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 1a0c5a90dde67514e85c2ec199b8a686,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -563,6 +493,21 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: 1a0c5a90dde67514e85c2ec199b8a686,
+        type: 3}
+      propertyPath: m_Name
+      value: ShortDoor
+      objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: 1a0c5a90dde67514e85c2ec199b8a686,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
+    - target: {fileID: 993971429675950867, guid: 1a0c5a90dde67514e85c2ec199b8a686,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
     - target: {fileID: 5551014577142218206, guid: 1a0c5a90dde67514e85c2ec199b8a686,
         type: 3}
       propertyPath: m_LODs.Array.data[0].screenRelativeHeight
@@ -572,6 +517,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LODs.Array.data[1].screenRelativeHeight
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7188498489474488782, guid: 1a0c5a90dde67514e85c2ec199b8a686,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
       objectReference: {fileID: 0}
     - target: {fileID: -8893980512638790336, guid: 1a0c5a90dde67514e85c2ec199b8a686,
         type: 3}
@@ -609,26 +559,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1159010979124571361}
     m_Modifications:
-    - target: {fileID: -927199367670048503, guid: 1e95535e73be9354699397ef040f1b4c,
-        type: 3}
-      propertyPath: m_Name
-      value: DoorFrame_Low
-      objectReference: {fileID: 0}
-    - target: {fileID: -927199367670048503, guid: 1e95535e73be9354699397ef040f1b4c,
-        type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 4294967295
-      objectReference: {fileID: 0}
-    - target: {fileID: -7867022487403724895, guid: 1e95535e73be9354699397ef040f1b4c,
-        type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 4294967295
-      objectReference: {fileID: 0}
-    - target: {fileID: 4911245732245776023, guid: 1e95535e73be9354699397ef040f1b4c,
-        type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 4294967295
-      objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 1e95535e73be9354699397ef040f1b4c,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -699,6 +629,26 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: 1e95535e73be9354699397ef040f1b4c,
+        type: 3}
+      propertyPath: m_Name
+      value: DoorFrame_Low
+      objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: 1e95535e73be9354699397ef040f1b4c,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
+    - target: {fileID: -7867022487403724895, guid: 1e95535e73be9354699397ef040f1b4c,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
+    - target: {fileID: 4911245732245776023, guid: 1e95535e73be9354699397ef040f1b4c,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
     - target: {fileID: 5551014577142218206, guid: 1e95535e73be9354699397ef040f1b4c,
         type: 3}
       propertyPath: m_LODs.Array.data[0].screenRelativeHeight
@@ -755,21 +705,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1364854534401395193}
     m_Modifications:
-    - target: {fileID: -927199367670048503, guid: 35bb0e5639a5d69489c5206614b09d68,
-        type: 3}
-      propertyPath: m_Name
-      value: LongDoor
-      objectReference: {fileID: 0}
-    - target: {fileID: -3554145193382622961, guid: 35bb0e5639a5d69489c5206614b09d68,
-        type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -7413854480592170148, guid: 35bb0e5639a5d69489c5206614b09d68,
-        type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 35bb0e5639a5d69489c5206614b09d68,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -840,6 +775,26 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: 35bb0e5639a5d69489c5206614b09d68,
+        type: 3}
+      propertyPath: m_Name
+      value: LongDoor
+      objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: 35bb0e5639a5d69489c5206614b09d68,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
+    - target: {fileID: -7413854480592170148, guid: 35bb0e5639a5d69489c5206614b09d68,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
+    - target: {fileID: -3554145193382622961, guid: 35bb0e5639a5d69489c5206614b09d68,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
     - target: {fileID: 5551014577142218206, guid: 35bb0e5639a5d69489c5206614b09d68,
         type: 3}
       propertyPath: m_LODs.Array.data[0].screenRelativeHeight
@@ -872,15 +827,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 35bb0e5639a5d69489c5206614b09d68, type: 3}
---- !u!1 &6066313302375380359 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: -927199367670048503, guid: 35bb0e5639a5d69489c5206614b09d68,
-    type: 3}
-  m_PrefabInstance: {fileID: 2814242723169627278}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &7094442742664218516 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -4216859302048453862, guid: 35bb0e5639a5d69489c5206614b09d68,
+    type: 3}
+  m_PrefabInstance: {fileID: 2814242723169627278}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &6066313302375380359 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -927199367670048503, guid: 35bb0e5639a5d69489c5206614b09d68,
     type: 3}
   m_PrefabInstance: {fileID: 2814242723169627278}
   m_PrefabAsset: {fileID: 0}
@@ -891,16 +846,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1159010979124571361}
     m_Modifications:
-    - target: {fileID: -927199367670048503, guid: 7bfea0e6ec5a98447a640adafe00ba62,
-        type: 3}
-      propertyPath: m_Name
-      value: DoorHandle_thin_lo (3)
-      objectReference: {fileID: 0}
-    - target: {fileID: -927199367670048503, guid: 7bfea0e6ec5a98447a640adafe00ba62,
-        type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 7bfea0e6ec5a98447a640adafe00ba62,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -971,6 +916,16 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: 7bfea0e6ec5a98447a640adafe00ba62,
+        type: 3}
+      propertyPath: m_Name
+      value: DoorHandle_thin_lo (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: 7bfea0e6ec5a98447a640adafe00ba62,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7bfea0e6ec5a98447a640adafe00ba62, type: 3}
 --- !u!4 &8405223180011917209 stripped
@@ -992,16 +947,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1159010979124571361}
     m_Modifications:
-    - target: {fileID: -927199367670048503, guid: 7bfea0e6ec5a98447a640adafe00ba62,
-        type: 3}
-      propertyPath: m_Name
-      value: DoorHandle_thin_lo (1)
-      objectReference: {fileID: 0}
-    - target: {fileID: -927199367670048503, guid: 7bfea0e6ec5a98447a640adafe00ba62,
-        type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 7bfea0e6ec5a98447a640adafe00ba62,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1072,6 +1017,16 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: 7bfea0e6ec5a98447a640adafe00ba62,
+        type: 3}
+      propertyPath: m_Name
+      value: DoorHandle_thin_lo (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: 7bfea0e6ec5a98447a640adafe00ba62,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7bfea0e6ec5a98447a640adafe00ba62, type: 3}
 --- !u!4 &8625693071265233142 stripped
@@ -1093,16 +1048,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1159010979124571361}
     m_Modifications:
-    - target: {fileID: -927199367670048503, guid: 7bfea0e6ec5a98447a640adafe00ba62,
-        type: 3}
-      propertyPath: m_Name
-      value: DoorHandle_thin_lo
-      objectReference: {fileID: 0}
-    - target: {fileID: -927199367670048503, guid: 7bfea0e6ec5a98447a640adafe00ba62,
-        type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 7bfea0e6ec5a98447a640adafe00ba62,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1173,6 +1118,16 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: 7bfea0e6ec5a98447a640adafe00ba62,
+        type: 3}
+      propertyPath: m_Name
+      value: DoorHandle_thin_lo
+      objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: 7bfea0e6ec5a98447a640adafe00ba62,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7bfea0e6ec5a98447a640adafe00ba62, type: 3}
 --- !u!4 &153489329990608751 stripped
@@ -1194,26 +1149,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1159010979124571361}
     m_Modifications:
-    - target: {fileID: -927199367670048503, guid: 1e95535e73be9354699397ef040f1b4c,
-        type: 3}
-      propertyPath: m_Name
-      value: DoorFrame_Low (1)
-      objectReference: {fileID: 0}
-    - target: {fileID: -927199367670048503, guid: 1e95535e73be9354699397ef040f1b4c,
-        type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 4294967295
-      objectReference: {fileID: 0}
-    - target: {fileID: -7867022487403724895, guid: 1e95535e73be9354699397ef040f1b4c,
-        type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 4294967295
-      objectReference: {fileID: 0}
-    - target: {fileID: 4911245732245776023, guid: 1e95535e73be9354699397ef040f1b4c,
-        type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 4294967295
-      objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 1e95535e73be9354699397ef040f1b4c,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1284,6 +1219,26 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: 1e95535e73be9354699397ef040f1b4c,
+        type: 3}
+      propertyPath: m_Name
+      value: DoorFrame_Low (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: 1e95535e73be9354699397ef040f1b4c,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
+    - target: {fileID: -7867022487403724895, guid: 1e95535e73be9354699397ef040f1b4c,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
+    - target: {fileID: 4911245732245776023, guid: 1e95535e73be9354699397ef040f1b4c,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
     - target: {fileID: 5551014577142218206, guid: 1e95535e73be9354699397ef040f1b4c,
         type: 3}
       propertyPath: m_LODs.Array.data[0].screenRelativeHeight
@@ -1334,16 +1289,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1159010979124571361}
     m_Modifications:
-    - target: {fileID: -927199367670048503, guid: 7bfea0e6ec5a98447a640adafe00ba62,
-        type: 3}
-      propertyPath: m_Name
-      value: DoorHandle_thin_lo (2)
-      objectReference: {fileID: 0}
-    - target: {fileID: -927199367670048503, guid: 7bfea0e6ec5a98447a640adafe00ba62,
-        type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 7bfea0e6ec5a98447a640adafe00ba62,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1414,17 +1359,27 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: 7bfea0e6ec5a98447a640adafe00ba62,
+        type: 3}
+      propertyPath: m_Name
+      value: DoorHandle_thin_lo (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: 7bfea0e6ec5a98447a640adafe00ba62,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7bfea0e6ec5a98447a640adafe00ba62, type: 3}
---- !u!1 &1055232895471197831 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: -927199367670048503, guid: 7bfea0e6ec5a98447a640adafe00ba62,
-    type: 3}
-  m_PrefabInstance: {fileID: 9044668052017334158}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &4107187626481085588 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -4216859302048453862, guid: 7bfea0e6ec5a98447a640adafe00ba62,
+    type: 3}
+  m_PrefabInstance: {fileID: 9044668052017334158}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1055232895471197831 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -927199367670048503, guid: 7bfea0e6ec5a98447a640adafe00ba62,
     type: 3}
   m_PrefabInstance: {fileID: 9044668052017334158}
   m_PrefabAsset: {fileID: 0}
