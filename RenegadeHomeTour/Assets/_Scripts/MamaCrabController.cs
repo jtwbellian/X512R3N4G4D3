@@ -34,7 +34,7 @@ public class MamaCrabController : MonoBehaviour
     public state current_state;
     public float speed = 3f;
     public float jumpDist = 4f;
-    private float beamStrength = 50f;
+    private float beamStrength = 80f;
 
     public Transform target;
 
