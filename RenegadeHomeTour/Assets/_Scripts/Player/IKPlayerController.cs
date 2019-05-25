@@ -18,7 +18,7 @@ public class IKPlayerController : EVActor
     private float rFinger = 0f;
     private float rThumb = 0f;
 
-    private float scaleFactor = 6f;
+    private float scaleFactor = 5f;
     private float minHeight = 0.2f;
     private float percentHeight = 0.5f;
     [SerializeField]

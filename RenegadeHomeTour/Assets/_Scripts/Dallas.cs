@@ -106,7 +106,7 @@ public class Dallas : EVActor
     [ContextMenu("FollowPlayer")]
     public void FollowPlayer()
     {
-        target = camView;
+        target = GameManager.GetInstance().hud.hudAnchor;
         currentState = state.Move;
         LastDeparture = Time.time;
     }

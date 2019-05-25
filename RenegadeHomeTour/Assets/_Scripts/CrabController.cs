@@ -62,6 +62,8 @@ public class CrabController : MonoBehaviour
         audioSource = GetComponent<AudioSource>();
 
         GameManager gm = GameManager.GetInstance();
+        gm.OnPlayerDie += OnPlayerDie;
+        gm.OnPlayerRespawn += OnPlayerRespawn;
 
         foreach (Collider pc in gm.playerCols)
             foreach (Collider c in myCols)
@@ -220,6 +222,16 @@ public class CrabController : MonoBehaviour
         }
     }
 
+    void OnPlayerDie()
+    {
+        target = myJumpPoint;
+    }
+
+    void OnPlayerRespawn()
+    {
+        target = Camera.main.transform;
+    }
+
     IEnumerator Dissolve()
     {
         for (float i = 0f; i < 1f; i += 0.01f)
@@ -244,6 +256,7 @@ public class CrabController : MonoBehaviour
                     }
                 }
                 gameObject.SetActive(false);
+                StopCoroutine("Dissolve");
             }
             yield return new WaitForSeconds(0.01f);
         }

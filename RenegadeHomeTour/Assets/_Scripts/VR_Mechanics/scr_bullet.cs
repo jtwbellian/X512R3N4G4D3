@@ -30,7 +30,7 @@ public class scr_bullet : MonoBehaviour
         //if (col.contactCount > 0)
         //    pos = col.GetContact(0).point;
 
-        FXManager.GetInstance().Burst(FXManager.FX.RadialBurst, pos, transform.rotation.eulerAngles, 2);
+        FXManager.GetInstance().Burst(FXManager.FX.RadialBurst, pos, transform.rotation.eulerAngles, 1);
         Destroy();//gameObject);
     }
     

@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Rendering.PostProcessing;
 
+
 public class VRMovementController : MonoBehaviour
 {
     private const float TOL = 0.05f;
@@ -13,7 +14,7 @@ public class VRMovementController : MonoBehaviour
     private float boostbar_width = 0.0f;
     public Rigidbody rigidBody;
     private Transform head;
-    private float rechargeRate = 100f;
+    private float rechargeRate = 60f;
     private bool ReadyToSnapTurn = false;
     private Vignette vignette;
     private ColorGrading colorGrading;
@@ -49,7 +50,7 @@ public class VRMovementController : MonoBehaviour
     void Start()
     {
         gm = GameManager.GetInstance();
-        gm.PlayerRespawn += Respawn;
+        gm.OnPlayerRespawn += Respawn;
 
 
         if (boostBar == null)

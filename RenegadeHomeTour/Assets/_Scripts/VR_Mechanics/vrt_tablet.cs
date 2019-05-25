@@ -70,7 +70,8 @@ public class vrt_tablet : VRTool
 
         if (tutorialOn)
         {
-            if (EventManager.GetInstance().currentEvent == 6)
+            var em = EventManager.GetInstance();
+            if (em.currentEvent == 6 && !EventManager.sandboxMode)
             {
                 if (Vector3.Distance(transform.position, Camera.main.transform.position) > distFromHead * 1.5f)
                 {

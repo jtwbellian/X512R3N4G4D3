@@ -36,6 +36,7 @@ public class Shooty : EVActor
 
             case EV.ItemDropped:
                 target.SetActive(false);
+                fx = FXManager.GetInstance();
                 fx.Burst(FXManager.FX.Shock, transform.position, 15);
                 CompleteEvent();
                 break;
@@ -55,7 +56,8 @@ public class Shooty : EVActor
                 return;
 
             target.SetActive(false);
-            fx.Burst(FXManager.FX.Shock, transform.position, 15);
+            fx = FXManager.GetInstance();
+            fx.Burst(FXManager.FX.Shock, target.transform.position, 15);
             CompleteEvent();
         }
     }

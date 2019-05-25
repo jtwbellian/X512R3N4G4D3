@@ -9,6 +9,8 @@ public delegate void EventBeginHandler(EventInfo info);
 public class EventManager : MonoBehaviour
 {
     public static EventManager _instance = null;
+    public static bool sandboxMode = false;
+
     [SerializeField]
     public List<EventInfo> timeline;
     [SerializeField]
@@ -26,7 +28,11 @@ public class EventManager : MonoBehaviour
             if (_instance != null)
                 Destroy(this);
             else
+            {
                 _instance = this;
+                EventManager.sandboxMode = false;
+            }
+
         }
 
     #endregion
@@ -38,6 +44,17 @@ public class EventManager : MonoBehaviour
     public event EventBeginHandler GlobalEventBegin;
 
     #region eventDesignerTools
+
+
+    public void SandboxModeOn()
+    {
+        EventManager.sandboxMode = true;
+        EventInfo disableWalls = new EventInfo();
+        disableWalls.myName = "walls";
+        disableWalls.type = EV.ItemDropped;
+        disableWalls.target = AppliesTo.ENV;
+        EnvironmentEventBegin.Invoke(disableWalls);
+    }
 
     [ContextMenu("InsertAtCurrentEvent")]
     private void InsertEvent()

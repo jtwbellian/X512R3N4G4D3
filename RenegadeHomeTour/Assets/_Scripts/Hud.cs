@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public enum Icon
 {
-    analogFwd, analogClick, grab, holster, calibrate, use, NONE = -1
+    analogFwd, analogClick, grab, holster, calibrate, use, advert, NONE = -1
 }
 
 public class Hud : EVActor
@@ -24,6 +24,7 @@ public class Hud : EVActor
 
     public string message;
     public Text[] scoreField;
+    public Text[] scoreTitle;
     public Transform hudAnchor; 
     public Animator iconAnimator;
 
@@ -148,6 +149,10 @@ public class Hud : EVActor
             s.gameObject.SetActive(true);
         }
         
+        foreach(Text s in scoreTitle)
+        {
+            s.gameObject.SetActive(true);
+        }
 
     }
 
