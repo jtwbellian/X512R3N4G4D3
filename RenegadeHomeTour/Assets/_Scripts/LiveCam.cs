@@ -22,12 +22,8 @@ public class LiveCam : MonoBehaviour
 
     private void OnTriggerEnter(Collider col)
     {
-        LiveCam.SetActive(this);
-    }
-
-    private void OnTriggerExit(Collider col)
-    {
-        //LiveCam.Clear();
+        if (activeCam != this)
+            LiveCam.SetActive(this);
     }
 
     public static void SetActive(LiveCam liveCam)

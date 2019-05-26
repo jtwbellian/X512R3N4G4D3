@@ -101,7 +101,7 @@ public class EventManager : MonoBehaviour
     [ContextMenu("StartEvent")]
     public void StartEvent()
     {
-        if (currentEvent > timeline.Count)
+        if (currentEvent >= timeline.Count)
         {
             return;
         }

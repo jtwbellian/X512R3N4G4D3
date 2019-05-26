@@ -50,7 +50,7 @@ public class Dallas : EVActor
         if (myItem == null)
             return;
 
-        anim.Play("DallasBones|OpeningState");
+        anim.Play("OpeningState");
         myItem.SetActive(true);
         myItem.transform.SetParent(null);
         myItem = null;
@@ -77,6 +77,11 @@ public class Dallas : EVActor
             case EV.ItemDropped:
                 myItem.SetActive(true);
                 //myItem.transform.SetParent(null);
+                CompleteEvent();
+                break;
+
+            case EV.audioStart:
+                anim.Play("DallasOutroSpeech");
                 CompleteEvent();
                 break;
 
@@ -184,7 +189,7 @@ public class Dallas : EVActor
                                 CompleteEvent();
 
                             currentState = state.Look;
-                            anim.Play("DallasBones|OpeningState");
+                            anim.Play("OpeningState");
                         }
                         else
                             target = dest.nextDestination;

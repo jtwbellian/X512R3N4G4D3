@@ -34,7 +34,7 @@ public class MamaCrabController : MonoBehaviour
     public state current_state;
     public float speed = 3f;
     public float jumpDist = 4f;
-    private float beamStrength = 80f;
+    private float beamStrength = 85f;
 
     public Transform target;
 
@@ -112,7 +112,10 @@ public class MamaCrabController : MonoBehaviour
             audioSource.PlayOneShot(dd.impactSnd);
 
             fxManager = FXManager.GetInstance();
-            fxManager.Burst(FXManager.FX.Chunk, other.transform.position, 1);
+
+            if (Random.Range(0f, 1f) > 0.5f)
+                fxManager.Burst(FXManager.FX.Chunk, other.transform.position, 1);
+
             fxManager.Burst(FXManager.FX.Dissolve, other.transform.position, 5);
 
             health -= dmg;

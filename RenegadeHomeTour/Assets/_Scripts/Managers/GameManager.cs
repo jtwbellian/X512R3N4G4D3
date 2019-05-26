@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.SceneManagement;
 
 public enum GameMode { crabs, sandbox};
 
@@ -107,7 +107,8 @@ public class GameManager : EVActor
 
     public void RestartLevel()
     {
-        Application.LoadLevel(Application.loadedLevel);
+        if (EventManager.GetInstance().currentEvent > 10)
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
     public void UpdatePlayerCols(Collider [] cols)
@@ -121,7 +122,7 @@ public class GameManager : EVActor
         FXManager.GetInstance().Burst(FXManager.FX.Shock, Camera.main.transform.position, 10);
         sm.PlayDeathSnd();
         OnPlayerDie.Invoke();
-        Invoke("Respawn", 5f);
+        Invoke("Respawn", sm.deathClip.length);
         Time.timeScale = 0.5f;
         sm.music.pitch = 0.5f;
         sm.music.volume = 0.1f;
