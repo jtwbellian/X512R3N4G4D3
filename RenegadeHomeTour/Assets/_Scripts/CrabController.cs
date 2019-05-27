@@ -27,6 +27,7 @@ public class CrabController : MonoBehaviour
     [SerializeField]
     private float jumpForce = 100f;
 
+    [SerializeField]
     private float health = 50f;
 
     public state current_state;
@@ -34,7 +35,7 @@ public class CrabController : MonoBehaviour
     public float jumpDist = 4f;
 
     public Transform target;
-
+    [SerializeField]
     private bool alive = true;
 
     // Start is called before the first frame update
@@ -257,6 +258,7 @@ public class CrabController : MonoBehaviour
                 }
                 gameObject.SetActive(false);
                 StopCoroutine("Dissolve");
+                break;
             }
             yield return new WaitForSeconds(0.01f);
         }

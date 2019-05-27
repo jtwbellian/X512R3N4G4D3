@@ -30,8 +30,8 @@ public class vrt_gun : VRTool
     
     public override void Init()
     {
-        deColor = light.color;
-        deIntensity = light.intensity;
+        deColor = Color.white;//light.color;
+        deIntensity = 0.0125f;//light.intensity;
 
         audioSource = GetComponent<AudioSource>();
         anim = GetComponentInChildren<Animator>();

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-
 public enum Icon
 {
     analogFwd, analogClick, grab, holster, calibrate, use, advert, NONE = -1
@@ -56,9 +55,9 @@ public class Hud : EVActor
         }*/
         //velocity = playerBody.velocity;
 
-        transform.position = SmoothApproach(lastPos, lastHudAnchorPos, hudAnchor.position, speed);
+        transform.position = SmoothApproach(lastPos, lastHudAnchorPos, hudAnchor.position, speed + playerBody.velocity.magnitude);
 
-        speed = 20f + playerBody.velocity.magnitude;
+        //speed = 20f + playerBody.velocity.magnitude;
 
         lastPos = transform.position;
         lastHudAnchorPos = hudAnchor.transform.position;

@@ -21,8 +21,6 @@ public struct PlayerData
 
 public class vrt_tablet : VRTool
 {
-    // avg distance from eyes to Forehead
-    private const float E2F = 0.127f;
 
     [SerializeField]
     private bool tutorialOn = true;
@@ -68,7 +66,7 @@ public class vrt_tablet : VRTool
 
         if (pages[1].activeSelf)
         {
-            heightText.text = playerData.ikController.GetHeightStr() + E2F;
+            heightText.text = playerData.ikController.GetHeightStr();
         }
 
         if (tutorialOn)

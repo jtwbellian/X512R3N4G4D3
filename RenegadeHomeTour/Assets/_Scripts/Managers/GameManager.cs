@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -107,9 +107,27 @@ public class GameManager : EVActor
 
     public void RestartLevel()
     {
-        if (EventManager.GetInstance().currentEvent > 10)
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        if ( EventManager.GetInstance().currentEvent > 7 || EventManager.sandboxMode)
+            StartCoroutine(LoadAsyncScene(SceneManager.GetActiveScene().name));
     }
+
+
+IEnumerator LoadAsyncScene(string sceneName)
+    {
+        // The Application loads the Scene in the background as the current Scene runs.
+        // This is particularly good for creating loading screens.
+        // You could also load the Scene by using sceneBuildIndex. In this case Scene2 has
+        // a sceneBuildIndex of 1 as shown in Build Settings.
+
+        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(sceneName);
+
+        // Wait until the asynchronous scene fully loads
+        while (!asyncLoad.isDone)
+        {
+            yield return null;
+        }
+    }
+
 
     public void UpdatePlayerCols(Collider [] cols)
     {
@@ -122,10 +140,10 @@ public class GameManager : EVActor
         FXManager.GetInstance().Burst(FXManager.FX.Shock, Camera.main.transform.position, 10);
         sm.PlayDeathSnd();
         OnPlayerDie.Invoke();
-        Invoke("Respawn", sm.deathClip.length);
+        Invoke("Respawn", sm.deathClip.length/2f);
         Time.timeScale = 0.5f;
-        sm.music.pitch = 0.5f;
-        sm.music.volume = 0.1f;
+        sm.music.pitch = 0.8f;
+        sm.music.volume = 0.3f;
     }
 
     public void Respawn()

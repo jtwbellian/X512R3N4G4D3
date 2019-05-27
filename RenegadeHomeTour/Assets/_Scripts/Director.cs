@@ -53,7 +53,7 @@ public class Director : MonoBehaviour
 
     public void Restart()
     {
-        Application.LoadLevel(Application.loadedLevel);
+        //Application.LoadLevel(Application.loadedLevel);
     }
 
 

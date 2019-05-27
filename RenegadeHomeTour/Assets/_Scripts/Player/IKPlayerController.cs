@@ -8,6 +8,8 @@ public class IKPlayerController : EVActor
     private const float DEFAULT_HEIGHT = 1.683f;
     private const float MAX_RAYDIST = 25f;
     private const float CHAIR_SCALE_FACTOR = 1.336f;
+    // avg distance from eyes to Forehead
+    private const float E2F = 0.08f; //0.127f;
     //private float minHandRadius = 0.01f;
     //private float maxHandRadius = 0.05f
     private float legLerp = 0f;
@@ -77,6 +79,7 @@ public class IKPlayerController : EVActor
 
     public override void BeginEvent()
     {
+
     }
 
     public void FreePlayer()
@@ -228,8 +231,9 @@ public class IKPlayerController : EVActor
     }
 
     public string GetHeightStr()
-    {
-        return height.ToString("F2") + "m";
+    { 
+        var hs = height + E2F;
+        return hs.ToString("F2") + "m";
     }
 
     // Updates the values for hand positions based on Oculus Input
