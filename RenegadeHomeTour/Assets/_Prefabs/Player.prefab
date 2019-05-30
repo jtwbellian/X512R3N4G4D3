@@ -4242,6 +4242,8 @@ MonoBehaviour:
   myEvent: {fileID: 0}
   subscribesTo: 0
   headOffset: 0.055
+  MAX_HEIGHT: 2.134
+  MIN_HEIGHT: 1.067
   ikOn: 0
   parts_ik:
   - {fileID: 6003178558505150731}
@@ -5478,7 +5480,7 @@ MonoBehaviour:
   Generations: 2
   PopulationSize: 100
   Elites: 1
-  Smoothing: 0.333
+  Smoothing: 0.403
   AnimationWeight: 1
   AnimationBlend: 0
   MotionType: 0
@@ -5581,7 +5583,7 @@ MonoBehaviour:
   Root: {fileID: 6003178558641689347}
   Solution: []
   SelectedSegment: {fileID: 6003178559061845246}
-  Scroll: {x: 0, y: 2482.4976}
+  Scroll: {x: 0, y: 2450}
 --- !u!114 &6003178558641689375
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7087,7 +7089,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Segment: {fileID: 6003178559061845246}
-  Weight: 1
+  Weight: 1.5
   Target: {fileID: 6003178558004179802}
   TPX: 0
   TPY: -0.08699999749660492
@@ -7128,7 +7130,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Segment: {fileID: 6003178559061845246}
-  Weight: 1
+  Weight: 1.5
   Target: {fileID: 6003178558004179802}
   TRX: 0
   TRY: 0

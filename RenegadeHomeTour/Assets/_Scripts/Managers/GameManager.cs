@@ -54,7 +54,8 @@ public class GameManager : EVActor
         }
         else
         {
-            Destroy(this);
+            Destroy(instance);
+            instance = this;
         }
 
         Init();
@@ -107,7 +108,7 @@ public class GameManager : EVActor
 
     public void RestartLevel()
     {
-        if ( EventManager.GetInstance().currentEvent > 7 || EventManager.sandboxMode)
+        if ( EventManager.GetInstance().currentEvent > 10 || EventManager.sandboxMode)
             StartCoroutine(LoadAsyncScene(SceneManager.GetActiveScene().name));
     }
 

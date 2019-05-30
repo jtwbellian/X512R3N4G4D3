@@ -11,8 +11,8 @@ public class AudioImportPostProcessor : AssetPostprocessor {
 	static void OnPostprocessAllAssets( string[] importedAssets, string[] deletedAssets, string[] movedAssets, string[] movedFromAssetPaths ) {
 		AudioManager audioManager = AudioManager.Instance;
 		if ( audioManager != null ) {
-			// find the asset path to the loaded audio manager prefab
-			Object prefabObject = PrefabUtility.GetPrefabParent( audioManager );
+            // find the asset path to the loaded audio manager prefab
+            Object prefabObject = PrefabUtility.GetCorrespondingObjectFromSource<AudioManager>(audioManager);//GetPrefabParent( audioManager );
 			if ( prefabObject != null ) {
 				string path = AssetDatabase.GetAssetPath( prefabObject );
 				// check to see if the AudioManager prefab has been reimported.

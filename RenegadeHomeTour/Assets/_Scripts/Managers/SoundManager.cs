@@ -10,13 +10,20 @@ public class SoundManager : EVActor
 
     void Awake()
     {
+        if (instance == this)
+        {
+            Init();
+            return;
+        }
+
         if (instance == null)
         {
             instance = this;
         }
         else
         {
-            Destroy(this);
+            Destroy(instance);
+            instance = this;
         }
 
         Init();

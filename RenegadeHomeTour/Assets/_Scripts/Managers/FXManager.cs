@@ -8,7 +8,6 @@ public class FXManager : MonoBehaviour
     public enum FX
     {
         Dissolve, RadialBurst, Chunk, Beam, Shock
-
     }
 
     static FXManager instance = null;
@@ -23,7 +22,7 @@ public class FXManager : MonoBehaviour
         {
             instance = this;
         }
-        else
+        else if (instance != this)
             Destroy(this);
 
         if (part_systems == null)

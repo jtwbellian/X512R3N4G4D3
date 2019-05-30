@@ -18,22 +18,31 @@ public class EventManager : MonoBehaviour
 
     #region singleton
 
-        public static EventManager GetInstance()
+    public static EventManager GetInstance()
+    {
+        return _instance;
+    }
+
+    void Awake()
+    {
+        if (_instance == this)
         {
-            return _instance;
+            return;
         }
 
-        void Awake()
-        {
-            if (_instance != null)
-                Destroy(this);
-            else
-            {
-                _instance = this;
-                EventManager.sandboxMode = false;
-            }
-
+        if (_instance != null)
+        { 
+            Destroy(_instance);
+            _instance = this;
+            EventManager.sandboxMode = false;
         }
+        else
+        {
+            _instance = this;
+            EventManager.sandboxMode = false;
+        }
+
+    }
 
     #endregion
     

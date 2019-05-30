@@ -25,18 +25,22 @@ public class OVRHapticsManager : MonoBehaviour
 
     void Awake()
     {
+        if (OVRHapticsManager.instance == this)
+            return;
+
+        DontDestroyOnLoad(gameObject);
+
         if (instance == null)
         {
             instance = this;
         }
         else if (instance != this)
         {
-            Destroy(gameObject);
+            Destroy(instance);
+            instance = this;
         }
 
-        DontDestroyOnLoad(gameObject);
         InitializeOVRHaptics();
-
     }
 
     public static OVRHapticsManager GetInstance()
