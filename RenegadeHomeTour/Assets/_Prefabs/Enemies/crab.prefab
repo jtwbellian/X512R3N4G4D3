@@ -649,10 +649,12 @@ MonoBehaviour:
   rb: {fileID: 0}
   jumpDelay: 10
   jumpForce: 6
+  health: 35
   current_state: 0
   speed: 15
   jumpDist: 1.5
   target: {fileID: 0}
+  alive: 1
 --- !u!82 &1014697572107976251
 AudioSource:
   m_ObjectHideFlags: 0
@@ -1951,6 +1953,26 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2557318558764885313, guid: c39c3c6a5feae0e4d90b9ddcc33dbac2,
+        type: 3}
+      propertyPath: looping
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2557318558764885313, guid: c39c3c6a5feae0e4d90b9ddcc33dbac2,
+        type: 3}
+      propertyPath: lengthInSec
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2557318558764885313, guid: c39c3c6a5feae0e4d90b9ddcc33dbac2,
+        type: 3}
+      propertyPath: EmissionModule.rateOverTime.scalar
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2557318558764885313, guid: c39c3c6a5feae0e4d90b9ddcc33dbac2,
+        type: 3}
+      propertyPath: InitialModule.gravityModifier.scalar
+      value: 0.02
+      objectReference: {fileID: 0}
     - target: {fileID: 5066915441391392205, guid: c39c3c6a5feae0e4d90b9ddcc33dbac2,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2006,26 +2028,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2557318558764885313, guid: c39c3c6a5feae0e4d90b9ddcc33dbac2,
-        type: 3}
-      propertyPath: looping
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2557318558764885313, guid: c39c3c6a5feae0e4d90b9ddcc33dbac2,
-        type: 3}
-      propertyPath: lengthInSec
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 2557318558764885313, guid: c39c3c6a5feae0e4d90b9ddcc33dbac2,
-        type: 3}
-      propertyPath: EmissionModule.rateOverTime.scalar
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 2557318558764885313, guid: c39c3c6a5feae0e4d90b9ddcc33dbac2,
-        type: 3}
-      propertyPath: InitialModule.gravityModifier.scalar
-      value: 0.02
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c39c3c6a5feae0e4d90b9ddcc33dbac2, type: 3}
 --- !u!4 &8337299923410453943 stripped
@@ -2049,52 +2051,6 @@ PrefabInstance:
     - target: {fileID: 6404229683420302387, guid: 46b76a086a229594a9a3093b1ea0ae30,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6404229683420302385, guid: 46b76a086a229594a9a3093b1ea0ae30,
-        type: 3}
-      propertyPath: ShapeModule.m_Mesh
-      value: 
-      objectReference: {fileID: -5495902117074765545, guid: c0f1e002a8686f043881f1cc1b1e8012,
-        type: 3}
-    - target: {fileID: 6404229683420302385, guid: 46b76a086a229594a9a3093b1ea0ae30,
-        type: 3}
-      propertyPath: ShapeModule.m_Scale.x
-      value: 8
-      objectReference: {fileID: 0}
-    - target: {fileID: 6404229683420302385, guid: 46b76a086a229594a9a3093b1ea0ae30,
-        type: 3}
-      propertyPath: ShapeModule.m_Scale.y
-      value: 8
-      objectReference: {fileID: 0}
-    - target: {fileID: 6404229683420302385, guid: 46b76a086a229594a9a3093b1ea0ae30,
-        type: 3}
-      propertyPath: ShapeModule.m_Scale.z
-      value: 8
-      objectReference: {fileID: 0}
-    - target: {fileID: 6404229683420302385, guid: 46b76a086a229594a9a3093b1ea0ae30,
-        type: 3}
-      propertyPath: ShapeModule.placementMode
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6404229683420302385, guid: 46b76a086a229594a9a3093b1ea0ae30,
-        type: 3}
-      propertyPath: ShapeModule.m_UseMeshColors
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6404229683420302385, guid: 46b76a086a229594a9a3093b1ea0ae30,
-        type: 3}
-      propertyPath: InitialModule.maxNumParticles
-      value: 25
-      objectReference: {fileID: 0}
-    - target: {fileID: 6404229683420302385, guid: 46b76a086a229594a9a3093b1ea0ae30,
-        type: 3}
-      propertyPath: ShapeModule.m_UseMeshMaterialIndex
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6404229683420302385, guid: 46b76a086a229594a9a3093b1ea0ae30,
-        type: 3}
-      propertyPath: NoiseModule.quality
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6404229683420302382, guid: 46b76a086a229594a9a3093b1ea0ae30,
@@ -2150,6 +2106,52 @@ PrefabInstance:
     - target: {fileID: 6404229683420302382, guid: 46b76a086a229594a9a3093b1ea0ae30,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6404229683420302385, guid: 46b76a086a229594a9a3093b1ea0ae30,
+        type: 3}
+      propertyPath: ShapeModule.m_Mesh
+      value: 
+      objectReference: {fileID: -5495902117074765545, guid: c0f1e002a8686f043881f1cc1b1e8012,
+        type: 3}
+    - target: {fileID: 6404229683420302385, guid: 46b76a086a229594a9a3093b1ea0ae30,
+        type: 3}
+      propertyPath: ShapeModule.m_Scale.x
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 6404229683420302385, guid: 46b76a086a229594a9a3093b1ea0ae30,
+        type: 3}
+      propertyPath: ShapeModule.m_Scale.y
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 6404229683420302385, guid: 46b76a086a229594a9a3093b1ea0ae30,
+        type: 3}
+      propertyPath: ShapeModule.m_Scale.z
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 6404229683420302385, guid: 46b76a086a229594a9a3093b1ea0ae30,
+        type: 3}
+      propertyPath: ShapeModule.placementMode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6404229683420302385, guid: 46b76a086a229594a9a3093b1ea0ae30,
+        type: 3}
+      propertyPath: ShapeModule.m_UseMeshColors
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6404229683420302385, guid: 46b76a086a229594a9a3093b1ea0ae30,
+        type: 3}
+      propertyPath: InitialModule.maxNumParticles
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 6404229683420302385, guid: 46b76a086a229594a9a3093b1ea0ae30,
+        type: 3}
+      propertyPath: ShapeModule.m_UseMeshMaterialIndex
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6404229683420302385, guid: 46b76a086a229594a9a3093b1ea0ae30,
+        type: 3}
+      propertyPath: NoiseModule.quality
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6404229683420302384, guid: 46b76a086a229594a9a3093b1ea0ae30,

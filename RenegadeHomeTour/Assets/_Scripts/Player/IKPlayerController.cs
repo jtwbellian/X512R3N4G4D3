@@ -111,11 +111,13 @@ public class IKPlayerController : EVActor
 
         var gm = GameManager.GetInstance();
 
-        if (ikOn)
-            gm.UpdatePlayerCols(ikCols);
-        else
-            gm.UpdatePlayerCols(nonIkCols);
-
+        if (gm != null)
+        {
+            if (ikOn)
+                gm.UpdatePlayerCols(ikCols);
+            else
+                gm.UpdatePlayerCols(nonIkCols);
+        }
     }
 
 

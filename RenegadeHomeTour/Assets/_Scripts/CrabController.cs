@@ -42,7 +42,7 @@ public class CrabController : MonoBehaviour
     void Start()
     {
         var scale = Random.Range(0.4f, 0.7f);
-        health = MAX_HEALTH = scale * 100;
+        health = MAX_HEALTH = scale * 60;
 
         transform.localScale = new Vector3(scale, scale, scale);
         var renderer = GetComponentInChildren<Renderer>();

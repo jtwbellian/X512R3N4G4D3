@@ -29,7 +29,7 @@ public class MamaCrabController : MonoBehaviour
     [SerializeField]
     private float jumpForce = 100f;
 
-    private float health = 995000f;
+    private float health = 1000000f;
 
     public state current_state;
     public float speed = 3f;
