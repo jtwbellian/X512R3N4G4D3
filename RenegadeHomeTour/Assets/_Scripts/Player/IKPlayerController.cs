@@ -8,6 +8,9 @@ public class IKPlayerController : EVActor
     private const float DEFAULT_HEIGHT = 1.683f;
     private const float MAX_RAYDIST = 25f;
     private const float CHAIR_SCALE_FACTOR = 1.336f;
+
+    // avg distance from eyes to Forehead
+    private const float E2F = 0.08f; //0.127f;
     //private float minHandRadius = 0.01f;
     //private float maxHandRadius = 0.05f
     private float legLerp = 0f;
@@ -18,11 +21,14 @@ public class IKPlayerController : EVActor
     private float rFinger = 0f;
     private float rThumb = 0f;
 
-    private float scaleFactor = 6f;
+    private float scaleFactor = 5f;
     private float minHeight = 0.2f;
     private float percentHeight = 0.5f;
     [SerializeField]
     private float headOffset = 0.053f;
+
+    public float MAX_HEIGHT = 2.134f;
+    public float MIN_HEIGHT = 1.067f;
 
     [Header("IK Options")]
     public bool ikOn = false;
@@ -75,9 +81,7 @@ public class IKPlayerController : EVActor
     }
     #endregion
 
-    public override void BeginEvent()
-    {
-    }
+    public override void BeginEvent(){}
 
     public void FreePlayer()
     {
@@ -107,11 +111,13 @@ public class IKPlayerController : EVActor
 
         var gm = GameManager.GetInstance();
 
-        if (ikOn)
-            gm.UpdatePlayerCols(ikCols);
-        else
-            gm.UpdatePlayerCols(nonIkCols);
-
+        if (gm != null)
+        {
+            if (ikOn)
+                gm.UpdatePlayerCols(ikCols);
+            else
+                gm.UpdatePlayerCols(nonIkCols);
+        }
     }
 
 
@@ -170,6 +176,7 @@ public class IKPlayerController : EVActor
         NonIKBodyAnimator.gameObject.SetActive(false);
        }
 
+
     public void AdjustHeight(float amt)
     {
         height += amt;
@@ -188,6 +195,7 @@ public class IKPlayerController : EVActor
         }
     }
 
+
     public void UpdatePlayerHeight()
     {
         OVRManager.display.RecenterPose();
@@ -198,7 +206,7 @@ public class IKPlayerController : EVActor
             height *= CHAIR_SCALE_FACTOR;
         }
 
-        float newScale = height / DEFAULT_HEIGHT;
+        float newScale = Mathf.Clamp(height, MIN_HEIGHT, MAX_HEIGHT) / DEFAULT_HEIGHT;
  
         var scale = new Vector3(newScale, newScale, newScale);
 
@@ -228,8 +236,9 @@ public class IKPlayerController : EVActor
     }
 
     public string GetHeightStr()
-    {
-        return height.ToString("F2") + "m";
+    { 
+        var hs = height + E2F;
+        return hs.ToString("F2") + "m";
     }
 
     // Updates the values for hand positions based on Oculus Input

@@ -19,7 +19,7 @@ public class OVRLipSyncTestAudio : MonoBehaviour
 		path += "/../";
 		path += "TestViseme.wav";
 
-		WWW www = new WWW( "file:///" + path );
+		/*WWW www = new WWW( "file:///" + path );
 		while ( !www.isDone )
 		{
 			Debug.Log(www.progress);
@@ -31,6 +31,6 @@ public class OVRLipSyncTestAudio : MonoBehaviour
 			audioSource.loop = true; 	// Set the AudioClip to loop
 			audioSource.mute = false; 	// Mute the sound, we don't want the player to hear it
 			audioSource.Play ();
-		}
+		}*/
 	}	
 }

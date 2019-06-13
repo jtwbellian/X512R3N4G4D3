@@ -29,12 +29,12 @@ public class MamaCrabController : MonoBehaviour
     [SerializeField]
     private float jumpForce = 100f;
 
-    private float health = 500000f;
+    private float health = 1000000f;
 
     public state current_state;
-    public float speed = 2f;
+    public float speed = 3f;
     public float jumpDist = 4f;
-    private float beamStrength = 2f;
+    private float beamStrength = 85f;
 
     public Transform target;
 
@@ -86,6 +86,13 @@ public class MamaCrabController : MonoBehaviour
     void OnTriggerEnter(Collider other)
     {
 
+        if (current_state == state.Attack && other.transform.root.CompareTag("Player"))
+        {
+            VRMovementController player = other.transform.root.GetComponent<VRMovementController>();
+            player.Hurt(beamStrength);
+            FXManager.GetInstance().Burst(FXManager.FX.Beam, other.transform.position, 15);
+        }
+
         if (other.transform == target && current_state == state.Walk)
         {
             target = Camera.main.transform;
@@ -105,8 +112,11 @@ public class MamaCrabController : MonoBehaviour
             audioSource.PlayOneShot(dd.impactSnd);
 
             fxManager = FXManager.GetInstance();
-            fxManager.Burst(FXManager.FX.Chunk, other.transform.position, 2);
-            fxManager.Burst(FXManager.FX.Dissolve, other.transform.position, 10);
+
+            if (Random.Range(0f, 1f) > 0.5f)
+                fxManager.Burst(FXManager.FX.Chunk, other.transform.position, 1);
+
+            fxManager.Burst(FXManager.FX.Dissolve, other.transform.position, 5);
 
             health -= dmg;
 
@@ -127,15 +137,6 @@ public class MamaCrabController : MonoBehaviour
         }
     }
 
-    void OnTriggerStay(Collider other)
-    {
-        if (current_state == state.Attack && other.transform.root.CompareTag("Player"))
-        {
-            VRMovementController player = other.transform.root.GetComponent<VRMovementController>();
-            player.Hurt(beamStrength);
-            FXManager.GetInstance().Burst(FXManager.FX.Beam, other.transform.position, 15);
-        }
-    }
 
     // Update is called once per frame
     void FixedUpdate()
@@ -153,7 +154,7 @@ public class MamaCrabController : MonoBehaviour
 
                     // This blends the target rotation in gradually.
                     // Keep sharpness between 0 and 1 - lower values are slower/softer.
-                    float sharpness = 0.1f;
+                    float sharpness = 0.15f;
 
                     rb.MoveRotation(Quaternion.Lerp(transform.rotation, targetRotation, sharpness));
                     rb.AddForce(transform.forward * speed, ForceMode.Force);
@@ -174,7 +175,7 @@ public class MamaCrabController : MonoBehaviour
 
                 // This blends the target rotation in gradually.
                 // Keep sharpness between 0 and 1 - lower values are slower/softer.
-                float sharpness = 0.025f;
+                float sharpness = 0.05f;
 
                 rb.MoveRotation(Quaternion.Lerp(transform.rotation, targetRotation, sharpness));
 
@@ -184,7 +185,7 @@ public class MamaCrabController : MonoBehaviour
                     current_state = state.Attack;
                     audioSource.PlayOneShot(chirp4);
                     beam.SetActive(true);
-                    animator.speed = 0.1f;
+                    animator.speed = 0.3f;
                     animator.SetBool("jump", true);
                  }
 
@@ -212,6 +213,7 @@ public class MamaCrabController : MonoBehaviour
                             rb.MoveRotation(Quaternion.Lerp(transform.rotation, targetRotation, sharpness));
                         }
 
+                        /*
                         int layerMask = 1 << 2;
                         layerMask = ~layerMask;
 
@@ -224,7 +226,7 @@ public class MamaCrabController : MonoBehaviour
                             beamObj.localScale.Set(beamObj.localScale.x, Vector3.Distance(hit.point, beamObj.position), beamObj.localScale.z);
                             Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.forward) * hit.distance, Color.yellow);
                         }
-
+                        */
                         beamStrength = Mathf.Lerp(0.1f, 1f, amt);
                         beamMat.SetFloat("_strength", beamStrength);
 
@@ -276,6 +278,7 @@ public class MamaCrabController : MonoBehaviour
                     }
                 }
 
+                GameManager.GetInstance().BossKilled();
                 Destroy(this.gameObject);
             }
             yield return new WaitForSeconds(0.01f);

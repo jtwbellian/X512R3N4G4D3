@@ -5,7 +5,7 @@ using UnityEngine;
 public class Dallas : EVActor
 {
     private float LastDeparture;
-    private float timeOut = 500;
+    private float timeOut = 25f;
     private const float MIN_DIST = 0.15f;
     private const float MAX_DIST = 0.3f;
     private enum state { Look, Move, Follow}
@@ -50,7 +50,7 @@ public class Dallas : EVActor
         if (myItem == null)
             return;
 
-        anim.Play("DallasBones|OpeningState");
+        anim.Play("OpeningState");
         myItem.SetActive(true);
         myItem.transform.SetParent(null);
         myItem = null;
@@ -63,6 +63,7 @@ public class Dallas : EVActor
             case EV.GoHome:
                 waitForMe = true;
                 GoHome();
+                LastDeparture = Time.time;
                 break;
 
             case EV.targetHit:
@@ -80,6 +81,11 @@ public class Dallas : EVActor
                 CompleteEvent();
                 break;
 
+            case EV.audioStart:
+                anim.Play("DallasOutroSpeech");
+                CompleteEvent();
+                break;
+
             default:
                 break;
         }
@@ -87,6 +93,7 @@ public class Dallas : EVActor
 
     public void OnTriggerEnter(Collider col)
     {
+        /*
         var dest = col.GetComponent<Destination>();
 
         if (dest == null)
@@ -100,13 +107,15 @@ public class Dallas : EVActor
             }
             else
                 target = dest.nextDestination;
-        }
+
+            LastDeparture = Time.time;
+        }*/
     }
 
     [ContextMenu("FollowPlayer")]
     public void FollowPlayer()
     {
-        target = camView;
+        target = GameManager.GetInstance().hud.hudAnchor;
         currentState = state.Move;
         LastDeparture = Time.time;
     }
@@ -120,7 +129,6 @@ public class Dallas : EVActor
     [ContextMenu("GoHome")]
     public void GoHome()
     {
-        LastDeparture = Time.time;
         target = home;
         currentState = state.Move;
     }
@@ -152,7 +160,7 @@ public class Dallas : EVActor
 
                 if (Time.time > LastDeparture + timeOut)
                 {
-                    transform.position = target.transform.position;
+                    rb.MovePosition(target.position);
                     rb.velocity = Vector3.zero;
                 }
 
@@ -184,10 +192,13 @@ public class Dallas : EVActor
                                 CompleteEvent();
 
                             currentState = state.Look;
-                            anim.Play("DallasBones|OpeningState");
+                            anim.Play("OpeningState");
                         }
                         else
+                        { 
                             target = dest.nextDestination;
+                            LastDeparture = Time.time;
+                        }
                     }
                 }
 

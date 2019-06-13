@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Rendering.PostProcessing;
 
+
 public class VRMovementController : MonoBehaviour
 {
     private const float TOL = 0.05f;
@@ -13,7 +14,7 @@ public class VRMovementController : MonoBehaviour
     private float boostbar_width = 0.0f;
     public Rigidbody rigidBody;
     private Transform head;
-    private float rechargeRate = 100f;
+    private float rechargeRate = 60f;
     private bool ReadyToSnapTurn = false;
     private Vignette vignette;
     private ColorGrading colorGrading;
@@ -22,6 +23,7 @@ public class VRMovementController : MonoBehaviour
     private float shields = 100f;
     private AudioSource audio;
 
+    [SerializeField]
     private OVRGrabber[] grabbers;
 
     public IKPlayerController ikController;
@@ -49,18 +51,24 @@ public class VRMovementController : MonoBehaviour
     void Start()
     {
         gm = GameManager.GetInstance();
-        gm.PlayerRespawn += Respawn;
+
+        if (gm)
+            gm.OnPlayerRespawn += Respawn;
 
 
         if (boostBar == null)
             Debug.Log("ERROR: Boost bar is null, dummy!");
         else
             boostbar_width = boostBar.localScale.x;
-            
-        grabbers = transform.root.GetComponentsInChildren<OVRGrabber>();
-        
-        ppVolume.profile.TryGetSettings(out vignette);
-        ppVolume.profile.TryGetSettings(out colorGrading);
+
+        if (grabbers == null)
+            grabbers = transform.root.GetComponentsInChildren<OVRGrabber>();
+
+        if (ppVolume)
+        {
+            ppVolume.profile.TryGetSettings(out vignette);
+            ppVolume.profile.TryGetSettings(out colorGrading);
+        }
         //body = GetComponentInChildren<IKPlayerController>().transform;
         //rb = body.GetComponent<Rigidbody>();
         rigidBody.freezeRotation = true;
@@ -155,25 +163,28 @@ public class VRMovementController : MonoBehaviour
         }
 
 
-        // Show dammage "heat"
-        if (shields < 100f)
-        { 
-            if (shields > 0f)
-                shields += Time.deltaTime * rechargeRate;
-            colorGrading.saturation.value = Mathf.Lerp( -100f, 25, shields/100f);
-        }
-
-        var canVig = true;
-
-        if (grabbers[0].grabbedObject is OVRClimbable || grabbers[1].grabbedObject is OVRClimbable)
-            canVig = false;
-
-        if (vignette != null )
+        if (ppVolume)
         {
-            if (canVig)
-                vignette.intensity.value = Mathf.Clamp(Mathf.Abs(rigidBody.velocity.magnitude) / 2f, MIN_VIGNETTE, MAX_VIGNETTE);
-            else
-                vignette.intensity.value = MAX_VIGNETTE / 2f;
+            // Show dammage "desaturate"
+            if (shields < 100f)
+            {
+                if (shields > 0f)
+                    shields += Time.deltaTime * rechargeRate;
+                colorGrading.saturation.value = Mathf.Lerp(-100f, 25, shields / 100f);
+            }
+
+            var canVig = true;
+
+            if (grabbers[0].grabbedObject is OVRClimbable || grabbers[1].grabbedObject is OVRClimbable)
+                canVig = false;
+
+            if (vignette != null)
+            {
+                if (canVig)
+                    vignette.intensity.value = Mathf.Clamp(Mathf.Abs(rigidBody.velocity.magnitude) / 2f, MIN_VIGNETTE, MAX_VIGNETTE);
+                else
+                    vignette.intensity.value = MAX_VIGNETTE / 2f;
+            }
         }
     }
 

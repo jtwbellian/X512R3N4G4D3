@@ -9,6 +9,8 @@ public delegate void EventBeginHandler(EventInfo info);
 public class EventManager : MonoBehaviour
 {
     public static EventManager _instance = null;
+    public static bool sandboxMode = false;
+
     [SerializeField]
     public List<EventInfo> timeline;
     [SerializeField]
@@ -16,18 +18,31 @@ public class EventManager : MonoBehaviour
 
     #region singleton
 
-        public static EventManager GetInstance()
+    public static EventManager GetInstance()
+    {
+        return _instance;
+    }
+
+    void Awake()
+    {
+        if (_instance == this)
         {
-            return _instance;
+            return;
         }
 
-        void Awake()
-        {
-            if (_instance != null)
-                Destroy(this);
-            else
-                _instance = this;
+        if (_instance != null)
+        { 
+            Destroy(_instance);
+            _instance = this;
+            EventManager.sandboxMode = false;
         }
+        else
+        {
+            _instance = this;
+            EventManager.sandboxMode = false;
+        }
+
+    }
 
     #endregion
     
@@ -38,6 +53,17 @@ public class EventManager : MonoBehaviour
     public event EventBeginHandler GlobalEventBegin;
 
     #region eventDesignerTools
+
+
+    public void SandboxModeOn()
+    {
+        EventManager.sandboxMode = true;
+        EventInfo disableWalls = new EventInfo();
+        disableWalls.myName = "walls";
+        disableWalls.type = EV.ItemDropped;
+        disableWalls.target = AppliesTo.ENV;
+        EnvironmentEventBegin.Invoke(disableWalls);
+    }
 
     [ContextMenu("InsertAtCurrentEvent")]
     private void InsertEvent()
@@ -84,7 +110,7 @@ public class EventManager : MonoBehaviour
     [ContextMenu("StartEvent")]
     public void StartEvent()
     {
-        if (currentEvent > timeline.Count)
+        if (currentEvent >= timeline.Count)
         {
             return;
         }

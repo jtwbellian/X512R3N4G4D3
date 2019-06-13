@@ -21,6 +21,7 @@ public struct PlayerData
 
 public class vrt_tablet : VRTool
 {
+
     [SerializeField]
     private bool tutorialOn = true;
     [SerializeField]
@@ -36,13 +37,9 @@ public class vrt_tablet : VRTool
 
     public GameObject[] pages;
 
-    public override void IndexRelease()
-    {
-    }
+    public override void IndexRelease(){}
 
-    public override void IndexTouch()
-    {
-    }
+    public override void IndexTouch(){}
 
     public override void Init()
     {
@@ -70,7 +67,8 @@ public class vrt_tablet : VRTool
 
         if (tutorialOn)
         {
-            if (EventManager.GetInstance().currentEvent == 6)
+            var em = EventManager.GetInstance();
+            if (em.currentEvent == 6 && !EventManager.sandboxMode)
             {
                 if (Vector3.Distance(transform.position, Camera.main.transform.position) > distFromHead * 1.5f)
                 {
@@ -87,10 +85,17 @@ public class vrt_tablet : VRTool
 
     public void HeightAdd()
     {
+        if (playerData.ikController.height >= playerData.ikController.MAX_HEIGHT)
+            return;
+
         playerData.ikController.AdjustHeight(0.01f);
     }
+
     public void HeightSub()
     {
+        if (playerData.ikController.height <= playerData.ikController.MIN_HEIGHT)
+            return;
+
         playerData.ikController.AdjustHeight(-0.01f);
     }
 

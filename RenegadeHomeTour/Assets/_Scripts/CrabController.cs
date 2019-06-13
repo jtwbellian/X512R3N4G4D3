@@ -27,6 +27,7 @@ public class CrabController : MonoBehaviour
     [SerializeField]
     private float jumpForce = 100f;
 
+    [SerializeField]
     private float health = 50f;
 
     public state current_state;
@@ -34,14 +35,14 @@ public class CrabController : MonoBehaviour
     public float jumpDist = 4f;
 
     public Transform target;
-
+    [SerializeField]
     private bool alive = true;
 
     // Start is called before the first frame update
     void Start()
     {
         var scale = Random.Range(0.4f, 0.7f);
-        health = MAX_HEALTH = scale * 100;
+        health = MAX_HEALTH = scale * 60;
 
         transform.localScale = new Vector3(scale, scale, scale);
         var renderer = GetComponentInChildren<Renderer>();
@@ -62,6 +63,8 @@ public class CrabController : MonoBehaviour
         audioSource = GetComponent<AudioSource>();
 
         GameManager gm = GameManager.GetInstance();
+        gm.OnPlayerDie += OnPlayerDie;
+        gm.OnPlayerRespawn += OnPlayerRespawn;
 
         foreach (Collider pc in gm.playerCols)
             foreach (Collider c in myCols)
@@ -220,6 +223,16 @@ public class CrabController : MonoBehaviour
         }
     }
 
+    void OnPlayerDie()
+    {
+        target = myJumpPoint;
+    }
+
+    void OnPlayerRespawn()
+    {
+        target = Camera.main.transform;
+    }
+
     IEnumerator Dissolve()
     {
         for (float i = 0f; i < 1f; i += 0.01f)
@@ -244,6 +257,8 @@ public class CrabController : MonoBehaviour
                     }
                 }
                 gameObject.SetActive(false);
+                StopCoroutine("Dissolve");
+                break;
             }
             yield return new WaitForSeconds(0.01f);
         }

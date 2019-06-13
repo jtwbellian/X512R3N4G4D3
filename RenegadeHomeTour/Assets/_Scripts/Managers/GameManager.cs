@@ -1,11 +1,12 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.SceneManagement;
 
 public enum GameMode { crabs, sandbox};
 
 public delegate void RespawnPlayerHandler();
+public delegate void PlayerDieHandler();
 
 public class GameManager : EVActor
 {
@@ -28,7 +29,7 @@ public class GameManager : EVActor
     public SkinnedMeshRenderer playerNArmor;
 
     [Header("Crabtastrophe Game")]
-    public int numLocked = 0; 
+    public int numLocked = 8; 
     public scr_button[] airLockButtons;
     public AirVent [] airVents;
     public Light redLight;
@@ -37,8 +38,8 @@ public class GameManager : EVActor
     public GameObject mamaCrab;
     public AudioClip bossSpawnSound;
 
-    public event RespawnPlayerHandler PlayerRespawn;
-
+    public event RespawnPlayerHandler OnPlayerRespawn;
+    public event PlayerDieHandler OnPlayerDie;
 
     private bool popupShown = false;
 
@@ -53,7 +54,8 @@ public class GameManager : EVActor
         }
         else
         {
-            Destroy(this);
+            Destroy(instance);
+            instance = this;
         }
 
         Init();
@@ -106,8 +108,27 @@ public class GameManager : EVActor
 
     public void RestartLevel()
     {
-        Application.LoadLevel(Application.loadedLevel);
+        if ( EventManager.GetInstance().currentEvent > 10 || EventManager.sandboxMode)
+            StartCoroutine(LoadAsyncScene(SceneManager.GetActiveScene().name));
     }
+
+
+IEnumerator LoadAsyncScene(string sceneName)
+    {
+        // The Application loads the Scene in the background as the current Scene runs.
+        // This is particularly good for creating loading screens.
+        // You could also load the Scene by using sceneBuildIndex. In this case Scene2 has
+        // a sceneBuildIndex of 1 as shown in Build Settings.
+
+        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(sceneName);
+
+        // Wait until the asynchronous scene fully loads
+        while (!asyncLoad.isDone)
+        {
+            yield return null;
+        }
+    }
+
 
     public void UpdatePlayerCols(Collider [] cols)
     {
@@ -116,17 +137,24 @@ public class GameManager : EVActor
 
     public void PlayerDie()
     {
-        var fxMan = FXManager.GetInstance();
         playerIsDead = true;
-        FXManager.GetInstance().Burst(FXManager.FX.Shock, Camera.main.transform.position, 25);
+        FXManager.GetInstance().Burst(FXManager.FX.Shock, Camera.main.transform.position, 10);
         sm.PlayDeathSnd();
-        Invoke("Respawn", 0.5f);
+        OnPlayerDie.Invoke();
+        Invoke("Respawn", sm.deathClip.length/2f);
+        Time.timeScale = 0.5f;
+        sm.music.pitch = 0.8f;
+        sm.music.volume = 0.3f;
     }
 
     public void Respawn()
     {
+        FXManager.GetInstance().Burst(FXManager.FX.Shock, Camera.main.transform.position, 25);
+        Time.timeScale = 1f;
+        sm.music.pitch = 1f;
+        sm.music.volume = 0.5f;
         playerIsDead = false;
-        PlayerRespawn.Invoke();
+        OnPlayerRespawn.Invoke();
     }
 
     [ContextMenu("Spawn Boss")]
@@ -139,6 +167,15 @@ public class GameManager : EVActor
 
         destroyedFan.SetActive(true);
         mamaCrab.gameObject.SetActive(true);
+    }
+
+    public void BossKilled()
+    {
+        if (myEvent.type == EV.GameEnd)
+        {
+            sm.music.volume = 0f;
+            CompleteEvent();
+        }
     }
 
     [ContextMenu("Spawn Enemies")]
@@ -164,7 +201,7 @@ public class GameManager : EVActor
         }
 
         if (myEvent != null)
-            if (numLocked >= 8 && myEvent.type == EV.GameEnd)
+            if (numLocked >= 8 && myEvent.type == EV.targetHit)
             {
                 CompleteEvent();
             }
@@ -199,6 +236,7 @@ public class GameManager : EVActor
                 sm.PlayFortune();
                 StartCoroutine(G_ActivateButtons(1));
                 CompleteEvent();
+                hud.ShowKills();
                 break;
 
             case EV.EntersTrigger:
@@ -223,7 +261,6 @@ public class GameManager : EVActor
     {
         foreach (scr_button a in airLockButtons)
         {
-            Debug.Log("invoked ");
             a.Turn(true);
             yield return new WaitForSeconds(delay);
         }

@@ -47,7 +47,7 @@ public class OVRScreenFade : MonoBehaviour
 	private Material fadeMaterial = null;
     private bool isFading = false;
 
-    public float currentAlpha { get; private set; }
+    public float currentAlpha = 1f;
 
 	void Awake()
 	{
@@ -200,7 +200,7 @@ public class OVRScreenFade : MonoBehaviour
     /// Update material alpha. UI fade and the current fade due to fade in/out animations (or explicit control)
     /// both affect the fade. (The max is taken) 
     /// </summary>
-    private void SetMaterialAlpha()
+    public void SetMaterialAlpha()
     {
 		Color color = fadeColor;
         color.a = Mathf.Max(currentAlpha, uiFadeAlpha);

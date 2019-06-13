@@ -27,11 +27,10 @@ public class AirVent : MonoBehaviour
 
     public void StartShaking()
     {
-        var sm = SoundManager.GetInstance();
-        sm.environment.clip = rattleStartSnd;
-
-        if (!sm.environment.isPlaying)
-            sm.environment.Play();
+        if (audio != null)
+        {
+            audio.PlayOneShot(rattleStartSnd);
+        }
 
         rattle = true;
     }

@@ -25,8 +25,8 @@ public class IKHeadTarget : MonoBehaviour
         var rz = target.rotation.eulerAngles.z;
 
         Vector3 newRot = new Vector3(rx, ry, rz);
-
-        transform.position = target.position + target.transform.forward * offset;
+        
+        transform.SetPositionAndRotation(target.position + target.transform.forward * offset, Quaternion.Euler(newRot));
         //transform.localPosition = offset;
     }
 }
