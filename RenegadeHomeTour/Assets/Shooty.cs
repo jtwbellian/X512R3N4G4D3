@@ -4,13 +4,11 @@ using UnityEngine;
 
 public class Shooty : EVActor
 {
-
     private float distToHead = 2f;
     [SerializeField]
     GameObject target;
     FXManager fx;
     AudioSource audio;
-    
 
     // Start is called before the first frame update
     void Start()
@@ -35,7 +33,7 @@ public class Shooty : EVActor
                 break;
 
             case EV.ItemDropped:
-                target.SetActive(false);
+                gameObject.SetActive(false);
                 fx = FXManager.GetInstance();
                 fx.Burst(FXManager.FX.Shock, transform.position, 15);
                 CompleteEvent();
@@ -55,10 +53,10 @@ public class Shooty : EVActor
             if (dd == null)
                 return;
 
-            target.SetActive(false);
             fx = FXManager.GetInstance();
             fx.Burst(FXManager.FX.Shock, target.transform.position, 15);
             CompleteEvent();
+            gameObject.SetActive(false);
         }
     }
 

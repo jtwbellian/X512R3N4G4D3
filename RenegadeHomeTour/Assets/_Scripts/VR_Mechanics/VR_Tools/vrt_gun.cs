@@ -27,6 +27,7 @@ public class vrt_gun : VRTool
     public float fireSpeed = 10f;
     public Transform gunBarrel;
     public ParticleSystem muzzleFlash;
+    public GameObject laserSight;
     
     public override void Init()
     {
@@ -62,7 +63,6 @@ public class vrt_gun : VRTool
     {
         //Rigidbody shot;
         //GameObject GO = Instantiate(x);
-
         GameObject GO = ObjectPooler.SharedInstance.GetPooledObject((int)bulletType);
 
         if (GO)
@@ -98,7 +98,6 @@ public class vrt_gun : VRTool
             muzzleFlash.Play();
         }
     }
-
 
     public override void IndexTouch()
     {
@@ -148,12 +147,14 @@ public class vrt_gun : VRTool
     {
         base.OnGrab();
 
-        if (light)
-            light.gameObject.SetActive(true);
+        if (laserSight != null && grabInfo.GetGrabber() != null)
+            laserSight.SetActive(true);
     }
 
     public override void OnRelease()
     {
+        if (laserSight != null)
+            laserSight.SetActive(false);
         base.OnRelease();
 
         LightOff();

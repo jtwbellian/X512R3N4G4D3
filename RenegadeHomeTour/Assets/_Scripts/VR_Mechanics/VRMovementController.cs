@@ -81,7 +81,7 @@ public class VRMovementController : MonoBehaviour
     public void Respawn()
     {
         canBoost = true;
-        shields = 100;
+        shields = 100f;
         colorGrading.saturation.value = 25f;
     }
 
@@ -202,5 +202,8 @@ public class VRMovementController : MonoBehaviour
 
         if (shields > 0)
             shields -= amt;
+
+        if (shields < 0)
+            shields = 0;
     }
 }

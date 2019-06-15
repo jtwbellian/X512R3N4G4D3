@@ -18,11 +18,14 @@ public class VoiceActor : EVActor
     public override void BeginEvent()
     {
         // no more lines, unsubscribe because this actor is done 
-        if (currentLine >= lines.Count)
+        if (currentLine > lines.Count)
             Unsubscribe();
 
         if (myEvent.type == EV.audioStart)
         {
+            if (currentLine > lines.Count)
+                currentLine = 0;
+                
             source.clip = lines[currentLine];
             source.Play();
             currentLine++;
@@ -30,6 +33,9 @@ public class VoiceActor : EVActor
         }
         else if (myEvent.type == EV.audioWait)
         {
+            if (currentLine > lines.Count)
+                currentLine = 0;
+                
             source.clip = lines[currentLine];
             source.Play();
             Invoke("CompleteEvent", lines[currentLine].length);

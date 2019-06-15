@@ -66,7 +66,7 @@ public class AppEntitlementCheck : MonoBehaviour
 #endif
 
         // Keep this alive until finished checking
-        DontDestroyOnLoad(this);
+        //DontDestroyOnLoad(this);
 
         // check for valid appID
         CheckAppID();

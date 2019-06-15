@@ -10,10 +10,11 @@ public class IKPlayerController : EVActor
     private const float CHAIR_SCALE_FACTOR = 1.336f;
 
     // avg distance from eyes to Forehead
-    private const float E2F = 0.08f; //0.127f;
+    public const float E2F = 0.08f; //0.127f;
     //private float minHandRadius = 0.01f;
     //private float maxHandRadius = 0.05f
     private float legLerp = 0f;
+    private bool has_been_calibrated = false;
     private float lGrab = 0f;
     private float lFinger = 0f;
     private float lThumb = 0f;
@@ -21,7 +22,7 @@ public class IKPlayerController : EVActor
     private float rFinger = 0f;
     private float rThumb = 0f;
 
-    private float scaleFactor = 5f;
+    private float scaleFactor = 5.6f;
     private float minHeight = 0.2f;
     private float percentHeight = 0.5f;
     [SerializeField]
@@ -33,6 +34,8 @@ public class IKPlayerController : EVActor
     [Header("IK Options")]
     public bool ikOn = false;
 
+    [Tooltip("Must be left hand followed by right hand")]
+    public GameObject [] pointers;
     [Tooltip("Meshes and skeleton associated with IK but NOT the IK Controller itself")]
     public GameObject [] parts_ik;
     public Collider[] ikCols;
@@ -93,12 +96,21 @@ public class IKPlayerController : EVActor
             var mc = transform.root.GetComponent<VRMovementController>();
             mc.AllowBoost();
             CompleteEvent();
+            has_been_calibrated = true;
         }
     }
 
     [ContextMenu("Refresh_IK_Mode")]
      private void RefreshIKMode()
     { 
+        var tools = GetComponentsInChildren<VRTool>();
+
+        foreach (var t in tools)
+        {
+            t.OnRelease();
+            t.transform.SetParent(null);
+        }
+
         foreach (GameObject obj in parts_ik)
         {
             obj.SetActive(ikOn);
@@ -252,6 +264,16 @@ public class IKPlayerController : EVActor
         lFinger = (!leftyMode) ? OVRInput.Get(OVRInput.Axis1D.PrimaryIndexTrigger) : OVRInput.Get(OVRInput.Axis1D.SecondaryIndexTrigger);
         lThumb = (!leftyMode) ? (OVRInput.Get(OVRInput.NearTouch.PrimaryThumbButtons) ? 1f : 0f) : (OVRInput.Get(OVRInput.NearTouch.SecondaryThumbButtons) ? 0f : 1f);
 
+        if (lGrab > 0.5f && pointers[0].activeSelf)
+            pointers[0].SetActive(false);
+        else if (lGrab < 0.5f && !pointers[0].activeSelf)
+            pointers[0].SetActive(true);
+
+        if (rGrab > 0.5 && pointers[1].activeSelf)
+            pointers[1].SetActive(false);
+        else if (rGrab < 0.5 && !pointers[1].activeSelf)
+            pointers[1].SetActive(true);
+
         if (ikOn)
         {
             BodyAnimator.SetFloat("RGrab", rGrab);
@@ -278,7 +300,43 @@ public class IKPlayerController : EVActor
     void Update()
     {
         if (GameManager.isPaused)
+        {
+            if (!ikOn)
+            {
+                foreach (GameObject g in parts_nonIk)
+                {
+                    g.SetActive(false);
+                }
+            }
+            else if (ikOn)
+            {
+                foreach (GameObject g in parts_ik)
+                {
+                    g.SetActive(false);
+                }
+            }
             return;
+        }
+        else if (!parts_nonIk[0].activeInHierarchy || !parts_ik[0].activeInHierarchy)
+        {
+            if (!ikOn)
+            {
+                for (int i = 0; i < parts_nonIk.Length; i++)
+                {
+                    if (i == 2 && !has_been_calibrated)
+                        continue;
+                    parts_nonIk[i].SetActive(true);
+                }
+            }
+            else if (ikOn)
+            {
+                foreach (GameObject g in parts_ik)
+                {
+                    g.SetActive(true);
+                }
+            }
+        }
+
 
         // make collider match your current height
         if (ikOn)
@@ -300,7 +358,7 @@ public class IKPlayerController : EVActor
         {
             if (NonIKBodyAnimator.transform.position != head.position)
             {
-                NonIKBodyAnimator.transform.localPosition = new Vector3(0, 0, height - headOffset);
+                NonIKBodyAnimator.transform.position = new Vector3(0, 0, height - headOffset);
             }
         }
 

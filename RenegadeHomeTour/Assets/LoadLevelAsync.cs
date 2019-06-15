@@ -10,25 +10,27 @@ public class LoadLevelAsync : MonoBehaviour
     public OVRScreenFade screenFade; 
     private bool ready = false;
     private float fill = 0f;
+    private bool startLoading = false;
+    private AsyncOperation asyncLoad;
     
 
     // Start is called before the first frame update
     void Start()
     {
-        hud.message = "Hold Any Key to Start";
+        hud.message = "Hold Any Button to Start";
         hud.ShowSubtitles();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (OVRInput.Get(OVRInput.Button.Any) && !ready)
+        if (OVRInput.Get(OVRInput.Button.Any))
         {
-            if (fill > 0.9)
+            if (fill > 0.9 && !ready)
             {
                 screenFade.currentAlpha = 1f;
                 screenFade.SetMaterialAlpha();
-                SceneManager.LoadSceneAsync(level);
+                SceneManager.LoadSceneAsync(level, LoadSceneMode.Single);
                 ready = true;
             }
             else
@@ -38,7 +40,7 @@ public class LoadLevelAsync : MonoBehaviour
                 screenFade.SetMaterialAlpha();
             }
         }
-        else if (!ready)
+        else if (fill > 0 && !ready)
         {
             fill -= 1 * Time.deltaTime;
             screenFade.currentAlpha = fill;

@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Dallas : EVActor
 {
+    private AudioSource audioSrc;
     private float LastDeparture;
     private float timeOut = 25f;
     private const float MIN_DIST = 0.15f;
@@ -26,6 +27,7 @@ public class Dallas : EVActor
     private bool waitForMe = false;
     private bool isHome = false;
     public GameObject myItem; 
+    public AudioClip owSnd; 
 
     [SerializeField]
     state currentState = state.Look;
@@ -33,6 +35,7 @@ public class Dallas : EVActor
     // Start is called before the first frame update
     void Start()
     {
+        audioSrc = GetComponent<AudioSource>();
         lastPos = transform.position;
         subscribesTo = AppliesTo.ENV;
         Subscribe();
@@ -91,8 +94,13 @@ public class Dallas : EVActor
         }
     }
 
-    public void OnTriggerEnter(Collider col)
+    public void OnCollisionEnter(Collision col)
     {
+        
+        if (col.gameObject.GetComponentInChildren<DoesDammage>())
+        {
+            audioSrc.PlayOneShot(owSnd);
+        }
         /*
         var dest = col.GetComponent<Destination>();
 
@@ -160,7 +168,8 @@ public class Dallas : EVActor
 
                 if (Time.time > LastDeparture + timeOut)
                 {
-                    rb.MovePosition(target.position);
+                    
+                    rb.MovePosition(lastPos);
                     rb.velocity = Vector3.zero;
                 }
 

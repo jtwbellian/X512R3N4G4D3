@@ -36,10 +36,12 @@ public class GameManager : EVActor
     public GameObject [] fan;
     public GameObject destroyedFan;
     public GameObject mamaCrab;
-    public AudioClip bossSpawnSound;
+    public AudioClip bossSpawnSound, dallasReminder;
 
     public event RespawnPlayerHandler OnPlayerRespawn;
+    [SerializeField]
     public event PlayerDieHandler OnPlayerDie;
+    private OVRScreenFade screenFade; 
 
     private bool popupShown = false;
 
@@ -48,6 +50,8 @@ public class GameManager : EVActor
     // Start is called before the first frame update
     void Awake()
     {
+        Application.runInBackground = false;
+        
         if (instance == null)
         {
             instance = this;
@@ -78,12 +82,16 @@ public class GameManager : EVActor
         //Camera.main.transform.root.GetComponentInChildren<Rigidbody>().MovePosition(playerStart);
         subscribesTo = AppliesTo.PLAYER;
         myName = "GM";
+        screenFade = Camera.main.GetComponent<OVRScreenFade>();
     }
 
     public void ChangeSkin(Material mat)
     {
-        playerHelmet.materials.SetValue(mat, 1);
-        playerHelmet.materials[1] = mat;
+
+        Material[] helmetmats = playerHelmet.materials;
+        helmetmats[1] = mat;
+        playerHelmet.materials = helmetmats;
+
         playerArmor.material = mat;
         playerNArmor.material = mat;
     }
@@ -108,8 +116,13 @@ public class GameManager : EVActor
 
     public void RestartLevel()
     {
+
         if ( EventManager.GetInstance().currentEvent > 10 || EventManager.sandboxMode)
+        {
+            screenFade.currentAlpha = 1f;
+            screenFade.SetMaterialAlpha();
             StartCoroutine(LoadAsyncScene(SceneManager.GetActiveScene().name));
+        }
     }
 
 
@@ -140,8 +153,10 @@ IEnumerator LoadAsyncScene(string sceneName)
         playerIsDead = true;
         FXManager.GetInstance().Burst(FXManager.FX.Shock, Camera.main.transform.position, 10);
         sm.PlayDeathSnd();
-        OnPlayerDie.Invoke();
-        Invoke("Respawn", sm.deathClip.length/2f);
+
+        //    OnPlayerDie.Invoke();
+
+        Invoke("Respawn", sm.deathClip.length/2.5f);
         Time.timeScale = 0.5f;
         sm.music.pitch = 0.8f;
         sm.music.volume = 0.3f;
@@ -211,7 +226,7 @@ IEnumerator LoadAsyncScene(string sceneName)
     {
         GameManager.isPaused = true;
         AudioListener.pause = true;
-        Time.timeScale = 0.000001f;
+        Time.timeScale = 0f;
     }
 
     public void UnPause()
@@ -237,6 +252,7 @@ IEnumerator LoadAsyncScene(string sceneName)
                 StartCoroutine(G_ActivateButtons(1));
                 CompleteEvent();
                 hud.ShowKills();
+                Invoke("RemindVentLocks", 300);
                 break;
 
             case EV.EntersTrigger:
@@ -245,6 +261,16 @@ IEnumerator LoadAsyncScene(string sceneName)
                 break;
         }
     }
+
+    public void RemindVentLocks()
+    {
+        if (numLocked > 2)
+            return;
+
+        sm.dialogue.PlayOneShot(dallasReminder);
+        Invoke("RemindVentLocks", 300);
+    }
+
 
     IEnumerator G_ShakeVents(float delay)
     {
