@@ -70,10 +70,15 @@ namespace BioIK {
 		}
 
 		void Update() {
+			if (GameManager.isPaused)
+            	return;
 			PrecaptureAnimation(Root);
 		}
 
 		void LateUpdate() {
+			if (GameManager.isPaused)
+            	return;
+
 			PostcaptureAnimation(Root);
 
 			UpdateData(Root);

@@ -118,7 +118,6 @@ public class CrabController : MonoBehaviour
 
             health -= dmg;
 
-
             fxManager = FXManager.GetInstance();
             fxManager.Burst(FXManager.FX.Dissolve, transform.position, 2);
 
@@ -131,6 +130,7 @@ public class CrabController : MonoBehaviour
     {
         if (alive && health <= 0)
         {
+            StopCoroutine("Dissolve");
             StartCoroutine("Dissolve");
             audioSource.PlayOneShot(deathSnd);
             alive = false;
@@ -242,7 +242,7 @@ public class CrabController : MonoBehaviour
                 mats[m].SetFloat("Vector1_69FA3116", i);
             }
 
-            if (i > 0.8f)
+            if (i >= 0.8f)
             {
                 // Remove hats before destroying self
                 GrabMagnet mag = GetComponentInChildren<GrabMagnet>();
@@ -258,7 +258,7 @@ public class CrabController : MonoBehaviour
                 }
                 gameObject.SetActive(false);
                 StopCoroutine("Dissolve");
-                break;
+                yield return null;
             }
             yield return new WaitForSeconds(0.01f);
         }

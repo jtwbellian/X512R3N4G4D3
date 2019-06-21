@@ -44,6 +44,7 @@ public class Hud : EVActor
     // Update is called once per frame
     void FixedUpdate()
     {
+        canvasGroup.alpha = Mathf.Clamp(1f - Vector3.Distance(transform.position, hudAnchor.position)*2.5f, 0f, 1f);
         /*
         if (!menu.activeSelf && Time.time - lastRefresh > fadeOutTime && canvasGroup.alpha > 0)
         {

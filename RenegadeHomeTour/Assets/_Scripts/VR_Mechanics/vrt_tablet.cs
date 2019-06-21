@@ -121,6 +121,9 @@ public class vrt_tablet : VRTool
 
     public override void OnGrab()
     {
+        if (grabInfo == null)
+            return;
+            
         if (grabInfo.grabbedBy.CompareTag("RightHand"))
         {
             offsetTarget.SetParent(rightGrip);

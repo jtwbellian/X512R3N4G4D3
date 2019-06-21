@@ -13,6 +13,7 @@ public class MamaCrabController : MonoBehaviour
     private Transform myJumpPoint;
     private AudioSource audioSource;
     private FXManager fxManager;
+    private float rayDist;
 
     public AudioClip stabSnd, shotSnd, deathSnd, chirp1, chirp2, chirp3, chirp4;
     public ParticleSystem psDissolve, psChunk;
@@ -22,14 +23,14 @@ public class MamaCrabController : MonoBehaviour
     public Collider[] ignoreColliders;
 
     private float lastBeamTime = 0f;
-    private float chargeDelay = 20f;
+    private float chargeDelay = 10f;
     [SerializeField]
     private float beamDelay = 800f;
     private Material beamMat; 
     [SerializeField]
     private float jumpForce = 100f;
 
-    private float health = 1000000f;
+    private float health = 6200000f;
 
     public state current_state;
     public float speed = 3f;
@@ -43,7 +44,6 @@ public class MamaCrabController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
         var renderer = GetComponentInChildren<Renderer>();
         mats = renderer.materials;
         rb = GetComponent<Rigidbody>();
@@ -62,20 +62,16 @@ public class MamaCrabController : MonoBehaviour
 
         audioSource = GetComponent<AudioSource>();
 
-        Collider playerCol = Camera.main.transform.root.GetComponentInChildren<CapsuleCollider>();
+        //Collider playerCol = Camera.main.transform.root.GetComponentInChildren<CapsuleCollider>();
         myCols = GetComponentsInChildren<Collider>();
 
-
-        if (playerCol != null)
-            foreach (Collider c in myCols)
+        foreach (Collider c in myCols)
+        {
+            foreach (Collider ic in ignoreColliders)
             {
-                //Physics.IgnoreCollision(playerCol, c);
-
-                foreach (Collider ic in ignoreColliders)
-                {
-                    Physics.IgnoreCollision(c, ic);
-                }
+                Physics.IgnoreCollision(c, ic);
             }
+        }
 
         var beamRenderer = beam.GetComponentInChildren<MeshRenderer>();
         beamMat = beamRenderer.material;
@@ -86,10 +82,10 @@ public class MamaCrabController : MonoBehaviour
     void OnTriggerEnter(Collider other)
     {
 
-        if (current_state == state.Attack && other.transform.root.CompareTag("Player"))
+        if (current_state == state.Attack && other.transform.root.CompareTag("Player") && !GameManager.instance.playerIsDead)
         {
             VRMovementController player = other.transform.root.GetComponent<VRMovementController>();
-            player.Hurt(beamStrength);
+            player.Hurt(beamStrength * 50f);
             FXManager.GetInstance().Burst(FXManager.FX.Beam, other.transform.position, 15);
         }
 
@@ -154,7 +150,7 @@ public class MamaCrabController : MonoBehaviour
 
                     // This blends the target rotation in gradually.
                     // Keep sharpness between 0 and 1 - lower values are slower/softer.
-                    float sharpness = 0.15f;
+                    float sharpness = 0.4f;
 
                     rb.MoveRotation(Quaternion.Lerp(transform.rotation, targetRotation, sharpness));
                     rb.AddForce(transform.forward * speed, ForceMode.Force);
@@ -175,7 +171,7 @@ public class MamaCrabController : MonoBehaviour
 
                 // This blends the target rotation in gradually.
                 // Keep sharpness between 0 and 1 - lower values are slower/softer.
-                float sharpness = 0.05f;
+                float sharpness = 0.3f;
 
                 rb.MoveRotation(Quaternion.Lerp(transform.rotation, targetRotation, sharpness));
 
@@ -201,14 +197,14 @@ public class MamaCrabController : MonoBehaviour
 
                         if (amt < 1f)
                         { 
-                            Vector3 toTarget = target.position - transform.position;
+                            Vector3 toTarget = (target.position - (target.up * 2f)) - transform.position;
 
                             // This constructs a rotation looking in the direction of our target,
                             Quaternion targetRotation = Quaternion.LookRotation(toTarget);
 
                             // This blends the target rotation in gradually.
                             // Keep sharpness between 0 and 1 - lower values are slower/softer.
-                            float sharpness = 1 - amt;
+                            float sharpness = Mathf.Clamp(1 - amt, 0, 1) / 5f;
 
                             rb.MoveRotation(Quaternion.Lerp(transform.rotation, targetRotation, sharpness));
                         }
@@ -230,6 +226,17 @@ public class MamaCrabController : MonoBehaviour
                         beamStrength = Mathf.Lerp(0.1f, 1f, amt);
                         beamMat.SetFloat("_strength", beamStrength);
 
+                        RaycastHit hit;
+
+                        if (Physics.Raycast(beam.transform.position, beam.transform.right * -1, out hit, 1000f))
+                        {
+                            rayDist = Vector3.Distance(beam.transform.position, hit.point);
+                            beam.transform.localScale = new Vector3(rayDist * 0.00006f, 0.001f, 0.001f);
+                        }
+                        else
+                        {
+                            beam.transform.localScale = new Vector3(0.001f, 0.001f, 0.001f);
+                        }
                     }
                     else
                     {

@@ -257,14 +257,6 @@ public abstract class VRTool : iSpecial_Grabbable
 
         foreach (Collider c in toolCols)
         {
-            // Shrink sphere collider on grab
-            /*
-            if (c.isTrigger && c.GetType() == typeof(SphereCollider))
-            {
-                SphereCollider sc = (SphereCollider)c;
-                sc.radius = minRadius;
-            }
-            else */
 
             if (!c.isTrigger)
             {
@@ -280,25 +272,6 @@ public abstract class VRTool : iSpecial_Grabbable
 
     public virtual void OnRelease()
     {
-        toolCols = GetComponentsInChildren<Collider>();
-
-        /*
-        foreach (Collider c in toolCols)
-        {
-            // Grow sphere collider on release
-            if (c.isTrigger && c.GetType() == typeof(SphereCollider))
-            {
-                SphereCollider sc = (SphereCollider)c;
-                sc.radius = maxRadius;
-            }
-            /*else if (c.GetType() != typeof(SphereCollider))
-            {
-                var playerBody = GameManager.GetInstance().playerBody;
-                Physics.IgnoreCollision(c, playerBody, false);
-                //c.isTrigger = false;
-            }*/
-        //}
-
         if (rb != null)
             rb.isKinematic = false;
 

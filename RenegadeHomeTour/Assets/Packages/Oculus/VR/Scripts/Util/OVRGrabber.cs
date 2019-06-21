@@ -1,4 +1,4 @@
-/************************************************************************************
+ /************************************************************************************
 
 Copyright   :   Copyright 2017 Oculus VR, LLC. All Rights reserved.
 
@@ -44,7 +44,6 @@ public class OVRGrabber : MonoBehaviour
     public float grabBegin = 0.55f;
     public float grabEnd = 0.35f;
     public bool m_secondaryGrabber = false;
-
     // Demonstrates parenting the held object to the hand's transform when grabbed.
     // When false, the grabbed object is moved every FixedUpdate using MovePosition. 
     // Note that MovePosition is required for proper physics simulation. If you set this to true, you can
@@ -76,6 +75,7 @@ public class OVRGrabber : MonoBehaviour
     protected Vector3 m_anchorOffsetPosition;
     protected float m_prevFlex;
     protected OVRGrabbable m_grabbedObj = null;
+    protected OVRGrabbable m_pointedAt = null;
     protected Vector3 m_grabbedObjectPosOff;
     protected Quaternion m_grabbedObjectRotOff;
     protected Dictionary<OVRGrabbable, int> m_grabCandidates = new Dictionary<OVRGrabbable, int>();
@@ -217,16 +217,8 @@ public class OVRGrabber : MonoBehaviour
         
         if (m_grabbedObj == null)
         {
-            VRTool nearTool = GrabRay();
-
-            if (nearTool != null && nearTool != lastTool)
-            {
-                if (lastTool != null)
-                    lastTool.LinesOff();
-
-                nearTool.LinesOn();
-                lastTool = nearTool;
-            }
+            m_pointedAt = GrabRay();
+            //Debug.Log(m_pointedAt);
         }
     }
 
@@ -243,13 +235,12 @@ public class OVRGrabber : MonoBehaviour
         OnTriggerEnter(otherCollider);
     }
 
-
     void OnTriggerEnter(Collider otherCollider)
     {
         if (otherCollider.CompareTag("UNAVAILABLE"))
         {
             gm = GameManager.GetInstance();
-            gm.CreatePopup(transform.position, "Content Currently Unvailable", 1f);
+            gm.CreatePopup(gm.hud.transform.position, "Content Currently Unvailable", 1f);
         }
 
         // Get the grab trigger
@@ -422,57 +413,36 @@ public class OVRGrabber : MonoBehaviour
     }
 
     // Grab an object from afar, still WIP
-    protected virtual VRTool GrabRay()
+    protected virtual OVRGrabbable GrabRay()
     {
-
         RaycastHit hit;
-        VRTool newTool = null;
-        VRTool oldTool = null;
 
-
-        if (Physics.Raycast(transform.position, transform.forward, out hit, 100f))
+        if (Physics.Raycast(transform.position, transform.forward, out hit, 5f))
         {
+            //Debug.DrawRay(transform.position, transform.forward, Color.green);
             currentPOI = hit.collider.gameObject;
-            
-            if (currentPOI.Equals(previousPOI))
-            {
-                return null;
-            }
 
-            // Get the grabbable
-            OVRGrabbable grabbable = currentPOI.GetComponent<OVRGrabbable>() ?? currentPOI.GetComponentInParent<OVRGrabbable>();
-
-            if (grabbable == null)
-                return null;
-
-            /* Add the grabbable
-            int refCount = 0;
-            m_grabCandidates.TryGetValue(grabbable, out refCount);
-            m_grabCandidates[grabbable] = refCount + 1;
-            */
             //Get Tool
-            newTool = currentPOI.GetComponent<VRTool>();
-
-            if (newTool != null)
+            var newTool = currentPOI.GetComponent<VRTool>();
+            
+            if (lastTool != null)
             {
-                newTool.LinesOn();
-                newTool.GetRB().AddForce((newTool.transform.position - transform.position).normalized * 1);
+                lastTool.LinesOff();
             }
 
-            if (previousPOI != null)
-            {
-                oldTool = previousPOI.GetComponent<VRTool>();
-            }
+            lastTool = newTool;
+            
+            if (newTool == null || newTool.grabInfo.isGrabbed)
+                return null;
 
-            if (oldTool != null)
-                oldTool.LinesOff();
-
-            previousPOI = currentPOI;
-
-            //Debug.Log("old: " + previousPOI.ToString() + " new: " + currentPOI.ToString());
-            return newTool;
+            newTool.LinesOn();
+            return newTool.grabInfo;
         }
 
+        if (lastTool != null)
+        {
+            lastTool.LinesOff();
+        }
         return null;
     }
 
@@ -510,6 +480,13 @@ public class OVRGrabber : MonoBehaviour
         // Disable grab volumes to prevent overlaps
         GrabVolumeEnable(false);
 
+        if (!closestGrabbable && m_pointedAt != null)
+        {
+            closestGrabbable = m_pointedAt;
+            closestGrabbableCollider = m_pointedAt.grabPoints[0];
+            //m_pointedAt.transform.position = transform.position;
+        }
+
         if (closestGrabbable != null)
         {
             if (closestGrabbable.isGrabbed)
@@ -535,7 +512,7 @@ public class OVRGrabber : MonoBehaviour
             m_lastRot = transform.rotation;
 
             // Set up offsets for grabbed object desired position relative to hand.
-            if (m_grabbedObj.snapPosition)
+            if (m_grabbedObj.snapPosition || m_pointedAt)
             {
                 m_grabbedObjectPosOff = m_gripTransform.localPosition;
                 if (m_grabbedObj.snapOffset)

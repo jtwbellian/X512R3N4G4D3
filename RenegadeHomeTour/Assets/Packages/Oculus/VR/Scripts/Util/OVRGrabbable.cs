@@ -48,6 +48,10 @@ public class OVRGrabbable : MonoBehaviour
 
     public Collider[] allColliders;
 
+    public OVRGrabber GetGrabber()
+    {
+        return m_grabbedBy;
+    }
 	/// <summary>
 	/// If true, the object can currently be grabbed.
 	/// </summary>
@@ -109,7 +113,17 @@ public class OVRGrabbable : MonoBehaviour
 	/// </summary>
     public Rigidbody grabbedRigidbody
     {
-        get { return m_grabbedCollider.attachedRigidbody; }
+        get { 
+            Rigidbody rb = m_grabbedCollider.attachedRigidbody;
+            
+            if (rb == null)
+            {
+                return m_grabbedCollider.GetComponentInChildren<Rigidbody>();
+            }
+
+            else return rb;
+            return m_grabbedCollider.attachedRigidbody; 
+            }
     }
 
 	/// <summary>

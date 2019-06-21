@@ -1,77 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &800527899381813811
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 4516976372536046166}
-  - component: {fileID: 4971885296963980595}
-  - component: {fileID: 2295480874731187038}
-  - component: {fileID: 3905387158675145741}
-  m_Layer: 0
-  m_Name: hitBox
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &4516976372536046166
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 800527899381813811}
-  m_LocalRotation: {x: -0.63373077, y: -0, z: -0, w: 0.7735537}
-  m_LocalPosition: {x: 0, y: 0.1699, z: 0.0353}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 5304922337144365655}
-  m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: -78.652, y: 0, z: 0}
---- !u!33 &4971885296963980595
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 800527899381813811}
-  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!65 &2295480874731187038
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 800527899381813811}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.02, y: 0.014160782, z: 0.16230144}
-  m_Center: {x: 0.00000023869447, y: 0.0029196092, z: -0.018847482}
---- !u!114 &3905387158675145741
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 800527899381813811}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_GeneratorAsset: {fileID: 0}
-  m_Script: {fileID: 11500000, guid: ad1cef2d297383c4183739b09016ea42, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  tool: {fileID: 2589679808027393139}
-  velocityBased: 1
-  power: 10
-  rb: {fileID: 1783073028793699736}
-  impactSnd: {fileID: 8300000, guid: b5f3db25ac6c9894793f4d734855fec9, type: 3}
 --- !u!65 &3125327005192060336
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -205,7 +133,7 @@ MonoBehaviour:
   m_snapOffset: {fileID: 0}
   m_grabPoints:
   - {fileID: 150662302715621966}
-  - {fileID: 2295480874731187038}
+  - {fileID: 3125327005192060336}
   allColliders:
   - {fileID: 3125327005192060336}
 --- !u!135 &150662302715621966
@@ -277,7 +205,6 @@ Transform:
   m_Children:
   - {fileID: 7820311398084732068}
   - {fileID: 3240643070223111551}
-  - {fileID: 4516976372536046166}
   m_Father: {fileID: 6679049117711156548}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 12.683001, y: 0.119, z: 179.65302}
