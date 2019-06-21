@@ -19,27 +19,9 @@ ScriptedImporter:
       \ <presetinput identifier=\"$outputsize\" uid=\"3108416346\" type=\"8\" value=\"10,10\"
       />\n  <presetinput identifier=\"door_paint_color\" uid=\"3454536265\" type=\"2\"
       value=\"0.249599,0.607376,0.669811\" />\n </sbspreset>\n"
-    shaderName: Lightweight Render Pipeline/Simple Lit
-    outputNames: diffuse,normal,specular
-    texturePackingList:
-    - outputName: diffuse
-      alphaSource: diffuse
-    - outputName: baseColor
-      alphaSource: baseColor
-    - outputName: normal
-      alphaSource: normal
-    - outputName: specular
-      alphaSource: specular
-    - outputName: glossiness
-      alphaSource: glossiness
-    - outputName: roughness
-      alphaSource: roughness
-    - outputName: metallic
-      alphaSource: metallic
-    - outputName: height
-      alphaSource: height
-    - outputName: ambientOcclusion
-      alphaSource: ambientOcclusion
+    shaderName: Lightweight Render Pipeline/Lit
+    outputNames: diffuse,normal,specular,metallic,ambientOcclusion
+    texturePackingList: []
     textureParameters:
     - textureName: Sci Fi Storage Unit Wall - glossiness
       wrapMode: 0
