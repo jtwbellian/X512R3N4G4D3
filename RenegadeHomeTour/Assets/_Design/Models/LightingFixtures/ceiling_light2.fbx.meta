@@ -3,7 +3,12 @@ guid: 4cb3ce896307e794b880e4b9373ecebf
 ModelImporter:
   serializedVersion: 25
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Light.000
+    second: {fileID: 2100000, guid: e9db32b6808b0514d9545cb297fcf215, type: 2}
   materials:
     importMaterials: 1
     materialName: 0
@@ -33,7 +38,9 @@ ModelImporter:
     clipAnimations: []
     isReadable: 0
   meshes:
-    lODScreenPercentages: []
+    lODScreenPercentages:
+    - 0.25
+    - 0.01
     globalScale: 1
     meshCompression: 0
     addColliders: 0
