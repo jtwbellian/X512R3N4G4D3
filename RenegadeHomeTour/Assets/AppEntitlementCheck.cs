@@ -31,15 +31,16 @@ using UnityEngine.Events;
 
 public class AppEntitlementCheck : MonoBehaviour
 {
-
+    [SerializeField]
     [Tooltip("Show debug messages")]
     public bool debugMode = false;
     [Tooltip("Quit app on Entitlement Check Fail")]
     public bool quitOnFail = true;
     [Tooltip("Standalone mode allows you to initialize the Platform SDK in test and development environments")]
     private bool standaloneMode = false;
-
+    public bool failed = false;
     private string appID = "";
+    public Hud hud;
 
     // init params for standalone mode
     struct OculusInitParams
@@ -133,6 +134,7 @@ public class AppEntitlementCheck : MonoBehaviour
         }
         else
         {
+            failed = true;
             // Entitlement check failed
             // NOTE: You may not allow the user to proceed in your app after a failed entitlement check.
             Debug.LogWarning("Entitlement Check: Failed!");
@@ -142,9 +144,23 @@ public class AppEntitlementCheck : MonoBehaviour
             if (Time.realtimeSinceStartup > 10)
                 Debug.LogWarning("Entitlement Check: Timeout. Must check within 10 seconds.");
 
+
+            //hud = GameManager.GetInstance().hud;
+            //Debug.Log("Hud " + hud);
+
+
+            if (hud != null)
+            {
+                Debug.Log("Hud not null " + hud);
+                hud.message = "Entitlement Check Failed. Please Sign into Oculus and Try Again.";
+            }
+            else
+                Debug.Log("Hud not Found");
+
             // default to quiting the application on faild entitlement check
             if (quitOnFail)
             {
+
                 UnityEngine.Application.Quit();
 
 #if UNITY_EDITOR
@@ -164,7 +180,7 @@ public class AppEntitlementCheck : MonoBehaviour
     {
         if (debugMode)
             Debug.Log("Entitlement Check: Completed");
-        Destroy(this);
+        //Destroy(this);
     }
 
     // Note: With older versions of Unity, you may need to call Request.RunCallbacks() to process the callbacks and retrieve the results of the check.

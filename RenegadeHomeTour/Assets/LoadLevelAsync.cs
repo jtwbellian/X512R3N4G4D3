@@ -12,7 +12,7 @@ public class LoadLevelAsync : MonoBehaviour
     private float fill = 0f;
     private bool startLoading = false;
     private AsyncOperation asyncLoad;
-    
+    public AppEntitlementCheck entitlementChecker;
 
     // Start is called before the first frame update
     void Start()
@@ -24,9 +24,17 @@ public class LoadLevelAsync : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (entitlementChecker.failed)
+        {
+            hud.message = "Entitlement Check Failed. Please confirm Oculus Account is signed in.";
+            hud.ShowSubtitles();
+            hud.Refresh();
+            return;
+        }
+
         if (OVRInput.Get(OVRInput.Button.Any))
         {
-            if (fill > 0.9 && !ready)
+            if (fill > 1 && !ready)
             {
                 screenFade.currentAlpha = 1f;
                 screenFade.SetMaterialAlpha();
