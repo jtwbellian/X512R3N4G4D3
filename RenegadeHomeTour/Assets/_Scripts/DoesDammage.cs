@@ -25,13 +25,13 @@ public class DoesDammage : MonoBehaviour
 
     void OnCollisionEnter(Collision col)
     {
-        var gm = GameManager.GetInstance();
+        /*var gm = GameManager.GetInstance();
 
         if (col.transform.CompareTag("target"))
         {
             col.gameObject.tag = "Untagged";
 
-            gm.direc.Ping(PING.targetHit);
+            //gm.direc.Ping(PING.targetHit);
             var audio = col.transform.GetComponent<AudioSource>();
             MeshRenderer renderer = col.transform.GetComponent<MeshRenderer>();
 
@@ -43,7 +43,7 @@ public class DoesDammage : MonoBehaviour
                 audio.Play();
             }
             Destroy(this);
-        }
+        }*/
     }
 
     public float GetDmg()

@@ -34,7 +34,6 @@ public class vrt_blade : VRTool
         {
             Debug.Log("Snap orientation must be off for simulate drag to work.");
         }
-
     }
 
     public override void IndexRelease()
