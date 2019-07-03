@@ -12,12 +12,13 @@ public class AppEntitlementCheck : MonoBehaviour
     {
         try
         {
-            Core.AsyncInitialize(ID);
+            Core.AsyncInitialize();
             Entitlements.IsUserEntitledToApplication().OnComplete(EntitlementCallback);
         }
         catch (UnityException e)
         {
-            Debug.LogError("Oculus Platform failed to initialize due to exception.");
+
+            print("Oculus Platform failed to initialize due to exception." + e.ToString());
             Debug.LogException(e);
             failed = true;
             // Immediately quit the application
@@ -29,14 +30,13 @@ public class AppEntitlementCheck : MonoBehaviour
     {
         if (msg.IsError)
         {
-            print("Failure");
-            Debug.LogError("Oculus entitlement check FAILED.");
+            print(msg.GetError());
+            print("Oculus failed to init due to exception ");
             failed = true;
             //UnityEngine.Application.Quit();
         }
         else
         {
-            print("Pass");
             Debug.Log("Oculus entitlement passed.");
         }
     }
