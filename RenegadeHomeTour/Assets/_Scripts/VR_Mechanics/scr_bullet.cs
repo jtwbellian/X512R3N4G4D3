@@ -40,6 +40,13 @@ public class scr_bullet : MonoBehaviour
 
         Destroy();//gameObject);
     }
+
+    void OnTriggerEnter(Collider col)
+    {
+        if (partType == 2)
+            FXManager.GetInstance().Burst(FXManager.FX.Shock, transform.position, transform.rotation.eulerAngles, 5); 
+        
+    }
     
     void Destroy()
     {

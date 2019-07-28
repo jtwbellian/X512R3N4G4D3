@@ -64,7 +64,7 @@ public class vrt_blade : VRTool
     {
         if (simulateDrag && grabInfo.isGrabbed)
         {
-            transform.rotation = Quaternion.Lerp(transform.rotation, grabInfo.grabbedBy.transform.rotation, Mathf.Min(Time.deltaTime, grabInfo.grabbedBy.GetHandVelocity().magnitude));
+            transform.rotation = Quaternion.Lerp(transform.rotation, grabInfo.grabbedBy.transform.rotation, Mathf.Min(Time.deltaTime, grabInfo.grabbedBy.GetVelocity().magnitude));
         }
     }
 

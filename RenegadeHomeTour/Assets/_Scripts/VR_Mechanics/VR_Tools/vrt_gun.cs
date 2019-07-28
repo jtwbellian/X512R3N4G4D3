@@ -61,6 +61,10 @@ public class vrt_gun : VRTool
 
     private void Fire()
     {
+
+        if (grabInfo.grabbedBy == null)
+            return;
+            
         //Rigidbody shot;
         //GameObject GO = Instantiate(x);
         GameObject GO = ObjectPooler.SharedInstance.GetPooledObject((int)bulletType);

@@ -119,6 +119,26 @@ public class vrt_tablet : VRTool
     {
     }
 
+
+    public void LinesOn()
+    {
+        // Set interactable lines on or off
+        foreach (Renderer r in renderers)
+        {
+            r.material.SetInt("_lineMode", 1);
+        }
+    }
+    
+    public void LinesOff()
+    {
+        var renderers = GetComponentsInChildren<Renderer>();
+        // Set interactable lines on or off
+        foreach (Renderer r in renderers)
+        {
+            r.material.SetInt("_lineMode", 0);
+        }
+    }
+
     public override void OnGrab()
     {
         if (grabInfo == null)
@@ -156,5 +176,30 @@ public class vrt_tablet : VRTool
         //transform.localPosition = Vector3.zero;
         base.OnRelease();
     }
+
+  void OnTriggerEnter(Collider col)
+    {
+        if (isHeld() || grabInfo.isGrabbed == true)
+            return; 
+
+        if ((col.CompareTag("LeftHand") || col.CompareTag("RightHand")))
+        {
+            LinesOn();
+            //haptics.Play(VibrationForce.Light, GetGrabber().grabbedBy.m_controller, 1f);
+        }
+        
+    }
+
+    void OnTriggerExit(Collider col)
+    {
+        if (isHeld())
+            return;
+
+        if ((col.CompareTag("LeftHand") || col.CompareTag("RightHand")))
+        {
+            LinesOff();
+        }
+    }
+
 
 }

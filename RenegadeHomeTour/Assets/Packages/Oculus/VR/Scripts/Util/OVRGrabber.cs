@@ -44,6 +44,10 @@ public class OVRGrabber : MonoBehaviour
     public float grabBegin = 0.55f;
     public float grabEnd = 0.35f;
     public bool m_secondaryGrabber = false;
+    public IKPlayerController ikController;
+
+    public GameObject rayPointer;
+
     // Demonstrates parenting the held object to the hand's transform when grabbed.
     // When false, the grabbed object is moved every FixedUpdate using MovePosition. 
     // Note that MovePosition is required for proper physics simulation. If you set this to true, you can
@@ -121,6 +125,7 @@ public class OVRGrabber : MonoBehaviour
         // If we are being used with an OVRCameraRig, let it drive input updates, which may come from Update or FixedUpdate.
 
         OVRCameraRig rig = null;
+        ikController = transform.root.GetComponentInChildren<IKPlayerController>();
 
         if (transform.parent != null && transform.parent.parent != null)
             rig = transform.parent.parent.GetComponent<OVRCameraRig>();
@@ -167,7 +172,6 @@ public class OVRGrabber : MonoBehaviour
     {
         if (operatingWithoutOVRCameraRig)
             OnUpdatedAnchors();
-
     }
 
     // Hands follow the touch anchors by calling MovePosition each frame to reach the anchor.
@@ -214,11 +218,11 @@ public class OVRGrabber : MonoBehaviour
         CheckForGrabOrRelease(prevFlex);
 
         // Force grab weapons
-        
         if (m_grabbedObj == null)
         {
-            m_pointedAt = GrabRay();
-            //Debug.Log(m_pointedAt);
+            if ((this.gameObject.tag == "LeftHand" && ikController.pointers[0].activeSelf)
+            || (this.gameObject.tag == "RightHand" && ikController.pointers[1].activeSelf))
+                m_pointedAt = GrabRay();
         }
     }
 
@@ -302,9 +306,20 @@ public class OVRGrabber : MonoBehaviour
 
     public void Lock(Transform target = null)
     {
+
+        isLocked = true; 
+
         if (m_controller == OVRInput.Controller.LTouch)
         {
-            var lhand = transform.root.GetComponentInChildren<IKPlayerController>().handL;
+            // Non-IK hands
+            if (!ikController.ikOn)
+            {
+                ikController.parts_nonIk[0].transform.SetParent(null);
+                return;
+            }
+
+            //  IK hands 
+            var lhand = ikController.handL;
             #region errorHandling
             if (!lhand)
             {
@@ -331,7 +346,14 @@ public class OVRGrabber : MonoBehaviour
         else
         if (m_controller == OVRInput.Controller.RTouch)
         {
-            var rhand = transform.root.GetComponentInChildren<IKPlayerController>().handR;
+
+            if (!ikController.ikOn)
+            {
+                ikController.parts_nonIk[1].transform.SetParent(null);
+                return;
+            }
+
+            var rhand = ikController.handR;
 
             //Debug.Log("rhand: " + rhand);
             #region errorHandling
@@ -354,14 +376,25 @@ public class OVRGrabber : MonoBehaviour
             ikPos.SetTargetTransform(null);
             ikRot.SetTargetTransform(null);
         }
-        isLocked = true; 
     }
 
     public void Unlock()
     {
+        isLocked = false;
+
         if (m_controller == OVRInput.Controller.LTouch)
         {
-            var lhand = transform.root.GetComponentInChildren<IKPlayerController>().handL;
+
+            // Non-IK hands
+            if (!ikController.ikOn)
+            {
+                ikController.parts_nonIk[0].transform.SetParent(this.transform);
+                ikController.parts_nonIk[0].transform.localPosition = new Vector3(-0.042f, -0.012f, -0.134f);
+                ikController.parts_nonIk[0].transform.localRotation = Quaternion.Euler(5.016f, -3.079f, 75.803f);
+                return;
+            }
+
+            var lhand = ikController.handL;
             #region errorHandling
             if (!lhand)
             {
@@ -371,6 +404,7 @@ public class OVRGrabber : MonoBehaviour
             #endregion
             var ikPos = lhand.GetComponent<BioIK.Position>();
             var ikRot = lhand.GetComponent<BioIK.Orientation>();
+
             #region errorHandling
             if (!ikPos || !ikRot)
             {
@@ -386,7 +420,17 @@ public class OVRGrabber : MonoBehaviour
         else
         if (m_controller == OVRInput.Controller.RTouch)
         {
-            var rhand = transform.root.GetComponentInChildren<IKPlayerController>().handR;
+
+            // Non-IK hands
+            if (!ikController.ikOn)
+            {
+                ikController.parts_nonIk[1].transform.SetParent(this.transform);
+                ikController.parts_nonIk[1].transform.localPosition = new Vector3 (0.043f, -0.024f, -0.133f);
+                ikController.parts_nonIk[1].transform.localRotation = Quaternion.Euler(4.208f, 3.498f, -78.303f);
+                return;
+            }
+
+            var rhand = ikController.handR;
             #region errorHandling
             if (!rhand)
             {
@@ -409,7 +453,6 @@ public class OVRGrabber : MonoBehaviour
             ikPos.SetTargetTransform(offset);
             ikRot.SetTargetTransform(offset);
         }
-        isLocked = false;
     }
 
     // Grab an object from afar, still WIP
@@ -417,7 +460,7 @@ public class OVRGrabber : MonoBehaviour
     {
         RaycastHit hit;
 
-        if (Physics.Raycast(transform.position, transform.forward, out hit, 5f))
+        if (Physics.Raycast(transform.position, transform.forward, out hit, 4f))
         {
             //Debug.DrawRay(transform.position, transform.forward, Color.green);
             currentPOI = hit.collider.gameObject;
@@ -572,23 +615,23 @@ public class OVRGrabber : MonoBehaviour
                         hands[1].GrabbableRelease(Vector3.zero, Vector3.zero);
                     }
 
-                    rb.velocity = Vector3.zero;
-
                     // set colliders to go through this object 
                     foreach (Collider col in m_grabbedObj.allColliders)
                     {
                         if (col.isTrigger)
                             continue;
 
-                        if (bodyCols.Length > 2)
+                        if (bodyCols.Length > 0)
                         {
                             Physics.IgnoreCollision(col, bodyCols[0]);
-                            Physics.IgnoreCollision(col, bodyCols[1]);
-                            Physics.IgnoreCollision(col, bodyCols[2]);
+                            //Physics.IgnoreCollision(col, bodyCols[1]);
+                            //Physics.IgnoreCollision(col, bodyCols[2]);
                         }
                     }
 
                     climbPos = transform.position;
+                    
+                    rb.velocity = Vector3.zero;
 
                     return;
                 }
@@ -606,11 +649,11 @@ public class OVRGrabber : MonoBehaviour
                     if (col.isTrigger)
                         continue;
 
-                    if (bodyCols.Length > 2)
+                    if (bodyCols.Length > 0)
                     { 
                         Physics.IgnoreCollision(col, bodyCols[0]);
-                        Physics.IgnoreCollision(col, bodyCols[1]);
-                        Physics.IgnoreCollision(col, bodyCols[2]);
+                        //Physics.IgnoreCollision(col, bodyCols[1]);
+                        //Physics.IgnoreCollision(col, bodyCols[2]);
                     }
                 }
             }
@@ -643,7 +686,7 @@ public class OVRGrabber : MonoBehaviour
         }
     }
 
-    // Added by James Bellian to allow for climbing
+    // Added by James to allow for climbing
     protected virtual void ClimbGrabbedObject(Vector3 pos)
     {
         if (!isLocked)
@@ -653,8 +696,17 @@ public class OVRGrabber : MonoBehaviour
         {
             return;
         }
-        
-        rb.AddForce((m_lastPos - transform.position) / Time.deltaTime, ForceMode.VelocityChange);
+
+        var climbForce = (m_lastPos - transform.position) / Time.deltaTime;
+        var otherRb = m_grabbedObj.transform.GetComponent<Rigidbody>();
+
+        /* if (otherRb != null)
+        {
+            rb.AddForce(otherRb.velocity, ForceMode.VelocityChange);
+            //climbForce += otherRb.velocity;
+        }*/
+
+        rb.AddForce(climbForce, ForceMode.VelocityChange);
     }
 
     protected virtual void OrientGrabbedObject(Vector3 pos)
@@ -683,9 +735,15 @@ public class OVRGrabber : MonoBehaviour
     }
 
     // calculate hand velocity based on the last position it was recorded in
-    public Vector3 GetHandVelocity()
+    public Vector3 GetVelocity()
     {
-        return (m_lastPos - transform.position) / Time.deltaTime;
+        return OVRInput.GetLocalControllerVelocity(m_controller);
+        //return (m_lastPos - transform.position) / Time.deltaTime;
+    }
+    public Vector3 GetAngVelocity()
+    {
+        return OVRInput.GetLocalControllerAngularVelocity(m_controller);
+        //return (m_lastPos - transform.position) / Time.deltaTime;
     }
 
     public void GrabEnd()
@@ -706,11 +764,11 @@ public class OVRGrabber : MonoBehaviour
                 if (col.isTrigger)
                     continue;
 
-                if (bodyCols.Length > 2)
+                if (bodyCols.Length > 0)
                 {
                     Physics.IgnoreCollision(col, bodyCols[0], false);
-                    Physics.IgnoreCollision(col, bodyCols[1], false);
-                    Physics.IgnoreCollision(col, bodyCols[2], false);
+                    //Physics.IgnoreCollision(col, bodyCols[1], false);
+                    //Physics.IgnoreCollision(col, bodyCols[2], false);
                 }
             }
 

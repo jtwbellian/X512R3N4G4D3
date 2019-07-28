@@ -30,7 +30,7 @@ MonoBehaviour:
   velocityBased: 1
   power: 50
   rb: {fileID: 1783073028793699736}
-  impactSnd: {fileID: 8300000, guid: 30712d2c97f2ae94bb8181cd82f25382, type: 3}
+  impactSnd: {fileID: 8300000, guid: 0bf332d9c2d76ee4099167a704f465a0, type: 3}
 --- !u!1 &4837145177471786540
 GameObject:
   m_ObjectHideFlags: 0
@@ -134,6 +134,7 @@ MonoBehaviour:
   m_grabPoints:
   - {fileID: 150662302715621966}
   - {fileID: 3125327005192060336}
+  m_grabbedBy: {fileID: 0}
   allColliders:
   - {fileID: 3125327005192060336}
 --- !u!135 &150662302715621966
@@ -163,6 +164,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   grabInfo: {fileID: 5331569378189323857}
+  renderers: []
   toolCols: []
   usesIndex: 1
   usesThumb: 0

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-
 public delegate void EventBeginHandler(EventInfo info);
 
 public class EventManager : MonoBehaviour
@@ -53,8 +52,8 @@ public class EventManager : MonoBehaviour
     public event EventBeginHandler GlobalEventBegin;
 
     #region eventDesignerTools
-
-
+    // These functions make it easier to change the timeline in the editor/at runtime
+    
     public void SandboxModeOn()
     {
         EventManager.sandboxMode = true;
@@ -92,6 +91,8 @@ public class EventManager : MonoBehaviour
 
     #endregion
 
+    // This function is called when an actor completes the current task. 
+    // This works for a linear timeline but will need to consider multiple tasks in the future
     public static void CompleteTask(EVActor actor)
     {
         if (actor.myEvent == EventManager.GetCurrentEvent())
@@ -107,6 +108,9 @@ public class EventManager : MonoBehaviour
         return EventManager.GetInstance().timeline[EventManager.GetInstance().currentEvent];
     }
 
+    // Invokes the starting event of all subcribers within the current events group
+    // ie, every Actor subscribes to Global Events, only Actors with audio/dialogue 
+    // subscribe to AudioEvents, Only inanimate objects subsribe to Tool/Environment
     [ContextMenu("StartEvent")]
     public void StartEvent()
     {

@@ -22,7 +22,7 @@ public class IKPlayerController : EVActor
     private float rFinger = 0f;
     private float rThumb = 0f;
 
-    private float scaleFactor = 5.6f;
+    private float scaleFactor = 4f;
     private float minHeight = 0.2f;
     private float percentHeight = 0.5f;
     [SerializeField]
@@ -59,6 +59,8 @@ public class IKPlayerController : EVActor
     private Animator RHandAnimator;
     private Animator NonIKBodyAnimator;
 
+    private GestureHandler  gestureHandler;
+
     #region toggles
     public void IKOn()
     {
@@ -83,8 +85,6 @@ public class IKPlayerController : EVActor
         UpdatePlayerHeight();
     }
     #endregion
-
-    public override void BeginEvent(){}
 
     public void FreePlayer()
     {
@@ -143,6 +143,8 @@ public class IKPlayerController : EVActor
         RHandAnimator = parts_nonIk[1].GetComponent<Animator>();
         NonIKBodyAnimator = parts_nonIk[2].GetComponent<Animator>();
 
+        gestureHandler = GetComponent<GestureHandler>();
+
         if (BodyAnimator == null)
         {
             Debug.Log("Error: Animator component not found");
@@ -193,7 +195,7 @@ public class IKPlayerController : EVActor
     {
         height += amt;
 
-        float newScale = height / DEFAULT_HEIGHT;
+        float newScale = Mathf.Clamp(height, MIN_HEIGHT, MAX_HEIGHT) / DEFAULT_HEIGHT;
         var scale = new Vector3(newScale, newScale, newScale);
 
         if (ikOn)
@@ -206,7 +208,6 @@ public class IKPlayerController : EVActor
             NonIKBodyAnimator.transform.localScale = scale;
         }
     }
-
 
     public void UpdatePlayerHeight()
     {
@@ -243,8 +244,6 @@ public class IKPlayerController : EVActor
         {
             EventManager.CompleteTask(this);
         }
-
-
     }
 
     public string GetHeightStr()
@@ -252,17 +251,31 @@ public class IKPlayerController : EVActor
         var hs = height + E2F;
         return hs.ToString("F2") + "m";
     }
+    
+    // Check basic Gestures
+    public bool OpenHand(bool lefty)
+    {
+        if (lefty && lGrab < 0.5f && lFinger < 0.5f)
+        {
+            return true;
+        }
+        if (rGrab < 0.5f && rFinger < 0.5f)
+        {
+            return true;
+        }
+        return false;
+    }
 
     // Updates the values for hand positions based on Oculus Input
     void UpdateGestures()
     {
-        rGrab = (leftyMode) ? OVRInput.Get(OVRInput.Axis1D.PrimaryHandTrigger) : OVRInput.Get(OVRInput.Axis1D.SecondaryHandTrigger);
-        rFinger = (leftyMode) ? OVRInput.Get(OVRInput.Axis1D.PrimaryIndexTrigger) : OVRInput.Get(OVRInput.Axis1D.SecondaryIndexTrigger);
-        rThumb = (leftyMode) ? (OVRInput.Get(OVRInput.NearTouch.PrimaryThumbButtons) ? 1f : 0f) : (OVRInput.Get(OVRInput.NearTouch.SecondaryThumbButtons) ? 0f : 1f);
+        rGrab = OVRInput.Get(OVRInput.Axis1D.SecondaryHandTrigger);
+        rFinger = OVRInput.Get(OVRInput.Axis1D.SecondaryIndexTrigger);
+        rThumb = OVRInput.Get(OVRInput.NearTouch.SecondaryThumbButtons) ? 0f : 1f;
 
-        lGrab = (!leftyMode) ? OVRInput.Get(OVRInput.Axis1D.PrimaryHandTrigger) : OVRInput.Get(OVRInput.Axis1D.SecondaryHandTrigger);
-        lFinger = (!leftyMode) ? OVRInput.Get(OVRInput.Axis1D.PrimaryIndexTrigger) : OVRInput.Get(OVRInput.Axis1D.SecondaryIndexTrigger);
-        lThumb = (!leftyMode) ? (OVRInput.Get(OVRInput.NearTouch.PrimaryThumbButtons) ? 1f : 0f) : (OVRInput.Get(OVRInput.NearTouch.SecondaryThumbButtons) ? 0f : 1f);
+        lGrab = OVRInput.Get(OVRInput.Axis1D.PrimaryHandTrigger);
+        lFinger = OVRInput.Get(OVRInput.Axis1D.PrimaryIndexTrigger);
+        lThumb = OVRInput.Get(OVRInput.NearTouch.PrimaryThumbButtons) ? 1f : 0f;
 
         if (lGrab > 0.5f && pointers[0].activeSelf)
             pointers[0].SetActive(false);
@@ -387,4 +400,7 @@ public class IKPlayerController : EVActor
         else
            NonIKBodyAnimator.SetFloat("LegsUp", legLerp);
     }
+
+    public override void BeginEvent()
+    {}
 }

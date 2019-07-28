@@ -160,6 +160,7 @@ IEnumerator LoadAsyncScene(string sceneName)
         Time.timeScale = 0.5f;
         sm.music.pitch = 0.8f;
         sm.music.volume = 0.3f;
+        OnPlayerDie.Invoke();
     }
 
     public void Respawn()

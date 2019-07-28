@@ -24,6 +24,7 @@ public class LoadLevelAsync : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
         if (entitlementChecker.failed)
         {
             hud.message = "Entitlement Check Failed. Please confirm Oculus Account is signed in.";

@@ -8,6 +8,8 @@ public class scr_hat : VRTool
     public bool hidden = false;
     MeshRenderer myMesh;
 
+    public AudioClip clip;
+
     public override void Init()
     {
         isHat = true;

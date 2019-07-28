@@ -94,6 +94,11 @@ public class GrabMagnet : MonoBehaviour
             {
                 if (hat.isOutfit)
                     hat.OutfitOn();
+
+                if (hat.clip != null)
+                {
+                    SoundManager.instance.environment.PlayOneShot(hat.clip);
+                }
             }
 
             //GameManager.GetInstance().direc.Ping(PING.weaponHolstered);

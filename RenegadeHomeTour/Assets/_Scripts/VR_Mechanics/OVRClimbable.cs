@@ -14,6 +14,7 @@ using UnityEngine;
 
 public class OVRClimbable : OVRGrabbable
 {
+    private bool linesOn = false;
     public bool isHeld = false;
     public Renderer[] renderers;
     private Collider playerBody;
@@ -62,7 +63,7 @@ public class OVRClimbable : OVRGrabbable
 
     void OnTriggerStay(Collider col)
     {
-        if (isGrabbed)
+        if (isGrabbed || linesOn)
             return;
 
         if ((col.CompareTag("LeftHand") || col.CompareTag("RightHand")))
@@ -87,6 +88,7 @@ public class OVRClimbable : OVRGrabbable
         {
             r.material.SetInt("_lineMode", 1);
         }
+        linesOn = true;
     }
     
     public void LinesOff()
@@ -97,5 +99,6 @@ public class OVRClimbable : OVRGrabbable
         {
             r.material.SetInt("_lineMode", 0);
         }
+        linesOn = true;
     }
 }

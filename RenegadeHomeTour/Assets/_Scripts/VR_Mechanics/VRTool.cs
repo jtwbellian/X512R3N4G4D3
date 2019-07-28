@@ -3,14 +3,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-
 public abstract class VRTool : iSpecial_Grabbable
 {
+    private bool linesOn = false;
     private Rigidbody rb;
 
     public OVRGrabbable grabInfo;
 
-    private Renderer [] renderers;
+    public Renderer [] renderers;
 
     private float indexValue = 0f;
     private bool indexDown = false;
@@ -149,11 +149,26 @@ public abstract class VRTool : iSpecial_Grabbable
     {
         if (isHeld() || grabInfo.isGrabbed == true)
             return; 
-
+/*
         if ((col.CompareTag("LeftHand") || col.CompareTag("RightHand")))
         {
             LinesOn();
-            //haptics.Play(VibrationForce.Light, GetGrabber().grabbedBy.m_controller, 1f);
+            
+        }
+        */
+    }
+
+    void OnTriggerStay(Collider col)
+    {
+        if (grabInfo.isGrabbed || linesOn)
+            return;
+
+        if ((col.CompareTag("LeftHand") || col.CompareTag("RightHand")))
+        {
+           // if (haptics != null)
+            //    haptics.Play(VibrationForce.Light, GetGrabber().grabbedBy.m_controller, 2f);
+
+            LinesOn();
         }
     }
 
@@ -161,11 +176,12 @@ public abstract class VRTool : iSpecial_Grabbable
     {
         if (isHeld())
             return;
-
+/*
         if ((col.CompareTag("LeftHand") || col.CompareTag("RightHand")))
         {
             LinesOff();
         }
+        */
     }
 
     public Vector3 GetVelocity()
@@ -178,7 +194,7 @@ public abstract class VRTool : iSpecial_Grabbable
             return Vector3.zero;
         }
 
-        return grabHand.GetHandVelocity();
+        return grabHand.GetVelocity();
     }
 
     
@@ -202,6 +218,8 @@ public abstract class VRTool : iSpecial_Grabbable
         {
             r.material.SetInt("_lineMode", 1);
         }
+
+        linesOn = true;
     }
 
     public void LinesOff()
@@ -212,6 +230,8 @@ public abstract class VRTool : iSpecial_Grabbable
         {
             r.material.SetInt("_lineMode", 0);
         }
+
+        linesOn = false;
     }
 
     public void SetHome(GrabMagnet grabSpot)

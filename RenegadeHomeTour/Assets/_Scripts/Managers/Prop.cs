@@ -5,11 +5,14 @@ using UnityEngine;
 public class Prop : EVActor
 {
     private iSpecial_Grabbable grabbable;
+
+    AudioSource audio = null;
     // Start is called before the first frame update
     void Start()
     {
         grabbable = GetComponent<iSpecial_Grabbable>();
         subscribesTo = AppliesTo.TOOLS;
+        audio = GetComponent<AudioSource>();
     }
 
     public override void BeginEvent()
@@ -22,18 +25,22 @@ public class Prop : EVActor
 
                 if (myGrab!= null && myGrab.isGrabbed)
                 { 
+                    if (audio != null)
+                    {
+                        audio.Play();
+                    }
+
                     CompleteEvent();
                     break;
                 }
                 else
                     grabbable.Grab += EndEvent;
-
+                    
                 break;
 
             case EV.ItemDropped:
 
                 grabbable.Release += EndEvent;
-
                 break;
 
             default:
@@ -60,7 +67,12 @@ public class Prop : EVActor
                 Debug.Log("ERROR: " + myEvent.type + " could not be applied to Prop");
                 return;
         }
-
+        
+        if (audio != null)
+        {
+            audio.Play();
+        }
+        
         CompleteEvent();
     }
 }

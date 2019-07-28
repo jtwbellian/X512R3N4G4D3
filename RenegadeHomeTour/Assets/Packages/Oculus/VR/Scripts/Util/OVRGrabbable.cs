@@ -44,7 +44,10 @@ public class OVRGrabbable : MonoBehaviour
 
     protected bool m_grabbedKinematic = false;
     protected Collider m_grabbedCollider = null;
-    protected OVRGrabber m_grabbedBy = null;
+    public OVRGrabber m_grabbedBy = null;
+
+    protected Rigidbody rb = null;
+
 
     public Collider[] allColliders;
 
@@ -145,9 +148,7 @@ public class OVRGrabbable : MonoBehaviour
             return;
         }
 
-        Rigidbody rb = gameObject.GetComponent<Rigidbody>();
-
-        if (rb != null)
+        if (rb != null && !(this is OVRClimbable))
             rb.isKinematic = true;
         
         m_grabbedBy = hand;
@@ -189,8 +190,6 @@ public class OVRGrabbable : MonoBehaviour
             if (special.Release != null)
                 special.Release.Invoke();
         }
-
-        Rigidbody rb = gameObject.GetComponent<Rigidbody>();
 
         if (rb != null)
         {
@@ -238,10 +237,12 @@ public class OVRGrabbable : MonoBehaviour
 
     protected virtual void Start()
     {
-        var rb = GetComponent<Rigidbody>();
+
+        rb = GetComponent<Rigidbody>();
 
         if (rb != null)
             m_grabbedKinematic = rb.isKinematic;
+
     }
 
     void OnDestroy()

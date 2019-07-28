@@ -10,11 +10,10 @@ public class Dallas : EVActor
     private const float MIN_DIST = 0.15f;
     private const float MAX_DIST = 0.3f;
     private enum state { Look, Move, Follow}
-    [SerializeField]
-    private Animator anim;
+    public Animator anim;
     private Transform target;
     private ParticleSystem ps;
-    private Rigidbody rb;
+    public Rigidbody rb;
     private Quaternion targetRotation;
     private float str;
     private GameManager gm;
@@ -26,8 +25,14 @@ public class Dallas : EVActor
     private Vector3 lastPos;
     private bool waitForMe = false;
     private bool isHome = false;
+    private OVRClimbable climber;
+    private Collider [] cols;
+    private bool solid = true;
+
+
     public GameObject myItem; 
     public AudioClip owSnd; 
+    public AudioClip howdy;
 
     [SerializeField]
     state currentState = state.Look;
@@ -46,6 +51,23 @@ public class Dallas : EVActor
         camView = GameManager.GetInstance().hud.hudAnchor.transform;
         anim = GetComponentInChildren<Animator>();
         gm = GameManager.GetInstance();
+        climber = GetComponent<OVRClimbable>();
+        cols = GetComponentsInChildren<Collider>();
+
+    }
+
+    public void SayHello()
+    {
+        if (audioSrc.isPlaying || rb.velocity.magnitude > 0.025f)
+            return;
+
+        anim.Play("OpeningState");
+        //audioSrc.PlayOneShot(howdy);
+
+        if (target == null)
+        {
+            target = GameManager.instance.hud.hudAnchor.transform;
+        }
     }
 
     public void DropItem()
@@ -58,6 +80,8 @@ public class Dallas : EVActor
         myItem.transform.SetParent(null);
         myItem = null;
     }
+
+
 
     public override void BeginEvent()
     {
@@ -128,6 +152,7 @@ public class Dallas : EVActor
         LastDeparture = Time.time;
     }
 
+
     [ContextMenu("Seek")]
     public void Watch()
     {
@@ -157,6 +182,29 @@ public class Dallas : EVActor
     // Update is called once per frame
     void Update()
     {
+        // Ride Dallas
+        if (climber.isHeld)
+        {
+            /* if (!solid)
+                {
+                    solid = true;
+                    foreach (Collider c in cols)
+                    {
+                        c.isTrigger = true;
+                    }
+                }*/
+            climber.m_grabbedBy.GetPlayerRB().AddForce(rb.velocity, ForceMode.VelocityChange);
+        }
+       /* else if (solid)
+        {
+            solid = false;
+            foreach (Collider c in cols)
+            {
+                c.isTrigger = true;
+            }
+        }
+*/
+
         if (target == null)
         {
             return;

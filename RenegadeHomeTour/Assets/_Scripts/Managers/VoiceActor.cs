@@ -38,6 +38,15 @@ public class VoiceActor : EVActor
                 
             source.clip = lines[currentLine];
             source.Play();
+
+            if(myName == "Dallas" && currentLine == 1)
+            {
+                var d = GetComponent<Dallas>();
+                
+                if (d != null)
+                    d.anim.Play("OpeningState");
+            }
+
             Invoke("CompleteEvent", lines[currentLine].length);
             currentLine++;
         }
