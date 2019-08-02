@@ -117,7 +117,7 @@ public class GameManager : EVActor
     public void RestartLevel()
     {
 
-        if ( EventManager.GetInstance().currentEvent > 10 || EventManager.sandboxMode)
+        if ( EventManager.GetInstance().currentEvent > 35 || EventManager.sandboxMode)
         {
             screenFade.currentAlpha = 1f;
             screenFade.SetMaterialAlpha();

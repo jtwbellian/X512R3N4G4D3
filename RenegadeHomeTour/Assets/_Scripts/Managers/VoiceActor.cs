@@ -9,6 +9,8 @@ public class VoiceActor : EVActor
     [SerializeField]
     private int currentLine = 0;
 
+    public List<string> transcriptions;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -30,6 +32,8 @@ public class VoiceActor : EVActor
             source.Play();
             currentLine++;
             CompleteEvent();
+            
+            GameManager.GetInstance().hud.SetMessage(myName + ": " + transcriptions[currentLine]);
         }
         else if (myEvent.type == EV.audioWait)
         {
@@ -47,8 +51,10 @@ public class VoiceActor : EVActor
                     d.anim.Play("OpeningState");
             }
 
+            GameManager.GetInstance().hud.SetMessage(myName + ": " + transcriptions[currentLine]);
             Invoke("CompleteEvent", lines[currentLine].length);
             currentLine++;
+
         }
     }
 

@@ -32,7 +32,7 @@ public class Dallas : EVActor
 
     public GameObject myItem; 
     public AudioClip owSnd; 
-    public AudioClip howdy;
+    public AudioClip [] howdy;
 
     [SerializeField]
     state currentState = state.Look;
@@ -58,11 +58,11 @@ public class Dallas : EVActor
 
     public void SayHello()
     {
-        if (audioSrc.isPlaying || rb.velocity.magnitude > 0.025f)
+        if (audioSrc.isPlaying || rb.velocity.magnitude > 0.05f)
             return;
 
         anim.Play("OpeningState");
-        //audioSrc.PlayOneShot(howdy);
+        audioSrc.PlayOneShot(howdy[Random.Range(0, howdy.Length )]);
 
         if (target == null)
         {

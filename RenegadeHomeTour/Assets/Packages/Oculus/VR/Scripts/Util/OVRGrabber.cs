@@ -234,13 +234,28 @@ public class OVRGrabber : MonoBehaviour
         }
     }
 
-    void OnColliderEnter(Collider otherCollider)
+
+    void OnCollisionEnter(Collision other) 
     {
+        float force = 3;
+ 
+        if (other.gameObject.isStatic)
+        {
+            Vector3 dir = other.contacts[0].point - transform.position;
+            dir = -dir.normalized;
+            rb.AddForce(dir*force);
+            return;
+        }
+    }
+
+    void OnColliderEnter(Collider otherCollider)
+    {        
         OnTriggerEnter(otherCollider);
     }
 
     void OnTriggerEnter(Collider otherCollider)
     {
+
         if (otherCollider.CompareTag("UNAVAILABLE"))
         {
             gm = GameManager.GetInstance();
@@ -301,12 +316,11 @@ public class OVRGrabber : MonoBehaviour
             }
             else
                 GrabEnd();
-            }
+        }
     }
 
     public void Lock(Transform target = null)
     {
-
         isLocked = true; 
 
         if (m_controller == OVRInput.Controller.LTouch)
@@ -458,9 +472,10 @@ public class OVRGrabber : MonoBehaviour
     // Grab an object from afar, still WIP
     protected virtual OVRGrabbable GrabRay()
     {
+        var tol = 0.1f;
         RaycastHit hit;
 
-        if (Physics.Raycast(transform.position, transform.forward, out hit, 4f))
+        if (Physics.Raycast(rayPointer.transform.position, rayPointer.transform.forward, out hit, 4f))
         {
             //Debug.DrawRay(transform.position, transform.forward, Color.green);
             currentPOI = hit.collider.gameObject;
@@ -468,9 +483,11 @@ public class OVRGrabber : MonoBehaviour
             //Get Tool
             var newTool = currentPOI.GetComponent<VRTool>();
             
-            if (lastTool != null)
+            if (lastTool != null && lastTool != newTool)
             {
-                lastTool.LinesOff();
+                if (Vector3.Distance(lastTool.transform.position, ikController.handL.position) > tol &&  
+                    Vector3.Distance(lastTool.transform.position, ikController.handR.position) > tol)
+                    lastTool.LinesOff();
             }
 
             lastTool = newTool;
@@ -484,7 +501,9 @@ public class OVRGrabber : MonoBehaviour
 
         if (lastTool != null)
         {
-            lastTool.LinesOff();
+            if (Vector3.Distance(lastTool.transform.position, ikController.handL.position) > tol &&  
+                Vector3.Distance(lastTool.transform.position, ikController.handR.position) > tol)
+                lastTool.LinesOff();
         }
         return null;
     }
@@ -624,13 +643,10 @@ public class OVRGrabber : MonoBehaviour
                         if (bodyCols.Length > 0)
                         {
                             Physics.IgnoreCollision(col, bodyCols[0]);
-                            //Physics.IgnoreCollision(col, bodyCols[1]);
-                            //Physics.IgnoreCollision(col, bodyCols[2]);
                         }
                     }
 
                     climbPos = transform.position;
-                    
                     rb.velocity = Vector3.zero;
 
                     return;
@@ -700,11 +716,11 @@ public class OVRGrabber : MonoBehaviour
         var climbForce = (m_lastPos - transform.position) / Time.deltaTime;
         var otherRb = m_grabbedObj.transform.GetComponent<Rigidbody>();
 
-        /* if (otherRb != null)
+        if (otherRb != null)
         {
             rb.AddForce(otherRb.velocity, ForceMode.VelocityChange);
-            //climbForce += otherRb.velocity;
-        }*/
+            climbForce += otherRb.velocity;
+        }
 
         rb.AddForce(climbForce, ForceMode.VelocityChange);
     }

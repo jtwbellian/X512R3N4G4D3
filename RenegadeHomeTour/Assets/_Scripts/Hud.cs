@@ -138,8 +138,17 @@ public class Hud : EVActor
         foreach (Text t in messageField)
         {
             t.gameObject.SetActive(true);
+            t.text = message;
         }
 
+    }
+
+    public void SetMessage(string str)
+    {
+        message = str;
+        ShowSubtitles();
+        CancelInvoke("HideSubtitles");
+        Invoke("HideSubtitles", 30f);
     }
 
     public void ShowKills()

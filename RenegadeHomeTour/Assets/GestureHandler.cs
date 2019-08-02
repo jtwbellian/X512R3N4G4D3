@@ -36,8 +36,9 @@ public class GestureHandler : MonoBehaviour
                     return;
                 }
 
-                if ((handR.GetVelocity().magnitude > 0.02f && handR.transform.position.y > (iKPlayerController.head.transform.position.y - iKPlayerController.height * 0.8f)) || 
-                (handL.GetVelocity().magnitude > 0.02f && handL.transform.position.y > (iKPlayerController.head.transform.position.y - iKPlayerController.height * 0.8f)))
+                
+                if ((handR.GetVelocity().magnitude > 0.01f && handR.transform.position.y > (iKPlayerController.head.transform.position.y - iKPlayerController.height * 0.6f) && iKPlayerController.OpenHand(false)) || 
+                (handL.GetVelocity().magnitude > 0.1f && handL.transform.position.y > (iKPlayerController.head.transform.position.y - iKPlayerController.height * 0.6f)) && iKPlayerController.OpenHand(true))
                 {
                     Debug.Log("Wave recognized");
                     hitDallas.SayHello();

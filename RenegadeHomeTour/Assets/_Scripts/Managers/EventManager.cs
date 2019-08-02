@@ -40,7 +40,6 @@ public class EventManager : MonoBehaviour
             _instance = this;
             EventManager.sandboxMode = false;
         }
-
     }
 
     #endregion
@@ -57,11 +56,11 @@ public class EventManager : MonoBehaviour
     public void SandboxModeOn()
     {
         EventManager.sandboxMode = true;
-        EventInfo disableWalls = new EventInfo();
-        disableWalls.myName = "walls";
-        disableWalls.type = EV.ItemDropped;
-        disableWalls.target = AppliesTo.ENV;
-        EnvironmentEventBegin.Invoke(disableWalls);
+        //EventInfo disableWalls = new EventInfo();
+        //disableWalls.myName = "walls";
+        //disableWalls.type = EV.ItemDropped;
+        //disableWalls.target = AppliesTo.ENV;
+        //EnvironmentEventBegin.Invoke(disableWalls);
     }
 
     [ContextMenu("InsertAtCurrentEvent")]
@@ -88,7 +87,6 @@ public class EventManager : MonoBehaviour
         ++currentEvent;
         StartEvent();
     }
-
     #endregion
 
     // This function is called when an actor completes the current task. 

@@ -3390,7 +3390,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &498127881
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4022,7 +4022,7 @@ PrefabInstance:
     - target: {fileID: 1449828399288021840, guid: 38e14706ec6a4894da6c562024499a25,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -8.506
+      value: -8.4691
       objectReference: {fileID: 0}
     - target: {fileID: 1449828399288021840, guid: 38e14706ec6a4894da6c562024499a25,
         type: 3}
@@ -4183,6 +4183,36 @@ PrefabInstance:
         type: 3}
       propertyPath: m_CollisionDetection
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5241485130953347813, guid: 38e14706ec6a4894da6c562024499a25,
+        type: 3}
+      propertyPath: m_Size.y
+      value: 0.12802982
+      objectReference: {fileID: 0}
+    - target: {fileID: 5241485130953347813, guid: 38e14706ec6a4894da6c562024499a25,
+        type: 3}
+      propertyPath: m_Center.y
+      value: -0.026479244
+      objectReference: {fileID: 0}
+    - target: {fileID: 5241485130953347813, guid: 38e14706ec6a4894da6c562024499a25,
+        type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5241485130953347813, guid: 38e14706ec6a4894da6c562024499a25,
+        type: 3}
+      propertyPath: m_Size.z
+      value: 0.2078619
+      objectReference: {fileID: 0}
+    - target: {fileID: 5241485130953347813, guid: 38e14706ec6a4894da6c562024499a25,
+        type: 3}
+      propertyPath: m_Center.z
+      value: 0.0825243
+      objectReference: {fileID: 0}
+    - target: {fileID: 1455372365801815019, guid: 38e14706ec6a4894da6c562024499a25,
+        type: 3}
+      propertyPath: m_Radius
+      value: 0.2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 38e14706ec6a4894da6c562024499a25, type: 3}
@@ -6388,6 +6418,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 4.6390004
+      objectReference: {fileID: 0}
+    - target: {fileID: 6162488140175850343, guid: 39c771f6b607c5c4292a404aa8ecada5,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.0018302454
+      objectReference: {fileID: 0}
+    - target: {fileID: 6162488140175850343, guid: 39c771f6b607c5c4292a404aa8ecada5,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.0018302454
+      objectReference: {fileID: 0}
+    - target: {fileID: 6162488140175850343, guid: 39c771f6b607c5c4292a404aa8ecada5,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.0018302454
       objectReference: {fileID: 0}
     - target: {fileID: 6162488141065337613, guid: 39c771f6b607c5c4292a404aa8ecada5,
         type: 3}
@@ -8752,6 +8797,17 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 689e89c3e90179c45a68bfd298e7d03c, type: 3}
   - {fileID: 8300000, guid: d50b6a53424bb3e48b7c914a7219dbdc, type: 3}
   currentLine: 0
+  transcriptions:
+  - '"Welcome aboard, renegade."'
+  - '"Squeeze the Grip Button to hold an object. Release to let go."'
+  - '"Pick up the Lux Plate to begin calibration."'
+  - '"Push the left joystick forward to jet boost"'
+  - '"472 Critical Errors."'
+  - '"Weapons can be stored in your left and right hip holsters. Drop a weapon near
+    the blue orb to holster."'
+  - '"Foreign bodies detected."'
+  - '"Vent locks failed. Locks must be re-engaged manually."'
+  - '"Foreign bodies detected."'
 --- !u!4 &1147983413
 Transform:
   m_ObjectHideFlags: 0
@@ -9574,10 +9630,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 20.992
       objectReference: {fileID: 0}
-    - target: {fileID: 360346027, guid: fe78ccdd12c6f1c4689571e3a9b67cfc, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 23175718bd196c842bb8667deff34717, type: 2}
     - target: {fileID: 364030261552592108, guid: fe78ccdd12c6f1c4689571e3a9b67cfc,
         type: 3}
       propertyPath: m_IsTrigger
@@ -9593,6 +9645,10 @@ PrefabInstance:
       propertyPath: clip
       value: 
       objectReference: {fileID: 8300000, guid: 494bd1721199a40c5a79fa3011793556, type: 3}
+    - target: {fileID: 360346027, guid: fe78ccdd12c6f1c4689571e3a9b67cfc, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 23175718bd196c842bb8667deff34717, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fe78ccdd12c6f1c4689571e3a9b67cfc, type: 3}
 --- !u!114 &1385573877 stripped
@@ -10788,7 +10844,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 7e6a5924788f86b48943254257c5d590, type: 2}
   - {fileID: 11400000, guid: 27df7e70c8f67fc42bebcca051ab71b5, type: 2}
   - {fileID: 11400000, guid: 7e6a5924788f86b48943254257c5d590, type: 2}
-  - {fileID: 11400000, guid: 223a789683bf1d546a5defc759c7bd3e, type: 2}
   - {fileID: 11400000, guid: f48fc0c51d8ccd94a86c8c1facc54336, type: 2}
   - {fileID: 11400000, guid: 6bb10d673b0baae438057a990970223f, type: 2}
   - {fileID: 11400000, guid: 6bb10d673b0baae438057a990970223f, type: 2}
@@ -16124,12 +16179,12 @@ PrefabInstance:
     - target: {fileID: 6411067303733710028, guid: 4b392ae2bcd783d4eb205a5cdd454293,
         type: 3}
       propertyPath: speed
-      value: 8
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 6411067303733710028, guid: 4b392ae2bcd783d4eb205a5cdd454293,
         type: 3}
       propertyPath: smoothTime
-      value: 0.25
+      value: 0.4
       objectReference: {fileID: 0}
     - target: {fileID: 6411067303733710028, guid: 4b392ae2bcd783d4eb205a5cdd454293,
         type: 3}
@@ -16350,7 +16405,12 @@ PrefabInstance:
     - target: {fileID: 8609106654470214164, guid: 4b392ae2bcd783d4eb205a5cdd454293,
         type: 3}
       propertyPath: m_Drag
-      value: 1
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8609106654470214164, guid: 4b392ae2bcd783d4eb205a5cdd454293,
+        type: 3}
+      propertyPath: m_UseGravity
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8578657894927128179, guid: 4b392ae2bcd783d4eb205a5cdd454293,
         type: 3}
@@ -22979,9 +23039,34 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6011731494575798866, guid: 81ce9da2978261741b20813697274b58,
         type: 3}
+      propertyPath: howdy.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 6011731494575798866, guid: 81ce9da2978261741b20813697274b58,
+        type: 3}
       propertyPath: home
       value: 
       objectReference: {fileID: 1084351709}
+    - target: {fileID: 6011731494575798866, guid: 81ce9da2978261741b20813697274b58,
+        type: 3}
+      propertyPath: howdy.Array.data[0]
+      value: 
+      objectReference: {fileID: 8300000, guid: e141e5d8557ce734f8a86d06dc6c5745, type: 3}
+    - target: {fileID: 6011731494575798866, guid: 81ce9da2978261741b20813697274b58,
+        type: 3}
+      propertyPath: howdy.Array.data[1]
+      value: 
+      objectReference: {fileID: 8300000, guid: e3bfda7b703ddeb4abc8639815d5a16a, type: 3}
+    - target: {fileID: 6011731494575798866, guid: 81ce9da2978261741b20813697274b58,
+        type: 3}
+      propertyPath: howdy.Array.data[2]
+      value: 
+      objectReference: {fileID: 8300000, guid: d12c295c4851482438440cc3bd12bb9e, type: 3}
+    - target: {fileID: 6011731494575798866, guid: 81ce9da2978261741b20813697274b58,
+        type: 3}
+      propertyPath: howdy.Array.data[3]
+      value: 
+      objectReference: {fileID: 8300000, guid: 427cf0266af25dc40a96ca1cb9b34d8b, type: 3}
     - target: {fileID: 4356696832225668433, guid: 81ce9da2978261741b20813697274b58,
         type: 3}
       propertyPath: haptics
@@ -22992,6 +23077,96 @@ PrefabInstance:
       propertyPath: light
       value: 
       objectReference: {fileID: 1652902585}
+    - target: {fileID: 6011731494575798868, guid: 81ce9da2978261741b20813697274b58,
+        type: 3}
+      propertyPath: transcriptions.Array.size
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 6011731494575798868, guid: 81ce9da2978261741b20813697274b58,
+        type: 3}
+      propertyPath: transcriptions.Array.data[0]
+      value: '"Ouch! Who''s down there? Power''s been on the fritz so you''ll have
+        to open those doors manually."'
+      objectReference: {fileID: 0}
+    - target: {fileID: 6011731494575798868, guid: 81ce9da2978261741b20813697274b58,
+        type: 3}
+      propertyPath: transcriptions.Array.data[1]
+      value: '"Howdy. The name''s Dallas. So you''re on the run huh? Well, I don''t
+        mind you hanging out for a bit, but you''ll have to give me a hand around
+        the station."'
+      objectReference: {fileID: 0}
+    - target: {fileID: 6011731494575798868, guid: 81ce9da2978261741b20813697274b58,
+        type: 3}
+      propertyPath: transcriptions.Array.data[2]
+      value: '"My Neural Net is perfectly in tune with Norma''s systems. I know everything
+        that goes on in this ship!"'
+      objectReference: {fileID: 0}
+    - target: {fileID: 6011731494575798868, guid: 81ce9da2978261741b20813697274b58,
+        type: 3}
+      propertyPath: transcriptions.Array.data[3]
+      value: '"Remind us later!"'
+      objectReference: {fileID: 0}
+    - target: {fileID: 6011731494575798868, guid: 81ce9da2978261741b20813697274b58,
+        type: 3}
+      propertyPath: transcriptions.Array.data[4]
+      value: '"You look like someone who knows their way around a Quantum De-Molecularizer."'
+      objectReference: {fileID: 0}
+    - target: {fileID: 6011731494575798868, guid: 81ce9da2978261741b20813697274b58,
+        type: 3}
+      propertyPath: transcriptions.Array.data[5]
+      value: '"Here! test it out on this target! Don''t worry, we didn''t give him
+        the processing power to simulate pain."'
+      objectReference: {fileID: 0}
+    - target: {fileID: 6011731494575798868, guid: 81ce9da2978261741b20813697274b58,
+        type: 3}
+      propertyPath: transcriptions.Array.data[6]
+      value: '"Nice Shot!"'
+      objectReference: {fileID: 0}
+    - target: {fileID: 6011731494575798868, guid: 81ce9da2978261741b20813697274b58,
+        type: 3}
+      propertyPath: transcriptions.Array.data[7]
+      value: '"Huh. Look up there! We might have a few stowaways in the airducts."'
+      objectReference: {fileID: 0}
+    - target: {fileID: 6011731494575798868, guid: 81ce9da2978261741b20813697274b58,
+        type: 3}
+      propertyPath: transcriptions.Array.data[8]
+      value: '"Vent Locks!"'
+      objectReference: {fileID: 0}
+    - target: {fileID: 6011731494575798868, guid: 81ce9da2978261741b20813697274b58,
+        type: 3}
+      propertyPath: transcriptions.Array.data[9]
+      value: '"Well you heard Norma! Fly up top and lock those air-vents! "'
+      objectReference: {fileID: 0}
+    - target: {fileID: 6011731494575798868, guid: 81ce9da2978261741b20813697274b58,
+        type: 3}
+      propertyPath: transcriptions.Array.data[10]
+      value: '"Don''t worry, I''ll be fine. Bring on the Crabs!"'
+      objectReference: {fileID: 0}
+    - target: {fileID: 6011731494575798868, guid: 81ce9da2978261741b20813697274b58,
+        type: 3}
+      propertyPath: transcriptions.Array.data[11]
+      value: '"Nice Job.  Come on back"'
+      objectReference: {fileID: 0}
+    - target: {fileID: 6011731494575798868, guid: 81ce9da2978261741b20813697274b58,
+        type: 3}
+      propertyPath: transcriptions.Array.data[13]
+      value: '[ Still talking... ]'
+      objectReference: {fileID: 0}
+    - target: {fileID: 6011731494575798868, guid: 81ce9da2978261741b20813697274b58,
+        type: 3}
+      propertyPath: transcriptions.Array.data[12]
+      value: '"Wow. What a Crabtastrophe! Am I right? Meet me back at the center."'
+      objectReference: {fileID: 0}
+    - target: {fileID: 9188358930573313762, guid: 81ce9da2978261741b20813697274b58,
+        type: 3}
+      propertyPath: m_snapOrientation
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9188358930573313762, guid: 81ce9da2978261741b20813697274b58,
+        type: 3}
+      propertyPath: m_snapPosition
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 81ce9da2978261741b20813697274b58, type: 3}
 --- !u!82 &1114045294915911701 stripped

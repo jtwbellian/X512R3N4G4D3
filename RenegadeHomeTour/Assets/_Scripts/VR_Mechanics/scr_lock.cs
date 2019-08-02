@@ -6,7 +6,7 @@ using UnityEngine;
 public class scr_lock : iSpecial_Grabbable
 {
     private Transform trueParent = null;
-    private float breakPoint = 1f;
+    private float breakPoint = 1.25f;
     private Vector3 lastPos;
     private Vector3 lastRot;
     private Collider myCol;
@@ -28,6 +28,8 @@ public class scr_lock : iSpecial_Grabbable
     public Transform lockTarget;
     public OVRGrabbable grabbable;
     public Vector2 x, y, z, xr, yr, zr;
+
+    public Transform handLockPoint;
 
     // Start is called before the first frame update
     void Start()
@@ -95,6 +97,11 @@ public class scr_lock : iSpecial_Grabbable
 
             currentzr = -Mathf.Atan2(lastPos.x - handPos.x, handPos.y - lastPos.y) * (180 / Mathf.PI);
             //currentzr = Mathf.Clamp(currentzr, oldRot.z + zr[0], oldRot.z + zr[1]);
+
+            if (!grabbable.grabbedBy.isLocked)
+            {
+                grabbable.grabbedBy.Lock(handLockPoint);
+            }
         }
         else
         {
@@ -125,7 +132,6 @@ public class scr_lock : iSpecial_Grabbable
             grabbable.grabbedBy.Lock(transform);
         }*/
     }
-
 
     public void OnGrab()
     {
@@ -166,5 +172,4 @@ public class scr_lock : iSpecial_Grabbable
             r.material.SetInt("_lineMode", 0);
         }
     }
-
 }
